@@ -22,7 +22,7 @@ set $urgent-bg-color     #E53935
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 font -video-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-font pango:Fira Code 8 
+font pango:Fira Code 8
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # The font above is very space-efficient, that is, it looks good, sharp and
@@ -220,7 +220,7 @@ exec --no-startup-id dbus-send --session --print-reply=literal --dest=org.gnome.
 
 exec --no-startup-id xrdb ~/.Xresources
 # Keyboard layout
-exec setxkbmap -model pc104 -layout us,ua  -option grp:alt_shift_toggle
+exec setxkbmap -model pc104 -layout us,ua  -option grp:caps_toggle
 
 exec xset -b
 exec xset dpms s off

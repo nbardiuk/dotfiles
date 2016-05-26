@@ -7,4 +7,5 @@
  * *dunst* notifications
  * *nm-applet* network manager
  * *feh* for wallpaper
+ * *Arc-Dark* gtk theme
 

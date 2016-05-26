@@ -1,6 +1,6 @@
 set nocompatible
 
-set relativenumber 			        "Line numbers are good
+set relativenumber              "Line numbers are good
 set backspace=indent,eol,start  "Allow backspace in insert mode
 set history=1000                "Store lots of :cmdline history
 set showcmd                     "Show incomplete cmds down the bottom
@@ -42,7 +42,7 @@ filetype plugin on
 filetype indent on
 
 " Display tabs and trailing spaces visually
-set list listchars=tab:\ \ ,trail:·
+set list listchars=tab:\▸\ ,trail:·
 
 set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
@@ -81,6 +81,7 @@ let g:airline_theme='bubblegum'
 map <C-n> :NERDTreeToggle<CR>
 
 inoremap jk <ESC>
+nnoremap ; :
 let mapleader = " "
 set encoding=utf-8
 
@@ -94,6 +95,8 @@ nmap <leader>h :bprevious<CR>
 :set guioptions-=r  "remove right-hand scroll bar
 :set guioptions-=L  "remove left-hand scroll bar
 
+" Save file on loosing focus
+au FocusLost * :wa
 " ================== syntastic
 
 map <silent> <Leader>e :Errors<CR>
@@ -113,19 +116,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " =====================================================
-let g:ycm_semantic_triggers = {'haskell' : ['.']}
-let g:necoghc_enable_detailed_browse = 1
-" =====================================================
-let g:haskellmode_completion_ghc = 0
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-" =====================================================
-" Format Rust code on save
-let g:rustfmt_autosave = 1
-" Racer configuration. Rust autocomplete
-let g:racer_cmd = "racer"
-let $RUST_SRC_PATH="/home/nazar/dev/rust/src/"
-let g:ycm_rust_src_path = "/home/nazar/dev/rust/src/"
-" =====================================================
 call plug#begin()
 
 Plug 'tpope/vim-sensible'
@@ -136,25 +126,19 @@ Plug 'scrooloose/syntastic'
 
 Plug 'bling/vim-airline'
 
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-
-Plug 'guns/vim-clojure-static'
-
 Plug 'derekwyatt/vim-scala'
 
-Plug 'eagletmt/neco-ghc'
-
 Plug 'Valloric/YouCompleteMe'
-
-Plug 'elmcast/elm-vim'
 
 Plug 'tpope/vim-commentary'
 
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'rust-lang/rust.vim'
+Plug 'tpope/vim-markdown'
 
-Plug 'racer-rust/vim-racer'
+Plug 'tpope/vim-surround'
+
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
