@@ -11,7 +11,7 @@
 
 set $mod Mod4
 
-set $bg-color 	         #2f343f
+set $bg-color            #2f343f
 set $inactive-bg-color   #2f343f
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
@@ -104,8 +104,8 @@ bindsym $mod+a focus parent
 set $WS1 1:
 set $WS2 2:
 set $WS3 3:
-set $WS4 4:
-set $WS5 5:
+set $WS4 4:
+set $WS5 5:
 set $WS6 6:
 set $WS7 7:
 set $WS8 8:
@@ -208,12 +208,16 @@ hide_edge_borders none
 bindsym XF86AudioRaiseVolume exec amixer set Master 5%+ unmute; exec pkill -RTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec amixer set Master 5%-; 		exec pkill -RTMIN+10 i3blocks
 
+# screen brightness hotkeys
+bindsym XF86MonBrightnessUp   exec xbacklight -inc 5; exec pkill -RTMIN+12 i3blocks
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5; exec pkill -RTMIN+12 i3blocks
+
 # wallpaper
-exec feh --bg-scale ~/.i3/wallpapers/river.jpg
+exec_always feh --bg-scale ~/.i3/wallpapers/river.jpg
 # Notifications
 exec dunst -config ~/.i3/dunstrc
 # Monitors layout
-exec xrandr --output VGA-0 --auto --left-of LVDS
+exec_always xrandr --output HDMI1 --auto --left-of eDP1
 # Gnome session workaround
 exec --no-startup-id echo "$0: DESKTOP_AUTOSTART_ID $DESKTOP_AUTOSTART_ID, registering with org.gnome.SessionManager"
 exec --no-startup-id dbus-send --session --print-reply=literal --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.RegisterClient "string:i3" "string:$DESKTOP_AUTOSTART_ID"
@@ -221,6 +225,7 @@ exec --no-startup-id dbus-send --session --print-reply=literal --dest=org.gnome.
 exec --no-startup-id xrdb ~/.Xresources
 # Keyboard layout
 exec setxkbmap -model pc104 -layout us,ua  -option grp:caps_toggle
+bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
 
 exec xset -b
 exec xset dpms s off

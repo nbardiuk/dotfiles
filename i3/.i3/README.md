@@ -9,3 +9,10 @@
  * *feh* for wallpaper
  * *Arc-Dark* gtk theme
 
+## Status bar dependencies
+ * *xkb-switch* for keyboard layout
+ * *acpi*
+ * *sysstat*
+ * *xdotool*
+ * *xbacklight* for screan brightness
+

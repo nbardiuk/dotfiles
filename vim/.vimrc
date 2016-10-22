@@ -78,11 +78,11 @@ let g:airline_theme='bubblegum'
 
 
 
-map <C-n> :NERDTreeToggle<CR>
+map <leader>n :NERDTreeToggle<CR>
 
 inoremap jk <ESC>
 nnoremap ; :
-let mapleader = " "
+let mapleader = "\\"
 set encoding=utf-8
 
 " Switch buffers
@@ -111,12 +111,40 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
+" ================= ghc- mod ==========================
+map <silent> tw :GhcModTypeInsert<CR>
+map <silent> ts :GhcModSplitFunCase<CR>
+map <silent> tq :GhcModType<CR>
+map <silent> te :GhcModTypeClear<CR>
+
 " =====================================================
+let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
+
+if has("gui_running")
+    imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+  else " no gui
+      if has("unix")
+            inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+      endif
+endif
+
+let g:haskellmode_completion_ghc = 1
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 call plug#begin()
+" =====================================================
+map <silent> <Leader>t :CtrlP()<CR>
+noremap <leader>b<space> :CtrlPBuffer<cr>
+let g:ctrlp_custom_ignore = '\v[\/]dist$'
+" =====================================================
+let g:haskell_tabular = 1
+vmap a= :Tabularize /=<CR>
+vmap a; :Tabularize /::<CR>
+vmap a- :Tabularize /->CR>
+" =====================================================
 
 Plug 'tpope/vim-sensible'
 
@@ -140,8 +168,21 @@ Plug 'tpope/vim-surround'
 
 Plug 'airblade/vim-gitgutter'
 
+Plug 'eagletmt/ghcmod-vim'
+Plug 'eagletmt/neco-ghc'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tomtom/tlib_vim'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'garbas/vim-snipmate'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'godlygeek/tabular'
+Plug 'ervandew/supertab'
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+
 call plug#end()
 
 " =========================================================
-set guifont=Input\ 9
+set guifont=Monaco\ 8
 colorscheme obsidian2
