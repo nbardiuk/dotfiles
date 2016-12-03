@@ -144,6 +144,20 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
+set $mode_system System (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+  bindsym e exec --no-startup-id i3-msg exit, mode "default"
+  bindsym s exec --no-startup-id $Locker && systemcrl suspend, mode "default"
+  bindsym h exec --no-startup-id $Locker && systemcrl hibernate, mode "default"
+  bindsym r exec --no-startup-id systemcrl reboot, mode "default"
+  bindsym Shift+s exec --no-startup-id systemcrl poweroff -i, mode "default"
+
+  #back to normal
+  bindsym Return mode "default
+  bindsym Escape mode "default
+}
+bindsym $mod+Pause mode "$mode_system"
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -222,6 +236,9 @@ exec_always xrandr --output HDMI1 --auto --left-of eDP1
 exec --no-startup-id echo "$0: DESKTOP_AUTOSTART_ID $DESKTOP_AUTOSTART_ID, registering with org.gnome.SessionManager"
 exec --no-startup-id dbus-send --session --print-reply=literal --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.RegisterClient "string:i3" "string:$DESKTOP_AUTOSTART_ID"
 
+#Policy kit deamon for graphical passwords promt
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
 exec --no-startup-id xrdb ~/.Xresources
 # Keyboard layout
 exec setxkbmap -model pc104 -layout us,ua  -option grp:caps_toggle
@@ -229,6 +246,11 @@ bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
 
 exec xset -b
 exec xset dpms s off
+
+# Locker
+exec xautolock -time 60 -locker "gnome-screensaver-command --lock"
+exec gnome-screensaver
+bindsym $mod+Ctrl+l exec xautolock -locknow
 
 ## AUTOSTART APPS
 exec nm-applet
