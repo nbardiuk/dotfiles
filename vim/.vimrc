@@ -82,7 +82,7 @@ map <leader>n :NERDTreeToggle<CR>
 
 inoremap jk <ESC>
 nnoremap ; :
-let mapleader = "\\"
+let mapleader = " "
 set encoding=utf-8
 
 " Switch buffers
@@ -184,5 +184,5 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 call plug#end()
 
 " =========================================================
-set guifont=Monaco\ 8
+set guifont=Iosevka\ 11
 colorscheme obsidian2
