@@ -44,11 +44,9 @@ bindsym $mod+Shift+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-# bindsym $mod+d exec --no-startup-id dmenu_run -b  -fn '-*-terminus-*-*-*-*-12-*-*-*-*-*-*-*' -nb '#111111' -nf '#999999' -sb '#2D2D2D' -sf '#FFFFFF'
-# bindsym $mod+d exec --no-startup-id synapse
-bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -fn 'Fira Code -10' -nb '$inactive-bg-color' -nf '$inactive-text-color' -sb '$bg-color' -sf '$text-color' -l 20 "
-#bindsym $mod+d exec rofi -show run -lines 5 -eh 2 -width 50 -padding 80 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "Fira Code 10"
+#bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -fn 'Fira Code -10' -nb '$inactive-bg-color' -nf '$inactive-text-color' -sb '$bg-color' -sf '$text-color' -l 20 "
+bindsym $mod+d   exec rofi -show combi -modi combi -combi-modi drun
+bindsym $mod+Tab exec rofi -show combi -modi combi -combi-modi window
 
 # change focus
 bindsym $mod+j focus left
@@ -239,7 +237,7 @@ exec --no-startup-id dbus-send --session --print-reply=literal --dest=org.gnome.
 #Policy kit deamon for graphical passwords promt
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
-exec --no-startup-id xrdb ~/.Xresources
+exec_always --no-startup-id xrdb ~/.Xresources
 # Keyboard layout
 exec setxkbmap -model pc104 -layout us,ua  -option grp:caps_toggle
 bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
