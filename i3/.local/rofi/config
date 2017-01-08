@@ -7,4 +7,6 @@ rofi.color-urgent:                   argb:02d303b, #cc6666, argb:e52d303b, #a542
 rofi.color-active:                   argb:02d303b, #b5bd68, argb:e42d303b, #8c9440, #f9f9f9
 rofi.color-window:                   argb:f22d303b, #7c8389, #1d1f21
 rofi.separator-style:                solid
+
 rofi.font:                           Fira Code 14
+rofi.combi-modi:                     window,drun,run,ssh

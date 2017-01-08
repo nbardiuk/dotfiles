@@ -45,8 +45,8 @@ bindsym $mod+Shift+q kill
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 #bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -fn 'Fira Code -10' -nb '$inactive-bg-color' -nf '$inactive-text-color' -sb '$bg-color' -sf '$text-color' -l 20 "
-bindsym $mod+d   exec rofi -show combi -modi combi -combi-modi drun
-bindsym $mod+Tab exec rofi -show combi -modi combi -combi-modi window
+bindsym $mod+d   exec rofi -show combi
+bindsym $mod+Tab exec rofi -show combi -combi-modi window
 
 # change focus
 bindsym $mod+j focus left
