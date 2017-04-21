@@ -12,6 +12,7 @@ set autoread                    "Reload files changed outside vim
 
 "turn on syntax highlighting
 syntax on
+set spell spelllang=en_us
 
 " ================ Turn Off Swap Files ==============
 
@@ -74,7 +75,7 @@ set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme='bubblegum'
+let g:airline_theme='nord'
 
 
 
@@ -82,7 +83,7 @@ map <leader>n :NERDTreeToggle<CR>
 
 inoremap jk <ESC>
 nnoremap ; :
-let mapleader = " "
+let mapleader = "\<Space>"
 set encoding=utf-8
 
 " Switch buffers
@@ -147,30 +148,20 @@ vmap a- :Tabularize /->CR>
 " =====================================================
 
 Plug 'tpope/vim-sensible'
-
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-
-Plug 'scrooloose/syntastic'
-
-Plug 'bling/vim-airline'
-
-Plug 'derekwyatt/vim-scala'
-
-Plug 'Valloric/YouCompleteMe'
-
-Plug 'tpope/vim-commentary'
-
-Plug 'vim-airline/vim-airline-themes'
-
-Plug 'tpope/vim-markdown'
-
 Plug 'tpope/vim-surround'
-
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/syntastic'
+Plug 'bling/vim-airline'
+Plug 'derekwyatt/vim-scala'
+Plug 'Valloric/YouCompleteMe'
+Plug 'tpope/vim-commentary'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-markdown'
+Plug 'nelstrom/vim-markdown-folding'
 Plug 'airblade/vim-gitgutter'
-
 Plug 'eagletmt/ghcmod-vim'
 Plug 'eagletmt/neco-ghc'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tomtom/tlib_vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'garbas/vim-snipmate'
@@ -180,9 +171,18 @@ Plug 'godlygeek/tabular'
 Plug 'ervandew/supertab'
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'arcticicestudio/nord-vim'
+Plug 'pearofducks/ansible-vim'
+Plug 'ledger/vim-ledger'
+
+Plug 'beloglazov/vim-online-thesaurus'
+Plug 'dpelle/vim-LanguageTool'
+Plug 'rhysd/vim-grammarous'
+
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 call plug#end()
 
 " =========================================================
 set guifont=Iosevka\ 11
-colorscheme obsidian2
+colorscheme nord
