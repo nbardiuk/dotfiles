@@ -1,5 +1,5 @@
 [global]
-    font = Monospace 8
+    font = Fira Code 12
     
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -21,7 +21,7 @@
     #   %I  iconname (without its path)
     #   %p  progress value if set ([  0%] to [100%]) or nothing
     # Markup is allowed
-    format = "<b>%s</b>\n%b"
+    format = "<b>%s</b>\n%b\n%p"
     
     # Sort messages by urgency.
     sort = yes
@@ -64,7 +64,7 @@
     # the top and down respectevly.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "300x5-0+20"
+    geometry = "400x150-50+50"
     
     # Shrink window if it's smaller than the width.  Will be ignored if
     # width is 0.
@@ -177,12 +177,12 @@
     # Otherwise the "#" and following would be interpreted as a comment.
     background = "#2f343f"
     foreground = "#676E7D"
-    timeout = 10
+    timeout = 30
 
 [urgency_normal]
     background = "#2f343f"
     foreground = "#f3f4f5"
-    timeout = 10
+    timeout = 60
 
 [urgency_critical]
     background = "#E53935"
