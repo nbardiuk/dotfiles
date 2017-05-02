@@ -224,8 +224,8 @@ bindsym XF86AudioRaiseVolume exec amixer set Master 5%+ unmute; exec pkill -RTMI
 bindsym XF86AudioLowerVolume exec amixer set Master 5%-; 		exec pkill -RTMIN+10 i3blocks
 
 # screen brightness hotkeys
-bindsym XF86MonBrightnessUp   exec xbacklight -inc 5; exec pkill -RTMIN+12 i3blocks
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5; exec pkill -RTMIN+12 i3blocks
+bindsym XF86MonBrightnessUp   exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 # wallpaper
 exec_always feh --bg-scale ~/.i3/wallpapers/river.jpg
@@ -244,7 +244,6 @@ exec_always --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-ag
 exec_always --no-startup-id xrdb ~/.Xresources
 # Keyboard layout
 exec_always setxkbmap -model pc104 -layout us,ua  -option grp:caps_toggle
-bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
 
 exec xset -b
 exec xset dpms s off

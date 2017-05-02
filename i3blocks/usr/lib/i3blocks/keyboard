@@ -1,0 +1,7 @@
+#!/bin/bash
+
+xkb-switch
+
+case $BLOCK_BUTTON in
+    3) xkb-switch -n ;; # right click
+esac
