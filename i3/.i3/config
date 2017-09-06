@@ -34,7 +34,7 @@ font pango:Fira Code 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal #i3-sensible-terminal
+bindsym $mod+Return exec tilix #gnome-terminal #i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -71,6 +71,9 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+
+# move workspace
+bindsym $mod+m move workspace to output left
 
 # split in horizontal orientation
 bindsym $mod+h split h
@@ -227,29 +230,29 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 # wallpaper
 exec_always feh --bg-scale ~/.i3/wallpapers/river.jpg
 # Notifications
-exec dunst -config ~/.i3/dunstrc
+exec_always dunst -config ~/.i3/dunstrc
 # Monitors layout
-exec_always xrandr --output HDMI1 --auto --left-of eDP1
+exec_always xrandr --output DP2 --mode 1920x1080
+exec_always xrandr --output HDMI1 --auto --right-of DP2
 # Gnome session workaround
 exec --no-startup-id echo "$0: DESKTOP_AUTOSTART_ID $DESKTOP_AUTOSTART_ID, registering with org.gnome.SessionManager"
 exec --no-startup-id dbus-send --session --print-reply=literal --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.RegisterClient "string:i3" "string:$DESKTOP_AUTOSTART_ID"
 
 #Policy kit deamon for graphical passwords promt
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec_always --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 exec_always --no-startup-id xrdb ~/.Xresources
 # Keyboard layout
-exec setxkbmap -model pc104 -layout us,ua  -option grp:caps_toggle
+exec_always setxkbmap -model pc104 -layout us,ua  -option grp:caps_toggle
 
-exec xset -b
-exec xset dpms s off
+exec_always xset -b off
 
 # Locker
-exec xautolock -time 60 -locker "gnome-screensaver-command --lock"
+exec_always xset s 300 300
+exec_always xautolock -time 5 -locker "gnome-screensaver-command --lock"
 exec gnome-screensaver
-bindsym $mod+Ctrl+l exec xautolock -locknow
+bindsym $mod+Ctrl+l exec xautolock -locknow && exec xset dpms force standby
 
 ## AUTOSTART APPS
 exec nm-applet
-exec --no-startup-id dropbox
-
+exec dropbox

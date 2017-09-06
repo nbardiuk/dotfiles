@@ -1,6 +1,7 @@
 set nocompatible
 
 set relativenumber              "Line numbers are good
+set number
 set backspace=indent,eol,start  "Allow backspace in insert mode
 set history=1000                "Store lots of :cmdline history
 set showcmd                     "Show incomplete cmds down the bottom
@@ -9,6 +10,8 @@ set gcr=a:blinkon0              "Disable cursor blink
 set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
 
+"Set default copy buffer the same as clipboard
+set clipboard=unnamed
 
 "turn on syntax highlighting
 syntax on
@@ -22,7 +25,6 @@ set nowb
 
 " ================ Persistent Undo ==================
 " Keep undo history across sessions, by storing in file.
-" Only works all the time.
 if has('persistent_undo')
     silent !mkdir ~/.vim/backups > /dev/null 2>&1
     set undodir=~/.vim/backups
@@ -34,9 +36,9 @@ endif
 set autoindent
 set smartindent
 set smarttab
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
 set expandtab
 
 filetype plugin on
@@ -47,21 +49,6 @@ set list listchars=tab:\▸\ ,trail:·
 
 set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
-
-" ================ Completion =======================
-
-set wildmode=list:longest
-set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
-set wildignore+=*vim/backups*
-set wildignore+=*sass-cache*
-set wildignore+=*DS_Store*
-set wildignore+=vendor/rails/**
-set wildignore+=vendor/cache/**
-set wildignore+=*.gem
-set wildignore+=log/**
-set wildignore+=tmp/**
-set wildignore+=*.png,*.jpg,*.gif
 
 " ================ Search ===========================
 
@@ -75,8 +62,7 @@ set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme='nord'
-
+let g:airline_theme='solarized'
 
 
 map <leader>n :NERDTreeToggle<CR>
@@ -90,22 +76,10 @@ set encoding=utf-8
 nmap <leader>l :bnext<CR>
 nmap <leader>h :bprevious<CR>
 
-" Remove gvim widgets
-:set guioptions-=m  "remove menu bar
-:set guioptions-=T  "remove toolbar
-:set guioptions-=r  "remove right-hand scroll bar
-:set guioptions-=L  "remove left-hand scroll bar
-
-" Save file on loosing focus
-au FocusLost * :wa
 " ================== syntastic
 
 map <silent> <Leader>e :Errors<CR>
 map <Leader>s :SyntasticToggleMode<CR>
-
-au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
-au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
-au FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsInfo<CR>
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -116,73 +90,50 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
-" ================= ghc- mod ==========================
-map <silent> tw :GhcModTypeInsert<CR>
-map <silent> ts :GhcModSplitFunCase<CR>
-map <silent> tq :GhcModType<CR>
-map <silent> te :GhcModTypeClear<CR>
-
-" =====================================================
-let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
-
-if has("gui_running")
-    imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-  else " no gui
-      if has("unix")
-            inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-      endif
-endif
-
-let g:haskellmode_completion_ghc = 1
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-call plug#begin()
 " =====================================================
 map <silent> <Leader>t :CtrlP()<CR>
+map <silent> <Leader>e :CtrlPMRU()<CR>
 noremap <leader>b<space> :CtrlPBuffer<cr>
 let g:ctrlp_custom_ignore = '\v[\/]dist$'
 " =====================================================
-let g:haskell_tabular = 1
-vmap a= :Tabularize /=<CR>
-vmap a; :Tabularize /::<CR>
-vmap a- :Tabularize /->CR>
-" =====================================================
 
+call plug#begin()
+
+Plug 'airblade/vim-gitgutter'
+Plug 'arcticicestudio/nord-vim'
+Plug 'bling/vim-airline'
+Plug 'christoomey/vim-sort-motion'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'garbas/vim-snipmate'
+Plug 'ledger/vim-ledger'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'nelstrom/vim-markdown-folding'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'sheerun/vim-polyglot'
+Plug 'tomtom/tlib_vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'scrooloose/syntastic'
-Plug 'bling/vim-airline'
-Plug 'derekwyatt/vim-scala'
-Plug 'Valloric/YouCompleteMe'
-Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-markdown'
-Plug 'nelstrom/vim-markdown-folding'
-Plug 'airblade/vim-gitgutter'
-Plug 'eagletmt/ghcmod-vim'
-Plug 'eagletmt/neco-ghc'
-Plug 'tomtom/tlib_vim'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'garbas/vim-snipmate'
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
-Plug 'godlygeek/tabular'
-Plug 'ervandew/supertab'
-Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'arcticicestudio/nord-vim'
-Plug 'pearofducks/ansible-vim'
-Plug 'ledger/vim-ledger'
-
-Plug 'beloglazov/vim-online-thesaurus'
-Plug 'dpelle/vim-LanguageTool'
-Plug 'rhysd/vim-grammarous'
-
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 call plug#end()
 
 " =========================================================
-set guifont=Iosevka\ 11
-colorscheme nord
+" Remove gvim widgets
+:set guioptions-=m  "remove menu bar
+:set guioptions-=T  "remove toolbar
+:set guioptions-=r  "remove right-hand scroll bar
+:set guioptions-=R  "remove right-hand scroll bar
+:set guioptions-=L  "remove left-hand scroll bar
+:set guioptions-=l  "remove left-hand scroll bar
+
+" Save file on loosing focus
+au FocusLost * :wa
+
+set guifont=Iosevka\ 10
+set background=light
+set t_Co=256           "use 256 colors
+colorscheme solarized
