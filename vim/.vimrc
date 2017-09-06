@@ -50,12 +50,6 @@ set list listchars=tab:\▸\ ,trail:·
 set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
 
-" ================ Completion =======================
-let g:mucomplete#enable_auto_at_startup = 1
-set completeopt=menuone,noinsert,noselect
-inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
-inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
-inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
 " ================ Search ===========================
 
 set incsearch       " Find the next match as we type the search
@@ -97,17 +91,6 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 " =====================================================
-let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
-
-if has("gui_running")
-    imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-  else " no gui
-      if has("unix")
-            inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-      endif
-endif
-
-" =====================================================
 map <silent> <Leader>t :CtrlP()<CR>
 map <silent> <Leader>e :CtrlPMRU()<CR>
 noremap <leader>b<space> :CtrlPBuffer<cr>
@@ -121,11 +104,9 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'bling/vim-airline'
 Plug 'christoomey/vim-sort-motion'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'ervandew/supertab'
 Plug 'flazz/vim-colorschemes'
 Plug 'garbas/vim-snipmate'
 Plug 'ledger/vim-ledger'
-Plug 'lifepillar/vim-mucomplete'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'nelstrom/vim-markdown-folding'
 Plug 'scrooloose/nerdtree'
