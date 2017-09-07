@@ -12,7 +12,6 @@ set autoread                    "Reload files changed outside vim
 
 "Set default copy buffer the same as clipboard
 set clipboard=unnamed
-
 "turn on syntax highlighting
 syntax on
 set spell spelllang=en_us
@@ -64,13 +63,12 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme='solarized'
 
-
-map <leader>n :NERDTreeToggle<CR>
-
 inoremap jk <ESC>
 nnoremap ; :
 let mapleader = "\<Space>"
 set encoding=utf-8
+
+map <leader>n :NERDTreeToggle<CR>
 
 " Switch buffers
 nmap <leader>l :bnext<CR>
