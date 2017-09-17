@@ -16,6 +16,16 @@ set clipboard=unnamed
 syntax on
 set spell spelllang=en_us
 
+set backspace=indent,eol,start "Delete everything
+
+"Commands completion
+set wildmode=list:longest,full
+
+"Folding
+set foldmethod=syntax
+set foldopen=all " open a fold under the cursor
+set foldclose=all " close a fold when cursor leaves it
+
 " ================ Turn Off Swap Files ==============
 
 set noswapfile
@@ -28,6 +38,7 @@ if has('persistent_undo')
     silent !mkdir ~/.vim/backups > /dev/null 2>&1
     set undodir=~/.vim/backups
     set undofile
+    set undolevels=1000
 endif
 
 " ================ Indentation ======================
@@ -55,6 +66,8 @@ set incsearch       " Find the next match as we type the search
 set hlsearch        " Highlight searches by default
 set ignorecase      " Ignore case when searching...
 set smartcase       " ...unless we type a capital
+" Stop highgliting until next search
+nmap <silent> <BS> :nohlsearch<CR>
 
 
 set laststatus=2
@@ -97,25 +110,25 @@ let g:ctrlp_custom_ignore = '\v[\/]dist$'
 
 call plug#begin()
 
-Plug 'airblade/vim-gitgutter'
-Plug 'arcticicestudio/nord-vim'
-Plug 'bling/vim-airline'
-Plug 'christoomey/vim-sort-motion'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'flazz/vim-colorschemes'
-Plug 'garbas/vim-snipmate'
-Plug 'ledger/vim-ledger'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'nelstrom/vim-markdown-folding'
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
-Plug 'sheerun/vim-polyglot'
-Plug 'tomtom/tlib_vim'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-markdown'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline-themes'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'arcticicestudio/nord-vim'
+    Plug 'bling/vim-airline'
+    Plug 'christoomey/vim-sort-motion'
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'flazz/vim-colorschemes'
+    Plug 'garbas/vim-snipmate'
+    Plug 'ledger/vim-ledger'
+    Plug 'MarcWeber/vim-addon-mw-utils'
+    Plug 'nelstrom/vim-markdown-folding'
+    Plug 'scrooloose/nerdtree'
+    Plug 'scrooloose/syntastic'
+    Plug 'sheerun/vim-polyglot'
+    Plug 'tomtom/tlib_vim'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-markdown'
+    Plug 'tpope/vim-sensible'
+    Plug 'tpope/vim-surround'
+    Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
@@ -135,3 +148,18 @@ set guifont=Iosevka\ 10
 set background=light
 set t_Co=256           "use 256 colors
 colorscheme solarized
+
+
+"Only apply to .txt files...
+augroup HelpInTabs
+    autocmd!
+    autocmd BufEnter *.txt call HelpInNewTab()
+augroup END
+
+"Only apply to helo files...
+function! HelpInNewTab ()
+    if &buftype == 'help'
+        "Convert the help window to a tab...
+        execute "normal \<C-W>T"
+    endif
+endfunction
