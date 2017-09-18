@@ -256,3 +256,7 @@ bindsym $mod+Ctrl+l exec xautolock -locknow && exec xset dpms force standby
 ## AUTOSTART APPS
 exec nm-applet
 exec dropbox
+
+# https://i3wm.org/docs/userguide.html#focus_on_window_activation
+# smart|urgent|focus|none
+focus_on_window_activation focus
