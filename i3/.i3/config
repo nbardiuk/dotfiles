@@ -227,6 +227,9 @@ bindsym XF86AudioLowerVolume exec amixer set Master 5%-; 		exec pkill -RTMIN+10 
 bindsym XF86MonBrightnessUp   exec xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
+# Print screen
+bindsym Print exec maim -us ~/Snapshots/$(date +%s).png
+
 # wallpaper
 exec_always feh --bg-scale ~/.i3/wallpapers/river.jpg
 # Notifications
