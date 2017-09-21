@@ -21,13 +21,19 @@ set backspace=indent,eol,start "Delete everything
 "Commands completion
 set wildmode=list:longest,full
 
-"Folding
+" Folding
 set foldmethod=syntax
 set foldopen=all " open a fold under the cursor
 set foldclose=all " close a fold when cursor leaves it
 
-" ================ Turn Off Swap Files ==============
+augroup vimrcFold
+  " fold vimrc itself by categories
+  autocmd!
+  autocmd FileType vim set foldmethod=marker
+  autocmd FileType vim set foldlevel=0
+augroup END
 
+" ================ Turn Off Swap Files ==============
 set noswapfile
 set nobackup
 set nowb
@@ -48,7 +54,7 @@ set smartindent
 set smarttab
 set shiftwidth=4
 set softtabstop=4
-set tabstop=4
+set tabstop=8
 set expandtab
 
 filetype plugin on
@@ -83,30 +89,35 @@ set encoding=utf-8
 
 map <leader>n :NERDTreeToggle<CR>
 
-" Switch buffers
-nmap <leader>l :bnext<CR>
-nmap <leader>h :bprevious<CR>
-
-" ================== syntastic
-
-map <silent> <Leader>e :Errors<CR>
-map <Leader>s :SyntasticToggleMode<CR>
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-
 " =====================================================
-map <silent> <Leader>t :CtrlP()<CR>
-map <silent> <Leader>e :CtrlPMRU()<CR>
-noremap <leader>b<space> :CtrlPBuffer<cr>
-let g:ctrlp_custom_ignore = '\v[\/]dist$'
+map <silent> <Leader>t :Files<CR>
+map <silent> <Leader>e :History<CR>
+noremap <leader>b<space> :Buffers<cr>
 " =====================================================
+
+
+" Completion {{{
+
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" }}}
+
+" vim-plug {{{
 
 call plug#begin()
 
@@ -114,23 +125,36 @@ call plug#begin()
     Plug 'arcticicestudio/nord-vim'
     Plug 'bling/vim-airline'
     Plug 'christoomey/vim-sort-motion'
-    Plug 'ctrlpvim/ctrlp.vim'
     Plug 'flazz/vim-colorschemes'
     Plug 'garbas/vim-snipmate'
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
     Plug 'ledger/vim-ledger'
     Plug 'MarcWeber/vim-addon-mw-utils'
     Plug 'nelstrom/vim-markdown-folding'
     Plug 'scrooloose/nerdtree'
-    Plug 'scrooloose/syntastic'
     Plug 'sheerun/vim-polyglot'
+    Plug 'Shougo/neocomplete'
+    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
     Plug 'tomtom/tlib_vim'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-markdown'
     Plug 'tpope/vim-sensible'
     Plug 'tpope/vim-surround'
     Plug 'vim-airline/vim-airline-themes'
+    Plug 'w0rp/ale'
+
+    " Haskell
+    Plug 'alx741/vim-hindent', { 'for': 'haskell' }
+    Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
+    Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
+    Plug 'mpickering/hlint-refactor-vim', { 'for': 'haskell' }
+    Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+    Plug 'Twinside/vim-hoogle', { 'for': 'haskell' }
 
 call plug#end()
+
+" }}}
 
 " =========================================================
 " Remove gvim widgets
@@ -163,3 +187,13 @@ function! HelpInNewTab ()
         execute "normal \<C-W>T"
     endif
 endfunction
+
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+
+" Load haskell configuration 
+let config_haskell = expand(resolve($HOME . "/.vim/vimrc.haskell"))
+execute 'source '. config_haskell
