@@ -11,7 +11,8 @@ set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
 
 "Set default copy buffer the same as clipboard
-set clipboard=unnamed
+set clipboard=unnamedplus
+
 "turn on syntax highlighting
 syntax on
 set spell spelllang=en_us
