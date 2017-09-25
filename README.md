@@ -1,5 +1,4 @@
-Checkout to home dirrectory.
-
+Checkout to home directory.
 
 # Install configuration
 
