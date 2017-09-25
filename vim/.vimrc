@@ -175,21 +175,6 @@ set background=light
 set t_Co=256           "use 256 colors
 colorscheme solarized
 
-
-"Only apply to .txt files...
-augroup HelpInTabs
-    autocmd!
-    autocmd BufEnter *.txt call HelpInNewTab()
-augroup END
-
-"Only apply to helo files...
-function! HelpInNewTab ()
-    if &buftype == 'help'
-        "Convert the help window to a tab...
-        execute "normal \<C-W>T"
-    endif
-endfunction
-
 func! DeleteTrailingWS()
   exe "normal mz"
   %s/\s\+$//ge
