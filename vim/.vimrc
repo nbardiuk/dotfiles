@@ -139,6 +139,7 @@ call plug#begin()
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
     Plug 'tomtom/tlib_vim'
     Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-markdown'
     Plug 'tpope/vim-sensible'
     Plug 'tpope/vim-surround'
