@@ -83,7 +83,6 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme='solarized'
 
-inoremap jk <ESC>
 nnoremap ; :
 let mapleader = "\<Space>"
 set encoding=utf-8
