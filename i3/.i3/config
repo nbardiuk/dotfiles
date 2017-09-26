@@ -246,7 +246,7 @@ exec_always --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-ag
 
 exec_always --no-startup-id xrdb ~/.Xresources
 # Keyboard layout
-exec_always setxkbmap -model pc104 -layout us,ua  -option grp:caps_toggle
+exec_always setxkbmap -model pc104 -layout us,ua  -option grp:shifts_toggle -option ctrl:nocaps
 
 exec_always xset -b off
 
