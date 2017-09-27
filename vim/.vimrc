@@ -95,6 +95,10 @@ map <silent> <Leader>e :History<CR>
 noremap <leader>b<space> :Buffers<cr>
 " =====================================================
 
+" CTAGS
+
+set tags=tags;/,codex.tags;/
+nmap <leader>o :TagbarToggle<CR>
 
 " Completion {{{
 
@@ -130,6 +134,7 @@ call plug#begin()
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'ledger/vim-ledger'
+    Plug 'majutsushi/tagbar'
     Plug 'MarcWeber/vim-addon-mw-utils'
     Plug 'nelstrom/vim-markdown-folding'
     Plug 'scrooloose/nerdtree'
