@@ -10,12 +10,17 @@ set gcr=a:blinkon0              "Disable cursor blink
 set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
 
+" Source the vimrc file after saving it
+if has("autocmd")
+    autocmd bufwritepost .vimrc source $MYVIMRC
+endif
+
 "Set default copy buffer the same as clipboard
 set clipboard=unnamedplus
 
 "turn on syntax highlighting
 syntax on
-set spell spelllang=en_us
+set spell spelllang=en
 
 set backspace=indent,eol,start "Delete everything
 
@@ -24,8 +29,6 @@ set wildmode=list:longest,full
 
 " Folding
 set foldmethod=syntax
-set foldopen=all " open a fold under the cursor
-set foldclose=all " close a fold when cursor leaves it
 
 augroup vimrcFold
   " fold vimrc itself by categories
@@ -93,6 +96,7 @@ map <leader>n :NERDTreeToggle<CR>
 map <silent> <Leader>t :Files<CR>
 map <silent> <Leader>e :History<CR>
 noremap <leader>b<space> :Buffers<cr>
+set hidden " allows to switch a buffer with unsaved changes
 " =====================================================
 
 " CTAGS
