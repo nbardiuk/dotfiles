@@ -152,6 +152,7 @@ call plug#begin()
     Plug 'tpope/vim-sensible'
     Plug 'tpope/vim-surround'
     Plug 'vim-airline/vim-airline-themes'
+    Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
     Plug 'w0rp/ale'
 
     " Haskell
@@ -192,3 +193,11 @@ endfunc
 " Load haskell configuration 
 let config_haskell = expand(resolve($HOME . "/.vim/vimrc.haskell"))
 execute 'source '. config_haskell
+
+
+" vimwiki {{{
+let g:vimwiki_list = [{'path': '~/Dropbox/Notes/',
+            \   'syntax': 'markdown', 'ext': '.md',
+            \   'auto_toc': 1}]
+
+" }}}
