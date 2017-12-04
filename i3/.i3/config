@@ -34,7 +34,7 @@ font pango:Fira Code 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec tilix #gnome-terminal #i3-sensible-terminal
+bindsym $mod+Return exec tilix
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -45,7 +45,7 @@ bindsym $mod+Shift+q kill
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 #bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -fn 'Fira Code -10' -nb '$inactive-bg-color' -nf '$inactive-text-color' -sb '$bg-color' -sf '$text-color' -l 20 "
-bindsym $mod+d   exec rofi -show combi
+bindsym $mod+d   exec rofi -show combi -terminal tilix
 bindsym $mod+Tab exec rofi -show combi -combi-modi window
 
 # change focus
