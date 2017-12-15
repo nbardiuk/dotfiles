@@ -1,12 +1,12 @@
 ! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-! ! title      Nord XResources                                    +
-! ! project    nord-xresources                                    +
-! ! version    0.1.0                                              +
-! ! repository https://github.com/arcticicestudio/nord-xresources +
-! ! author     Arctic Ice Studio                                  +
-! ! email      development@arcticicestudio.com                    +
-! ! copyright  Copyright (C) 2016                                 +
-! ! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+! title      Nord XResources                                    +
+! project    nord-xresources                                    +
+! version    0.1.0                                              +
+! repository https://github.com/arcticicestudio/nord-xresources +
+! author     Arctic Ice Studio                                  +
+! email      development@arcticicestudio.com                    +
+! copyright  Copyright (C) 2016                                 +
+! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #define nord0 #2E3440
 #define nord1 #3B4252
 #define nord2 #434C5E
@@ -48,5 +48,5 @@
 *.color15: nord6
 
 rofi.separator-style:                solid
-rofi.font:                           Fira Code 14
+rofi.font:                           Iosevka 14
 rofi.combi-modi:                     window,drun,run,ssh
