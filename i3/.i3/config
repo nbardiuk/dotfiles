@@ -102,16 +102,16 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # customize workspace names
-set $WS1 1:
-set $WS2 2:
-set $WS3 3:
-set $WS4 4:
-set $WS5 5:
-set $WS6 6:
-set $WS7 7:
-set $WS8 8:
-set $WS9 9:
-set $WS10 10:
+set $WS1 1:Ⅰ
+set $WS2 2:Ⅱ
+set $WS3 3:Ⅲ
+set $WS4 4:Ⅳ
+set $WS5 5:Ⅴ
+set $WS6 6:Ⅵ
+set $WS7 7:Ⅶ
+set $WS8 8:Ⅷ
+set $WS9 9:Ⅸ
+set $WS10 10:Ⅹ
 
 
 # switch to workspace
