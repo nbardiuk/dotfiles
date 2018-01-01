@@ -84,7 +84,7 @@ set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme='nord'
+let g:airline_theme='solarized'
 
 nnoremap ; :
 let mapleader = "\<Space>"
@@ -180,9 +180,9 @@ call plug#end()
 au FocusLost * :wa
 
 set guifont=Iosevka\ 12
-set background=dark
+set background=light
 set t_Co=256           "use 256 colors
-colorscheme nord
+colorscheme solarized
 
 func! DeleteTrailingWS()
   exe "normal mz"
@@ -194,10 +194,11 @@ endfunc
 let config_haskell = expand(resolve($HOME . "/.vim/vimrc.haskell"))
 execute 'source '. config_haskell
 
-
 " vimwiki {{{
 let g:vimwiki_list = [{'path': '~/Dropbox/Notes/',
             \   'syntax': 'markdown', 'ext': '.md',
-            \   'auto_toc': 1}]
+            \   'auto_tags': 1, 'auto_toc': 1}]
 
+autocmd FileType vimwiki setlocal wrap
+autocmd FileType vimwiki setlocal textwidth=80
 " }}}
