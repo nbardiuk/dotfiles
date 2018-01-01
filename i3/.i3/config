@@ -47,6 +47,7 @@ bindsym $mod+Shift+q kill
 #bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -fn 'Fira Code -10' -nb '$inactive-bg-color' -nf '$inactive-text-color' -sb '$bg-color' -sf '$text-color' -l 20 "
 bindsym $mod+d   exec rofi -show combi -terminal tilix
 bindsym $mod+Tab exec rofi -show combi -combi-modi window
+bindsym $mod+c   exec ~/.i3/connection_toggle.py
 
 # change focus
 bindsym $mod+j focus left
