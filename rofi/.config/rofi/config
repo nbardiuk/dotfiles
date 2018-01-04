@@ -92,7 +92,7 @@ rofi.font:                           Iosevka 14
 rofi.combi-modi:                     window,drun,run
 
 ! "Set the matching algorithm. (normal, regex, glob, fuzzy)" Set from: Default
-rofi.matching:                       fuzzy
+rofi.matching:                       normal
 
 ! "Tokenize input string" Set from: Default
 ! rofi.tokenize:                       true
