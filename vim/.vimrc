@@ -195,7 +195,7 @@ let config_haskell = expand(resolve($HOME . "/.vim/vimrc.haskell"))
 execute 'source '. config_haskell
 
 " vimwiki {{{
-let g:vimwiki_list = [{'path': '~/Dropbox/Notes/',
+let g:vimwiki_list = [{'path': '~/Notes/',
             \   'syntax': 'markdown', 'ext': '.md',
             \   'auto_tags': 1, 'auto_toc': 1}]
 
