@@ -4,12 +4,15 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 zplug 'denysdovhan/spaceship-prompt', use:'spaceship.zsh', from:github, as:theme
 
-zplug "plugins/git", from:oh-my-zsh
+zplug "modules/archive", from:prezto
 zplug "plugins/archlinux", from:oh-my-zsh
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/common-aliases", from:oh-my-zsh
+zplug "plugins/git", from:oh-my-zsh
 zplug "spwhitt/nix-zsh-completions", from:github
-zplug "changyuheng/zsh-interactive-cd", from:github
+zplug "zsh-users/zsh-autosuggestions", from:github
+zplug "zsh-users/zsh-completions", from:github
+zplug "zsh-users/zsh-syntax-highlighting", from:github
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -58,7 +61,8 @@ else
 fi
 alias vim=nvim
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+alias ls="ls --color=auto"
+
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 
