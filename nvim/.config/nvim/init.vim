@@ -10,11 +10,6 @@ set gcr=a:blinkon0              "Disable cursor blink
 set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
 
-" Source the vimrc file after saving it
-if has("autocmd")
-    autocmd bufwritepost .vimrc source $MYVIMRC
-endif
-
 "Set default copy buffer the same as clipboard
 set clipboard=unnamedplus
 
@@ -45,8 +40,8 @@ set nowb
 " ================ Persistent Undo ==================
 " Keep undo history across sessions, by storing in file.
 if has('persistent_undo')
-    silent !mkdir ~/.vim/backups > /dev/null 2>&1
-    set undodir=~/.vim/backups
+    silent !mkdir ~/.config/nvim/backups > /dev/null 2>&1
+    set undodir=~/.config/nvim/backups
     set undofile
     set undolevels=1000
 endif
@@ -108,18 +103,11 @@ nmap <leader>o :TagbarToggle<CR>
 
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
 
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 " Close popup by <Space>.
 inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 
@@ -130,7 +118,6 @@ inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 call plug#begin()
 
     Plug 'airblade/vim-gitgutter'
-    Plug 'arcticicestudio/nord-vim'
     Plug 'bling/vim-airline'
     Plug 'christoomey/vim-sort-motion'
     Plug 'flazz/vim-colorschemes'
@@ -143,7 +130,7 @@ call plug#begin()
     Plug 'nelstrom/vim-markdown-folding'
     Plug 'scrooloose/nerdtree'
     Plug 'sheerun/vim-polyglot'
-    Plug 'Shougo/neocomplete'
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
     Plug 'tomtom/tlib_vim'
     Plug 'tpope/vim-commentary'
@@ -157,11 +144,8 @@ call plug#begin()
 
     " Haskell
     Plug 'alx741/vim-hindent', { 'for': 'haskell' }
-    Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
-    Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
-    Plug 'mpickering/hlint-refactor-vim', { 'for': 'haskell' }
     Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-    Plug 'Twinside/vim-hoogle', { 'for': 'haskell' }
+    Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
 
 call plug#end()
 
@@ -191,11 +175,11 @@ func! DeleteTrailingWS()
 endfunc
 
 " Load haskell configuration 
-let config_haskell = expand(resolve($HOME . "/.vim/vimrc.haskell"))
+let config_haskell = expand(resolve($HOME . "/.config/nvim/vimrc.haskell"))
 execute 'source '. config_haskell
 
 " vimwiki {{{
-let g:vimwiki_list = [{'path': '~/Notes/',
+let g:vimwiki_list = [{'path': '~/Dropbox/Notes',
             \   'syntax': 'markdown', 'ext': '.md',
             \   'auto_tags': 1, 'auto_toc': 1}]
 
