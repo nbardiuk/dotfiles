@@ -13,6 +13,7 @@ zplug "spwhitt/nix-zsh-completions", from:github
 zplug "zsh-users/zsh-autosuggestions", from:github
 zplug "zsh-users/zsh-completions", from:github
 zplug "zsh-users/zsh-syntax-highlighting", from:github
+zplug "joel-porquet/zsh-dircolors-solarized", from:github
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
