@@ -120,11 +120,11 @@ call plug#begin()
     Plug 'airblade/vim-gitgutter'
     Plug 'bling/vim-airline'
     Plug 'christoomey/vim-sort-motion'
-    Plug 'flazz/vim-colorschemes'
     Plug 'garbas/vim-snipmate'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'ledger/vim-ledger'
+    Plug 'lifepillar/vim-solarized8'
     Plug 'majutsushi/tagbar'
     Plug 'MarcWeber/vim-addon-mw-utils'
     Plug 'nelstrom/vim-markdown-folding'
@@ -166,7 +166,7 @@ au FocusLost * :wa
 set guifont=Iosevka\ 12
 set background=light
 set t_Co=256           "use 256 colors
-colorscheme solarized
+colorscheme solarized8
 
 func! DeleteTrailingWS()
   exe "normal mz"
