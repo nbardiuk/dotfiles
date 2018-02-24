@@ -166,6 +166,7 @@ au FocusLost * :wa
 set guifont=Iosevka\ 12
 set background=light
 set t_Co=256           "use 256 colors
+set termguicolors
 colorscheme solarized8
 
 func! DeleteTrailingWS()
