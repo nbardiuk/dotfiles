@@ -9,6 +9,7 @@ set showmode                    "Show current mode down the bottom
 set gcr=a:blinkon0              "Disable cursor blink
 set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
+set mouse=a                     "Enable mouse
 
 "Set default copy buffer the same as clipboard
 set clipboard=unnamedplus
