@@ -62,6 +62,8 @@ else
 fi
 alias vim=nvim
 
+export MANPAGER="nvim +set\ filetype=man -"
+
 alias ls="ls --color=auto"
 
 source /usr/share/fzf/completion.zsh
