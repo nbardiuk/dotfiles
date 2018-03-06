@@ -123,6 +123,7 @@ call plug#begin()
     Plug 'christoomey/vim-sort-motion'
     Plug 'garbas/vim-snipmate'
     Plug 'hashivim/vim-terraform'
+    Plug 'JamshedVesuna/vim-markdown-preview'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'ledger/vim-ledger'
@@ -190,7 +191,14 @@ autocmd FileType vimwiki setlocal wrap
 autocmd FileType vimwiki setlocal textwidth=80
 " }}}
 
+" terraform {{{
 let g:terraform_align=1             "apply override alignment
 let g:terraform_fold_sections=1     "apply specific folding
 let g:terraform_fmt_on_save=1       "reformat on save
 autocmd FileType terraform setlocal commentstring=#%s
+" }}}
+
+" vim markdown preview {{{
+let vim_markdown_preview_use_xdg_open=1
+let vim_markdown_preview_toggle=1 "display images with the hotkey mapping
+" }}}
