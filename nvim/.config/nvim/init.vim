@@ -122,6 +122,7 @@ call plug#begin()
     Plug 'bling/vim-airline'
     Plug 'christoomey/vim-sort-motion'
     Plug 'garbas/vim-snipmate'
+    Plug 'hashivim/vim-terraform'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'ledger/vim-ledger'
@@ -188,3 +189,8 @@ let g:vimwiki_list = [{'path': '~/Dropbox/Notes',
 autocmd FileType vimwiki setlocal wrap
 autocmd FileType vimwiki setlocal textwidth=80
 " }}}
+
+let g:terraform_align=1             "apply override alignment
+let g:terraform_fold_sections=1     "apply specific folding
+let g:terraform_fmt_on_save=1       "reformat on save
+autocmd FileType terraform setlocal commentstring=#%s
