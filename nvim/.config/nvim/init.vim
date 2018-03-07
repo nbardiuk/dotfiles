@@ -7,11 +7,13 @@ set gcr=a:blinkon0              "Disable cursor blink
 set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
 set mouse=a                     "Enable mouse
+set mousemodel=popup_setpos     "make mouse behave like in GUI app
 
 set clipboard=unnamedplus       "Set default copy buffer the same as clipboard
 
 syntax on                       "turn on syntax highlighting
 set spell                       "enable spell check
+set spelllang=en_us,ua
 
 set wildmode=list:longest,full  "Commands completion
 
