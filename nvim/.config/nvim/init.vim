@@ -1,7 +1,4 @@
-set nocompatible
-
 set relativenumber              "Line numbers are good
-set number
 set backspace=indent,eol,start  "Allow backspace in insert mode
 set history=1000                "Store lots of :cmdline history
 set showcmd                     "Show incomplete cmds down the bottom
@@ -11,19 +8,14 @@ set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
 set mouse=a                     "Enable mouse
 
-"Set default copy buffer the same as clipboard
-set clipboard=unnamedplus
+set clipboard=unnamedplus       "Set default copy buffer the same as clipboard
 
-"turn on syntax highlighting
-syntax on
-set spell spelllang=en
+syntax on                       "turn on syntax highlighting
+set spell                       "enable spell check
 
-set backspace=indent,eol,start "Delete everything
+set wildmode=list:longest,full  "Commands completion
 
-"Commands completion
-set wildmode=list:longest,full
-
-" Folding
+" Folding {{{
 set foldmethod=syntax
 
 augroup vimrcFold
@@ -32,13 +24,15 @@ augroup vimrcFold
   autocmd FileType vim set foldmethod=marker
   autocmd FileType vim set foldlevel=0
 augroup END
+" }}}
 
-" ================ Turn Off Swap Files ==============
+" Swap Files {{{
 set noswapfile
 set nobackup
 set nowb
+" }}}
 
-" ================ Persistent Undo ==================
+" Persistent Undo {{{
 " Keep undo history across sessions, by storing in file.
 if has('persistent_undo')
     silent !mkdir ~/.config/nvim/backups > /dev/null 2>&1
@@ -46,8 +40,9 @@ if has('persistent_undo')
     set undofile
     set undolevels=1000
 endif
+" }}}
 
-" ================ Indentation ======================
+" Indentation {{{
 
 set autoindent
 set smartindent
@@ -59,6 +54,7 @@ set expandtab
 
 filetype plugin on
 filetype indent on
+" }}}
 
 " Display tabs and trailing spaces visually
 set list listchars=tab:\▸\ ,trail:·
@@ -66,14 +62,14 @@ set list listchars=tab:\▸\ ,trail:·
 set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
 
-" ================ Search ===========================
-
+" Search {{{
 set incsearch       " Find the next match as we type the search
 set hlsearch        " Highlight searches by default
 set ignorecase      " Ignore case when searching...
 set smartcase       " ...unless we type a capital
 " Stop highgliting until next search
 nmap <silent> <BS> :nohlsearch<CR>
+" }}}
 
 
 set laststatus=2
@@ -82,23 +78,22 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme='solarized'
 
-nnoremap ; :
 let mapleader = "\<Space>"
 set encoding=utf-8
 
+" Files navigation {{{
 map <leader>n :NERDTreeToggle<CR>
-
-" =====================================================
 map <silent> <Leader>t :Files<CR>
 map <silent> <Leader>e :History<CR>
-noremap <leader>b<space> :Buffers<cr>
+noremap <leader>b :Buffers<cr>
 set hidden " allows to switch a buffer with unsaved changes
-" =====================================================
+" }}}
 
-" CTAGS
+" CTAGS {{{
 
 set tags=tags;/,codex.tags;/
 nmap <leader>o :TagbarToggle<CR>
+" }}}
 
 " Completion {{{
 
@@ -154,29 +149,12 @@ call plug#end()
 
 " }}}
 
-" =========================================================
-" Remove gvim widgets
-:set guioptions-=m  "remove menu bar
-:set guioptions-=T  "remove toolbar
-:set guioptions-=r  "remove right-hand scroll bar
-:set guioptions-=R  "remove right-hand scroll bar
-:set guioptions-=L  "remove left-hand scroll bar
-:set guioptions-=l  "remove left-hand scroll bar
-
 " Save file on loosing focus
-au FocusLost * :wa
+autocmd FocusLost * :wa
 
-set guifont=Iosevka\ 12
 set background=light
-set t_Co=256           "use 256 colors
 set termguicolors
 colorscheme solarized8
-
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
 
 " Load haskell configuration 
 let config_haskell = expand(resolve($HOME . "/.config/nvim/vimrc.haskell"))
