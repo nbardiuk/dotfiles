@@ -1,21 +1,64 @@
-set relativenumber              "Line numbers are good
-set backspace=indent,eol,start  "Allow backspace in insert mode
-set history=1000                "Store lots of :cmdline history
-set showcmd                     "Show incomplete cmds down the bottom
-set showmode                    "Show current mode down the bottom
-set gcr=a:blinkon0              "Disable cursor blink
-set visualbell                  "No sounds
-set autoread                    "Reload files changed outside vim
-set mouse=a                     "Enable mouse
-set mousemodel=popup_setpos     "make mouse behave like in GUI app
+" vim-plug {{{
+call plug#begin()
+Plug 'airblade/vim-gitgutter'                                     " shows git changes stats
+Plug 'godlygeek/tabular'                                          " heps to align text in tabular form
+Plug 'hashivim/vim-terraform'                                     " syntax and formatter for terraform
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'lifepillar/vim-solarized8'                                  " color theme
+Plug 'sheerun/vim-polyglot'                                       " collection of language packs
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/neco-syntax'                                         " completions from syntax file
+Plug 'Shougo/neco-vim'                                            " completions for vim
+Plug 'tpope/vim-commentary'                                       " enables gc commenting command
+Plug 'tpope/vim-markdown'                                         " syntax and folding for markdown
+Plug 'tpope/vim-sensible'                                         " sensible vim defaults
+Plug 'tpope/vim-surround'                                         " adds surrounding objects
+Plug 'vim-airline/vim-airline'                                    " statusline
+Plug 'vim-airline/vim-airline-themes'                             " color theme for statusline
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }                       " wiki
+Plug 'w0rp/ale'                                                   " linting engine
+call plug#end()
+" }}}
 
-set clipboard=unnamedplus       "Set default copy buffer the same as clipboard
+let mapleader = "\<Space>"
+set hidden                          " allows to switch a buffer with unsaved changes
+set relativenumber                  " Line numbers are good
+set backspace=indent,eol,start      " Allow backspace in insert mode
+set history=1000                    " Store lots of :cmdline history
+set showcmd                         " Show incomplete cmds down the bottom
+set showmode                        " Show current mode down the bottom
+set gcr=a:blinkon0                  " Disable cursor blink
+set visualbell                      " No sounds
+set autoread                        " Reload files changed outside vim
+set mouse=a                         " Enable mouse
+set mousemodel=popup_setpos         " make mouse behave like in GUI app
+set clipboard=unnamedplus           " Set default copy buffer the same as clipboard
+syntax on                           " turn on syntax highlighting
+set spell spelllang=en_us,uk        " enable spell check
+set wildmode=list:longest,full      " Commands completion
+set list listchars=tab:\▸\ ,trail:· " Display tabs and trailing spaces visually
+autocmd FocusLost * :wa             " Save file on loosing focus
 
-syntax on                       "turn on syntax highlighting
-set spell                       "enable spell check
-set spelllang=en_us,ua
+" Text Wrapping {{{
+set nowrap         " Don't soft wrap lines
+set linebreak      " break lines at convenient points
+set textwidth=79   " where to break a line
+set colorcolumn=80 " visually highlight the wrap
+" }}}
 
-set wildmode=list:longest,full  "Commands completion
+" Theme {{{
+set background=light
+set termguicolors
+colorscheme solarized8
+" }}}
+
+" Status line {{{
+set laststatus=2                             " always show status line
+let g:airline#extensions#tabline#enabled = 1 " enable buffer names on top
+let g:airline_theme='solarized'
+let g:airline_powerline_fonts = 1
+" }}}
 
 " Folding {{{
 set foldmethod=syntax
@@ -45,122 +88,48 @@ endif
 " }}}
 
 " Indentation {{{
-
 set autoindent
 set smartindent
 set smarttab
 set shiftwidth=4
 set softtabstop=4
-set tabstop=8
+set tabstop=4
 set expandtab
 
 filetype plugin on
 filetype indent on
 " }}}
 
-" Display tabs and trailing spaces visually
-set list listchars=tab:\▸\ ,trail:·
-
-set nowrap       "Don't wrap lines
-set linebreak    "Wrap lines at convenient points
-
-" Search {{{
-set incsearch       " Find the next match as we type the search
-set hlsearch        " Highlight searches by default
-set ignorecase      " Ignore case when searching...
-set smartcase       " ...unless we type a capital
+" Search and Substitute {{{
+set gdefault   " use global substitution
+set incsearch  " Find the next match as we type the search
+set hlsearch   " Highlight searches by default
+set ignorecase " Ignore case when searching...
+set smartcase  " ...unless we type a capital
 " Stop highgliting until next search
 nmap <silent> <BS> :nohlsearch<CR>
 " }}}
 
-
-set laststatus=2
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline_theme='solarized'
-
-let mapleader = "\<Space>"
-set encoding=utf-8
-
 " Files navigation {{{
-map <leader>n :NERDTreeToggle<CR>
 map <silent> <Leader>t :Files<CR>
 map <silent> <Leader>e :History<CR>
 noremap <leader>b :Buffers<cr>
-set hidden " allows to switch a buffer with unsaved changes
 " }}}
 
-" CTAGS {{{
-
-set tags=tags;/,codex.tags;/
-nmap <leader>o :TagbarToggle<CR>
+" NetRW {{{
+let g:netrw_liststyle = 1                     " detail view
+let g:netrw_sizestyle = 'H'                   " human readable
+let g:netrw_list_hide = '\(^\|\s\s)\zs\.\S\+' " hide dotfiles
+let g:netrw_hide = 1                          " hide by default
+let g:netrw_banner = 0                        " turn banner off
+map <leader>n :Explore!<CR>
 " }}}
 
 " Completion {{{
-
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
-
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" Close popup by <Space>.
-inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
+set completeopt=menuone,noinsert,noselect
+set shortmess+=c                          " turn off completion messages
+let g:deoplete#enable_at_startup = 1      " Use deoplete.
 " }}}
-
-" vim-plug {{{
-
-call plug#begin()
-
-    Plug 'airblade/vim-gitgutter'
-    Plug 'bling/vim-airline'
-    Plug 'christoomey/vim-sort-motion'
-    Plug 'garbas/vim-snipmate'
-    Plug 'hashivim/vim-terraform'
-    Plug 'JamshedVesuna/vim-markdown-preview'
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
-    Plug 'ledger/vim-ledger'
-    Plug 'lifepillar/vim-solarized8'
-    Plug 'majutsushi/tagbar'
-    Plug 'MarcWeber/vim-addon-mw-utils'
-    Plug 'nelstrom/vim-markdown-folding'
-    Plug 'scrooloose/nerdtree'
-    Plug 'sheerun/vim-polyglot'
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-    Plug 'tomtom/tlib_vim'
-    Plug 'tpope/vim-commentary'
-    Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-markdown'
-    Plug 'tpope/vim-sensible'
-    Plug 'tpope/vim-surround'
-    Plug 'vim-airline/vim-airline-themes'
-    Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
-    Plug 'w0rp/ale'
-
-    " Haskell
-    Plug 'alx741/vim-hindent', { 'for': 'haskell' }
-    Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-    Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
-
-call plug#end()
-
-" }}}
-
-" Save file on loosing focus
-autocmd FocusLost * :wa
-
-set background=light
-set termguicolors
-colorscheme solarized8
-
-" Load haskell configuration 
-let config_haskell = expand(resolve($HOME . "/.config/nvim/vimrc.haskell"))
-execute 'source '. config_haskell
 
 " vimwiki {{{
 let g:vimwiki_list = [{'path': '~/Dropbox/Notes',
@@ -172,13 +141,8 @@ autocmd FileType vimwiki setlocal textwidth=80
 " }}}
 
 " terraform {{{
-let g:terraform_align=1             "apply override alignment
-let g:terraform_fold_sections=1     "apply specific folding
-let g:terraform_fmt_on_save=1       "reformat on save
+let g:terraform_align=1         " apply override alignment
+let g:terraform_fold_sections=1 " apply specific folding
+let g:terraform_fmt_on_save=1   " reformat on save
 autocmd FileType terraform setlocal commentstring=#%s
-" }}}
-
-" vim markdown preview {{{
-let vim_markdown_preview_use_xdg_open=1
-let vim_markdown_preview_toggle=1 "display images with the hotkey mapping
 " }}}
