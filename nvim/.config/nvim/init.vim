@@ -45,6 +45,10 @@ set nowrap         " Don't soft wrap lines
 set linebreak      " break lines at convenient points
 set textwidth=79   " where to break a line
 set colorcolumn=80 " visually highlight the wrap
+set winwidth=80    " minimal width of the buffer
+" navigate through display lines
+noremap j gj
+noremap k gk
 " }}}
 
 " Theme {{{
