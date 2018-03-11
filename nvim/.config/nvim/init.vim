@@ -23,6 +23,7 @@ call plug#end()
 
 let mapleader = "\<Space>"
 set hidden                          " allows to switch a buffer with unsaved changes
+set number                          " show line number
 set relativenumber                  " Line numbers are good
 set backspace=indent,eol,start      " Allow backspace in insert mode
 set history=1000                    " Store lots of :cmdline history
