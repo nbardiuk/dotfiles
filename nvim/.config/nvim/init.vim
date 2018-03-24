@@ -36,7 +36,7 @@ set mouse=a                         " Enable mouse
 set mousemodel=popup_setpos         " make mouse behave like in GUI app
 set clipboard=unnamedplus           " Set default copy buffer the same as clipboard
 syntax on                           " turn on syntax highlighting
-set spell spelllang=en_us,uk        " enable spell check
+set nospell spelllang=en_us           " enable spell check
 set wildmode=list:longest,full      " Commands completion
 set list listchars=tab:\▸\ ,trail:· " Display tabs and trailing spaces visually
 autocmd FocusLost * :wa             " Save file on loosing focus
