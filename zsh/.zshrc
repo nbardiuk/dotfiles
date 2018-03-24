@@ -2,15 +2,14 @@ source ~/.zplug/init.zsh
 
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
-zplug 'denysdovhan/spaceship-prompt', use:'spaceship.zsh', from:github, as:theme
+zplug 'mafredri/zsh-async', from:github
+zplug 'dfurnes/purer', use:pure.zsh, from:github, as:theme
 
 zplug "modules/archive", from:prezto
 zplug "plugins/archlinux", from:oh-my-zsh
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/common-aliases", from:oh-my-zsh
 zplug "plugins/git", from:oh-my-zsh
-zplug "spwhitt/nix-zsh-completions", from:github
-zplug "zsh-users/zsh-autosuggestions", from:github
 zplug "zsh-users/zsh-completions", from:github
 zplug "zsh-users/zsh-syntax-highlighting", from:github
 zplug "joel-porquet/zsh-dircolors-solarized", from:github
@@ -42,16 +41,7 @@ HISTSIZE=1000000
 SAVEHIST=1000000
 HISTFILE=~/.zsh_history
 
-
-export ANDROID_HOME="~/dev/android-sdk"
 export PATH="~/.local/bin/:$PATH"
-export PATH="~/.cargo/bin/:$PATH"
-export PATH="~/.gem/ruby/2.3.0/bin:$PATH"
-export PATH="~/go/bin:$PATH"
-
-export PATH="~/.npm-packages/bin/:$PATH"
-export NPM_PACKAGES=~/.npm-packages
-export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -68,8 +58,3 @@ alias ls="ls --color=auto"
 
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
-
-# NIX
-if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
-eval "$(direnv hook zsh)"
