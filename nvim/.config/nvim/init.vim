@@ -1,11 +1,13 @@
 " vim-plug {{{
 call plug#begin()
 Plug 'airblade/vim-gitgutter'                                     " shows git changes stats
+Plug 'alx741/vim-stylishask'                                      " haskell formatter
 Plug 'godlygeek/tabular'                                          " heps to align text in tabular form
 Plug 'hashivim/vim-terraform'                                     " syntax and formatter for terraform
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'lifepillar/vim-solarized8'                                  " color theme
+Plug 'parsonsmatt/intero-neovim'                                  " haskell runtime
 Plug 'sheerun/vim-polyglot'                                       " collection of language packs
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neco-syntax'                                         " completions from syntax file
@@ -34,7 +36,7 @@ set visualbell                      " No sounds
 set autoread                        " Reload files changed outside vim
 set mouse=a                         " Enable mouse
 set mousemodel=popup_setpos         " make mouse behave like in GUI app
-set clipboard=unnamedplus           " Set default copy buffer the same as clipboard
+set clipboard+=unnamedplus           " Set default copy buffer the same as clipboard
 syntax on                           " turn on syntax highlighting
 set nospell spelllang=en_us           " enable spell check
 set wildmode=list:longest,full      " Commands completion
@@ -116,9 +118,9 @@ nmap <silent> <BS> :nohlsearch<CR>
 " }}}
 
 " Files navigation {{{
-map <silent> <Leader>t :Files<CR>
-map <silent> <Leader>e :History<CR>
-noremap <leader>b :Buffers<cr>
+map <silent> <Leader>n :Files<CR>
+map <silent> <Leader>E :History<CR>
+noremap <leader>e :Buffers<cr>
 " }}}
 
 " NetRW {{{
@@ -127,7 +129,7 @@ let g:netrw_sizestyle = 'H'                   " human readable
 let g:netrw_list_hide = '\(^\|\s\s)\zs\.\S\+' " hide dotfiles
 let g:netrw_hide = 1                          " hide by default
 let g:netrw_banner = 0                        " turn banner off
-map <leader>n :Explore!<CR>
+map <leader>N :Explore!<CR>
 " }}}
 
 " Completion {{{
@@ -150,4 +152,54 @@ let g:terraform_align=1         " apply override alignment
 let g:terraform_fold_sections=1 " apply specific folding
 let g:terraform_fmt_on_save=1   " reformat on save
 autocmd FileType terraform setlocal commentstring=#%s
+" }}}
+
+" haskell {{{
+augroup haskellMaps
+  au!
+  " Restrict to Haskell buffers so the bindings don't collide.
+
+  " Background process and window management
+  au FileType haskell nnoremap <silent> <leader>is :InteroStart<CR>
+  au FileType haskell nnoremap <silent> <leader>ik :InteroKill<CR>
+
+  " Open intero/GHCi split vertically
+  au FileType haskell nnoremap <silent> <leader>iov :InteroOpen<CR><C-W>H
+  au FileType haskell nnoremap <silent> <leader>ih :InteroHide<CR>
+
+  " Sends selection to intero buffer for evaluation
+  au FileType haskell vmap <leader>is y:InteroSend <C-R>" <CR>
+
+  " Automatically reload on save
+  au BufWritePost *.hs InteroReload
+
+  " Load individual modules
+  au FileType haskell nnoremap <silent> <leader>il :InteroLoadCurrentModule<CR>
+  au FileType haskell nnoremap <silent> <leader>if :InteroLoadCurrentFile<CR>
+
+  " Type-related information
+  " Heads up! These next two differ from the rest.
+  au FileType haskell map <silent> <leader>t <Plug>InteroGenericType
+  au FileType haskell map <silent> <leader>T <Plug>InteroType
+  au FileType haskell nnoremap <silent> <leader>it :InteroTypeInsert<CR>
+
+  " Navigation
+  au FileType haskell nnoremap <silent> <leader>jd :InteroGoToDef<CR>
+
+  " Managing targets
+  " Prompts you to enter targets (no silent):
+  au FileType haskell nnoremap <leader>ist :InteroSetTargets<SPACE>
+
+augroup END
+
+" Intero starts automatically. Set this if you'd like to prevent that.
+let g:intero_start_immediately = 0
+
+" Enable type information on hover (when holding cursor at point for ~1 second).
+let g:intero_type_on_hover = 1
+" OPTIONAL: Make the update time shorter, so the type info will trigger faster.
+set updatetime=1000
+
+" trigger stylish-haskell when saving
+let g:stylishask_on_save = 1
 " }}}
