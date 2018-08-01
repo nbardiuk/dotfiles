@@ -8,6 +8,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'lifepillar/vim-solarized8'                                  " color theme
 Plug 'parsonsmatt/intero-neovim'                                  " haskell runtime
+Plug 'sbdchd/neoformat'
 Plug 'sheerun/vim-polyglot'                                       " collection of language packs
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neco-syntax'                                         " completions from syntax file
@@ -25,8 +26,8 @@ call plug#end()
 
 let mapleader = "\<Space>"
 set hidden                          " allows to switch a buffer with unsaved changes
-set number                          " show line number
-set relativenumber                  " Line numbers are good
+" set number                          " show line number
+" set relativenumber                  " Line numbers are good
 set backspace=indent,eol,start      " Allow backspace in insert mode
 set history=1000                    " Store lots of :cmdline history
 set showcmd                         " Show incomplete cmds down the bottom
@@ -62,7 +63,6 @@ colorscheme solarized8
 
 " Status line {{{
 set laststatus=2                             " always show status line
-let g:airline#extensions#tabline#enabled = 1 " enable buffer names on top
 let g:airline_theme='solarized'
 let g:airline_powerline_fonts = 1
 " }}}
@@ -202,4 +202,13 @@ set updatetime=1000
 
 " trigger stylish-haskell when saving
 let g:stylishask_on_save = 1
+" }}}
+
+" Neoformat {{{
+
+" format on save
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
 " }}}
