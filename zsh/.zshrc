@@ -52,3 +52,7 @@ alias ls="ls --color=auto"
 
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+source /usr/share/undistract-me/long-running.bash
+notify_when_long_running_commands_finish_install
