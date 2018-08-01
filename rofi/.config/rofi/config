@@ -11,7 +11,7 @@ rofi.modi:                           window,drun,run,ssh,combi
 ! rofi.columns:                        1
 
 ! "Font to use" Set from: Default
-rofi.font:                           Iosevka 14
+rofi.font:                           Iosevka SS04 14
 
 ! "Border width" Set from: Default
 ! rofi.bw:                             1
