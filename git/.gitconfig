@@ -1,0 +1,17 @@
+[core]
+	excludesfile = ~/.gitignore
+	autocrlf = input
+[user]
+	name = Nazarii Bardiuk
+[code]
+	editor = nvim
+[mergetool "vimdiff"]
+    cmd = nvim -d $LOCAL $REMOTE $MERGED -c 'wincmd w' -c 'wincmd J'
+[merge]
+    tool = vimdiff
+[mergetool]
+    promt = true
+[diff]
+    tool = vimdiff
+[difftool]
+    promt = true
