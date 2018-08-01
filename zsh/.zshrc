@@ -37,6 +37,9 @@ HISTFILE=~/.zsh_history
 
 export PATH="/home/nbardiuk/.local/bin/:$PATH"
 
+# runs command in each subdirectory
+fordirs() { for d in ./*/ ; do /bin/zsh -c "(cd "$d" && "$@")"; done }
+
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='nvim'
