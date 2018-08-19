@@ -2,12 +2,10 @@
 call plug#begin()
 Plug 'airblade/vim-gitgutter'                                     " shows git changes stats
 Plug 'godlygeek/tabular'                                          " heps to align text in tabular form
-Plug 'hashivim/vim-terraform'                                     " syntax and formatter for terraform
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'lifepillar/vim-solarized8'                                  " color theme
 Plug 'mzlogin/vim-markdown-toc'
-Plug 'parsonsmatt/intero-neovim'                                  " haskell runtime
 Plug 'sbdchd/neoformat'
 Plug 'sheerun/vim-polyglot'                                       " collection of language packs
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -148,64 +146,19 @@ autocmd FileType vimwiki setlocal wrap
 autocmd FileType vimwiki setlocal textwidth=80
 " }}}
 
-" terraform {{{
-let g:terraform_align=1         " apply override alignment
-let g:terraform_fold_sections=1 " apply specific folding
-let g:terraform_fmt_on_save=1   " reformat on save
-autocmd FileType terraform setlocal commentstring=#%s
-" }}}
-
 " haskell {{{
 augroup haskellMaps
   au!
   " Restrict to Haskell buffers so the bindings don't collide.
 
-  " Background process and window management
-  au FileType haskell nnoremap <silent> <leader>is :InteroStart<CR>
-  au FileType haskell nnoremap <silent> <leader>ik :InteroKill<CR>
-
-  " Open intero/GHCi split vertically
-  au FileType haskell nnoremap <silent> <leader>iov :InteroOpen<CR><C-W>H
-  au FileType haskell nnoremap <silent> <leader>ih :InteroHide<CR>
-
-  " Sends selection to intero buffer for evaluation
-  au FileType haskell vmap <leader>is y:InteroSend <C-R>" <CR>
-
-  " Automatically reload on save
-  " au BufWritePost *.hs InteroReload
-
-  " Load individual modules
-  au FileType haskell nnoremap <silent> <leader>il :InteroLoadCurrentModule<CR>
-  au FileType haskell nnoremap <silent> <leader>if :InteroLoadCurrentFile<CR>
-
-  " Type-related information
-  " Heads up! These next two differ from the rest.
-  au FileType haskell map <silent> <leader>t <Plug>InteroGenericType
-  au FileType haskell map <silent> <leader>T <Plug>InteroType
-  au FileType haskell nnoremap <silent> <leader>it :InteroTypeInsert<CR>
-
-  " Navigation
-  au FileType haskell nnoremap <silent> <leader>jd :InteroGoToDef<CR>
-
-  " Managing targets
-  " Prompts you to enter targets (no silent):
-  au FileType haskell nnoremap <leader>ist :InteroSetTargets<SPACE>
+  " update tags
+  au BufWritePost *.hs :call jobstart('codex update')
 
 augroup END
-
-" Intero starts automatically. Set this if you'd like to prevent that.
-let g:intero_start_immediately = 0
-
-" Enable type information on hover (when holding cursor at point for ~1 second).
-let g:intero_type_on_hover = 1
-" OPTIONAL: Make the update time shorter, so the type info will trigger faster.
-set updatetime=1000
 
 " choose formatter
 let g:neoformat_enabled_haskell = ['brittany', 'stylishhaskell']
 
-" add support for codex tags do
-set tags=tags;/,codex.tags;/
 " }}}
 
 " Neoformat {{{
@@ -216,9 +169,6 @@ let g:neoformat_basic_format_retab = 1
 " Enable trimmming of trailing whitespace globally
 let g:neoformat_basic_format_trim = 1
 
-" Auto format on save
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
-augroup END
+" Format code on demand
+map <silent> <Leader>l :Neoformat<CR>
 " }}}
