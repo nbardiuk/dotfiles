@@ -1,12 +1,12 @@
 " vim-plug {{{
 call plug#begin()
 Plug 'airblade/vim-gitgutter'                                     " shows git changes stats
-Plug 'alx741/vim-stylishask'                                      " haskell formatter
 Plug 'godlygeek/tabular'                                          " heps to align text in tabular form
 Plug 'hashivim/vim-terraform'                                     " syntax and formatter for terraform
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'lifepillar/vim-solarized8'                                  " color theme
+Plug 'mzlogin/vim-markdown-toc'
 Plug 'parsonsmatt/intero-neovim'                                  " haskell runtime
 Plug 'sbdchd/neoformat'
 Plug 'sheerun/vim-polyglot'                                       " collection of language packs
@@ -39,7 +39,7 @@ set mouse=a                         " Enable mouse
 set mousemodel=popup_setpos         " make mouse behave like in GUI app
 set clipboard+=unnamedplus           " Set default copy buffer the same as clipboard
 syntax on                           " turn on syntax highlighting
-set nospell spelllang=en_us           " enable spell check
+set nospell spelllang=en_us         " spell check
 set wildmode=list:longest,full      " Commands completion
 set list listchars=tab:\▸\ ,trail:· " Display tabs and trailing spaces visually
 autocmd FocusLost * :wa             " Save file on loosing focus
@@ -65,6 +65,7 @@ colorscheme solarized8
 set laststatus=2                             " always show status line
 let g:airline_theme='solarized'
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#ale#enabled = 1     " show ale warnings on status line
 " }}}
 
 " Folding {{{
@@ -98,9 +99,9 @@ endif
 set autoindent
 set smartindent
 set smarttab
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 set expandtab
 
 filetype plugin on
@@ -171,7 +172,7 @@ augroup haskellMaps
   au FileType haskell vmap <leader>is y:InteroSend <C-R>" <CR>
 
   " Automatically reload on save
-  au BufWritePost *.hs InteroReload
+  " au BufWritePost *.hs InteroReload
 
   " Load individual modules
   au FileType haskell nnoremap <silent> <leader>il :InteroLoadCurrentModule<CR>
@@ -200,13 +201,22 @@ let g:intero_type_on_hover = 1
 " OPTIONAL: Make the update time shorter, so the type info will trigger faster.
 set updatetime=1000
 
-" trigger stylish-haskell when saving
-let g:stylishask_on_save = 1
+" choose formatter
+let g:neoformat_enabled_haskell = ['brittany', 'stylishhaskell']
+
+" add support for codex tags do
+set tags=tags;/,codex.tags;/
 " }}}
 
 " Neoformat {{{
 
-" format on save
+" Enable tab to spaces conversion globally
+let g:neoformat_basic_format_retab = 1
+
+" Enable trimmming of trailing whitespace globally
+let g:neoformat_basic_format_trim = 1
+
+" Auto format on save
 augroup fmt
   autocmd!
   autocmd BufWritePre * undojoin | Neoformat
