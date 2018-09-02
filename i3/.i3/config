@@ -166,18 +166,18 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	strip_workspace_numbers yes
- 	status_command i3blocks -c ~/.i3/i3blocks.conf
- 	position top
-	mode dock
+  strip_workspace_numbers yes
+  status_command i3blocks -c ~/.i3/i3blocks.conf
+  position top
+  mode dock
     colors {
-		background $bg-color
+    background $bg-color
     separator #757575
-		#                  border             background         text
-		focused_workspace  $bg-color          $bg-color          $text-color
-		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-    }		
+    #                  border             background         text
+    focused_workspace  $bg-color          $bg-color          $text-color
+    inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+    urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+    }
 }
 
 
@@ -191,12 +191,12 @@ client.focused          $bg-color           $bg-color          $text-color      
 client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
 client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
 client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
-client.background       $bg-color           $bg-color          $text-color 			#00ff00
+client.background       $bg-color           $bg-color          $text-color          #00ff00
 
 
 # volume hotkeys; and notification to redraw status bar
 bindsym XF86AudioRaiseVolume exec amixer set Master 5%+ unmute; exec pkill -RTMIN+10 i3blocks
-bindsym XF86AudioLowerVolume exec amixer set Master 5%-; 		exec pkill -RTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec amixer set Master 5%-;        exec pkill -RTMIN+10 i3blocks
 
 # screen brightness hotkeys
 bindsym XF86MonBrightnessUp   exec xbacklight -inc 5
@@ -206,14 +206,16 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 bindsym Print exec maim -us ~/Snapshots/$(date +%s).png
 
 # wallpaper
-exec_always feh --bg-scale ~/.i3/wallpapers/river.jpg
+exec feh --bg-scale ~/.i3/wallpapers/river.jpg
 # Notifications
-exec_always dunst -config ~/.i3/dunstrc
+exec dunst -config ~/.i3/dunstrc
+
 # Monitors layout
 exec_always xrandr --output eDP1 --mode 1920x1080
 exec_always xrandr --output HDMI1 --auto --above eDP1
 
 exec_always --no-startup-id xrdb ~/.Xresources
+
 # Keyboard layout
 exec_always setxkbmap -model pc104 -layout us,ua  -option grp:shifts_toggle -option ctrl:nocaps
 
@@ -228,6 +230,7 @@ bindsym $mod+Ctrl+l exec xautolock -locknow && exec xset dpms force standby
 ## AUTOSTART APPS
 exec nm-applet
 exec dropbox
+exec redshift-gtk
 
 # https://i3wm.org/docs/userguide.html#focus_on_window_activation
 # smart|urgent|focus|none
