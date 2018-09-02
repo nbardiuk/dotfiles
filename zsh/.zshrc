@@ -13,6 +13,7 @@ zplug "plugins/git", from:oh-my-zsh
 zplug "zsh-users/zsh-completions", from:github
 zplug "zsh-users/zsh-syntax-highlighting", from:github
 zplug "joel-porquet/zsh-dircolors-solarized", from:github
+zplug 'spwhitt/nix-zsh-completions', from:github
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -25,6 +26,8 @@ fi
 # Then, source plugins and add commands to $PATH
 zplug load
 
+# Vi mode
+bindkey -v
 
 # ===== History
 # Do not write events to history that are duplicates of previous events
@@ -52,6 +55,7 @@ alias vim=nvim
 export MANPAGER="nvim +set\ filetype=man -"
 
 alias ls="ls --color=auto"
+alias caffeine="xset s off -dpms && pkill xautolock"
 
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
