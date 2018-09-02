@@ -14,6 +14,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neco-syntax'                                         " completions from syntax file
 Plug 'Shougo/neco-vim'                                            " completions for vim
 Plug 'tpope/vim-commentary'                                       " enables gc commenting command
+Plug 'tpope/vim-fugitive'                                         " git client
 Plug 'tpope/vim-markdown'                                         " syntax and folding for markdown
 Plug 'tpope/vim-sensible'                                         " sensible vim defaults
 Plug 'tpope/vim-surround'                                         " adds surrounding objects
@@ -34,7 +35,7 @@ set visualbell                      " No sounds
 set autoread                        " Reload files changed outside vim
 set mouse=a                         " Enable mouse
 set mousemodel=popup_setpos         " make mouse behave like in GUI app
-set clipboard+=unnamedplus           " Set default copy buffer the same as clipboard
+set clipboard+=unnamedplus          " Set default copy buffer the same as clipboard
 syntax on                           " turn on syntax highlighting
 set nospell spelllang=en_us         " spell check
 set wildmode=list:longest,full      " Commands completion
@@ -68,8 +69,8 @@ let g:airline_powerline_fonts = 1
 set foldmethod=syntax
 
 augroup vimrcFold
-  " fold vimrc itself by categories
   autocmd!
+  " fold vimrc itself by categories
   autocmd FileType vim set foldmethod=marker
   autocmd FileType vim set foldlevel=0
 augroup END
