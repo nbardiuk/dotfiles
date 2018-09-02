@@ -23,7 +23,8 @@ chatnets = {
 
 channels = (
   { name = "#lobsters"; chatnet = "Freenode"; autojoin = "Yes"; },
-  { name = "#haskell"; chatnet = "Freenode"; autojoin = "Yes"; }
+  { name = "#haskell"; chatnet = "Freenode"; autojoin = "Yes"; },
+  { name = "#scala"; chatnet = "Freenode"; autojoin = "Yes"; }
 );
 
 aliases = {
@@ -144,9 +145,11 @@ settings = {
 
     autolog = "yes";
     show_nickmode_empty = "no";
+    show_names_on_join = "no";
   };
 };
 hilights = (
   { text = "nbardiuk"; color = "%M"; nick = "yes"; word = "yes"; }
 );
 ignores = ( { level = "CRAP JOINS PARTS QUITS MODES"; } );
+logs = { };
