@@ -152,13 +152,17 @@
     feh                       # image viewer, manages wallpaper
     font-awesome_4            # font for status icons
     ghc                       # haskell compiler
+    gradle                    # java build tool
+    gtypist                   # touch typing trainer
     hledger                   # cli accounting
     iosevka-bin               # monospace font
     irssi                     # cli IRC client
     keepassxc                 # password manager
+    maven                     # java build tool
     neovim                    # editor
     ranger                    # cli file manager
-    stack                     # haskell tool
+    sbt                       # scala build tool
+    stack                     # haskell build tool
     syncthing                 # files syncronization
     termite                   # VTE-based terminal
     vale                      # prose linter
