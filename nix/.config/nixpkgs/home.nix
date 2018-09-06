@@ -409,14 +409,13 @@
     ranger                    # cli file manager
     sbt                       # scala build tool
     stack                     # haskell build tool
-    syncthing                 # files syncronization
     vale                      # prose linter
     vim-vint                  # vim linter
     w3m                       # cli browser, shows images
     xautolock                 # locks X session
-    xdotool                   # X11 automation
     xkb_switch                # keyboard status
     xorg.xbacklight           # screen brightness TODO fixme
     xorg.xrandr               # monitor settings
+    zathura                   # pdf/djvu reader
   ];
 }
