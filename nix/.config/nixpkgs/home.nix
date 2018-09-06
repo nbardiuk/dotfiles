@@ -219,6 +219,10 @@
       package = pkgs.arc-theme;
     };
   };
+  qt = {
+    enable = true;
+    useGtkTheme = true;
+  };
 
   xdg.enable = true;
   xsession.enable = true;
