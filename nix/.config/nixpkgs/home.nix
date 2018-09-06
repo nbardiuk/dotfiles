@@ -386,6 +386,7 @@
     };
   };
 
+  nixpkgs.config.allowUnfree = true;
   # The set of packages to appear in the user environment.
   home.packages = with pkgs; [
     # i3blocks                # i3 status line TODO build from git
@@ -400,6 +401,7 @@
     i3lock                    # screen lock app
     iosevka-bin               # monospace font
     irssi                     # cli IRC client
+    jetbrains.idea-ultimate   # java ide
     keepassxc                 # password manager
     maim                      # cli screenshot tool
     maven                     # java build tool
