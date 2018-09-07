@@ -402,13 +402,13 @@
         { always = true;  notification = true;  command = "xrandr --output HDMI1 --auto --above eDP1"; }
         { always = true;  notification = false; command = "xrdb ~/.Xresources"; }
         { always = true;  notification = false; command = "setxkbmap -model pc104 -layout us,ua  -option grp:shifts_toggle -option ctrl:nocaps"; }
-        { always = true;  notification = false; command = "xset -b off"; }
-        { always = true;  notification = false; command = "xset s 300 300"; }
-        { always = true;  notification = false; command = "xautolock -time 5 -locker \"i3lock -c 000000\""; }
-        { always = false; notification = false; command = "nm-applet"; }
-        { always = false; notification = false; command = "dropbox"; }
-        { always = false; notification = false; command = "keepassxc"; }
-        { always = false; notification = false; command = "firefox"; }
+        { always = true;  notification = false; command = "xset -b"; }
+        { always = true;  notification = false;  command = "xset s 300 300"; }
+        { always = true;  notification = true;  command = "xautolock -time 5 -locker \"i3lock -c 000000\""; }
+        { always = false; notification = true;  command = "nm-applet"; }
+        { always = false; notification = true;  command = "dropbox"; }
+        { always = false; notification = true;  command = "keepassxc"; }
+        { always = false; notification = true;  command = "firefox"; }
       ];
     };
   };
@@ -444,6 +444,7 @@
     xkb_switch                # keyboard status
     xorg.xbacklight           # screen brightness TODO fixme
     xorg.xrandr               # monitor settings
+    xorg.xrdb                 # loads xresources
     zathura                   # pdf/djvu reader
   ];
 }
