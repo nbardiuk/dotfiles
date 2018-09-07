@@ -418,6 +418,7 @@
   home.packages = with pkgs; [
     # i3blocks                # i3 status line TODO build from git
     acpi                      # status battery
+    ammonite                  # scala repl
     cabal-install             # haskell build tool
     feh                       # image viewer, manages wallpaper
     font-awesome_4            # font for status icons
