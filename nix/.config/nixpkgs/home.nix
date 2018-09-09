@@ -407,14 +407,19 @@
         { always = true;  notification = false; command = "xrdb ~/.Xresources"; }
         { always = true;  notification = false; command = "setxkbmap -model pc104 -layout us,ua  -option grp:shifts_toggle -option ctrl:nocaps"; }
         { always = true;  notification = false; command = "xset -b"; }
-        { always = true;  notification = false;  command = "xset s 300 300"; }
-        { always = true;  notification = true;  command = "xautolock -time 5 -locker \"i3lock -c 000000\""; }
+        { always = true;  notification = false; command = "xset s 300 300"; }
         { always = false; notification = true;  command = "nm-applet"; }
         { always = false; notification = true;  command = "dropbox"; }
         { always = false; notification = true;  command = "keepassxc"; }
         { always = false; notification = true;  command = "firefox"; }
       ];
     };
+  };
+
+  services.screen-locker = {
+    enable = true;
+    inactiveInterval = 5;
+    lockCmd = "i3lock -n -c 000000";
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -430,7 +435,7 @@
     gradle                    # java build tool
     gtypist                   # touch typing trainer
     hledger                   # cli accounting
-    i3lock                    # screen lock app
+    # i3lock                  # TODO broken calls nix pam instead of system?
     iosevka-bin               # monospace font
     irssi                     # cli IRC client
     jetbrains.idea-ultimate   # java ide
@@ -439,6 +444,7 @@
     maven                     # java build tool
     neovim                    # editor
     ranger                    # cli file manager
+    ripgrep                   # grep for developers
     sbt                       # scala build tool
     stack                     # haskell build tool
     vale                      # prose linter
