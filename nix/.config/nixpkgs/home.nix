@@ -426,6 +426,7 @@
   # The set of packages to appear in the user environment.
   home.packages = with pkgs; [
     # i3blocks                # i3 status line TODO build from git
+    # i3lock                  # TODO broken calls nix pam instead of system?
     acpi                      # status battery
     ammonite                  # scala repl
     cabal-install             # haskell build tool
@@ -435,7 +436,6 @@
     gradle                    # java build tool
     gtypist                   # touch typing trainer
     hledger                   # cli accounting
-    # i3lock                  # TODO broken calls nix pam instead of system?
     iosevka-bin               # monospace font
     irssi                     # cli IRC client
     jetbrains.idea-ultimate   # java ide
@@ -447,6 +447,7 @@
     ripgrep                   # grep for developers
     sbt                       # scala build tool
     stack                     # haskell build tool
+    tdesktop                  # chat app
     vale                      # prose linter
     vim-vint                  # vim linter
     w3m                       # cli browser, shows images
