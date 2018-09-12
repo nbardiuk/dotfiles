@@ -402,8 +402,7 @@
       }];
       startup = [
         { always = true;  notification = false; command = "feh --bg-scale ~/.wallpaper"; }
-        { always = true;  notification = true;  command = "xrandr --output eDP1 --mode 1920x1080"; }
-        { always = true;  notification = true;  command = "xrandr --output HDMI1 --auto --above eDP1"; }
+        { always = true;  notification = true;  command = "xrandr --output eDP1 --auto --below HDMI1 --primary --output HDMI1 --auto"; }
         { always = true;  notification = false; command = "xrdb ~/.Xresources"; }
         { always = true;  notification = false; command = "setxkbmap -model pc104 -layout us,ua  -option grp:shifts_toggle -option ctrl:nocaps"; }
         { always = true;  notification = false; command = "xset -b"; }
@@ -425,10 +424,10 @@
   nixpkgs.config.allowUnfree = true;
   # The set of packages to appear in the user environment.
   home.packages = with pkgs; [
-    # i3blocks                # i3 status line TODO build from git
     # i3lock                  # TODO broken calls nix pam instead of system?
     acpi                      # status battery
     ammonite                  # scala repl
+    arandr                    # monitor settings GUI
     cabal-install             # haskell build tool
     feh                       # image viewer, manages wallpaper
     font-awesome_4            # font for status icons
@@ -436,6 +435,7 @@
     gradle                    # java build tool
     gtypist                   # touch typing trainer
     hledger                   # cli accounting
+    i3blocks                  # i3 status line TODO build from git
     iosevka-bin               # monospace font
     irssi                     # cli IRC client
     jetbrains.idea-ultimate   # java ide
@@ -454,7 +454,7 @@
     xautolock                 # locks X session
     xkb_switch                # keyboard status
     xorg.xbacklight           # screen brightness TODO fixme
-    xorg.xrandr               # monitor settings
+    xorg.xrandr               # monitor settings CLI
     xorg.xrdb                 # loads xresources
     zathura                   # pdf/djvu reader
   ];
