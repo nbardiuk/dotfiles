@@ -18,3 +18,9 @@ ln -s ~/.nix-profile/share/themes ~/.themes
 ```sh
 ln -s ~/.nix-profile/share/applications ~/.local/share/applications
 ```
+
+## link nix fonts 
+
+```sh
+ln -s ~/.nix-profile/share/fonts ~/.fonts
+```

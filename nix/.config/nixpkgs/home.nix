@@ -432,6 +432,7 @@
     feh                       # image viewer, manages wallpaper
     font-awesome_4            # font for status icons
     ghc                       # haskell compiler
+    google-fonts              # collection of fonts
     gradle                    # java build tool
     gtypist                   # touch typing trainer
     hledger                   # cli accounting
