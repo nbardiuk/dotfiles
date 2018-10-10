@@ -16,6 +16,11 @@
   # when running home-manager build and home-manager switch.
   news.display = "silent";
 
+  programs.home-manager = {
+    enable = true;
+    path = "https://github.com/rycee/home-manager/archive/master.tar.gz";
+  };
+
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
@@ -45,11 +50,16 @@
 
     shellAliases = {
       caffeine = "xset s off -dpms && pkill xautolock";
-      vim = "nvim";
+      vi = "nvim";
     };
   };
 
   programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.direnv = {
     enable = true;
     enableZshIntegration = true;
   };
@@ -447,6 +457,7 @@
     ranger                    # cli file manager
     ripgrep                   # grep for developers
     sbt                       # scala build tool
+    shellcheck                # shell scripts linter
     stack                     # haskell build tool
     tdesktop                  # chat app
     vale                      # prose linter
@@ -457,6 +468,7 @@
     xorg.xbacklight           # screen brightness TODO fixme
     xorg.xrandr               # monitor settings CLI
     xorg.xrdb                 # loads xresources
+    youtube-dl                # fetch youtube videos
     zathura                   # pdf/djvu reader
   ];
 }
