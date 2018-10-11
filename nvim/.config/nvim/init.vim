@@ -18,8 +18,6 @@ Plug 'tpope/vim-fugitive'                                         " git client
 Plug 'tpope/vim-markdown'                                         " syntax and folding for markdown
 Plug 'tpope/vim-sensible'                                         " sensible vim defaults
 Plug 'tpope/vim-surround'                                         " adds surrounding objects
-Plug 'vim-airline/vim-airline'                                    " statusline
-Plug 'vim-airline/vim-airline-themes'                             " color theme for statusline
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }                       " wiki
 call plug#end()
 " }}}
@@ -60,9 +58,7 @@ colorscheme solarized8
 " }}}
 
 " Status line {{{
-set laststatus=2                             " always show status line
-let g:airline_theme='solarized'
-let g:airline_powerline_fonts = 1
+set laststatus=0                    " never show status line
 " }}}
 
 " Folding {{{
