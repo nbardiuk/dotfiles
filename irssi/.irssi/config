@@ -6,6 +6,15 @@ servers = (
     use_tls = "yes";
     tls_verify = "yes";
     autoconnect = "yes";
+  },
+  {
+    address = "irc.chat.twitch.tv";
+    chatnet = "Twitch";
+    port = "6697";
+    password = "<PASSWORD>";
+    use_ssl = "yes";
+    ssl_verify = "no";
+    autoconnect = "yes";
   }
 );
 
@@ -24,7 +33,8 @@ chatnets = {
 channels = (
   { name = "#lobsters"; chatnet = "Freenode"; autojoin = "Yes"; },
   { name = "#haskell"; chatnet = "Freenode"; autojoin = "Yes"; },
-  { name = "#scala"; chatnet = "Freenode"; autojoin = "Yes"; }
+  { name = "#nixos"; chatnet = "Freenode"; autojoin = "Yes"; },
+  { name = "#vim"; chatnet = "Freenode"; autojoin = "Yes"; },
 );
 
 aliases = {
