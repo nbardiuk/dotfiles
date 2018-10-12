@@ -446,7 +446,8 @@
     gradle                    # java build tool
     gtypist                   # touch typing trainer
     hledger                   # cli accounting
-    i3blocks                  # i3 status line TODO build from git
+    i3blocks                  # i3 status line
+    i3blocks-contrib          # i3 status line blocks
     iosevka-bin               # monospace font
     irssi                     # cli IRC client
     jetbrains.idea-ultimate   # java ide
