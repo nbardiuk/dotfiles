@@ -44,10 +44,6 @@ stdenv.mkDerivation rec {
     cp disk/disk ${output}
   '';
 
-  disk_io = ''
-    cp disk-io/disk-io ${output}
-  '';
-
   kbdd_layout = ''
     cp kbdd_layout/kbdd_layout ${output}
     wrapProgram ${output}/kbdd_layout --prefix PATH : "${makeBinPath [kbdd]}"
@@ -79,7 +75,6 @@ stdenv.mkDerivation rec {
     battery
     cpu_usage
     disk
-    disk_io
     kbdd_layout
     memory
     openvpn
