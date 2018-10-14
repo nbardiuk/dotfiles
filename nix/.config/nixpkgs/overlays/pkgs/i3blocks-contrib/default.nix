@@ -1,13 +1,28 @@
-{ fetchFromGitHub, stdenv, makeWrapper, lm_sensors, sysstat, acpi, kbdd}:
+{
+  acpi,
+  alsaUtils,
+  docker,
+  fetchFromGitHub,
+  iw,
+  kbdd,
+  lm_sensors,
+  makeWrapper,
+  mpv,
+  perl,
+  perlPackages,
+  pulseaudio,
+  python3,
+  stdenv,
+  sysstat,
+  xclip,
+  youtube-dl,
+}:
 
 with stdenv.lib;
+with perlPackages;
 
 let
-  output="$out/libexec/i3blocks";
-in
-stdenv.mkDerivation rec {
 
-  name = "i3blocks-contrib";
   version = "e1ebfb23304e44c892b372aa96562e5b721dbbe1";
 
   src = fetchFromGitHub {
@@ -17,76 +32,76 @@ stdenv.mkDerivation rec {
     sha256 = "16j8xrn4rmrixil70z8ihkzxaqvy46n0ig5r3vk9i3dmxzr8kw22";
   };
 
-  buildPhase = ''
-    mkdir -p ${output}
-  '';
+  output="$out/libexec/i3blocks";
 
-  nativeBuildInputs = [ makeWrapper ];
+  # function to install script block, patched with requirements
+  scriptBlock = name: required:
+    stdenv.mkDerivation {
+      inherit name;
+      inherit version;
+      inherit src;
 
-  bandwidth2 = ''
-    cd bandwidth2
-    make
-    cd ..
-    cp bandwidth2/bandwidth2 ${output}
-  '';
+      postUnpack = "sourceRoot=\${sourceRoot}/${name}";
 
-  battery = ''
-    cp battery/battery ${output}
-    wrapProgram ${output}/battery --prefix PATH : "${makeBinPath [acpi]}"
-  '';
+      nativeBuildInputs = [ makeWrapper ];
 
-  cpu_usage = ''
-    cp cpu_usage/cpu_usage ${output}
-    wrapProgram ${output}/cpu_usage --prefix PATH : "${makeBinPath [sysstat]}"
-  '';
+      buildPhase = ''
+        mkdir -p ${output}
+      '';
 
-  disk = ''
-    cp disk/disk ${output}
-  '';
+      installPhase = ''
+        cp ${name} ${output}
+        wrapProgram ${output}/${name} \
+         --prefix PATH : "${makeBinPath required.bin}" \
+         --set PERL5LIB "${makePerlPath required.perlDeps}"
+      '';
+    };
 
-  kbdd_layout = ''
-    cp kbdd_layout/kbdd_layout ${output}
-    wrapProgram ${output}/kbdd_layout --prefix PATH : "${makeBinPath [kbdd]}"
-  '';
+  # function to build script block requirements,
+  # useful to avoid passing empty attributes
+  required = args: ({
+    bin = [];
+    perlDeps = [];
+  } // args);
 
-  memory = ''
-    cp memory/memory ${output}
-  '';
 
-  openvpn = ''
-    cp openvpn/openvpn ${output}
-  '';
+  # function to install block that requires building
+  makeBlock = name:
+    stdenv.mkDerivation {
+      inherit name;
+      inherit version;
+      inherit src;
 
-  temperature = ''
-    cp temperature/temperature ${output}
-    wrapProgram ${output}/temperature --prefix PATH : "${makeBinPath [lm_sensors]}"
-  '';
+      postUnpack = "sourceRoot=\${sourceRoot}/${name}";
 
-  usb = ''
-    cp usb/usb ${output}
-  '';
-
-  volume = ''
-    cp volume/volume ${output}
-  '';
-
-  installPhase = strings.concatStrings [
-    bandwidth2
-    battery
-    cpu_usage
-    disk
-    kbdd_layout
-    memory
-    openvpn
-    temperature
-    usb
-    volume
-  ];
-
-  meta =  {
-    description = "Community contributed blocklets for i3blocks";
-    homepage = https://github.com/vivien/i3blocks-contrib;
-    license = licenses.gpl3;
-    platforms = with platforms; freebsd ++ linux;
-  };
+      installPhase = ''
+        mkdir -p ${output}
+        cp ${name} ${output}
+      '';
+    };
+in
+rec {
+  bandwidth         = scriptBlock "bandwidth"         ( required {});
+  bandwidth2        = makeBlock "bandwidth2";
+  bandwidth3        = scriptBlock "bandwidth3"        ( required {});
+  battery           = scriptBlock "battery"           ( required {bin = [acpi];});
+  battery2          = scriptBlock "battery2"          ( required {bin = [acpi python3];});
+  batterybar        = scriptBlock "batterybar"        ( required {bin = [acpi];});
+  calendar          = scriptBlock "calendar"          ( required {bin = [xdotool yad];});
+  cpu_usage         = scriptBlock "cpu_usage"         ( required {bin = [sysstat]; });
+  disk              = scriptBlock "disk"              ( required {});
+  disk-io           = scriptBlock "disk-io"           ( required {bin = [sysstat]; });
+  docker            = scriptBlock "docker"            ( required {bin = [docker]; });
+  essid             = scriptBlock "essid"             ( required {});
+  kbdd_layout       = scriptBlock "kbdd_layout"       ( required {bin = [kbdd]; });
+  memory            = scriptBlock "memory"            ( required {});
+  openvpn           = scriptBlock "openvpn"           ( required {});
+  temperature       = scriptBlock "temperature"       ( required {bin = [perl lm_sensors]; });
+  time              = scriptBlock "time"              ( required {bin = [perl];});
+  usb               = scriptBlock "usb"               ( required {bin = [python3];});
+  volume            = scriptBlock "volume"            ( required {});
+  volume-pulseaudio = scriptBlock "volume-pulseaudio" ( required {bin = [alsaUtils pulseaudio];});
+  wifi              = scriptBlock "wifi"              ( required {});
+  wlan-dbm          = scriptBlock "wlan-dbm"          ( required {bin = [iw]; });
+  ytdl-mpv          = scriptBlock "ytdl-mpv"          ( required {bin = [mpv xclip youtube-dl perl]; perlDeps = [ DataValidateURI DataValidateDomain NetDomainTLD DataValidateIP NetAddrIP ]; });
 }

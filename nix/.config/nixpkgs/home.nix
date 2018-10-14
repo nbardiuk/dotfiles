@@ -12,7 +12,7 @@
   # This also includes "man" outputs of all home.packages.
   programs.man.enable = true;
 
-  # How unread and relevant news should be presented 
+  # How unread and relevant news should be presented
   # when running home-manager build and home-manager switch.
   news.display = "silent";
 
@@ -119,7 +119,7 @@
       "dist/*" "target/" "lib_managed/" "src_managed/" "project/boot/" "project/plugins/project/" ".history" ".cache" ".lib/"
       # Gradle
       ".gradle" "**/build/" "gradle-app.setting" ".gradletasknamecache"
-      # Haskell 
+      # Haskell
       "dist" "dist-*" "cabal-dev" "*.o" "*.hi" "*.chi" "*.chs.h" "*.dyn_o" "*.dyn_hi" ".hpc" ".hsenv" ".cabal-sandbox/" "cabal.sandbox.config" "*.prof" "*.aux" "*.hp" "*.eventlog" ".stack-work/" "cabal.project.local" "cabal.project.local~" ".HTF/" ".ghc.environment.*"
     ];
     extraConfig = {
@@ -447,8 +447,19 @@
     gtypist                   # touch typing trainer
     hledger                   # cli accounting
     i3blocks                  # i3 status line
-    i3blocks-contrib          # i3 status line blocks
     i3blocks-brightness       # i3 status line block for brightness
+    i3blocks-contrib.bandwidth2
+    i3blocks-contrib.battery
+    i3blocks-contrib.battery2
+    i3blocks-contrib.cpu_usage
+    i3blocks-contrib.disk
+    i3blocks-contrib.kbdd_layout
+    i3blocks-contrib.memory
+    i3blocks-contrib.openvpn
+    i3blocks-contrib.temperature
+    i3blocks-contrib.usb
+    i3blocks-contrib.volume
+    i3blocks-contrib.ytdl-mpv
     iosevka-bin               # monospace font
     irssi                     # cli IRC client
     jetbrains.idea-ultimate   # java ide

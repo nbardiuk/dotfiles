@@ -14,7 +14,7 @@ header, rows = connections.split("\n", 1)
 # use rofi promt to chose connection
 selection = sh.rofi(sh.echo(rows), "-dmenu",
        "-i",
-       "-p", "Toggle Connection: ",
+       "-p", "Toggle Connection",
        "-mesg", header)
 
 name = selection.split()[0]
