@@ -448,6 +448,7 @@
     hledger                   # cli accounting
     i3blocks                  # i3 status line
     i3blocks-contrib          # i3 status line blocks
+    i3blocks-brightness       # i3 status line block for brightness
     iosevka-bin               # monospace font
     irssi                     # cli IRC client
     jetbrains.idea-ultimate   # java ide

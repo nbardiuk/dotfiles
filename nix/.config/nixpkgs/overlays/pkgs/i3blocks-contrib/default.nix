@@ -7,13 +7,13 @@ let
 in
 stdenv.mkDerivation rec {
 
-  name = "i3blocks-contrib-${version}";
-  version = "git";
+  name = "i3blocks-contrib";
+  version = "e1ebfb23304e44c892b372aa96562e5b721dbbe1";
 
   src = fetchFromGitHub {
     owner = "vivien";
     repo = "i3blocks-contrib";
-    rev = "e1ebfb23304e44c892b372aa96562e5b721dbbe1";
+    rev = version;
     sha256 = "16j8xrn4rmrixil70z8ihkzxaqvy46n0ig5r3vk9i3dmxzr8kw22";
   };
 
