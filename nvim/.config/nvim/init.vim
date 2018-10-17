@@ -4,7 +4,7 @@ call plug#begin()
 Plug 'airblade/vim-gitgutter'                                     " shows git changes stats
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'lifepillar/vim-solarized8'                                  " color theme
+Plug 'flazz/vim-colorschemes'                                     " color theme
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }                " haskell ghci
 Plug 'neomake/neomake'                                            " linting engine
@@ -54,7 +54,7 @@ noremap k gk
 " Theme {{{
 set background=light
 set termguicolors
-colorscheme solarized8
+colorscheme flattened_light " solarized light
 " }}}
 
 " Status line {{{
