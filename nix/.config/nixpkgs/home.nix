@@ -34,6 +34,7 @@
       enable = true;
       plugins = [
         "archlinux"
+        "bgnotify"
         "common-aliases"
         "git"
       ];
