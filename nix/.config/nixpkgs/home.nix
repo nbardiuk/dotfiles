@@ -469,6 +469,7 @@
     i3blocks-contrib.ytdl-mpv
     iosevka-bin               # monospace font
     irssi                     # cli IRC client
+    jdk                       # java dev kit
     jetbrains.idea-ultimate   # java ide
     keepassxc                 # password manager
     keybase
@@ -484,6 +485,7 @@
     tdesktop                  # chat app
     vale                      # prose linter
     vim-vint                  # vim linter
+    visualvm                  # jvm visual dashboard
     w3m                       # cli browser, shows images
     xautolock                 # locks X session
     xkb_switch                # keyboard status
