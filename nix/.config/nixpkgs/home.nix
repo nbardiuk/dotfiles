@@ -8,6 +8,12 @@
   # Enable Syncthing continuous file synchronization.
   services.syncthing.enable = true;
 
+  services.keybase.enable = true;
+  services.kbfs = {
+    enable = true;
+    mountPoint = "keybase";
+  };
+
   # Enable manual pages and the man command.
   # This also includes "man" outputs of all home.packages.
   programs.man.enable = true;
@@ -465,6 +471,8 @@
     irssi                     # cli IRC client
     jetbrains.idea-ultimate   # java ide
     keepassxc                 # password manager
+    keybase
+    keybase-gui
     maim                      # cli screenshot tool
     maven                     # java build tool
     neovim                    # editor
