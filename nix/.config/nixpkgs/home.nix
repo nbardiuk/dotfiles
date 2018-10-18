@@ -59,6 +59,10 @@
       caffeine = "xset s off -dpms && pkill xautolock";
       vi = "nvim";
     };
+
+    initExtra = ''
+      eval $(keychain --eval --quiet ~/.ssh/id_rsa)
+    '';
   };
 
   programs.fzf = {
@@ -472,6 +476,7 @@
     jdk                       # java dev kit
     jetbrains.idea-ultimate   # java ide
     keepassxc                 # password manager
+    keychain                  # ssh agent
     keybase
     keybase-gui
     maim                      # cli screenshot tool
