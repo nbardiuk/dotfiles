@@ -482,6 +482,7 @@
     maim                      # cli screenshot tool
     maven                     # java build tool
     neovim                    # editor
+    nox                       # nix helper
     ranger                    # cli file manager
     ripgrep                   # grep for developers
     sbt                       # scala build tool
