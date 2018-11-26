@@ -2,9 +2,9 @@
 
 call plug#begin()
 Plug 'airblade/vim-gitgutter'                                     " shows git changes stats
+Plug 'flazz/vim-colorschemes'                                     " color theme
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'flazz/vim-colorschemes'                                     " color theme
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }                " haskell ghci
 Plug 'neomake/neomake'                                            " linting engine
@@ -44,8 +44,7 @@ autocmd FocusLost * :wa             " Save file on loosing focus
 set nowrap         " Don't soft wrap lines
 set linebreak      " break lines at convenient points
 set textwidth=79   " where to break a line
-set colorcolumn=80 " visually highlight the wrap
-set winwidth=80    " minimal width of the buffer
+set winwidth=80    " minimal width of active window
 " navigate through display lines
 noremap j gj
 noremap k gk
@@ -109,6 +108,8 @@ set ignorecase " Ignore case when searching...
 set smartcase  " ...unless we type a capital
 " Stop highgliting until next search
 nmap <silent> <BS> :nohlsearch<CR>
+" rg in project files
+map <silent> <Leader>f :Rg 
 " }}}
 
 " Files navigation {{{
@@ -133,15 +134,20 @@ call deoplete#custom#option('smart_case', v:true) " Use smartcase
 " }}}
 
 " vimwiki {{{
-let g:vimwiki_list = [{'path': '~/Dropbox/Notes',
+let g:vimwiki_list = [{
+            \   'path': '~/Dropbox/Notes',
+            \   'index': '0_index',
             \   'syntax': 'markdown', 'ext': '.md',
-            \   'auto_toc': 1}]
+            \   'auto_toc': 1,
+            \   'auto_tags': 1
+            \    }]
 
 augroup vimWiki
   autocmd!
   autocmd FileType vimwiki setlocal wrap
   autocmd FileType vimwiki setlocal textwidth=80
 augroup END
+nmap <leader>l a<C-R>=localtime()<CR><Esc>
 " }}}
 
 " haskell {{{
@@ -163,6 +169,9 @@ let g:neoformat_basic_format_retab = 1
 
 " Enable trimmming of trailing whitespace globally
 let g:neoformat_basic_format_trim = 1
+
+" Run all enabled formatters (by default Neoformat stops after the first formatter succeeds)
+let g:neoformat_run_all_formatters = 1
 " }}}
 
 " Neomake {{{
