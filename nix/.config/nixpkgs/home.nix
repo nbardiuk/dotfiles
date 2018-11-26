@@ -472,7 +472,6 @@
     i3blocks-contrib.volume
     i3blocks-contrib.ytdl-mpv
     iosevka-bin               # monospace font
-    irssi                     # cli IRC client
     jdk                       # java dev kit
     jetbrains.idea-ultimate   # java ide
     keepassxc                 # password manager
