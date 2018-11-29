@@ -337,6 +337,7 @@
           "${mod}+Pause"            = "mode \"${mode_system}\"";
           "${mod}+r"                = "mode \"resize\"";
           "${mod}+Ctrl+l"           = "exec xautolock -locknow && exec xset dpms force standby";
+          "${mod}+Shift+s"          = "exec killall espeak || exec xclip -o | espeak -s 400"; # toggle clipboard to speech
           XF86AudioRaiseVolume      = "exec amixer set Master 5%+ unmute; exec pkill -RTMIN+10 i3blocks";
           XF86AudioLowerVolume      = "exec amixer set Master 5%-;        exec pkill -RTMIN+10 i3blocks";
           XF86MonBrightnessUp       = "exec xbacklight -inc 5";
@@ -450,6 +451,7 @@
     ammonite                  # scala repl
     arandr                    # monitor settings GUI
     cabal-install             # haskell build tool
+    espeak                    # text to speach
     feh                       # image viewer, manages wallpaper
     font-awesome_4            # font for status icons
     ghc                       # haskell compiler
