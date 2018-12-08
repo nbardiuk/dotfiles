@@ -132,6 +132,8 @@
       ".gradle" "**/build/" "gradle-app.setting" ".gradletasknamecache"
       # Haskell
       "dist" "dist-*" "cabal-dev" "*.o" "*.hi" "*.chi" "*.chs.h" "*.dyn_o" "*.dyn_hi" ".hpc" ".hsenv" ".cabal-sandbox/" "cabal.sandbox.config" "*.prof" "*.aux" "*.hp" "*.eventlog" ".stack-work/" "cabal.project.local" "cabal.project.local~" ".HTF/" ".ghc.environment.*"
+      # direnv
+      ".envrc"
     ];
     extraConfig = {
       code.editor = "nvim";
@@ -451,10 +453,11 @@
     ammonite                  # scala repl
     arandr                    # monitor settings GUI
     cabal-install             # haskell build tool
+    cabal2nix                 #
+    cachix                    # more nix caches
     espeak                    # text to speach
     feh                       # image viewer, manages wallpaper
     font-awesome_4            # font for status icons
-    ghc                       # haskell compiler
     google-fonts              # collection of fonts
     gradle                    # java build tool
     gtypist                   # touch typing trainer
@@ -495,6 +498,7 @@
     visualvm                  # jvm visual dashboard
     w3m                       # cli browser, shows images
     xautolock                 # locks X session
+    xclip                     # clipboard manager
     xkb_switch                # keyboard status
     xorg.xbacklight           # screen brightness TODO fixme
     xorg.xrandr               # monitor settings CLI
