@@ -50,7 +50,7 @@
     sessionVariables = {
       EDITOR = "nvim";
       MANPAGER = "nvim +set\\ filetype=man -";
-      PATH = "/home/nbardiuk/.local/bin/:$PATH";
+      PATH = "/home/nazarii/.local/bin/:$PATH";
       SUDO_EDITOR = "nvim";
       TERM = "xterm-256color";
     };
