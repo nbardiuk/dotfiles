@@ -15,9 +15,11 @@ Plug 'Shougo/neco-syntax'                                         " completions 
 Plug 'Shougo/neco-vim'                                            " completions for vim
 Plug 'tpope/vim-commentary'                                       " enables gc commenting command
 Plug 'tpope/vim-fugitive'                                         " git client
+Plug 'tpope/vim-vinegar'                                          " enhance netrw
 Plug 'tpope/vim-markdown'                                         " syntax and folding for markdown
 Plug 'tpope/vim-sensible'                                         " sensible vim defaults
 Plug 'tpope/vim-surround'                                         " adds surrounding objects
+Plug 'tpope/vim-unimpaired'                                       " shortcuts
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }                       " wiki
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
