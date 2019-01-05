@@ -27,10 +27,13 @@ call plug#end()
 " }}}
 
 " Rust {{{
-autocmd FileType rust nmap gd <Plug>(rust-def)
-autocmd FileType rust nmap gs <Plug>(rust-def-split)
-autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
-autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
+augroup rust_bindings
+  autocmd!
+  autocmd FileType rust nmap gd <Plug>(rust-def)
+  autocmd FileType rust nmap gs <Plug>(rust-def-split)
+  autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
+  autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
+augroup END
 " }}}
 
 " Terminal {{{
@@ -78,7 +81,6 @@ set wildmode=list:longest,full      " Commands completion
 " fzf history
 cmap <C-R> History:<CR>
 set list listchars=tab:\▸\ ,trail:· " Display tabs and trailing spaces visually
-autocmd FocusLost * :wa             " Save file on loosing focus
 set shell=~/.nix-profile/bin/zsh
 
 " Text Wrapping {{{
@@ -112,17 +114,21 @@ augroup vimrcFold
 augroup END
 " }}}
 
-" Swap Files {{{
+" Swap Undo {{{
 set noswapfile
 set nobackup
 set nowritebackup
-" }}}
 
-" Persistent Undo {{{
 " Keep undo history across sessions, by storing in file.
 call mkdir(&undodir, 'p')
 set undofile
 set undolevels=1000
+
+" Save file on loosing focus
+augroup autosave
+  autocmd!
+  autocmd FocusLost * :wa
+augroup END
 " }}}
 
 " Indentation {{{
