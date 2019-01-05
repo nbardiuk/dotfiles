@@ -1,13 +1,15 @@
 " Plugins {{{
-
 call plug#begin()
 Plug 'airblade/vim-gitgutter'                                     " shows git changes stats
+Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': './install.sh' }
 Plug 'flazz/vim-colorschemes'                                     " color theme
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }                " haskell ghci
 Plug 'neomake/neomake'                                            " linting engine
+Plug 'racer-rust/vim-racer'
+Plug 'rust-lang/rust.vim'
 Plug 'sbdchd/neoformat'
 Plug 'sheerun/vim-polyglot'                                       " collection of language packs
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -15,29 +17,32 @@ Plug 'Shougo/neco-syntax'                                         " completions 
 Plug 'Shougo/neco-vim'                                            " completions for vim
 Plug 'tpope/vim-commentary'                                       " enables gc commenting command
 Plug 'tpope/vim-fugitive'                                         " git client
-Plug 'tpope/vim-vinegar'                                          " enhance netrw
 Plug 'tpope/vim-markdown'                                         " syntax and folding for markdown
 Plug 'tpope/vim-sensible'                                         " sensible vim defaults
 Plug 'tpope/vim-surround'                                         " adds surrounding objects
 Plug 'tpope/vim-unimpaired'                                       " shortcuts
+Plug 'tpope/vim-vinegar'                                          " enhance netrw
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }                       " wiki
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': './install.sh'
-    \ }
 call plug#end()
+" }}}
+
+" Rust {{{
+autocmd FileType rust nmap gd <Plug>(rust-def)
+autocmd FileType rust nmap gs <Plug>(rust-def-split)
+autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
+autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
 " }}}
 
 " LSP {{{
 let g:LanguageClient_serverCommands = { 'haskell': ['hie-wrapper'] }
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-map <Leader>hk :call LanguageClient#textDocument_hover()<CR>
-map <Leader>hg :call LanguageClient#textDocument_definition()<CR>
-map <Leader>hr :call LanguageClient#textDocument_rename()<CR>
-map <Leader>hf :call LanguageClient#textDocument_formatting()<CR>
-map <Leader>hb :call LanguageClient#textDocument_references()<CR>
-map <Leader>ha :call LanguageClient#textDocument_codeAction()<CR>
-map <Leader>hs :call LanguageClient#textDocument_documentSymbol()<CR>
+nmap <leader>hk :call LanguageClient#textDocument_hover()<CR>
+nmap <leader>hd :call LanguageClient#textDocument_definition()<CR>
+nmap <leader>hr :call LanguageClient#textDocument_rename()<CR>
+nmap <leader>hf :call LanguageClient#textDocument_formatting()<CR>
+nmap <leader>hb :call LanguageClient#textDocument_references()<CR>
+nmap <leader>ha :call LanguageClient#textDocument_codeAction()<CR>
+nmap <leader>hs :call LanguageClient#textDocument_documentSymbol()<CR>
 " }}}
 
 let mapleader = "\<Space>"
@@ -57,6 +62,7 @@ set nospell spelllang=en_us         " spell check
 set wildmode=list:longest,full      " Commands completion
 set list listchars=tab:\▸\ ,trail:· " Display tabs and trailing spaces visually
 autocmd FocusLost * :wa             " Save file on loosing focus
+set shell=~/.nix-profile/bin/zsh
 
 " Text Wrapping {{{
 set nowrap         " Don't soft wrap lines
