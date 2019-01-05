@@ -3,7 +3,7 @@ call plug#begin()
 Plug 'airblade/vim-gitgutter'                                     " shows git changes stats
 Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': './install.sh' }
 Plug 'flazz/vim-colorschemes'                                     " color theme
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }                " haskell ghci
@@ -33,6 +33,21 @@ autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
 autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
 " }}}
 
+" Terminal {{{
+if has('nvim')
+
+  " use Esc to exit terminal mode
+  tnoremap <Esc> <C-\><C-n>
+  " press Esc in terminal mode
+  tnoremap <C-v><Esc> <Esc>
+
+  " highlight cursor
+  highlight! link TermCursor Cursor
+  highlight! TermCursorNC guibg=red guifg=white ctermbg=1 ctermfg=15
+
+endif
+" }}}
+
 " LSP {{{
 let g:LanguageClient_serverCommands = { 'haskell': ['hie-wrapper'] }
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
@@ -60,6 +75,8 @@ set clipboard+=unnamedplus          " Set default copy buffer the same as clipbo
 syntax on                           " turn on syntax highlighting
 set nospell spelllang=en_us         " spell check
 set wildmode=list:longest,full      " Commands completion
+" fzf history
+cmap <C-R> History:<CR>
 set list listchars=tab:\▸\ ,trail:· " Display tabs and trailing spaces visually
 autocmd FocusLost * :wa             " Save file on loosing focus
 set shell=~/.nix-profile/bin/zsh
@@ -103,12 +120,9 @@ set nowritebackup
 
 " Persistent Undo {{{
 " Keep undo history across sessions, by storing in file.
-if has('persistent_undo')
-    silent !mkdir ~/.config/nvim/backups > /dev/null 2>&1
-    set undodir=~/.config/nvim/backups
-    set undofile
-    set undolevels=1000
-endif
+call mkdir(&undodir, 'p')
+set undofile
+set undolevels=1000
 " }}}
 
 " Indentation {{{
@@ -133,7 +147,7 @@ set smartcase  " ...unless we type a capital
 " Stop highgliting until next search
 nmap <silent> <BS> :nohlsearch<CR>
 " rg in project files
-map <silent> <Leader>f :Rg 
+nmap <silent> <Leader>f :Rg 
 " }}}
 
 " Files navigation {{{
