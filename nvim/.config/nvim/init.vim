@@ -100,7 +100,7 @@ colorscheme flattened_light " solarized light
 " }}}
 
 " Status line {{{
-set laststatus=0                    " never show status line
+set laststatus=2
 " }}}
 
 " Folding {{{
@@ -110,7 +110,6 @@ augroup vimrcFold
   autocmd!
   " fold vimrc itself by categories
   autocmd FileType vim set foldmethod=marker
-  autocmd FileType vim set foldlevel=0
 augroup END
 " }}}
 
