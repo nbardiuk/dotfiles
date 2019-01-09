@@ -88,9 +88,6 @@ set nowrap         " Don't soft wrap lines
 set linebreak      " break lines at convenient points
 set textwidth=79   " where to break a line
 set winwidth=80    " minimal width of active window
-set winheight=40   " minimal height of active window
-set winminwidth=15 " minimal width of inactive window
-set winminheight=5 " minimal height of inactive window
 " navigate through display lines
 noremap j gj
 noremap k gk
@@ -127,10 +124,17 @@ call mkdir(&undodir, 'p')
 set undofile
 set undolevels=1000
 
-" Save file on loosing focus
 augroup autosave
   autocmd!
+
+  " Save file on loosing focus
   autocmd FocusLost * :wa
+
+  " jum to last known position when opening buffer
+  autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
 augroup END
 " }}}
 
