@@ -51,18 +51,6 @@ if has('nvim')
 endif
 " }}}
 
-" LSP {{{
-let g:LanguageClient_serverCommands = { 'haskell': ['hie-wrapper'] }
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nmap <leader>hk :call LanguageClient#textDocument_hover()<CR>
-nmap <leader>hd :call LanguageClient#textDocument_definition()<CR>
-nmap <leader>hr :call LanguageClient#textDocument_rename()<CR>
-nmap <leader>hf :call LanguageClient#textDocument_formatting()<CR>
-nmap <leader>hb :call LanguageClient#textDocument_references()<CR>
-nmap <leader>ha :call LanguageClient#textDocument_codeAction()<CR>
-nmap <leader>hs :call LanguageClient#textDocument_documentSymbol()<CR>
-" }}}
-
 let mapleader = "\<Space>"
 set hidden                          " allows to switch a buffer with unsaved changes
 set backspace=indent,eol,start      " Allow backspace in insert mode
@@ -79,9 +67,22 @@ syntax on                           " turn on syntax highlighting
 set nospell spelllang=en_us         " spell check
 set wildmode=list:longest,full      " Commands completion
 " fzf history
-cmap <C-R> History:<CR>
+cmap <C-F> History:<CR>
 set list listchars=tab:\▸\ ,trail:· " Display tabs and trailing spaces visually
 set shell=~/.nix-profile/bin/zsh
+
+" LSP {{{
+let g:LanguageClient_serverCommands = { 'haskell': ['hie-wrapper'] }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nmap <leader>lk :call LanguageClient#textDocument_hover()<CR>
+nmap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+nmap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+nmap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+nmap <leader>lb :call LanguageClient#textDocument_references()<CR>
+nmap <leader>la :call LanguageClient#textDocument_codeAction()<CR>
+nmap <leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
+" }}}
 
 " Text Wrapping {{{
 set nowrap         " Don't soft wrap lines
@@ -158,8 +159,8 @@ set ignorecase " Ignore case when searching...
 set smartcase  " ...unless we type a capital
 " Stop highgliting until next search
 nmap <silent> <BS> :nohlsearch<CR>
-" rg in project files
-nmap <silent> <Leader>f :Rg 
+" search in project files
+nmap <silent> <Leader>f :Rg<CR>
 " }}}
 
 " Files navigation {{{
@@ -173,7 +174,7 @@ let g:netrw_liststyle = 1                     " long listing
 let g:netrw_sizestyle = 'H'                   " human readable
 let g:netrw_hide = 1                          " hide by default
 let g:netrw_banner = 0                        " turn banner off
-map <leader>N :Lexplore<CR>
+map <leader>N :e %:h<CR>
 " }}}
 
 " Completion {{{
@@ -197,7 +198,6 @@ augroup vimWiki
   autocmd FileType vimwiki setlocal wrap
   autocmd FileType vimwiki setlocal textwidth=80
 augroup END
-nmap <leader>l a<C-R>=localtime()<CR><Esc>
 " }}}
 
 " haskell {{{
@@ -208,7 +208,7 @@ augroup haskellMaps
 augroup END
 
 " choose formatter
-let g:neoformat_enabled_haskell = ['brittany', 'stylishhaskell']
+let g:neoformat_enabled_haskell = ['stylishhaskell']
 
 " }}}
 
