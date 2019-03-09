@@ -23,13 +23,13 @@ with perlPackages;
 
 let
 
-  version = "e1ebfb23304e44c892b372aa96562e5b721dbbe1";
+  version = "21708edc3d12c1f37285e3e9363f6541be723599";
 
   src = fetchFromGitHub {
     owner = "vivien";
     repo = "i3blocks-contrib";
     rev = version;
-    sha256 = "16j8xrn4rmrixil70z8ihkzxaqvy46n0ig5r3vk9i3dmxzr8kw22";
+    sha256 = "0rj2q481mkbj3cawg7lsd6x0x0ii9jxnr327f8n3b2kvrdfyvzy6";
   };
 
   output="$out/libexec/i3blocks";
@@ -51,6 +51,7 @@ let
 
       installPhase = ''
         cp ${name} ${output}
+        sed -i 's|#!/usr/bin/perl|#!/usr/bin/env perl |' ${output}/${name}
         wrapProgram ${output}/${name} \
          --prefix PATH : "${makeBinPath required.bin}" \
          --set PERL5LIB "${makePerlPath required.perlDeps}"
@@ -74,6 +75,10 @@ let
 
       postUnpack = "sourceRoot=\${sourceRoot}/${name}";
 
+      postPatch = ''
+        sed -i "s/-Werror//g" Makefile
+        '';
+
       installPhase = ''
         mkdir -p ${output}
         cp ${name} ${output}
@@ -88,7 +93,7 @@ rec {
   battery2          = scriptBlock "battery2"          ( required {bin = [acpi python3];});
   batterybar        = scriptBlock "batterybar"        ( required {bin = [acpi];});
   calendar          = scriptBlock "calendar"          ( required {bin = [xdotool yad];});
-  cpu_usage         = scriptBlock "cpu_usage"         ( required {bin = [sysstat]; });
+  cpu_usage         = scriptBlock "cpu_usage"         ( required {bin = [perl sysstat]; });
   disk              = scriptBlock "disk"              ( required {});
   disk-io           = scriptBlock "disk-io"           ( required {bin = [sysstat]; });
   docker            = scriptBlock "docker"            ( required {bin = [docker]; });

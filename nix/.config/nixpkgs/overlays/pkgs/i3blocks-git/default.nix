@@ -8,8 +8,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "vivien";
     repo = "i3blocks";
-    rev = "37f23805ff886639163fbef8aedba71c8071eff8";
-    sha256 = "15rnrcajzyrmhlz1a21qqsjlj3dkib70806dlb386fliylc2kisb";
+    rev = "ec050e79ad8489a6f8deb37d4c20ab10729c25c3";
+    sha256 = "1fx4230lmqa5rpzph68dwnpcjfaaqv5gfkradcr85hd1z8d1qp1b";
   };
 
   nativeBuildInputs = [ autoreconfHook ];
