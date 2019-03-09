@@ -27,14 +27,20 @@
     path = "https://github.com/rycee/home-manager/archive/master.tar.gz";
   };
 
+  programs.command-not-found.enable = true;
+
+  programs.obs-studio.enable = true;
+  programs.obs-studio.plugins = [ pkgs.obs-linuxbrowser ];
+
+  home.keyboard.layout = "us,ua";
+  home.keyboard.options = ["grp:shifts_toggle" "ctrl:nocaps"];
+
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
     enableCompletion = true;
 
-    history = {
-      expireDuplicatesFirst = true;
-    };
+    history.expireDuplicatesFirst = true;
 
     oh-my-zsh = {
       enable = true;
@@ -49,19 +55,26 @@
 
     sessionVariables = {
       EDITOR = "nvim";
+      VISUAL = "nvim";
       MANPAGER = "nvim +set\\ filetype=man -";
-      PATH = "/home/nazarii/.local/bin/:$PATH";
       SUDO_EDITOR = "nvim";
       TERM = "xterm-256color";
+      FZF_DEFAULT_COMMAND="rg --files";
+      FZF_CTRL_T_COMMAND="rg --files";
     };
 
     shellAliases = {
       caffeine = "xset s off -dpms && pkill xautolock";
       vi = "nvim";
+      view = "nvim -R";
     };
 
     initExtra = ''
       eval $(keychain --eval --quiet ~/.ssh/id_rsa)
+      setopt HIST_IGNORE_ALL_DUPS
+      setopt HIST_SAVE_NO_DUPS
+      setopt HIST_REDUCE_BLANKS
+      setopt HIST_FIND_NO_DUPS
     '';
   };
 
@@ -158,7 +171,7 @@
         alignment = "left";
         allow_markup = "yes";
         bounce_freq = 0;
-        browser = "/usr/bin/firefox -new-tab";
+        browser = "firefox -new-tab";
         follow = "mouse";
         font = "Iosevka 12";
         format = "<b>%s</b>\\n%b\\n%p";
@@ -342,8 +355,8 @@
           "${mod}+Shift+s"          = "exec killall espeak || exec xclip -o | espeak -s 400"; # toggle clipboard to speech
           XF86AudioRaiseVolume      = "exec amixer set Master 5%+ unmute; exec pkill -RTMIN+10 i3blocks";
           XF86AudioLowerVolume      = "exec amixer set Master 5%-;        exec pkill -RTMIN+10 i3blocks";
-          XF86MonBrightnessUp       = "exec xbacklight -inc 5";
-          XF86MonBrightnessDown     = "exec xbacklight -dec 5";
+          XF86MonBrightnessUp       = "exec light -A 5";
+          XF86MonBrightnessDown     = "exec light -U 5";
           Print                     = "exec maim -us ~/Snapshots/$(date +%s).png";
       };
       modes = {
@@ -401,6 +414,7 @@
         };
       };
       bars = [{
+        trayOutput = "primary";
         workspaceNumbers = false;
         statusCommand = "i3blocks -c ~/.i3/i3blocks.conf";
         position = "top";
@@ -426,9 +440,7 @@
       }];
       startup = [
         { always = true;  notification = false; command = "feh --bg-scale ~/.wallpaper"; }
-        { always = true;  notification = true;  command = "xrandr --output eDP1 --auto --below HDMI1 --primary --output HDMI1 --auto"; }
-        { always = true;  notification = false; command = "xrdb ~/.Xresources"; }
-        { always = true;  notification = false; command = "setxkbmap -model pc104 -layout us,ua  -option grp:shifts_toggle -option ctrl:nocaps"; }
+        { always = true;  notification = true;  command = "xrandr --output eDP-1-1 --auto --below HDMI-1-1 --primary --output HDMI-1-1 --auto"; }
         { always = true;  notification = false; command = "xset -b"; }
         { always = true;  notification = false; command = "xset s 300 300"; }
         { always = false; notification = true;  command = "nm-applet"; }
@@ -448,8 +460,38 @@
   nixpkgs.config.allowUnfree = true;
   # The set of packages to appear in the user environment.
   home.packages = with pkgs; [
-    # i3lock                  # TODO broken calls nix pam instead of system?
-    acpi                      # status battery
+    i3lock
+    dropbox
+    firefox
+    chromium
+
+    networkmanagerapplet
+    wget
+    git
+    htop
+    pavucontrol               # pulse audio control GUI
+    spotify                   # music streaming
+    tree                      # list files in tree
+
+    cargo
+    rustc
+    rustfmt
+    rustracer
+
+    nodejs
+    neovim-remote
+
+    kdenlive
+    libreoffice-fresh
+    mpv-with-scripts
+
+    steam
+    steam-run-native
+
+    transmission-gtk
+
+    krita
+
     ammonite                  # scala repl
     arandr                    # monitor settings GUI
     cabal-install             # haskell build tool
@@ -460,8 +502,12 @@
     font-awesome_4            # font for status icons
     google-fonts              # collection of fonts
     gradle                    # java build tool
-    gtypist                   # touch typing trainer
     hledger                   # cli accounting
+    haskellPackages.brittany
+    haskellPackages.ghcid
+    haskellPackages.hlint
+    haskellPackages.stylish-haskell
+    (import (builtins.fetchTarball https://github.com/domenkozar/hie-nix/tarball/master ) {}).hies
     i3blocks                  # i3 status line
     i3blocks-brightness       # i3 status line block for brightness
     i3blocks-contrib.bandwidth2
@@ -475,7 +521,6 @@
     i3blocks-contrib.temperature
     i3blocks-contrib.usb
     i3blocks-contrib.volume
-    i3blocks-contrib.ytdl-mpv
     iosevka-bin               # monospace font
     jdk                       # java dev kit
     jetbrains.idea-ultimate   # java ide
@@ -485,7 +530,9 @@
     keybase-gui
     maim                      # cli screenshot tool
     maven                     # java build tool
+    ncdu
     neovim                    # editor
+    fzf
     nox                       # nix helper
     ranger                    # cli file manager
     ripgrep                   # grep for developers
@@ -497,12 +544,8 @@
     vim-vint                  # vim linter
     visualvm                  # jvm visual dashboard
     w3m                       # cli browser, shows images
-    xautolock                 # locks X session
     xclip                     # clipboard manager
-    xkb_switch                # keyboard status
-    xorg.xbacklight           # screen brightness TODO fixme
     xorg.xrandr               # monitor settings CLI
-    xorg.xrdb                 # loads xresources
     youtube-dl                # fetch youtube videos
     zathura                   # pdf/djvu reader
   ];
