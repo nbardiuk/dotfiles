@@ -7,6 +7,7 @@
 
   # Enable Syncthing continuous file synchronization.
   services.syncthing.enable = true;
+  services.syncthing.tray = true;
 
   services.keybase.enable = true;
   services.kbfs = {
