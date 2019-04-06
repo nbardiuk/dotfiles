@@ -25,13 +25,16 @@
 
   programs.home-manager = {
     enable = true;
-    path = "https://github.com/rycee/home-manager/archive/master.tar.gz";
+    path = "https://github.com/rycee/home-manager/archive/release-18.09.tar.gz";
   };
 
   programs.command-not-found.enable = true;
 
   programs.obs-studio.enable = true;
   programs.obs-studio.plugins = [ pkgs.obs-linuxbrowser ];
+
+  # Bluetooth applet
+  services.blueman-applet.enable = true;
 
   home.keyboard.layout = "us,ua";
   home.keyboard.options = ["grp:shifts_toggle" "ctrl:nocaps"];
@@ -258,7 +261,8 @@
   };
   qt = {
     enable = true;
-    useGtkTheme = true;
+    useGtkTheme = true; # in 18.09
+    # platformTheme = "gtk"; # in 19.03
   };
 
   xdg.enable = true;
@@ -480,16 +484,12 @@
     nodejs
     neovim-remote
 
-    kdenlive
     libreoffice-fresh
     mpv-with-scripts
 
-    steam
-    steam-run-native
-
     transmission-gtk
 
-    krita
+    vscode-with-extensions
 
     ammonite                  # scala repl
     arandr                    # monitor settings GUI
