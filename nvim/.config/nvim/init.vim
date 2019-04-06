@@ -1,14 +1,16 @@
+scriptencoding utf-8
+
 " Plugins {{{
 call plug#begin()
 Plug 'airblade/vim-gitgutter'                                     " shows git changes stats
-Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': './install.sh' }
+Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash ./install.sh' }
 Plug 'flazz/vim-colorschemes'                                     " color theme
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }                " haskell ghci
 Plug 'neomake/neomake'                                            " linting engine
-Plug 'racer-rust/vim-racer'
+" Plug 'racer-rust/vim-racer'
 Plug 'rust-lang/rust.vim'
 Plug 'sbdchd/neoformat'
 Plug 'sheerun/vim-polyglot'                                       " collection of language packs
@@ -29,8 +31,8 @@ call plug#end()
 " Rust {{{
 augroup rust_bindings
   autocmd!
-  autocmd FileType rust nmap gd <Plug>(rust-def)
-  autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
+  " autocmd FileType rust nmap gd <Plug>(rust-def)
+  " autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
   autocmd FileType rust nmap <leader>t :!time cargo test<CR>
   autocmd BufWritePre *.rs undojoin | Neoformat
 augroup END
@@ -72,7 +74,11 @@ set list listchars=tab:\▸\ ,trail:· " Display tabs and trailing spaces visual
 set shell=~/.nix-profile/bin/zsh
 
 " LSP {{{
-let g:LanguageClient_serverCommands = { 'haskell': ['hie-wrapper'] }
+let g:LanguageClient_serverCommands = {
+    \'haskell': ['hie-wrapper'],
+    \'rust': ['rls'],
+  \}
+let g:LanguageClient_settingsPath='./settings.json'
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nmap <leader>lk :call LanguageClient#textDocument_hover()<CR>
@@ -82,6 +88,7 @@ nmap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
 nmap <leader>lb :call LanguageClient#textDocument_references()<CR>
 nmap <leader>la :call LanguageClient#textDocument_codeAction()<CR>
 nmap <leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
+nmap <leader>lS :call LanguageClient#workspace_symbol()()<CR>
 " }}}
 
 " Text Wrapping {{{

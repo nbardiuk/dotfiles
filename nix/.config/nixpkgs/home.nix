@@ -474,9 +474,7 @@
     spotify                   # music streaming
     tree                      # list files in tree
 
-    cargo
-    rustc
-    rustfmt
+    rust_mozilla
     rustracer
 
     nodejs
