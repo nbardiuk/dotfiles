@@ -1,35 +1,45 @@
 { config, pkgs, ... }:
 
 let
-  nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-    inherit pkgs;
-  };
-  # chunkwm = nur.repos.yurrriq.pkgs.chunkwm;
   chunkwm = pkgs.recurseIntoAttrs (pkgs.callPackage ~/.config/nixpkgs/pkgs/chunkwm {
     inherit (pkgs) callPackage stdenv fetchFromGitHub imagemagick;
     inherit (pkgs.darwin.apple_sdk.frameworks) Carbon Cocoa ApplicationServices;
   });
 in
 {
+  nixpkgs.config.allowUnfree = true;
   environment.darwinConfig = "$HOME/.config/nixpkgs/darwin.nix";
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
+    cabal-install
     chunkwm.border
     chunkwm.core
     chunkwm.ffm
     chunkwm.tiling
-    cabal-install # haskell build
-    htop # better top
-    keychain # ssh agent
-    neovim # editor
-    nox # nix helper
-    ranger # cli file manager
-    ripgrep # better grep
-    shellcheck # bash linting
-    stack # haskell build
-    stow # dotfiles management
-    w3m # cli browser, shows images
+    htop
+    jdk
+    keychain
+    mpv-with-scripts
+    ncdu
+    neovim
+    neovim-remote
+    nodejs
+    python3
+    ranger
+    ripgrep
+    ruby
+    shellcheck
+    stack
+    stow
+    terraform
+    tree
+    vale                      # prose linter
+    vim-vint                  # vim linter
+    vscode-with-extensions
+    w3m
+    wget
+    youtube-dl
   ];
 
   environment.variables.LANG = "en_IE.UTF-8";
