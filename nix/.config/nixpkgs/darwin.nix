@@ -93,7 +93,8 @@ in
     chunkc set bsp_optimal_ratio             1.618
     chunkc set bsp_split_ratio               0.66
     chunkc set window_focus_cycle            all
-    chunkc set mouse_follows_focus           1
+    chunkc set mouse_follows_focus           all
+    chunkc set mouse_resize_window           cmd
     chunkc set window_region_locked          1
 
     # chwm-sa additions
@@ -124,8 +125,16 @@ in
     shift + alt - space : chunkc tiling::window --toggle float
 
     # change layout of desktop
-    alt - e : chunkc tiling::desktop --layout bsp
-    alt - s : chunkc tiling::desktop --layout monocle
+    alt - b : chunkc tiling::desktop --layout bsp
+    alt - m : chunkc tiling::desktop --layout monocle
+
+    alt - r : chunkc tiling::desktop --rotate 90
+
+    # resize
+    alt - a : chunkc tiling::window --use-temporary-ratio  0.03 --adjust-window-edge west;  chunkc tiling::window --use-temporary-ratio -0.03 --adjust-window-edge east;
+    alt - d : chunkc tiling::window --use-temporary-ratio -0.03 --adjust-window-edge west;  chunkc tiling::window --use-temporary-ratio  0.03 --adjust-window-edge east;
+    alt - w : chunkc tiling::window --use-temporary-ratio  0.05 --adjust-window-edge north; chunkc tiling::window --use-temporary-ratio -0.05 --adjust-window-edge south;
+    alt - s : chunkc tiling::window --use-temporary-ratio -0.05 --adjust-window-edge north; chunkc tiling::window --use-temporary-ratio  0.05 --adjust-window-edge south;
 
     # kill focused window
     shift + alt - q : chunkc tiling::window --close
@@ -135,8 +144,6 @@ in
     alt - j : chunkc tiling::window --focus south
     alt - k : chunkc tiling::window --focus north
     alt - l : chunkc tiling::window --focus east
-    alt - p : chunkc tiling::window --focus prev
-    alt - n : chunkc tiling::window --focus next
 
     # move focused window
     shift + alt - h : chunkc tiling::window --warp west
@@ -144,9 +151,9 @@ in
     shift + alt - k : chunkc tiling::window --warp north
     shift + alt - l : chunkc tiling::window --warp east
 
-    alt - r : chunkc tiling::desktop --rotate 90
-
     # focus workspace
+    alt - p : chunkc tiling::desktop --focus prev
+    alt - n : chunkc tiling::desktop --focus next
     alt - 1 : chunkc tiling::desktop --focus 1
     alt - 2 : chunkc tiling::desktop --focus 2
     alt - 3 : chunkc tiling::desktop --focus 3
