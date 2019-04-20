@@ -25,7 +25,7 @@
 
   programs.home-manager = {
     enable = true;
-    path = "https://github.com/rycee/home-manager/archive/release-18.09.tar.gz";
+    path = "https://github.com/rycee/home-manager/archive/release-19.03.tar.gz";
   };
 
   programs.command-not-found.enable = true;
@@ -49,7 +49,6 @@
     oh-my-zsh = {
       enable = true;
       plugins = [
-        "archlinux"
         "bgnotify"
         "common-aliases"
         "git"
@@ -71,6 +70,7 @@
       caffeine = "xset s off -dpms && pkill xautolock";
       vi = "nvim";
       view = "nvim -R";
+      upgrade = "sudo sysctl -p && sudo nixos-rebuild switch --upgrade && home-manager switch && nvim +PlugInstall +UpdateRemotePlugins +qa";
     };
 
     initExtra = ''
@@ -161,6 +161,13 @@
       "mergetool \"vmerge\"".cmd = "nvim -d $LOCAL $REMOTE $MERGED -c 'wincmd w' -c 'wincmd J'";
       mergetool.promt = true;
     };
+  };
+
+  programs.zathura.enable = true;
+  programs.zathura.options = {
+    continuous-hist-save = true;
+    selection-clipboard = "clipboard";
+    scroll-page-aware = true;
   };
 
   services.dunst = {
@@ -261,8 +268,8 @@
   };
   qt = {
     enable = true;
-    useGtkTheme = true; # in 18.09
-    # platformTheme = "gtk"; # in 19.03
+    # useGtkTheme = true; # in 18.09
+    platformTheme = "gtk"; # in 19.03
   };
 
   xdg.enable = true;
@@ -478,9 +485,6 @@
     spotify                   # music streaming
     tree                      # list files in tree
 
-    rust_mozilla
-    rustracer
-
     nodejs
     neovim-remote
 
@@ -502,7 +506,7 @@
     google-fonts              # collection of fonts
     gradle                    # java build tool
     hledger                   # cli accounting
-    haskellPackages.brittany
+    # haskellPackages.brittany BROKEN
     haskellPackages.ghcid
     haskellPackages.hlint
     haskellPackages.stylish-haskell
