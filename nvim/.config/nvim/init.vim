@@ -87,6 +87,7 @@ let g:LanguageClient_serverCommands = {
 let g:LanguageClient_settingsPath='./settings.json'
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nmap <leader>le :call LanguageClient#explainErrorAtPoint()<CR>
 nmap <leader>lk :call LanguageClient#textDocument_hover()<CR>
 nmap <leader>ld :call LanguageClient#textDocument_definition()<CR>
 nmap <leader>lr :call LanguageClient#textDocument_rename()<CR>
@@ -205,6 +206,9 @@ let g:vimwiki_list = [{
             \   'auto_toc': 1,
             \   'auto_tags': 1
             \    }]
+
+" Append wiki file extension to links in Markdown. This is needed for compatibility with other Markdown tools.
+let g:vimwiki_markdown_link_ext = 1
 
 augroup vimWiki
   autocmd!
