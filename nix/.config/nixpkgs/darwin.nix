@@ -37,6 +37,7 @@ in
     shellcheck
     stack
     stow
+    syncthing
     terraform
     tree
     vale                      # prose linter
@@ -80,6 +81,21 @@ in
   # $ sysctl -n hw.ncpu
   nix.maxJobs = 8;
   nix.buildCores = 8;
+
+  launchd.user.agents.syncthing = {
+    # https://github.com/eqyiel/dotfiles/blob/3d2c8b61da6f4636c650b8525fa1aeebfd5996d6/nix/.config/nixpkgs/darwin/config/default.nix
+    serviceConfig.ProgramArguments = [ "${pkgs.syncthing}/bin/syncthing" "-no-browser" "-no-restart" ];
+    serviceConfig.EnvironmentVariables = {
+      HOME = "/Users/${(builtins.getEnv "USER")}";
+      STNOUPGRADE = "1"; # disable spammy automatic upgrade check
+    };
+    serviceConfig.KeepAlive = true;
+    serviceConfig.ProcessType = "Background";
+    serviceConfig.StandardOutPath = "/Users/${(builtins.getEnv "USER")}/Library/Logs/Syncthing.log";
+    serviceConfig.StandardErrorPath = "/Users/${(builtins.getEnv "USER")}/Library/Logs/Syncthing-Errors.log";
+    serviceConfig.LowPriorityIO = true;
+  };
+
 
   services.chunkwm.enable = true;
   services.chunkwm.hotload = false;

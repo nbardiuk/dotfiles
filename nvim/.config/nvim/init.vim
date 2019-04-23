@@ -199,7 +199,7 @@ call deoplete#custom#option('smart_case', v:true) " Use smartcase
 
 " vimwiki {{{
 let g:vimwiki_list = [{
-            \   'path': '~/Dropbox/Notes',
+            \   'path': '~/Notes',
             \   'index': '0_index',
             \   'syntax': 'markdown', 'ext': '.md',
             \   'auto_toc': 1,
