@@ -64,7 +64,11 @@ set visualbell                      " No sounds
 set autoread                        " Reload files changed outside vim
 set mouse=a                         " Enable mouse
 set mousemodel=popup_setpos         " make mouse behave like in GUI app
-set clipboard+=unnamedplus          " Set default copy buffer the same as clipboard
+" Set default copy buffer the same as clipboard
+set clipboard=unnamed
+if has('unnamedplus') " X11 support
+  set clipboard+=unnamedplus
+endif
 syntax on                           " turn on syntax highlighting
 set nospell spelllang=en_us         " spell check
 set wildmode=list:longest,full      " Commands completion
@@ -77,6 +81,8 @@ set shell=~/.nix-profile/bin/zsh
 let g:LanguageClient_serverCommands = {
     \'haskell': ['hie-wrapper'],
     \'rust': ['rls'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio'],
   \}
 let g:LanguageClient_settingsPath='./settings.json'
 

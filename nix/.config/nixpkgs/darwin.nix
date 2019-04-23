@@ -17,6 +17,7 @@ in
     chunkwm.core
     chunkwm.ffm
     chunkwm.tiling
+    direnv
     htop
     jdk
     keychain
@@ -25,7 +26,11 @@ in
     neovim
     neovim-remote
     nodejs
+    nodePackages.javascript-typescript-langserver
+    nodePackages.typescript
     python3
+    python37Packages.pip
+    python37Packages.virtualenv
     ranger
     ripgrep
     ruby
@@ -94,7 +99,8 @@ in
     chunkc set bsp_split_ratio               0.66
     chunkc set window_focus_cycle            all
     chunkc set mouse_follows_focus           all
-    chunkc set mouse_resize_window           cmd
+    chunkc set mouse_resize_window           alt
+    chunkc set mouse_move_window             ctrl
     chunkc set window_region_locked          1
 
     # chwm-sa additions
@@ -104,8 +110,8 @@ in
     chunkc set window_fade_alpha             0.9
     chunkc set window_fade_duration          0.1
     chunkc tiling::rule --owner Dash --state float
-    chunkc tiling::rule --owner Spotify --desktop 5 --follow-desktop
-    chunkc tiling::rule --owner Slack --desktop 4 --follow-desktop
+    chunkc tiling::rule --owner Spotify --desktop 5
+    chunkc tiling::rule --owner Slack --desktop 4
   '';
 
   launchd.user.agents.chwm-sa = {
