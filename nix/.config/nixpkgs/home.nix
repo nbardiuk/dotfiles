@@ -6,8 +6,10 @@
   fonts.fontconfig.enableProfileFonts = true;
 
   # Enable Syncthing continuous file synchronization.
-  services.syncthing.enable = true;
-  services.syncthing.tray = true;
+  services.syncthing = {
+    enable = true;
+    tray = true;
+  };
 
   services.keybase.enable = true;
   services.kbfs = {
@@ -30,14 +32,18 @@
 
   programs.command-not-found.enable = true;
 
-  programs.obs-studio.enable = true;
-  programs.obs-studio.plugins = [ pkgs.obs-linuxbrowser ];
+  programs.obs-studio = {
+    enable = true;
+    plugins = [ pkgs.obs-linuxbrowser ];
+  };
 
   # Bluetooth applet
   services.blueman-applet.enable = true;
 
-  home.keyboard.layout = "us,ua";
-  home.keyboard.options = ["grp:shifts_toggle" "ctrl:nocaps"];
+  home.keyboard = {
+    layout = "us,ua";
+    options = ["grp:shifts_toggle" "ctrl:nocaps"];
+  };
 
   programs.zsh = {
     enable = true;
@@ -102,7 +108,7 @@
       rofi.modi:       window,drun,run,ssh,combi
       rofi.combi-modi: window,drun,run
       rofi.matching:   normal
-      '';
+    '';
   };
 
   programs.termite = {
@@ -131,7 +137,7 @@
       color13 = #6c71c4
       color14 = #93a1a1
       color15 = #fdf6e3
-      '';
+    '';
   };
 
   programs.git = {
@@ -163,11 +169,13 @@
     };
   };
 
-  programs.zathura.enable = true;
-  programs.zathura.options = {
-    continuous-hist-save = true;
-    selection-clipboard = "clipboard";
-    scroll-page-aware = true;
+  programs.zathura = {
+    enable = true;
+    options = {
+      continuous-hist-save = true;
+      selection-clipboard = "clipboard";
+      scroll-page-aware = true;
+    };
   };
 
   services.dunst = {
@@ -268,8 +276,7 @@
   };
   qt = {
     enable = true;
-    # useGtkTheme = true; # in 18.09
-    platformTheme = "gtk"; # in 19.03
+    platformTheme = "gtk";
   };
 
   xdg.enable = true;
@@ -472,45 +479,27 @@
   nixpkgs.config.allowUnfree = true;
   # The set of packages to appear in the user environment.
   home.packages = with pkgs; [
-    i3lock
-    dropbox
-    firefox
-    chromium
-
-    networkmanagerapplet
-    wget
-    git
-    htop
-    pavucontrol               # pulse audio control GUI
-    spotify                   # music streaming
-    tree                      # list files in tree
-
-    nodejs
-    neovim-remote
-
-    libreoffice-fresh
-    mpv-with-scripts
-
-    transmission-gtk
-
-    vscode-with-extensions
-
+    (import (builtins.fetchTarball https://github.com/domenkozar/hie-nix/tarball/master ) {}).hies
     ammonite                  # scala repl
     arandr                    # monitor settings GUI
     cabal-install             # haskell build tool
     cabal2nix                 #
     cachix                    # more nix caches
+    chromium
+    dropbox
     espeak                    # text to speach
     feh                       # image viewer, manages wallpaper
+    firefox
     font-awesome_4            # font for status icons
+    fzf
+    git
     google-fonts              # collection of fonts
     gradle                    # java build tool
-    hledger                   # cli accounting
-    # haskellPackages.brittany BROKEN
     haskellPackages.ghcid
     haskellPackages.hlint
     haskellPackages.stylish-haskell
-    (import (builtins.fetchTarball https://github.com/domenkozar/hie-nix/tarball/master ) {}).hies
+    hledger                   # cli accounting
+    htop
     i3blocks                  # i3 status line
     i3blocks-brightness       # i3 status line block for brightness
     i3blocks-contrib.bandwidth2
@@ -524,29 +513,40 @@
     i3blocks-contrib.temperature
     i3blocks-contrib.usb
     i3blocks-contrib.volume
+    i3lock
     iosevka-bin               # monospace font
     jdk                       # java dev kit
     jetbrains.idea-ultimate   # java ide
     keepassxc                 # password manager
-    keychain                  # ssh agent
     keybase
     keybase-gui
+    keychain                  # ssh agent
+    libreoffice-fresh
     maim                      # cli screenshot tool
     maven                     # java build tool
+    mpv-with-scripts
     ncdu
     neovim                    # editor
-    fzf
+    neovim-remote
+    networkmanagerapplet
+    nodejs
     nox                       # nix helper
+    pavucontrol               # pulse audio control GUI
     ranger                    # cli file manager
     ripgrep                   # grep for developers
     sbt                       # scala build tool
     shellcheck                # shell scripts linter
+    spotify                   # music streaming
     stack                     # haskell build tool
     tdesktop                  # chat app
+    transmission-gtk
+    tree                      # list files in tree
     vale                      # prose linter
     vim-vint                  # vim linter
     visualvm                  # jvm visual dashboard
+    vscode-with-extensions
     w3m                       # cli browser, shows images
+    wget
     xclip                     # clipboard manager
     xorg.xrandr               # monitor settings CLI
     youtube-dl                # fetch youtube videos
