@@ -21,14 +21,16 @@ in
     htop
     jdk
     keychain
-    mpv-with-scripts
     ncdu
     neovim
     neovim-remote
     nodejs
+    nodePackages.eslint
     nodePackages.javascript-typescript-langserver
+    nodePackages.prettier
     nodePackages.typescript
     python3
+    python37Packages.jedi
     python37Packages.pip
     python37Packages.virtualenv
     ranger
@@ -37,8 +39,6 @@ in
     shellcheck
     stack
     stow
-    syncthing
-    terraform
     tree
     vale                      # prose linter
     vim-vint                  # vim linter
