@@ -4,6 +4,7 @@
     ./direnv.nix
     ./fzf.nix
     ./git.nix
+    ./htop.nix
     ./nvim.nix
     ./zsh.nix
   ];
@@ -13,7 +14,6 @@
   home.packages = with pkgs; [
     cachix                    # more nix caches
     hledger                   # cli accounting
-    htop
     ncdu
     nox                       # nix helper
     ranger                    # cli file manager
