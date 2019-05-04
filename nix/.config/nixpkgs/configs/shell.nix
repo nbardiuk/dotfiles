@@ -4,6 +4,7 @@
     ./direnv.nix
     ./fzf.nix
     ./git.nix
+    ./htop.nix
     ./nvim.nix
     ./zsh.nix
   ];
