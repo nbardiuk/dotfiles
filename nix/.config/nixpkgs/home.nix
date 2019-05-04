@@ -71,14 +71,11 @@
     arandr                    # monitor settings GUI
     cabal-install             # haskell build tool
     cabal2nix                 #
-    cachix                    # more nix caches
     chromium
     dropbox
     firefox
     google-fonts              # collection of fonts
     gradle                    # java build tool
-    hledger                   # cli accounting
-    htop
     iosevka-bin               # monospace font
     jdk                       # java dev kit
     jetbrains.idea-ultimate   # java ide
@@ -86,23 +83,16 @@
     libreoffice-fresh
     maven                     # java build tool
     mpv-with-scripts
-    ncdu
     networkmanagerapplet
     nodejs
-    nox                       # nix helper
     pavucontrol               # pulse audio control GUI
-    ranger                    # cli file manager
     sbt                       # scala build tool
     spotify                   # music streaming
     stack                     # haskell build tool
     tdesktop                  # chat app
     transmission-gtk
-    tree                      # list files in tree
     visualvm                  # jvm visual dashboard
     vscode-with-extensions
-    w3m                       # cli browser, shows images
-    wget
     xorg.xrandr               # monitor settings CLI
-    youtube-dl                # fetch youtube videos
   ];
 }
