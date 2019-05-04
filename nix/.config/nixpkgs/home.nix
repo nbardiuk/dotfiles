@@ -6,6 +6,7 @@
     ./configs/nvim.nix
     ./configs/termite.nix
     ./configs/shell.nix
+    ./configs/zathura.nix
   ];
 
   # Configure fontconfig to discover fonts installed through home.packages and nix-env.
@@ -44,15 +45,6 @@
   home.keyboard = {
     layout = "us,ua";
     options = ["grp:shifts_toggle" "ctrl:nocaps"];
-  };
-
-  programs.zathura = {
-    enable = true;
-    options = {
-      continuous-hist-save = true;
-      selection-clipboard = "clipboard";
-      scroll-page-aware = true;
-    };
   };
 
   services.redshift = {
@@ -112,6 +104,5 @@
     wget
     xorg.xrandr               # monitor settings CLI
     youtube-dl                # fetch youtube videos
-    zathura                   # pdf/djvu reader
   ];
 }
