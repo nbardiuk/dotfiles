@@ -27,8 +27,6 @@
 
     shellAliases = {
       caffeine = "xset s off -dpms && pkill xautolock";
-      vi = "nvim";
-      view = "nvim -R";
       upgrade = "sudo sysctl -p && sudo nixos-rebuild switch --upgrade && home-manager switch && nvim +PlugInstall +UpdateRemotePlugins +qa";
     };
 

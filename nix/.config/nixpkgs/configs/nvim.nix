@@ -1,5 +1,41 @@
 { pkgs, ... }:
 {
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    withNodeJs = true;
+    withPython = true;
+    withPython3 = true;
+    withRuby = true;
+    configure = {
+      customRC = builtins.readFile ./init.vim;
+      plug.plugins = with pkgs.vimPlugins; [
+        deoplete-nvim
+        fzf-vim
+        fzfWrapper
+        gitgutter
+        LanguageClient-neovim
+        neco-syntax
+        neco-vim
+        neoformat
+        neomake
+        rust-vim
+        vim-colorschemes
+        vim-commentary
+        vim-fugitive
+        vim-markdown
+        vim-polyglot
+        vim-sensible
+        vim-surround
+        vim-unimpaired
+        vim-vinegar
+        vimwiki
+      ];
+
+    };
+  };
+
   home.packages = with pkgs; [
     (import (builtins.fetchTarball https://github.com/domenkozar/hie-nix/tarball/master ) {}).hies
     fzf
@@ -7,10 +43,7 @@
     haskellPackages.ghcid
     haskellPackages.hlint
     haskellPackages.stylish-haskell
-    neovim                    # editor
-    neovim-remote
     nodePackages.javascript-typescript-langserver
-    nodejs
     ripgrep                   # grep for developers
     rust_mozilla
     rustracer
