@@ -1,9 +1,10 @@
 { pkgs, ... }:
 {
-
   imports = [
     ./configs/i3.nix
     ./configs/keybase.nix
+    ./configs/nvim.nix
+    ./configs/shell.nix
   ];
 
   # Configure fontconfig to discover fonts installed through home.packages and nix-env.
@@ -44,58 +45,6 @@
     options = ["grp:shifts_toggle" "ctrl:nocaps"];
   };
 
-  programs.zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    enableCompletion = true;
-
-    history.expireDuplicatesFirst = true;
-
-    oh-my-zsh = {
-      enable = true;
-      plugins = [
-        "bgnotify"
-        "common-aliases"
-        "git"
-      ];
-      theme = "refined";
-    };
-
-    sessionVariables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
-      MANPAGER = "nvim +set\\ filetype=man -";
-      SUDO_EDITOR = "nvim";
-      TERM = "xterm-256color";
-      FZF_DEFAULT_COMMAND="rg --files";
-      FZF_CTRL_T_COMMAND="rg --files";
-    };
-
-    shellAliases = {
-      caffeine = "xset s off -dpms && pkill xautolock";
-      vi = "nvim";
-      view = "nvim -R";
-      upgrade = "sudo sysctl -p && sudo nixos-rebuild switch --upgrade && home-manager switch && nvim +PlugInstall +UpdateRemotePlugins +qa";
-    };
-
-    initExtra = ''
-      eval $(keychain --eval --quiet ~/.ssh/id_rsa)
-      setopt HIST_IGNORE_ALL_DUPS
-      setopt HIST_SAVE_NO_DUPS
-      setopt HIST_REDUCE_BLANKS
-      setopt HIST_FIND_NO_DUPS
-    '';
-  };
-
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-  };
 
   programs.termite = {
     enable = true;
@@ -179,32 +128,11 @@
 
   services.udiskie.enable = true;
 
-  gtk = {
-    enable = true;
-    font = {
-      name = "DejaVu Sans";
-      package = pkgs.dejavu_fonts;
-    };
-    iconTheme = {
-      name = "Arc";
-      package = pkgs.arc-icon-theme;
-    };
-    theme = {
-      name = "Arc-Darker";
-      package = pkgs.arc-theme;
-    };
-  };
-  qt = {
-    enable = true;
-    platformTheme = "gtk";
-  };
-
   xdg.enable = true;
 
   nixpkgs.config.allowUnfree = true;
   # The set of packages to appear in the user environment.
   home.packages = with pkgs; [
-    (import (builtins.fetchTarball https://github.com/domenkozar/hie-nix/tarball/master ) {}).hies
     ammonite                  # scala repl
     arandr                    # monitor settings GUI
     cabal-install             # haskell build tool
@@ -213,46 +141,33 @@
     chromium
     dropbox
     firefox
-    fzf
-    git
     google-fonts              # collection of fonts
     gradle                    # java build tool
-    haskellPackages.ghcid
-    haskellPackages.hlint
-    haskellPackages.stylish-haskell
     hledger                   # cli accounting
     htop
     iosevka-bin               # monospace font
     jdk                       # java dev kit
     jetbrains.idea-ultimate   # java ide
     keepassxc                 # password manager
-    keychain                  # ssh agent
     libreoffice-fresh
     maven                     # java build tool
     mpv-with-scripts
     ncdu
-    neovim                    # editor
-    neovim-remote
     networkmanagerapplet
     nodejs
     nox                       # nix helper
     pavucontrol               # pulse audio control GUI
     ranger                    # cli file manager
-    ripgrep                   # grep for developers
     sbt                       # scala build tool
-    shellcheck                # shell scripts linter
     spotify                   # music streaming
     stack                     # haskell build tool
     tdesktop                  # chat app
     transmission-gtk
     tree                      # list files in tree
-    vale                      # prose linter
-    vim-vint                  # vim linter
     visualvm                  # jvm visual dashboard
     vscode-with-extensions
     w3m                       # cli browser, shows images
     wget
-    xclip                     # clipboard manager
     xorg.xrandr               # monitor settings CLI
     youtube-dl                # fetch youtube videos
     zathura                   # pdf/djvu reader

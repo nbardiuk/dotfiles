@@ -3,6 +3,7 @@
 
   imports = [
     ./dunst.nix
+    ./gui.nix
     ./rofi.nix
   ];
 
