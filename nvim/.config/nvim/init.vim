@@ -7,10 +7,8 @@ Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash ./install.
 Plug 'flazz/vim-colorschemes'                                     " color theme
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'mzlogin/vim-markdown-toc'
 Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }                " haskell ghci
 Plug 'neomake/neomake'                                            " linting engine
-" Plug 'racer-rust/vim-racer'
 Plug 'rust-lang/rust.vim'
 Plug 'sbdchd/neoformat'
 Plug 'sheerun/vim-polyglot'                                       " collection of language packs
@@ -31,10 +29,7 @@ call plug#end()
 " Rust {{{
 augroup rust_bindings
   autocmd!
-  " autocmd FileType rust nmap gd <Plug>(rust-def)
-  " autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
   autocmd FileType rust nmap <leader>t :!time cargo test<CR>
-  autocmd BufWritePre *.rs undojoin | Neoformat
 augroup END
 " }}}
 
@@ -81,21 +76,24 @@ set shell=~/.nix-profile/bin/zsh
 let g:LanguageClient_serverCommands = {
     \'haskell': ['hie-wrapper'],
     \'rust': ['rls'],
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \'javascript': ['javascript-typescript-stdio'],
   \}
 let g:LanguageClient_settingsPath='./settings.json'
+set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
 
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nmap <leader>le :call LanguageClient#explainErrorAtPoint()<CR>
-nmap <leader>lk :call LanguageClient#textDocument_hover()<CR>
-nmap <leader>ld :call LanguageClient#textDocument_definition()<CR>
-nmap <leader>lr :call LanguageClient#textDocument_rename()<CR>
-nmap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
-nmap <leader>lb :call LanguageClient#textDocument_references()<CR>
-nmap <leader>la :call LanguageClient#textDocument_codeAction()<CR>
-nmap <leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
-nmap <leader>lS :call LanguageClient#workspace_symbol()()<CR>
+nnoremap <leader>la :call LanguageClient#textDocument_codeAction()<CR>
+nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
+nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+nnoremap <leader>le :call LanguageClient#explainErrorAtPoint()<CR>
+nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <leader>li :call LanguageClient#textDocument_implementation()<CR>
+nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
+nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+
 " }}}
 
 " Text Wrapping {{{
@@ -200,7 +198,7 @@ call deoplete#custom#option('smart_case', v:true) " Use smartcase
 
 " vimwiki {{{
 let g:vimwiki_list = [{
-            \   'path': '~/Notes',
+            \   'path': '~/Dropbox/Notes',
             \   'index': '0_index',
             \   'syntax': 'markdown', 'ext': '.md',
             \   'auto_toc': 1,
