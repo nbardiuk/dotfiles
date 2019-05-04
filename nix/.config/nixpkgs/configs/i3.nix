@@ -204,6 +204,9 @@
     lockCmd = "i3lock -n -c 000000";
   };
 
+  services.blueman-applet.enable = true;
+  services.udiskie.enable = true;
+
   home.packages = with pkgs; [
     arandr                    # monitor settings GUI
     feh                       # image viewer, manages wallpaper

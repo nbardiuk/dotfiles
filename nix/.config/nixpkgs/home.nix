@@ -28,11 +28,6 @@
 
   programs.command-not-found.enable = true;
 
-  # Bluetooth applet
-  services.blueman-applet.enable = true;
-
-  services.udiskie.enable = true;
-
   xdg.enable = true;
 
   # The set of packages to appear in the user environment.
