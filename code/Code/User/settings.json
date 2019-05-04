@@ -1,0 +1,29 @@
+{
+  "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "editor.fontFamily": "Iosevka",
+  "editor.fontSize": 14,
+  "editor.formatOnType": true,
+  "editor.minimap.enabled": false,
+  "editor.renderWhitespace": "boundary",
+  "git.autofetch": true,
+  "terminal.external.osxExec": "iTerm2.app",
+  "vim.hlsearch": true,
+  "vim.insertModeKeyBindings": [{ "before": ["j", "j"], "after": ["<Esc>"] }],
+  "vim.leader": " ",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    { "before": ["<BS>"], "commands": [":nohl"] }
+  ],
+  "vim.useSystemClipboard": true,
+  "liveshare.focusBehavior": "prompt",
+  "liveshare.guestApprovalRequired": true,
+  "liveshare.populateGitCoAuthors": "always",
+  "liveshare.shareExternalFiles": false,
+  "liveshare.connectionMode": "auto",
+  "workbench.colorTheme": "Solarized Light",
+  "workbench.editor.showTabs": false,
+  "workbench.statusBar.feedback.visible": false,
+  "python.jediEnabled": false,
+  "python.dataScience.enabled": false,
+  "python.diagnostics.sourceMapsEnabled": true
+}
