@@ -3,7 +3,6 @@
   imports = [
     ./configs/i3.nix
     ./configs/keybase.nix
-    ./configs/nvim.nix
     ./configs/termite.nix
     ./configs/shell.nix
     ./configs/zathura.nix
@@ -67,15 +66,12 @@
   nixpkgs.config.allowUnfree = true;
   # The set of packages to appear in the user environment.
   home.packages = with pkgs; [
-    ammonite                  # scala repl
     arandr                    # monitor settings GUI
     cabal-install             # haskell build tool
-    cabal2nix                 #
     chromium
     dropbox
     firefox
     google-fonts              # collection of fonts
-    gradle                    # java build tool
     iosevka-bin               # monospace font
     jdk                       # java dev kit
     jetbrains.idea-ultimate   # java ide
@@ -86,12 +82,10 @@
     networkmanagerapplet
     nodejs
     pavucontrol               # pulse audio control GUI
-    sbt                       # scala build tool
     spotify                   # music streaming
     stack                     # haskell build tool
     tdesktop                  # chat app
     transmission-gtk
-    visualvm                  # jvm visual dashboard
     vscode-with-extensions
     xorg.xrandr               # monitor settings CLI
   ];
