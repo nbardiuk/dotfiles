@@ -8,6 +8,8 @@
     ./zsh.nix
   ];
 
+  programs.man.enable = true;
+
   home.packages = with pkgs; [
     cachix                    # more nix caches
     hledger                   # cli accounting

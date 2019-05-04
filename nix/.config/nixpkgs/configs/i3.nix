@@ -205,6 +205,7 @@
   };
 
   home.packages = with pkgs; [
+    arandr                    # monitor settings GUI
     feh                       # image viewer, manages wallpaper
     font-awesome_4            # font for status icons
     google-fonts              # collection of fonts
