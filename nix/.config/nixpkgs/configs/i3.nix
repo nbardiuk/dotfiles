@@ -1,4 +1,8 @@
 { pkgs, ... }:
+let
+  i3blocksConfig = pkgs.copyPathToStore ./i3blocks.conf;
+  wallpaper = pkgs.copyPathToStore ./wallpaper.jpeg;
+in
 {
 
   imports = [
@@ -162,7 +166,7 @@
       bars = [{
         trayOutput = "primary";
         workspaceNumbers = false;
-        statusCommand = "i3blocks -c ~/.i3/i3blocks.conf";
+        statusCommand = "i3blocks -c ${i3blocksConfig}";
         position = "top";
         colors = {
           background    = "${bg-color}";
@@ -185,7 +189,7 @@
         };
       }];
       startup = [
-        { always = true;  notification = false; command = "feh --bg-scale ~/.wallpaper"; }
+        { always = true;  notification = false; command = "feh --bg-scale ${wallpaper}"; }
         { always = true;  notification = true;  command = "xrandr --output eDP-1-1 --auto --below HDMI-1-1 --primary --output HDMI-1-1 --auto"; }
         { always = true;  notification = false; command = "xset -b"; }
         { always = true;  notification = false; command = "xset s 300 300"; }
