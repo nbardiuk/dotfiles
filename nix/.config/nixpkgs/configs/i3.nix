@@ -46,7 +46,7 @@
           "${mod}+Shift+q"          = "kill";
           "${mod}+d"                = "exec rofi -show combi -terminal termite";
           "${mod}+Tab"              = "exec rofi -show combi -combi-modi window";
-          "${mod}+c"                = "exec ~/.i3/connection_toggle.py";
+          "${mod}+c"                = "exec ${pkgs.connection_toggle}/bin/connection_toggle.py";
           "${mod}+h"                = "focus left";
           "${mod}+j"                = "focus down";
           "${mod}+k"                = "focus up";
