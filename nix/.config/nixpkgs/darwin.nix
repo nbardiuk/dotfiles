@@ -153,10 +153,10 @@ in
     alt - r : chunkc tiling::desktop --rotate 90
 
     # resize
-    alt - a : chunkc tiling::window --use-temporary-ratio  0.03 --adjust-window-edge west;  chunkc tiling::window --use-temporary-ratio -0.03 --adjust-window-edge east;
-    alt - d : chunkc tiling::window --use-temporary-ratio -0.03 --adjust-window-edge west;  chunkc tiling::window --use-temporary-ratio  0.03 --adjust-window-edge east;
-    alt - w : chunkc tiling::window --use-temporary-ratio  0.05 --adjust-window-edge north; chunkc tiling::window --use-temporary-ratio -0.05 --adjust-window-edge south;
-    alt - s : chunkc tiling::window --use-temporary-ratio -0.05 --adjust-window-edge north; chunkc tiling::window --use-temporary-ratio  0.05 --adjust-window-edge south;
+    shift + alt - a : chunkc tiling::window --use-temporary-ratio  0.03 --adjust-window-edge west;  chunkc tiling::window --use-temporary-ratio -0.03 --adjust-window-edge east;
+    shift + alt - d : chunkc tiling::window --use-temporary-ratio -0.03 --adjust-window-edge west;  chunkc tiling::window --use-temporary-ratio  0.03 --adjust-window-edge east;
+    shift + alt - w : chunkc tiling::window --use-temporary-ratio  0.05 --adjust-window-edge north; chunkc tiling::window --use-temporary-ratio -0.05 --adjust-window-edge south;
+    shift + alt - s : chunkc tiling::window --use-temporary-ratio -0.05 --adjust-window-edge north; chunkc tiling::window --use-temporary-ratio  0.05 --adjust-window-edge south;
 
     # kill focused window
     shift + alt - q : chunkc tiling::window --close

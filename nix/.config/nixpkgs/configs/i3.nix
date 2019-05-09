@@ -97,11 +97,14 @@ in
           "${mod}+Shift+8"          = "move container to workspace ${WS8}";
           "${mod}+Shift+9"          = "move container to workspace ${WS9}";
           "${mod}+Shift+0"          = "move container to workspace ${WS10}";
+          "${mod}+Shift+a"          = "resize grow left  10 px; resize shrink right 10 px";
+          "${mod}+Shift+d"          = "resize grow right 10 px; resize shrink left  10 px";
+          "${mod}+Shift+w"          = "resize grow up    10 px; resize shrink down  10 px";
+          "${mod}+Shift+s"          = "resize grow down  10 px; resize shrink up    10 px";
           "${mod}+Shift+c"          = "reload";
           "${mod}+Shift+r"          = "restart";
           "${mod}+Shift+e"          = "exec \"i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'\"";
           "${mod}+Pause"            = "mode \"${mode_system}\"";
-          "${mod}+r"                = "mode \"resize\"";
           "${mod}+Ctrl+l"           = "exec xautolock -locknow && exec xset dpms force standby";
           XF86AudioRaiseVolume      = "exec amixer set Master 5%+ unmute; exec pkill -RTMIN+10 i3blocks";
           XF86AudioLowerVolume      = "exec amixer set Master 5%-;        exec pkill -RTMIN+10 i3blocks";
@@ -110,18 +113,6 @@ in
           Print                     = "exec maim -us ~/Snapshots/$(date +%s).png";
       };
       modes = {
-        resize = {
-          h        = "resize shrink width 10 px or 10 ppt";
-          j        = "resize grow height 10 px or 10 ppt";
-          k        = "resize shrink height 10 px or 10 ppt";
-          l        = "resize grow width 10 px or 10 ppt";
-          Left     = "resize shrink width 10 px or 10 ppt";
-          Down     = "resize grow height 10 px or 10 ppt";
-          Up       = "resize shrink height 10 px or 10 ppt";
-          Right    = "resize grow width 10 px or 10 ppt";
-          Return   = "mode default";
-          Escape   = "mode default";
-        };
         "${mode_system}" = {
           e           = "exec --no-startup-id i3-msg exit, mode default";
           s           = "exec --no-startup-id systemctl suspend, mode default";
