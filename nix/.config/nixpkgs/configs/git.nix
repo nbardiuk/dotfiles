@@ -26,6 +26,7 @@
       merge.tool = "vmerge";
       "mergetool \"vmerge\"".cmd = "nvim -d $LOCAL $REMOTE $MERGED -c 'wincmd w' -c 'wincmd J'";
       mergetool.promt = true;
+      pull.rebase = true;
     };
   };
 }
