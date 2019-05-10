@@ -2,7 +2,7 @@
 
 let
   chunkwm = pkgs.recurseIntoAttrs (pkgs.callPackage ~/.config/nixpkgs/pkgs/chunkwm {
-    inherit (pkgs) callPackage stdenv fetchFromGitHub imagemagick;
+    inherit (pkgs) callPackage stdenv fetchFromGitHub;
     inherit (pkgs.darwin.apple_sdk.frameworks) Carbon Cocoa ApplicationServices;
   });
 in
@@ -12,40 +12,10 @@ in
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-    cabal-install
     chunkwm.border
     chunkwm.core
     chunkwm.ffm
     chunkwm.tiling
-    direnv
-    htop
-    jdk
-    keychain
-    ncdu
-    neovim
-    neovim-remote
-    nodejs
-    nodePackages.eslint
-    nodePackages.javascript-typescript-langserver
-    nodePackages.prettier
-    nodePackages.typescript
-    python3
-    python37Packages.jedi
-    python37Packages.pip
-    python37Packages.virtualenv
-    ranger
-    ripgrep
-    ruby
-    shellcheck
-    stack
-    stow
-    tree
-    vale                      # prose linter
-    vim-vint                  # vim linter
-    vscode-with-extensions
-    w3m
-    wget
-    youtube-dl
   ];
 
   environment.variables.LANG = "en_IE.UTF-8";
@@ -61,9 +31,6 @@ in
   networking.hostName = "bardiuk-ee";
 
   programs.man.enable = true;
-
-  # Whether to enable nix-index and it's command-not-found helper.
-  programs.nix-index.enable = true;
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
