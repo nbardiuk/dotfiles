@@ -4,6 +4,10 @@
     enable = true;
     userName = "Nazarii Bardiuk";
     userEmail = "";
+    signing = {
+      signByDefault = true;
+      key = "1D8729AEF5622C0F7EA209C1C9C1904D44CDCDA1";
+    };
     ignores = [
       # idea
       ".idea/" ".idea_modules/" "*.iml" "*.ipr"
