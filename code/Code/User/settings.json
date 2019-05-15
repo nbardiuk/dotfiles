@@ -20,10 +20,11 @@
   "liveshare.populateGitCoAuthors": "always",
   "liveshare.shareExternalFiles": false,
   "liveshare.connectionMode": "auto",
-  "workbench.colorTheme": "Solarized Light",
+  "workbench.colorTheme": "Braver's Solarized Light (themed workbench)",
   "workbench.editor.showTabs": false,
   "workbench.statusBar.feedback.visible": false,
   "python.jediEnabled": false,
   "python.dataScience.enabled": false,
-  "python.diagnostics.sourceMapsEnabled": true
+  "python.diagnostics.sourceMapsEnabled": true,
+  "editor.lineNumbers": "off"
 }

@@ -1,6 +1,7 @@
 2gua.rainbow-brackets
 alexcvzz.vscode-sqlite
 batisteo.vscode-django
+Braver.vscode-solarized
 christian-kohler.npm-intellisense
 cospaia.calva-fmt
 cospaia.clojure4vscode
@@ -12,6 +13,7 @@ eamodio.gitlens
 eg2.vscode-npm-script
 esbenp.prettier-vscode
 felipecaputo.git-project-manager
+HaaLeo.timing
 mauve.terraform
 mechatroner.rainbow-csv
 ms-python.python
