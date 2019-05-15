@@ -27,4 +27,5 @@
   "python.dataScience.enabled": false,
   "python.diagnostics.sourceMapsEnabled": true,
   "editor.lineNumbers": "off"
+  "rust-client.disableRustup": true
 }

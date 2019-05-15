@@ -20,5 +20,6 @@ ms-python.python
 ms-vscode.vscode-typescript-tslint-plugin
 ms-vsliveshare.vsliveshare
 PeterJausovec.vscode-docker
+rust-lang.rust
 timonwong.shellcheck
 vscodevim.vim
