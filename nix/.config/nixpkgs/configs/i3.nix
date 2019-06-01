@@ -50,6 +50,7 @@ in
           "${mod}+Shift+q"          = "kill";
           "${mod}+d"                = "exec rofi -show combi -terminal termite";
           "${mod}+Tab"              = "exec rofi -show combi -combi-modi window";
+          "${mod}+b"                = "exec ${pkgs.open_book}/bin/open_book.sh";
           "${mod}+c"                = "exec ${pkgs.connection_toggle}/bin/connection_toggle.py";
           "${mod}+h"                = "focus left";
           "${mod}+j"                = "focus down";
