@@ -45,26 +45,77 @@ set list listchars=tab:\▸\ ,trail:· " Display tabs and trailing spaces visual
 set shell=~/.nix-profile/bin/zsh
 
 " LSP {{{
-let g:LanguageClient_serverCommands = {
-    \'haskell': ['hie-wrapper'],
-    \'rust': ['rls'],
-    \'javascript': ['javascript-typescript-stdio'],
-  \}
-let g:LanguageClient_settingsPath='./settings.json'
-set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
 
-nnoremap <leader>la :call LanguageClient#textDocument_codeAction()<CR>
-nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
-nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
-nnoremap <leader>le :call LanguageClient#explainErrorAtPoint()<CR>
-nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
-nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
-nnoremap <leader>li :call LanguageClient#textDocument_implementation()<CR>
-nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
-nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
-nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
-nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
-nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+let g:coc_global_extensions = [
+      \ 'coc-css',
+      \ 'coc-html',
+      \ 'coc-json',
+      \ 'coc-lists',
+      \ 'coc-python',
+      \ 'coc-rls',
+      \ 'coc-snippets',
+      \ 'coc-tsserver',
+      \ 'coc-yaml',
+      \]
+
+let g:coc_user_config = {
+      \ 'coc.preferences.formatOnType': 1,
+      \ 'codeLens.enable': 1,
+      \ 'diagnostic.checkCurrentLine': 1,
+      \ 'rust-client.cfg-test': 1,
+      \ 'rust-client.disableRustup': 1,
+      \ 'suggest.detailField': 'preview',
+      \ 'suggest.echodocSupport': 1,
+      \ 'suggest.enablePreview': 1,
+      \}
+
+let g:echodoc#enable_at_startup = 1
+set cmdheight=2
+
+nmap <leader>lp :CocList<CR>
+nmap <leader>ld <Plug>(coc-definition)
+nmap <leader>lt <Plug>(coc-type-definition)
+nmap <leader>li <Plug>(coc-implementation)
+nmap <leader>lx <Plug>(coc-references)
+nmap <leader>lr <Plug>(coc-rename)
+nmap <leader>lf <Plug>(coc-format)
+nmap <leader>lF <Plug>(coc-fix-current)
+xmap <leader>lF <Plug>(coc-fix-selected)
+vmap <leader>lF <Plug>(coc-fix-selected)
+nmap <leader>la <Plug>(coc-codeaction)
+xmap <leader>la <Plug>(coc-codeaction-selected)
+vmap <leader>la <Plug>(coc-codeaction-selected)
+nmap <leader>le <Plug>(coc-diagnostic-info)
+nnoremap <silent> <leader>lk :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+    if (index(['vim', 'help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
+endfunction
+
+
+" Map <tab> for trigger completion, completion confirm, snippet expand and jump like VSCode. >
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? coc#_select_confirm() :
+  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+
+"Map <c-space> to trigger completion: >
+
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " }}}
 
@@ -90,6 +141,7 @@ set laststatus=2
 
 " Folding {{{
 set foldmethod=syntax
+set nofoldenable
 
 augroup vimrcFold
   autocmd!

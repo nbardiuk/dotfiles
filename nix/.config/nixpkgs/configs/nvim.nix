@@ -11,11 +11,12 @@
     configure = {
       customRC = builtins.readFile ./init.vim;
       plug.plugins = with pkgs.vimPlugins; [
+        coc-nvim
         deoplete-nvim
+        echodoc-vim
         fzf-vim
         fzfWrapper
         gitgutter
-        LanguageClient-neovim
         neco-syntax
         neco-vim
         neoformat
@@ -52,5 +53,6 @@
     vale                      # prose linter
     vim-vint                  # vim linter
     xclip                     # clipboard manager
+    yarn
   ];
 }
