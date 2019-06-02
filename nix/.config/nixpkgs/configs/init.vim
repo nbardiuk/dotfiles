@@ -195,8 +195,12 @@ set ignorecase " Ignore case when searching...
 set smartcase  " ...unless we type a capital
 " Stop highgliting until next search
 nmap <silent> <BS> :nohlsearch<CR>
-" search in project files
-nmap <silent> <Leader>f :Rg<CR>
+" search in project files with selected text
+noremap <silent> <Leader>f "zy:call <SID>find_selected(@z)<CR>
+function! s:find_selected(text)
+  execute "normal :Rg \<CR>"
+  call feedkeys(a:text)
+endfunction
 " }}}
 
 " Files navigation {{{
