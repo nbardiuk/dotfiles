@@ -207,6 +207,7 @@ endfunction
 map <silent> <Leader>n :Files<CR>
 map <silent> <Leader>E :History<CR>
 noremap <leader>e :Buffers<cr>
+noremap <leader>/ :BLines<cr>
 " }}}
 
 " NetRW {{{
@@ -224,23 +225,21 @@ let g:deoplete#enable_at_startup = 1              " Use deoplete.
 call deoplete#custom#option('smart_case', v:true) " Use smartcase
 " }}}
 
-" vimwiki {{{
-let g:vimwiki_list = [{
-            \   'path': '~/Dropbox/Notes',
-            \   'index': '0_index',
-            \   'syntax': 'markdown', 'ext': '.md',
-            \   'auto_toc': 1,
-            \   'auto_tags': 1
-            \    }]
+" markdown {{{
+" render style instead of markup
+set conceallevel=2
+let g:vim_markdown_conceal=1
 
-" Append wiki file extension to links in Markdown. This is needed for compatibility with other Markdown tools.
-let g:vimwiki_markdown_link_ext = 1
+" use header as folding text
+let g:vim_markdown_folding_style_pythonic=1
 
-augroup vimWiki
-  autocmd!
-  autocmd FileType vimwiki setlocal wrap
-  autocmd FileType vimwiki setlocal textwidth=80
-augroup END
+" code block aliases for syntax highlight
+let g:vim_markdown_fenced_languages = [
+      \'haskell=hs',
+      \'javascript=js',
+      \'shell=sh',
+      \]
+
 " }}}
 
 " haskell {{{

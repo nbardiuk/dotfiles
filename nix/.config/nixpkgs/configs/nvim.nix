@@ -31,7 +31,6 @@
         vim-surround
         vim-unimpaired
         vim-vinegar
-        vimwiki
       ];
 
     };
