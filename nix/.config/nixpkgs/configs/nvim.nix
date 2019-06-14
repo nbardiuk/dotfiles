@@ -10,7 +10,7 @@
     withRuby = true;
     configure = {
       customRC = builtins.readFile ./init.vim;
-      plug.plugins = with pkgs.vimPlugins; [
+      plug.plugins = with pkgs; with vimPlugins; [
         coc-nvim
         deoplete-nvim
         echodoc-vim
@@ -25,7 +25,9 @@
         vim-colorschemes
         vim-commentary
         vim-fugitive
+        vim-ghcid
         vim-markdown
+        vim-merlin
         vim-polyglot
         vim-sensible
         vim-surround
@@ -37,7 +39,6 @@
   };
 
   home.packages = with pkgs; [
-    (import (builtins.fetchTarball https://github.com/domenkozar/hie-nix/tarball/master ) {}).hies
     fzf
     git
     haskellPackages.ghcid
@@ -52,6 +53,6 @@
     vale                      # prose linter
     vim-vint                  # vim linter
     xclip                     # clipboard manager
-    yarn
+    yarn                      # js build tool (used by coc plugins)
   ];
 }
