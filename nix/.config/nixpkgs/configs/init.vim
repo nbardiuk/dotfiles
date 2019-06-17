@@ -131,7 +131,6 @@ noremap k gk
 
 " Theme {{{
 set background=light
-set termguicolors
 colorscheme flattened_light " solarized light
 " }}}
 

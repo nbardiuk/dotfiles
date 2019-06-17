@@ -6,6 +6,7 @@
     ./git.nix
     ./htop.nix
     ./nvim.nix
+    ./tmux.nix
     ./zsh.nix
   ];
 
