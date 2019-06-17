@@ -44,7 +44,6 @@
     haskellPackages.ghcid
     haskellPackages.hlint
     haskellPackages.stylish-haskell
-    nodePackages.javascript-typescript-langserver
     ripgrep                   # grep for developers
     rust_mozilla
     rustracer

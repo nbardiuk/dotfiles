@@ -13,8 +13,10 @@
   programs.man.enable = true;
 
   home.packages = with pkgs; [
-    cachix                    # more nix caches
+    atop
+    gnumake
     ncdu
+    nodePackages.nodemon
     ranger                    # cli file manager
     tree                      # list files in tree
     w3m                       # cli browser, shows images
