@@ -48,18 +48,21 @@ set shell=~/.nix-profile/bin/zsh
 
 let g:coc_global_extensions = [
       \ 'coc-css',
+      \ 'coc-eslint',
       \ 'coc-html',
       \ 'coc-json',
       \ 'coc-lists',
+      \ 'coc-prettier',
       \ 'coc-python',
       \ 'coc-rls',
       \ 'coc-snippets',
+      \ 'coc-tslint-plugin',
       \ 'coc-tsserver',
       \ 'coc-yaml',
       \]
 
 let g:coc_user_config = {
-      \ 'coc.preferences.formatOnType': 1,
+      \ 'coc.preferences.formatOnType': 0,
       \ 'codeLens.enable': 1,
       \ 'diagnostic.checkCurrentLine': 1,
       \ 'rust-client.cfg-test': 1,
@@ -79,6 +82,7 @@ nmap <leader>li <Plug>(coc-implementation)
 nmap <leader>lx <Plug>(coc-references)
 nmap <leader>lr <Plug>(coc-rename)
 nmap <leader>lf <Plug>(coc-format)
+vmap <leader>lf <Plug>(coc-format-selected)
 nmap <leader>lF <Plug>(coc-fix-current)
 xmap <leader>lF <Plug>(coc-fix-selected)
 vmap <leader>lF <Plug>(coc-fix-selected)
@@ -116,7 +120,6 @@ let g:coc_snippet_next = '<tab>'
 "Map <c-space> to trigger completion: >
 
 inoremap <silent><expr> <c-space> coc#refresh()
-
 " }}}
 
 " Text Wrapping {{{
