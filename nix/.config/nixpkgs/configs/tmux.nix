@@ -11,6 +11,8 @@
     customPaneNavigationAndResize = true;
     reverseSplit = true;
 
+    secureSocket = false;
+
     disableConfirmationPrompt = true;
 
     terminal = "screen-256color";
