@@ -6,10 +6,9 @@
     clock24 = true;
     escapeTime = 0;
 
-    shortcut = "a";
+    shortcut = "s";
     keyMode = "vi";
     customPaneNavigationAndResize = true;
-    reverseSplit = true;
 
     secureSocket = false;
 
@@ -24,6 +23,17 @@
 
       set-option -g status-position top
       set -g status-right ""
+
+      bind -T copy-mode-vi v send-keys -X begin-selection
+      bind v split-window -h -c '#{pane_current_path}'
+      bind s split-window -v -c '#{pane_current_path}'
+
+      # create new window in current path
+      bind c new-window -c '#{pane_current_path}'
+      set-option -g renumber-window on
+
+      # move current break to a new window
+      bind-key b break-pane -d
 
       #### COLOUR (Solarized light)
       set-option -g status-bg white #base2
@@ -40,6 +50,9 @@
         extraConfig = ''
           set -g @yank_selection 'clipboard'
         '';
+      }
+      {
+        plugin = tmuxPlugins.vim-tmux-navigator;
       }
     ];
   };

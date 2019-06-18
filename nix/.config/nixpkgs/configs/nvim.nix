@@ -22,6 +22,7 @@
         neoformat
         neomake
         rust-vim
+        tmux-navigator
         vim-colorschemes
         vim-commentary
         vim-fugitive

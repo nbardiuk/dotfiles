@@ -13,6 +13,7 @@
         "bgnotify"
         "common-aliases"
         "git"
+        "tmux"
       ];
       theme = "refined";
     };
@@ -23,6 +24,7 @@
       MANPAGER = "nvim +set\\ filetype=man -";
       SUDO_EDITOR = "nvim";
       TERM = "xterm-256color";
+      ZSH_TMUX_AUTOSTART = true;
     };
 
     shellAliases = {

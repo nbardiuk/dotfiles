@@ -20,6 +20,16 @@ if has('nvim')
 endif
 " }}}
 
+" {{{ Panes
+augroup panes
+  autocmd!
+  " automatically rebalance windows on vim resize
+  autocmd VimResized * :wincmd =
+augroup END
+" zoom a vim pane
+nnoremap <leader>z :wincmd _<cr>:wincmd \|<cr>
+" }}}
+
 let mapleader = "\<Space>"
 set hidden                          " allows to switch a buffer with unsaved changes
 set backspace=indent,eol,start      " Allow backspace in insert mode
