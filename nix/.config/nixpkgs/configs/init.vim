@@ -27,7 +27,7 @@ augroup panes
   autocmd VimResized * :wincmd =
 augroup END
 " zoom a vim pane
-nnoremap <leader>z :wincmd _<cr>:wincmd \|<cr>
+nnoremap <silent> <leader>z :wincmd _<cr>:wincmd \|<cr>
 " }}}
 
 let mapleader = "\<Space>"
