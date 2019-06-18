@@ -22,10 +22,37 @@
   "liveshare.connectionMode": "auto",
   "workbench.colorTheme": "Braver's Solarized Light (themed workbench)",
   "workbench.editor.showTabs": false,
-  "workbench.statusBar.feedback.visible": false,
   "python.jediEnabled": false,
   "python.dataScience.enabled": false,
   "python.diagnostics.sourceMapsEnabled": true,
   "editor.lineNumbers": "off",
-  "rust-client.disableRustup": true
+  "rust-client.disableRustup": true,
+  "files.trimTrailingWhitespace": true,
+  "prettier.tslintIntegration": true,
+  "prettier.eslintIntegration": true,
+  "terminal.integrated.fontSize": 14,
+  "editor.fontLigatures": true,
+  "files.autoSave": "onFocusChange",
+  "python.linting.flake8Enabled": true,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "workbench.editor.labelFormat": "medium",
+  "workbench.statusBar.feedback.visible": false,
+  "workbench.tips.enabled": false,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "css.lint.duplicateProperties": "warning",
+  "scss.lint.duplicateProperties": "warning",
+
+  "telemetry.enableCrashReporter": false,
+  "telemetry.enableTelemetry": false,
+  "workbench.settings.enableNaturalLanguageSearch": false,
+  "gitlens.advanced.telemetry.enabled": false,
+  "gitlens.currentLine.enabled": false,
+  "cSpell.userWords": [
+    "Unmount",
+    "dismissable"
+  ],
+  "search.useGlobalIgnoreFiles": true
 }
