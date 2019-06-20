@@ -223,7 +223,7 @@ noremap <leader>/ :BLines<cr>
 " }}}
 
 " NetRW {{{
-let g:netrw_liststyle = 1                     " long listing
+let g:netrw_liststyle = 3                     " tree listing
 let g:netrw_sizestyle = 'H'                   " human readable
 let g:netrw_hide = 1                          " hide by default
 let g:netrw_banner = 0                        " turn banner off

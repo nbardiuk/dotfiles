@@ -21,6 +21,8 @@
     extraConfig = ''
       set -g default-command zsh
 
+      set -g mouse on
+
       set-option -g status-position top
       set -g status-right ""
 
