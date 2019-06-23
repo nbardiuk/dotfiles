@@ -37,7 +37,7 @@ if has('unnamedplus') " X11 support
   set clipboard+=unnamedplus
 endif
 syntax on                           " turn on syntax highlighting
-set nospell spelllang=en_us         " spell check
+set spell spelllang=en_us           " spell check
 set wildmode=list:longest,full      " Commands completion
 " fzf history
 cmap <C-F> History:<CR>
@@ -149,6 +149,13 @@ colorscheme flattened_light " solarized light
 
 " Status line {{{
 set laststatus=2
+set noshowmode
+let g:airline_powerline_fonts=1
+let g:airline_detect_spell=0
+let g:airline_theme='solarized'
+let g:airline_exclude_preview=1
+let g:airline#extensions#branch#format = 2 " 'foo/bar/baz' becomes 'f/b/baz'
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]' " dont show default filetype
 " }}}
 
 " Folding {{{

@@ -23,6 +23,8 @@
         neomake
         rust-vim
         tmux-navigator
+        vim-airline
+        vim-airline-themes
         vim-colorschemes
         vim-commentary
         vim-fugitive
