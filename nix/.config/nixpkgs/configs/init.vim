@@ -262,15 +262,17 @@ let g:vim_markdown_fenced_languages = [
 " }}}
 
 " haskell {{{
-augroup haskellMaps
-  autocmd!
-  " update tags
-  autocmd BufWritePost *.hs :call jobstart('codex update')
-augroup END
 
 " choose formatter
-let g:neoformat_enabled_haskell = ['stylishhaskell']
+let g:neoformat_enabled_haskell = ['hindent', 'stylish-haskell']
 
+augroup haskell_bindings
+  autocmd!
+  autocmd FileType haskell nnoremap <buffer> <leader>lf :Neoformat<CR>
+  autocmd FileType haskell nnoremap <buffer> <leader>lt :HdevtoolsType<CR>
+  autocmd FileType haskell nnoremap <buffer> <leader>lk :HdevtoolsInfo<CR>
+  autocmd FileType haskell nnoremap <buffer> <leader>lc :HdevtoolsClear<CR>
+augroup END
 " }}}
 
 " Neoformat {{{
@@ -278,15 +280,9 @@ let g:neoformat_enabled_haskell = ['stylishhaskell']
 " Enable tab to spaces conversion globally
 let g:neoformat_basic_format_retab = 1
 
-" Enable trimmming of trailing whitespace globally
+" Enable trimming of trailing whitespace globally
 let g:neoformat_basic_format_trim = 1
 
 " Run all enabled formatters (by default Neoformat stops after the first formatter succeeds)
 let g:neoformat_run_all_formatters = 1
-" }}}
-
-" Neomake {{{
-" Full config: when writing or reading a buffer, and on changes in insert and
-" normal mode (after 1s; no delay when writing).
-call neomake#configure#automake('nrwi', 500)
 " }}}

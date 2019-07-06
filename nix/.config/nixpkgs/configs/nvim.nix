@@ -11,6 +11,7 @@
     configure = {
       customRC = builtins.readFile ./init.vim;
       plug.plugins = with pkgs; with vimPlugins; [
+        ale
         coc-nvim
         deoplete-nvim
         echodoc-vim
@@ -20,7 +21,6 @@
         neco-syntax
         neco-vim
         neoformat
-        neomake
         rust-vim
         tmux-navigator
         vim-airline
@@ -29,6 +29,7 @@
         vim-commentary
         vim-fugitive
         vim-ghcid
+        vim-hdevtools
         vim-markdown
         vim-merlin
         vim-polyglot
@@ -45,6 +46,8 @@
     fzf
     git
     haskellPackages.ghcid
+    haskellPackages.hdevtools
+    haskellPackages.hindent
     haskellPackages.hlint
     haskellPackages.stylish-haskell
     ripgrep                   # grep for developers
