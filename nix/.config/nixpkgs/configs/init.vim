@@ -156,6 +156,7 @@ let g:airline_theme='solarized'
 let g:airline_exclude_preview=1
 let g:airline#extensions#branch#format = 2 " 'foo/bar/baz' becomes 'f/b/baz'
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]' " dont show default filetype
+set title
 " }}}
 
 " Folding {{{

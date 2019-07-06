@@ -26,6 +26,9 @@
       set-option -g status-position top
       set -g status-right ""
 
+      set -g set-titles on
+      set -g set-titles-string "#S / #W"
+
       bind -T copy-mode-vi v send-keys -X begin-selection
       bind v split-window -h -c '#{pane_current_path}'
       bind s split-window -v -c '#{pane_current_path}'
