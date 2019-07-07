@@ -3,11 +3,11 @@
   services.redshift = {
     enable = true;
     tray = true;
-    longitude = "-9.13";
-    latitude = "38.71";
+    longitude = "-9";
+    latitude = "38";
     temperature = {
       day = 5700;
-      night = 3600;
+      night = 4500;
     };
   };
 }

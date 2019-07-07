@@ -24,7 +24,7 @@
       MANPAGER = "nvim +set\\ filetype=man -";
       SUDO_EDITOR = "nvim";
       TERM = "xterm-256color";
-      ZSH_TMUX_AUTOSTART = false;
+      ZSH_TMUX_AUTOSTART = true;
     };
 
     shellAliases = {
