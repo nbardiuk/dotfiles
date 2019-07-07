@@ -15,6 +15,7 @@
   home.packages = with pkgs; [
     atop
     gnumake
+    lsof
     ncdu
     nodePackages.nodemon
     ranger                    # cli file manager

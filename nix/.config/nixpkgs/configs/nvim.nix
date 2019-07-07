@@ -51,8 +51,6 @@
     haskellPackages.hlint
     haskellPackages.stylish-haskell
     ripgrep                   # grep for developers
-    rust_mozilla
-    rustracer
     shellcheck                # shell scripts linter
     stack                     # haskell build tool
     vale                      # prose linter
