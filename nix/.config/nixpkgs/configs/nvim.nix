@@ -21,6 +21,7 @@
         neco-syntax
         neco-vim
         neoformat
+        rhubarb
         rust-vim
         tmux-navigator
         vim-airline

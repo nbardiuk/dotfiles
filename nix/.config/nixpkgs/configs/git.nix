@@ -33,4 +33,8 @@
       pull.rebase = true;
     };
   };
+
+  home.packages = with pkgs; [
+    gitAndTools.hub
+  ];
 }
