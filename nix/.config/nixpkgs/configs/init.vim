@@ -216,18 +216,23 @@ set smartcase  " ...unless we type a capital
 " Stop highgliting until next search
 nmap <silent> <BS> :nohlsearch<CR>
 " search in project files with selected text
-noremap <silent> <Leader>f "zy:call <SID>find_selected(@z)<CR>
-function! s:find_selected(text)
-  execute "normal :Rg \<CR>"
+noremap <silent> <Leader>f "fy:call <SID>run_interact(":Rg", @f)<CR>
+" search in current buffer with selected text
+noremap <silent> <Leader>/ "fy:call <SID>run_interact(":BLines", @f)<CR>
+
+" run normal command with text interactively
+function! s:run_interact(command, text)
+  execute 'normal ' . a:command . " \<CR>"
   call feedkeys(a:text)
 endfunction
+
 " }}}
 
 " Files navigation {{{
-map <silent> <Leader>n :Files<CR>
-map <silent> <Leader>E :History<CR>
-noremap <leader>e :Buffers<cr>
-noremap <leader>/ :BLines<cr>
+" search project file by selected text
+noremap <silent> <Leader>n "fy:call <SID>run_interact(":Files", @f)<CR>
+" search buffers by selected text
+noremap <silent> <Leader>e "fy:call <SID>run_interact(":Buffers", @f)<CR>
 " }}}
 
 " NetRW {{{
