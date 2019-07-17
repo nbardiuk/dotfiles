@@ -1,7 +1,7 @@
 " Rust {{{
 augroup rust_bindings
   autocmd!
-  autocmd FileType rust nmap <leader>t :!time cargo test<CR>
+  autocmd FileType rust nnoremap <leader>t :!time cargo test<CR>
 augroup END
 " }}}
 
@@ -40,7 +40,7 @@ syntax on                           " turn on syntax highlighting
 set spell spelllang=en_us           " spell check
 set wildmode=list:longest,full      " Commands completion
 " fzf history
-cmap <C-F> History:<CR>
+cnoremap <C-F> History:<CR>
 set list listchars=tab:\▸\ ,trail:· " Display tabs and trailing spaces visually
 set shell=~/.nix-profile/bin/zsh
 
@@ -85,21 +85,21 @@ let g:coc_user_config = {
 let g:echodoc#enable_at_startup = 1
 set cmdheight=2
 
-nmap <leader>lp :CocList<CR>
-nmap <leader>ld <Plug>(coc-definition)
-nmap <leader>lt <Plug>(coc-type-definition)
-nmap <leader>li <Plug>(coc-implementation)
-nmap <leader>lx <Plug>(coc-references)
-nmap <leader>lr <Plug>(coc-rename)
-nmap <leader>lf <Plug>(coc-format)
-vmap <leader>lf <Plug>(coc-format-selected)
-nmap <leader>lF <Plug>(coc-fix-current)
-xmap <leader>lF <Plug>(coc-fix-selected)
-vmap <leader>lF <Plug>(coc-fix-selected)
-nmap <leader>la <Plug>(coc-codeaction)
-xmap <leader>la <Plug>(coc-codeaction-selected)
-vmap <leader>la <Plug>(coc-codeaction-selected)
-nmap <leader>le <Plug>(coc-diagnostic-info)
+nnoremap <leader>lp :CocList<CR>
+nnoremap <leader>ld <Plug>(coc-definition)
+nnoremap <leader>lt <Plug>(coc-type-definition)
+nnoremap <leader>li <Plug>(coc-implementation)
+nnoremap <leader>lx <Plug>(coc-references)
+nnoremap <leader>lr <Plug>(coc-rename)
+nnoremap <leader>lf <Plug>(coc-format)
+vnoremap <leader>lf <Plug>(coc-format-selected)
+nnoremap <leader>lF <Plug>(coc-fix-current)
+xnoremap <leader>lF <Plug>(coc-fix-selected)
+vnoremap <leader>lF <Plug>(coc-fix-selected)
+nnoremap <leader>la <Plug>(coc-codeaction)
+xnoremap <leader>la <Plug>(coc-codeaction-selected)
+vnoremap <leader>la <Plug>(coc-codeaction-selected)
+nnoremap <leader>le <Plug>(coc-diagnostic-info)
 nnoremap <silent> <leader>lk :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
@@ -138,8 +138,8 @@ set linebreak      " break lines at convenient points
 set textwidth=79   " where to break a line
 set winwidth=80    " minimal width of active window
 " navigate through display lines
-noremap j gj
-noremap k gk
+nnoremap j gj
+nnoremap k gk
 " }}}
 
 " Theme {{{
@@ -214,11 +214,11 @@ set hlsearch   " Highlight searches by default
 set ignorecase " Ignore case when searching...
 set smartcase  " ...unless we type a capital
 " Stop highgliting until next search
-nmap <silent> <BS> :nohlsearch<CR>
+nnoremap <silent> <BS> :nohlsearch<CR>
 " search in project files with selected text
-noremap <silent> <Leader>f "fy:call <SID>run_interact(":Rg", @f)<CR>
+nnoremap <silent> <Leader>f "fy:call <SID>run_interact(":Rg", @f)<CR>
 " search in current buffer with selected text
-noremap <silent> <Leader>/ "fy:call <SID>run_interact(":BLines", @f)<CR>
+nnoremap <silent> <Leader>/ "fy:call <SID>run_interact(":BLines", @f)<CR>
 
 " run normal command with text interactively
 function! s:run_interact(command, text)
@@ -242,9 +242,9 @@ let g:fzf_action = {
 
 " Files navigation {{{
 " search project file by selected text
-noremap <silent> <Leader>n "fy:call <SID>run_interact(":Files", @f)<CR>
+nnoremap <silent> <Leader>n "fy:call <SID>run_interact(":Files", @f)<CR>
 " search buffers by selected text
-noremap <silent> <Leader>e "fy:call <SID>run_interact(":Buffers", @f)<CR>
+nnoremap <silent> <Leader>e "fy:call <SID>run_interact(":Buffers", @f)<CR>
 " }}}
 
 " NetRW {{{
@@ -252,7 +252,7 @@ let g:netrw_liststyle = 3                     " tree listing
 let g:netrw_sizestyle = 'H'                   " human readable
 let g:netrw_hide = 1                          " hide by default
 let g:netrw_banner = 0                        " turn banner off
-map <leader>N :e %:h<CR>
+nnoremap <leader>N :e %:h<CR>
 " }}}
 
 " Completion {{{
@@ -308,4 +308,11 @@ let g:neoformat_run_all_formatters = 1
 " Git {{{
 " [[B]Commits] Customize the options used by 'git log':
 let g:fzf_commits_log_options = '--graph --color=always --format="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"'
+" }}}
+
+" BAG {{{
+
+" switch case Test word
+inoremap <c-u> <esc>g~iw`]a
+
 " }}}
