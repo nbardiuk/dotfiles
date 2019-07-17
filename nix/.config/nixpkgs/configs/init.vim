@@ -315,4 +315,9 @@ let g:fzf_commits_log_options = '--graph --color=always --format="%Cred%h%Creset
 " switch case Test word
 inoremap <c-u> <esc>g~iw`]a
 
+" edit my vim config
+nnoremap <leader>ev :vsplit ~/.config/nixpkgs/configs/init.vim<cr>
+
+" source my vim config
+nnoremap <leader>sv :source ~/.config/nixpkgs/configs/init.vim<cr>
 " }}}
