@@ -34,6 +34,7 @@
         vim-markdown
         vim-merlin
         vim-polyglot
+        vim-repeat
         vim-sensible
         vim-surround
         vim-unimpaired
