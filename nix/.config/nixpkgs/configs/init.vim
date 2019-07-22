@@ -216,9 +216,11 @@ set smartcase  " ...unless we type a capital
 " Stop highgliting until next search
 nnoremap <silent> <BS> :nohlsearch<CR>
 " search in project files with selected text
-nnoremap <silent> <Leader>f "fy:call <SID>run_interact(":Rg", @f)<CR>
+vnoremap <silent> <Leader>f "fy:call <SID>run_interact(":Rg", @f)<CR>
+nnoremap <silent> <Leader>f :Rg<CR>
 " search in current buffer with selected text
-nnoremap <silent> <Leader>/ "fy:call <SID>run_interact(":BLines", @f)<CR>
+vnoremap <silent> <Leader>/ "fy:call <SID>run_interact(":BLines", @f)<CR>
+nnoremap <silent> <Leader>/ :BLines<CR>
 
 " run normal command with text interactively
 function! s:run_interact(command, text)
@@ -242,9 +244,11 @@ let g:fzf_action = {
 
 " Files navigation {{{
 " search project file by selected text
-nnoremap <silent> <Leader>n "fy:call <SID>run_interact(":Files", @f)<CR>
+vnoremap <silent> <Leader>n "fy:call <SID>run_interact(":Files", @f)<CR>
+nnoremap <silent> <Leader>n :Files<CR>
 " search buffers by selected text
-nnoremap <silent> <Leader>e "fy:call <SID>run_interact(":Buffers", @f)<CR>
+vnoremap <silent> <Leader>e "fy:call <SID>run_interact(":Buffers", @f)<CR>
+nnoremap <silent> <Leader>e :Buffers<CR>
 " }}}
 
 " NetRW {{{
@@ -312,12 +316,15 @@ let g:fzf_commits_log_options = '--graph --color=always --format="%Cred%h%Creset
 
 " BAG {{{
 
-" switch case Test word
+" switch word case
 inoremap <c-u> <esc>g~iw`]a
 
 " edit my vim config
-nnoremap <leader>ev :vsplit ~/.config/nixpkgs/configs/init.vim<cr>
+nnoremap <leader>ve :vsplit ~/.config/nixpkgs/configs/init.vim<cr>
 
 " source my vim config
-nnoremap <leader>sv :source ~/.config/nixpkgs/configs/init.vim<cr>
+nnoremap <leader>vs :source ~/.config/nixpkgs/configs/init.vim<cr>
+
+" always type wrong letter
+cabbrev W w
 " }}}
