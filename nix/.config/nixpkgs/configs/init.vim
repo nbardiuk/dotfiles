@@ -130,6 +130,10 @@ let g:coc_snippet_next = '<tab>'
 "Map <c-space> to trigger completion: >
 
 inoremap <silent><expr> <c-space> coc#refresh()
+
+" coc list messes up with cursor
+" https://github.com/neoclide/coc.nvim/issues/1011
+set guicursor=n:blinkon0
 " }}}
 
 " Text Wrapping {{{
