@@ -22,12 +22,14 @@
       set -g default-command zsh
 
       set -g mouse on
+      # stay in copy mode on mouse drag end
+      unbind-key -T copy-mode-vi MouseDragEnd1Pane
 
       set-option -g status-position top
       set -g status-right ""
 
       set -g set-titles on
-      set -g set-titles-string "#S / #W"
+      set -g set-titles-string "#T > #S > #W"
 
       bind -T copy-mode-vi v send-keys -X begin-selection
       bind v split-window -h -c '#{pane_current_path}'
