@@ -12,7 +12,6 @@
       customRC = builtins.readFile ./init.vim;
       plug.plugins = with pkgs; with vimPlugins; [
         ale
-        coc-nvim
         deoplete-nvim
         echodoc-vim
         fzf-vim
@@ -24,6 +23,9 @@
         rhubarb
         rust-vim
         tmux-navigator
+        tsuquyomi
+        typescript-vim
+        ultisnips
         vim-airline
         vim-airline-themes
         vim-colorschemes
@@ -36,9 +38,12 @@
         vim-polyglot
         vim-repeat
         vim-sensible
+        vim-snippets
         vim-surround
+        vim-tsx
         vim-unimpaired
         vim-vinegar
+        vimproc
       ];
 
     };

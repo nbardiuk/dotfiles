@@ -54,88 +54,6 @@ augroup END
 nnoremap <silent> <leader>z :wincmd _<cr>:wincmd \|<cr>
 " }}}
 
-" LSP {{{
-
-let g:coc_global_extensions = [
-      \ 'coc-css',
-      \ 'coc-eslint',
-      \ 'coc-html',
-      \ 'coc-json',
-      \ 'coc-lists',
-      \ 'coc-prettier',
-      \ 'coc-python',
-      \ 'coc-rls',
-      \ 'coc-snippets',
-      \ 'coc-tslint-plugin',
-      \ 'coc-tsserver',
-      \ 'coc-yaml',
-      \]
-
-let g:coc_user_config = {
-      \ 'coc.preferences.formatOnType': 0,
-      \ 'codeLens.enable': 1,
-      \ 'diagnostic.checkCurrentLine': 1,
-      \ 'rust-client.cfg-test': 1,
-      \ 'rust-client.disableRustup': 1,
-      \ 'suggest.detailField': 'preview',
-      \ 'suggest.echodocSupport': 1,
-      \ 'suggest.enablePreview': 1,
-      \}
-
-let g:echodoc#enable_at_startup = 1
-set cmdheight=2
-
-nnoremap <leader>lp :CocList<CR>
-nmap <leader>ld <Plug>(coc-definition)
-nmap <leader>lt <Plug>(coc-type-definition)
-nmap <leader>li <Plug>(coc-implementation)
-nmap <leader>lx <Plug>(coc-references)
-nmap <leader>lr <Plug>(coc-rename)
-nmap <leader>lf <Plug>(coc-format)
-vmap <leader>lf <Plug>(coc-format-selected)
-nmap <leader>lF <Plug>(coc-fix-current)
-xmap <leader>lF <Plug>(coc-fix-selected)
-vmap <leader>lF <Plug>(coc-fix-selected)
-nmap <leader>la <Plug>(coc-codeaction)
-xmap <leader>la <Plug>(coc-codeaction-selected)
-vmap <leader>la <Plug>(coc-codeaction-selected)
-nmap <leader>le <Plug>(coc-diagnostic-info)
-nnoremap <silent> <leader>lk :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-    if (index(['vim', 'help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
-endfunction
-
-
-" Map <tab> for trigger completion, completion confirm, snippet expand and jump like VSCode. >
-
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? coc#_select_confirm() :
-  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-let g:coc_snippet_next = '<tab>'
-
-
-"Map <c-space> to trigger completion: >
-
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" coc list messes up with cursor
-" https://github.com/neoclide/coc.nvim/issues/1011
-set guicursor=n:blinkon0
-" }}}
-
 " Text Wrapping {{{
 set nowrap         " Don't soft wrap lines
 set linebreak      " break lines at convenient points
@@ -332,3 +250,32 @@ nnoremap <leader>vs :source ~/.config/nixpkgs/configs/init.vim<cr>
 " always type wrong letter
 cabbrev W w
 " }}}
+
+" Typescript {{{
+augroup typescirpt_bindings
+  autocmd!
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lt :TsuquyomiTypeDefinition<CR>
+augroup END
+let g:tsuquyomi_javascript_support = 1
+" }}}
+
+" ALE {{{
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['tsserver', 'tslint'],
+\    'scss': ['stylelint'],
+\    'css': ['stylelint'],
+\}
+let g:ale_fixers = {
+\    'json': ['prettier'],
+\    'javascript': ['eslint', 'prettier'],
+\    'typescript': ['prettier'],
+\    'scss': ['prettier','stylelint'],
+\    'css': ['prettier','stylelint'],
+\}
+augroup ale_bindings
+  autocmd!
+  autocmd FileType * nnoremap <buffer> <leader>lf :ALEFix<CR>
+augroup END
+" }}}
+
