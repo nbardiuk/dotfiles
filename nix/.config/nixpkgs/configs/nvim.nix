@@ -10,12 +10,13 @@
     withRuby = true;
     configure = {
       customRC = builtins.readFile ./init.vim;
-      plug.plugins = with pkgs; with vimPlugins; [
+      plug.plugins = with pkgs.vimPlugins; [
         ale
         deoplete-nvim
         echodoc-vim
         fzf-vim
         fzfWrapper
+        ghcid
         gitgutter
         neco-syntax
         neco-vim
@@ -31,10 +32,8 @@
         vim-colorschemes
         vim-commentary
         vim-fugitive
-        vim-ghcid
         vim-hdevtools
         vim-markdown
-        vim-merlin
         vim-polyglot
         vim-repeat
         vim-sensible
