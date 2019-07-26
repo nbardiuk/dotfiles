@@ -57,7 +57,6 @@
     ripgrep                   # grep for developers
     shellcheck                # shell scripts linter
     stack                     # haskell build tool
-    vale                      # prose linter
     vim-vint                  # vim linter
     xclip                     # clipboard manager
   ];
