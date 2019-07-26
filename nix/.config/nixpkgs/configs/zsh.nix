@@ -11,7 +11,6 @@
       enable = true;
       plugins = [
         "bgnotify"
-        "common-aliases"
         "git"
         "tmux"
       ];
