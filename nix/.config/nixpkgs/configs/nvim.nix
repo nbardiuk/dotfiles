@@ -49,7 +49,6 @@
   };
 
   home.packages = with pkgs; [
-    git
     haskellPackages.ghcid
     haskellPackages.hdevtools
     haskellPackages.hindent
@@ -61,6 +60,5 @@
     vale                      # prose linter
     vim-vint                  # vim linter
     xclip                     # clipboard manager
-    yarn                      # js build tool (used by coc plugins)
   ];
 }
