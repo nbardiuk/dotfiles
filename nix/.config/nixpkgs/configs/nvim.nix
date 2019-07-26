@@ -49,7 +49,6 @@
   };
 
   home.packages = with pkgs; [
-    fzf
     git
     haskellPackages.ghcid
     haskellPackages.hdevtools
