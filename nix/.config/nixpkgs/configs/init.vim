@@ -234,6 +234,9 @@ let g:neoformat_run_all_formatters = 1
 " Git {{{
 " [[B]Commits] Customize the options used by 'git log':
 let g:fzf_commits_log_options = '--graph --color=always --format="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"'
+" If this many milliseconds nothing is typed the swap file will be written to disk
+" speedsup gitgutter
+set updatetime=100
 " }}}
 
 " BAG {{{
