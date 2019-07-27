@@ -229,6 +229,13 @@ let g:neoformat_basic_format_trim = 1
 
 " Run all enabled formatters (by default Neoformat stops after the first formatter succeeds)
 let g:neoformat_run_all_formatters = 1
+
+let g:neoformat_nix_nixfmt = { 'exe': 'nixfmt', 'stdin': 1 }
+let g:neoformat_enabled_nix = ['nixfmt']
+augroup nix_bindings
+  autocmd!
+  autocmd FileType nix nnoremap <buffer> <leader>lf :Neoformat<CR>
+augroup END
 " }}}
 
 " Git {{{
@@ -269,6 +276,7 @@ cabbrev W w
 augroup typescirpt_bindings
   autocmd!
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lt :TsuquyomiTypeDefinition<CR>
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lf :ALEFix<CR>
 augroup END
 let g:tsuquyomi_javascript_support = 1
 " }}}
@@ -287,9 +295,5 @@ let g:ale_fixers = {
 \    'scss': ['prettier','stylelint'],
 \    'css': ['prettier','stylelint'],
 \}
-augroup ale_bindings
-  autocmd!
-  autocmd FileType * nnoremap <buffer> <leader>lf :ALEFix<CR>
-augroup END
 " }}}
 

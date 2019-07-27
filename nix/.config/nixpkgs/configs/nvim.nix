@@ -49,6 +49,7 @@
   };
 
   home.packages = with pkgs; [
+    nixfmt                    # nix formatter
     haskellPackages.ghcid
     haskellPackages.hdevtools
     haskellPackages.hindent
