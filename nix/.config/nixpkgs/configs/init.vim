@@ -277,6 +277,8 @@ cabbrev W w
 augroup typescirpt_bindings
   autocmd!
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lt :TsuquyomiTypeDefinition<CR>
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lr :TsuRenameSymbol<CR>
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> } :TsuReferences<CR>
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lf :ALEFix<CR>
 augroup END
 let g:tsuquyomi_javascript_support = 1
