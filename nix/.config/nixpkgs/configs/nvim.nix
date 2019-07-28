@@ -1,4 +1,16 @@
 { pkgs, ... }:
+let
+  vim-colors-github = pkgs.vimUtils.buildVimPlugin {
+    pname = "vim-colors-github";
+    version = "2018-11-14";
+    src = pkgs.fetchFromGitHub {
+      owner = "cormacrelf";
+      repo = "vim-colors-github";
+      rev = "acb712c";
+      sha256 = "1nnbyl6qm7rksz4sc0cs5hgpa9sw5mlan732bnn7vn296qm9sjv1";
+    };
+  };
+in
 {
   programs.neovim = {
     enable = true;
@@ -18,6 +30,7 @@
         fzfWrapper
         ghcid
         gitgutter
+        vim-colors-github 
         neco-syntax
         neco-vim
         neoformat
@@ -29,7 +42,6 @@
         ultisnips
         vim-airline
         vim-airline-themes
-        vim-colorschemes
         vim-commentary
         vim-fugitive
         vim-hdevtools

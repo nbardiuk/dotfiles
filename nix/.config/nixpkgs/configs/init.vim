@@ -66,7 +66,9 @@ nnoremap k gk
 
 " Theme {{{
 set background=light
-colorscheme flattened_light " solarized light
+set termguicolors
+colorscheme github
+let g:airline_theme='github'
 " }}}
 
 " Status line {{{
@@ -74,7 +76,6 @@ set laststatus=2
 set noshowmode
 let g:airline_powerline_fonts=1
 let g:airline_detect_spell=0
-let g:airline_theme='solarized'
 let g:airline_exclude_preview=1
 let g:airline#extensions#branch#format = 2 " 'foo/bar/baz' becomes 'f/b/baz'
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]' " dont show default filetype
@@ -296,4 +297,3 @@ let g:ale_fixers = {
 \    'css': ['prettier','stylelint'],
 \}
 " }}}
-

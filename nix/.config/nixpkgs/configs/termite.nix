@@ -1,31 +1,48 @@
-{...}:
-{
+{ ... }: {
   programs.termite = {
     enable = true;
     browser = "xdg-open";
     font = "Iosevka Term 12";
     scrollbackLines = -1;
-    backgroundColor = "#fdf6e3";
-    cursorColor = "#586e75";
-    foregroundColor = "#657b83";
-    foregroundBoldColor = "#073642";
     colorsExtra = ''
-      color0 = #073642
-      color1 = #dc322f
-      color2 = #859900
-      color3 = #b58900
-      color4 = #268bd2
-      color5 = #d33682
-      color6 = #2aa198
-      color7 = #eee8d5
-      color8 = #002b36
-      color9 = #cb4b16
-      color10 = #586e75
-      color11 = #657b83
-      color12 = #839496
-      color13 = #6c71c4
-      color14 = #93a1a1
-      color15 = #fdf6e3
+      # Github iTerm https://iterm2colorschemes.com/
+      # special
+      foreground      = #3e3e3e
+      foreground_bold = #3e3e3e
+      cursor          = #3e3e3e
+      background      = #f4f4f4
+
+      # black
+      color0  = #3e3e3e
+      color8  = #666666
+
+      # red
+      color1  = #970b16
+      color9  = #de0000
+
+      # green
+      color2  = #07962a
+      color10 = #87d5a2
+
+      # yellow
+      color3  = #f8eec7
+      color11 = #f1d007
+
+      # blue
+      color4  = #003e8a
+      color12 = #2e6cba
+
+      # magenta
+      color5  = #e94691
+      color13 = #ffa29f
+
+      # cyan
+      color6  = #89d1ec
+      color14 = #1cfafe
+
+      # white
+      color7  = #ffffff
+      color15 = #ffffff
     '';
   };
 }

@@ -19,6 +19,9 @@
     historyLimit = 50000;
 
     extraConfig = ''
+      # Add truecolor support
+      set-option -ga terminal-overrides ",xterm-256color:Tc"
+
       set -g default-command zsh
 
       set -g mouse on
