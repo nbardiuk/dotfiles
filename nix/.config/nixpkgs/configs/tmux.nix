@@ -46,12 +46,12 @@
       bind-key b break-pane -d
 
       #### COLOUR (Solarized light)
-      set-option -g status-bg white #base2
-      set-option -g status-fg yellow #yellow
-      set-option -g display-panes-active-colour blue #blue
+      set-option -g status-bg "#f4f4f4" #white
+      set-option -g status-fg blue
+      set-option -g display-panes-active-colour blue
       set-option -g display-panes-colour brightred #orange
       set-window-option -g clock-mode-colour green #green
-      set-window-option -g window-status-bell-style fg=white,bg=red #base2, red
+      set-window-option -g window-status-bell-style fg=white, bg=red, red
     '';
 
     plugins = with pkgs; [
