@@ -142,8 +142,13 @@ nnoremap <silent> <BS> :nohlsearch<CR>
 vnoremap <silent> <Leader>f :<c-u>call <SID>run_interact("Rg")<CR>
 nnoremap <silent> <Leader>f :Rg<CR>
 " search in current buffer with selected text
+vnoremap / y/<c-r>"<cr>
 vnoremap <silent> <Leader>/ :<c-u>call <SID>run_interact("BLines")<CR>
 nnoremap <silent> <Leader>/ :BLines<CR>
+
+" paste yanked text several times
+vnoremap <C-P> "0p
+nnoremap <C-P> "0p
 
 " run interactive command with selection
 function! s:run_interact(command)
