@@ -139,16 +139,22 @@ set smartcase  " ...unless we type a capital
 " Stop highgliting until next search
 nnoremap <silent> <BS> :nohlsearch<CR>
 " search in project files with selected text
-vnoremap <silent> <Leader>f "fy:call <SID>run_interact(":Rg", @f)<CR>
+vnoremap <silent> <Leader>f :<c-u>call <SID>run_interact("Rg")<CR>
 nnoremap <silent> <Leader>f :Rg<CR>
 " search in current buffer with selected text
-vnoremap <silent> <Leader>/ "fy:call <SID>run_interact(":BLines", @f)<CR>
+vnoremap <silent> <Leader>/ :<c-u>call <SID>run_interact("BLines")<CR>
 nnoremap <silent> <Leader>/ :BLines<CR>
 
-" run normal command with text interactively
-function! s:run_interact(command, text)
-  execute 'normal ' . a:command . " \<CR>"
-  call feedkeys(a:text)
+" run interactive command with selection
+function! s:run_interact(command)
+  " copy last selection into register r
+  execute 'normal! gv"ry'
+
+  " start interactive command
+  execute 'normal :' . a:command . " \<CR>"
+
+  " enter the selection into prompt
+  call feedkeys(substitute(@r, "\n$", '', ''))
 endfunction
 
 " An action can be a reference to a function that processes selected lines
@@ -167,10 +173,10 @@ let g:fzf_action = {
 
 " Files navigation {{{
 " search project file by selected text
-vnoremap <silent> <Leader>n "fy:call <SID>run_interact(":Files", @f)<CR>
+vnoremap <silent> <Leader>n :<c-u>call <SID>run_interact("Files")<CR>
 nnoremap <silent> <Leader>n :Files<CR>
 " search buffers by selected text
-vnoremap <silent> <Leader>e "fy:call <SID>run_interact(":Buffers", @f)<CR>
+vnoremap <silent> <Leader>e :<c-u>call <SID>run_interact("Buffers")<CR>
 nnoremap <silent> <Leader>e :Buffers<CR>
 " }}}
 
