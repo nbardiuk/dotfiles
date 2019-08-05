@@ -30,7 +30,6 @@ in
         fzfWrapper
         ghcid
         gitgutter
-        vim-colors-github 
         neco-syntax
         neco-vim
         neoformat
@@ -38,10 +37,10 @@ in
         rust-vim
         tmux-navigator
         tsuquyomi
-        typescript-vim
         ultisnips
         vim-airline
         vim-airline-themes
+        vim-colors-github 
         vim-commentary
         vim-fugitive
         vim-hdevtools

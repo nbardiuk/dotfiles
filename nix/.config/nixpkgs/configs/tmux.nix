@@ -51,8 +51,8 @@
       set-option -g display-panes-active-colour blue
       set-option -g display-panes-colour brightred #orange
       set-window-option -g clock-mode-colour green #green
-      set-window-option -g window-status-bell-style fg=white, bg=red, red
-    '';
+      set-window-option -g window-status-bell-style fg=white,bg=red
+      '';
 
     plugins = with pkgs; [
       {

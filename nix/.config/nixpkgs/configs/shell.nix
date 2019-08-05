@@ -30,5 +30,6 @@
     tree                      # list files in tree
     wget
     unzip
+    unrar
   ];
 }
