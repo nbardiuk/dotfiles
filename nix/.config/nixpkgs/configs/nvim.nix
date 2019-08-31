@@ -20,43 +20,40 @@ in
     withPython = true;
     withPython3 = true;
     withRuby = true;
-    configure = {
-      customRC = builtins.readFile ./init.vim;
-      plug.plugins = with pkgs.vimPlugins; [
-        ale
-        deoplete-nvim
-        echodoc-vim
-        fzf-vim
-        fzfWrapper
-        ghcid
-        gitgutter
-        neco-syntax
-        neco-vim
-        neoformat
-        rhubarb
-        rust-vim
-        tmux-navigator
-        tsuquyomi
-        ultisnips
-        vim-airline
-        vim-airline-themes
-        vim-colors-github 
-        vim-commentary
-        vim-fugitive
-        vim-hdevtools
-        vim-markdown
-        vim-polyglot
-        vim-repeat
-        vim-sensible
-        vim-snippets
-        vim-surround
-        vim-tsx
-        vim-unimpaired
-        vim-vinegar
-        vimproc
-      ];
-
-    };
+    extraConfig = builtins.readFile ./init.vim;
+    plugins = with pkgs.vimPlugins; [
+      ale
+      deoplete-nvim
+      echodoc-vim
+      fzf-vim
+      fzfWrapper
+      ghcid
+      gitgutter
+      neco-syntax
+      neco-vim
+      neoformat
+      rhubarb
+      rust-vim
+      tmux-navigator
+      tsuquyomi
+      ultisnips
+      vim-airline
+      vim-airline-themes
+      vim-colors-github 
+      vim-commentary
+      vim-fugitive
+      vim-hdevtools
+      vim-markdown
+      vim-polyglot
+      vim-repeat
+      vim-sensible
+      vim-snippets
+      vim-surround
+      vim-tsx
+      vim-unimpaired
+      vim-vinegar
+      vimproc
+    ];
   };
 
   home.packages = with pkgs; [
