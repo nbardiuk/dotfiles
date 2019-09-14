@@ -6,6 +6,7 @@
     ./configs/i3.nix
     # ./configs/java.nix
     ./configs/keyboard.nix
+    ./configs/obs.nix
     ./configs/redshift.nix
     ./configs/shell.nix
     ./configs/syncthing.nix
