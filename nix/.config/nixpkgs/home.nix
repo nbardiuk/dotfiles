@@ -4,7 +4,7 @@
     ./configs/alacritty.nix
     ./configs/haskell.nix
     ./configs/i3.nix
-    ./configs/keybase.nix
+    # ./configs/java.nix
     ./configs/keyboard.nix
     ./configs/redshift.nix
     ./configs/shell.nix
