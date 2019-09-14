@@ -1,6 +1,6 @@
 { ... }: {
   programs.termite = {
-    enable = true;
+    enable = false;
     browser = "xdg-open";
     font = "Iosevka Term 12";
     scrollbackLines = -1;

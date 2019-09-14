@@ -46,9 +46,9 @@ in
           WS9 =  "9:Ⅸ";
           WS10 = "10:Ⅹ";
         in {
-          "${mod}+Return"           = "exec termite -e zsh";
+          "${mod}+Return"           = "exec alacritty -e zsh";
           "${mod}+Shift+q"          = "kill";
-          "${mod}+d"                = "exec rofi -show combi -terminal termite";
+          "${mod}+d"                = "exec rofi -show combi -terminal alacritty";
           "${mod}+Tab"              = "exec rofi -show combi -combi-modi window";
           "${mod}+b"                = "exec ${pkgs.open_book}/bin/open_book.sh";
           "${mod}+c"                = "exec ${pkgs.connection_toggle}/bin/connection_toggle.py";

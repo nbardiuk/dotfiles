@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ./configs/java.nix
+    ./configs/alacritty.nix
     ./configs/haskell.nix
     ./configs/i3.nix
     ./configs/keybase.nix
