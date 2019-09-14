@@ -8,7 +8,7 @@ let
 in
 {
   programs.htop = {
-    colorScheme = 3; # Light terminal
+    colorScheme = 0; # Default
     enable = true;
     fields = ["PID" "USER" "STATE" "M_RESIDENT" "PERCENT_MEM" "PERCENT_CPU" "TIME" "IO_RATE" "COMM"];
     hideKernelThreads = true;
