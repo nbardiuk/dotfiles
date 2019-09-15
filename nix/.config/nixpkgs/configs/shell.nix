@@ -26,8 +26,8 @@
     xpdf # pdf preview
     mediainfo # media details preview
 
+    exa                       # fancy ls with tree
     tokei
-    tree                      # list files in tree
     wget
     unzip
     unrar

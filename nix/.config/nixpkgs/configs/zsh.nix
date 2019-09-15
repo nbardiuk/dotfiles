@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  programs.zsh = {
+  programs.zsh = rec {
     enable = true;
     enableAutosuggestions = true;
     enableCompletion = true;
@@ -26,9 +26,19 @@
       ZSH_TMUX_AUTOSTART = true;
     };
 
-    shellAliases = {
+    shellAliases = rec {
       caffeine = "xset s off -dpms && pkill xautolock";
       upgrade = "sudo sysctl -p && sudo nixos-rebuild switch --upgrade && home-manager switch && nvim +PlugInstall +UpdateRemotePlugins +qa";
+
+      l = "exa --long --header --time-style=long-iso";
+      ll = l;
+      ls = l;
+      la = l + " -all";
+      latr = la + " --sort=newest";
+      lat = la + " --sort=oldest";
+      las = la + " --sort=size";
+      lasr = la + " --sort=size --reverse";
+      tree = la + " --tree";
     };
 
     initExtra = ''
@@ -37,6 +47,10 @@
       setopt HIST_SAVE_NO_DUPS
       setopt HIST_REDUCE_BLANKS
       setopt HIST_FIND_NO_DUPS
+
+      lt () {
+        ${shellAliases.tree + " --level="}"$1";
+      }
     '';
   };
 
