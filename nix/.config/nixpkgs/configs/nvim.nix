@@ -29,6 +29,7 @@ in
       fzfWrapper
       ghcid
       gitgutter
+      LanguageClient-neovim
       neco-syntax
       neco-vim
       neoformat
@@ -39,10 +40,9 @@ in
       ultisnips
       vim-airline
       vim-airline-themes
-      vim-colors-github 
+      vim-colors-github
       vim-commentary
       vim-fugitive
-      vim-hdevtools
       vim-markdown
       vim-polyglot
       vim-repeat

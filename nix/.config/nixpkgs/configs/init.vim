@@ -1,9 +1,7 @@
-" Rust {{{
-augroup rust_bindings
-  autocmd!
-  autocmd FileType rust nnoremap <leader>t :!time cargo test<CR>
-augroup END
-" }}}
+let g:LanguageClient_rootMarkers = ['.git']
+let g:LanguageClient_serverCommands = { }
+let g:ale_fixers = { }
+let g:ale_linters = { }
 
 " Terminal {{{
 if has('nvim')
@@ -197,10 +195,9 @@ nnoremap <leader>N :e %:h<CR>
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c                                  " turn off completion messages
 let g:deoplete#enable_at_startup = 1              " Use deoplete.
-call deoplete#custom#option('smart_case', v:true) " Use smartcase
 " }}}
 
-" markdown {{{
+" Markdown {{{
 " render style instead of markup
 set conceallevel=2
 let g:vim_markdown_conceal=1
@@ -217,20 +214,6 @@ let g:vim_markdown_fenced_languages = [
 
 " }}}
 
-" haskell {{{
-
-" choose formatter
-let g:neoformat_enabled_haskell = ['hindent', 'stylish-haskell']
-
-augroup haskell_bindings
-  autocmd!
-  autocmd FileType haskell nnoremap <buffer> <leader>lf :Neoformat<CR>
-  autocmd FileType haskell nnoremap <buffer> <leader>lt :HdevtoolsType<CR>
-  autocmd FileType haskell nnoremap <buffer> <leader>lk :HdevtoolsInfo<CR>
-  autocmd FileType haskell nnoremap <buffer> <leader>lc :HdevtoolsClear<CR>
-augroup END
-" }}}
-
 " Neoformat {{{
 
 " Enable tab to spaces conversion globally
@@ -242,19 +225,14 @@ let g:neoformat_basic_format_trim = 1
 " Run all enabled formatters (by default Neoformat stops after the first formatter succeeds)
 let g:neoformat_run_all_formatters = 1
 
-let g:neoformat_nix_nixfmt = { 'exe': 'nixfmt', 'stdin': 1 }
-let g:neoformat_enabled_nix = ['nixfmt']
-augroup nix_bindings
-  autocmd!
-  autocmd FileType nix nnoremap <buffer> <leader>lf :Neoformat<CR>
-augroup END
 " }}}
 
 " Git {{{
+
 " [[B]Commits] Customize the options used by 'git log':
 let g:fzf_commits_log_options = '--graph --color=always --format="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"'
-" If this many milliseconds nothing is typed the swap file will be written to disk
-" speedsup gitgutter
+
+" If this many milliseconds nothing is typed the swap file will be written to disk speedsup gitgutter
 set updatetime=100
 
 let g:gitgutter_map_keys = 0
@@ -270,7 +248,6 @@ xmap ah <Plug>GitGutterTextObjectOuterVisual
 " }}}
 
 " BAG {{{
-
 " switch word case
 inoremap <c-u> <esc>g~iw`]a
 
@@ -284,7 +261,7 @@ nnoremap <leader>vs :source ~/.config/nixpkgs/configs/init.vim<cr>
 cabbrev W w
 " }}}
 
-" Typescript {{{
+" JavaScript/Typescript {{{
 augroup typescirpt_bindings
   autocmd!
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lt :TsuquyomiTypeDefinition<CR>
@@ -293,20 +270,56 @@ augroup typescirpt_bindings
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lf :ALEFix<CR>
 augroup END
 let g:tsuquyomi_javascript_support = 1
+let g:ale_linters.javascript = ['eslint']
+let g:ale_linters.typescript = ['tsserver', 'tslint']
+let g:ale_fixers.json = ['prettier']
+let g:ale_fixers.javascript = ['eslint', 'prettier']
+let g:ale_fixers.typescript = ['prettier']
 " }}}
 
-" ALE {{{
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'typescript': ['tsserver', 'tslint'],
-\    'scss': ['stylelint'],
-\    'css': ['stylelint'],
-\}
-let g:ale_fixers = {
-\    'json': ['prettier'],
-\    'javascript': ['eslint', 'prettier'],
-\    'typescript': ['prettier'],
-\    'scss': ['prettier','stylelint'],
-\    'css': ['prettier','stylelint'],
-\}
+" CSS/SASS {{{
+let g:ale_linters.scss = ['stylelint']
+let g:ale_linters.css = ['stylelint']
+let g:ale_fixers.scss = ['prettier', 'stylelint']
+let g:ale_fixers.css = ['prettier', 'stylelint']
+augroup css_bindings
+  autocmd!
+  autocmd FileType css,scss nnoremap <buffer> <leader>lf :ALEFix<CR>
+augroup END
+" }}}
+
+" Rust {{{
+augroup rust_bindings
+  autocmd!
+  autocmd FileType rust nnoremap <buffer> <leader>t :!time cargo test<CR>
+  autocmd FileType rust nnoremap <buffer> <leader>lf :ALEFix<CR>
+  autocmd FileType rust nnoremap <buffer> gd :call LanguageClient#textDocument_definition()<CR>
+augroup END
+let g:LanguageClient_rootMarkers = g:LanguageClient_rootMarkers + ['Cargo.toml']
+let g:LanguageClient_serverCommands.rust = ['rls']
+let g:ale_fixers.rust = ['rustfmt']
+" }}}
+
+" Haskell {{{
+let g:LanguageClient_rootMarkers = g:LanguageClient_rootMarkers + ['*.cabal', 'stack.yaml']
+let g:LanguageClient_serverCommands.haskell = ['ghcide', '--lsp']
+
+let g:neoformat_enabled_haskell = ['hindent', 'stylish-haskell']
+
+augroup haskell_bindings
+  autocmd!
+  autocmd FileType haskell nnoremap <buffer> <leader>lf :Neoformat<CR>
+augroup END
+" }}}
+
+" Nix {{{
+let g:ale_linters.nix = ['nix']
+
+let g:neoformat_nix_nixfmt = { 'exe': 'nixfmt', 'stdin': 1 }
+let g:neoformat_enabled_nix = ['nixfmt']
+
+augroup nix_bindings
+  autocmd!
+  autocmd FileType nix nnoremap <buffer> <leader>lf :Neoformat<CR>
+augroup END
 " }}}
