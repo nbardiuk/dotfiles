@@ -267,6 +267,8 @@ augroup typescirpt_bindings
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lt :TsuquyomiTypeDefinition<CR>
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lr :TsuRenameSymbol<CR>
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> } :TsuReferences<CR>
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <C-]> :TsuquyomiDefinition<CR>
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> K :TsuquyomiSplitDefinition<CR>
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lf :ALEFix<CR>
 augroup END
 let g:tsuquyomi_javascript_support = 1
@@ -293,7 +295,10 @@ augroup rust_bindings
   autocmd!
   autocmd FileType rust nnoremap <buffer> <leader>t :!time cargo test<CR>
   autocmd FileType rust nnoremap <buffer> <leader>lf :ALEFix<CR>
-  autocmd FileType rust nnoremap <buffer> gd :call LanguageClient#textDocument_definition()<CR>
+  autocmd FileType rust nnoremap <buffer> <C-]> :call LanguageClient#textDocument_definition()<CR>
+  autocmd FileType rust nnoremap <buffer> <leader>lr :call LanguageClient#textDocument_rename()<CR>
+  autocmd FileType rust nnoremap <buffer> } :call LanguageClient_textDocument_references()<CR>
+  autocmd FileType rust nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
 augroup END
 let g:LanguageClient_rootMarkers = g:LanguageClient_rootMarkers + ['Cargo.toml']
 let g:LanguageClient_serverCommands.rust = ['rls']
