@@ -267,6 +267,7 @@ augroup typescirpt_bindings
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lf :ALEFix<CR>
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <C-]> :call LanguageClient#textDocument_definition()<CR>
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lr :call LanguageClient#textDocument_rename()<CR>
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> } :call LanguageClient_textDocument_references()<CR>
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
 augroup END
