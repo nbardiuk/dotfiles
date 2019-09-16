@@ -36,7 +36,6 @@ in
       rhubarb
       rust-vim
       tmux-navigator
-      tsuquyomi
       ultisnips
       vim-airline
       vim-airline-themes
@@ -68,5 +67,6 @@ in
     stack                     # haskell build tool
     vim-vint                  # vim linter
     xclip                     # clipboard manager
+    nodePackages.typescript-language-server
   ];
 }

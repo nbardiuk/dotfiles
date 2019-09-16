@@ -1,4 +1,4 @@
-let g:LanguageClient_rootMarkers = ['.git']
+let g:LanguageClient_rootMarkers = { }
 let g:LanguageClient_serverCommands = { }
 let g:ale_fixers = { }
 let g:ale_linters = { }
@@ -264,19 +264,25 @@ cabbrev W w
 " JavaScript/Typescript {{{
 augroup typescirpt_bindings
   autocmd!
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lt :TsuquyomiTypeDefinition<CR>
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lr :TsuRenameSymbol<CR>
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> } :TsuReferences<CR>
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <C-]> :TsuquyomiDefinition<CR>
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> K :TsuquyomiSplitDefinition<CR>
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lf :ALEFix<CR>
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <C-]> :call LanguageClient#textDocument_definition()<CR>
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lr :call LanguageClient#textDocument_rename()<CR>
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> } :call LanguageClient_textDocument_references()<CR>
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
 augroup END
-let g:tsuquyomi_javascript_support = 1
 let g:ale_linters.javascript = ['eslint']
 let g:ale_linters.typescript = ['tsserver', 'tslint']
 let g:ale_fixers.json = ['prettier']
 let g:ale_fixers.javascript = ['eslint', 'prettier']
 let g:ale_fixers.typescript = ['prettier']
+
+let g:LanguageClient_rootMarkers.javascript = ['tsconfig.json', 'package.json']
+let g:LanguageClient_rootMarkers.typescript = ['tsconfig.json', 'package.json']
+
+let g:LanguageClient_serverCommands.javascript = ['typescript-language-server', '--stdio']
+let g:LanguageClient_serverCommands.typescript = ['typescript-language-server', '--stdio']
+let g:LanguageClient_serverCommands['javascript.jsx'] = ['typescript-language-server', '--stdio']
+let g:LanguageClient_serverCommands['typescript.tsx'] = ['typescript-language-server', '--stdio']
 " }}}
 
 " CSS/SASS {{{
@@ -300,13 +306,13 @@ augroup rust_bindings
   autocmd FileType rust nnoremap <buffer> } :call LanguageClient_textDocument_references()<CR>
   autocmd FileType rust nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
 augroup END
-let g:LanguageClient_rootMarkers = g:LanguageClient_rootMarkers + ['Cargo.toml']
+let g:LanguageClient_rootMarkers.rust = ['Cargo.toml']
 let g:LanguageClient_serverCommands.rust = ['rls']
 let g:ale_fixers.rust = ['rustfmt']
 " }}}
 
 " Haskell {{{
-let g:LanguageClient_rootMarkers = g:LanguageClient_rootMarkers + ['*.cabal', 'stack.yaml']
+let g:LanguageClient_rootMarkers.haskell = ['*.cabal', 'stack.yaml']
 let g:LanguageClient_serverCommands.haskell = ['ghcide', '--lsp']
 
 let g:neoformat_enabled_haskell = ['hindent', 'stylish-haskell']
