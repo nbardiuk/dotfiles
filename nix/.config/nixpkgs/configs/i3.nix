@@ -91,18 +91,25 @@ in
           };
         };
       }];
-      startup = [
-        { always = true;  notification = false; command = "feh --bg-scale ${wallpaper}"; }
-        { always = true;  notification = true;  command = "xrandr --output eDP-1-1 --auto --below HDMI-1-1 --primary --output HDMI-1-1 --auto"; }
-        { always = true;  notification = false; command = "xset -b"; }
-        { always = true;  notification = false; command = "xset s 300 300"; }
-        { always = false; notification = true;  command = "nm-applet"; }
-        { always = false; notification = true;  command = "dropbox"; }
-        { always = false; notification = true;  command = "keepassxc"; }
-        { always = false; notification = true;  command = "firefox"; }
-      ];
     };
   };
+
+  xsession.profileExtra = ''
+    feh --bg-scale ${wallpaper}
+
+    xrandr --output eDP-1-1 --auto --below HDMI-1-1 --primary --output HDMI-1-1 --auto
+
+    xset -b
+    xset s 300 300
+
+    nm-applet &
+
+    dropbox &
+
+    keepassxc &
+
+    firefox &
+  '';
 
   services.gnome-keyring.enable = true;
   services.screen-locker = {
