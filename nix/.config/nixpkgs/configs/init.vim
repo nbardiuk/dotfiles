@@ -1,3 +1,5 @@
+" Specify whether to use virtual text to display diagnostics.
+let g:LanguageClient_useVirtualText = 0
 let g:LanguageClient_rootMarkers = { }
 let g:LanguageClient_serverCommands = { }
 let g:ale_fixers = { }
