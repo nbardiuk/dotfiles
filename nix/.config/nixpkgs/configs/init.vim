@@ -1,7 +1,15 @@
+" LSP {{{
 " Specify whether to use virtual text to display diagnostics.
 let g:LanguageClient_useVirtualText = 0
+
 let g:LanguageClient_rootMarkers = { }
 let g:LanguageClient_serverCommands = { }
+
+" Common LSP bindings
+nnoremap <leader>lc :call LanguageClient_contextMenu()<CR>
+nnoremap <leader>la :call LanguageClient_textDocument_codeAction()<CR>
+" }}}
+
 let g:ale_fixers = { }
 let g:ale_linters = { }
 
@@ -267,9 +275,9 @@ cabbrev W w
 augroup typescirpt_bindings
   autocmd!
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lf :ALEFix<CR>
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <C-]> :call LanguageClient#textDocument_definition()<CR>
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lr :call LanguageClient#textDocument_rename()<CR>
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <C-]> :call LanguageClient_textDocument_definition()<CR>
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<CR>
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lt :call LanguageClient_textDocument_typeDefinition()<CR>
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> } :call LanguageClient_textDocument_references()<CR>
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
 augroup END
@@ -304,8 +312,8 @@ augroup rust_bindings
   autocmd!
   autocmd FileType rust nnoremap <buffer> <leader>t :!time cargo test<CR>
   autocmd FileType rust nnoremap <buffer> <leader>lf :ALEFix<CR>
-  autocmd FileType rust nnoremap <buffer> <C-]> :call LanguageClient#textDocument_definition()<CR>
-  autocmd FileType rust nnoremap <buffer> <leader>lr :call LanguageClient#textDocument_rename()<CR>
+  autocmd FileType rust nnoremap <buffer> <C-]> :call LanguageClient_textDocument_definition()<CR>
+  autocmd FileType rust nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<CR>
   autocmd FileType rust nnoremap <buffer> } :call LanguageClient_textDocument_references()<CR>
   autocmd FileType rust nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
 augroup END
@@ -323,6 +331,8 @@ let g:neoformat_enabled_haskell = ['hindent', 'stylish-haskell']
 augroup haskell_bindings
   autocmd!
   autocmd FileType haskell nnoremap <buffer> <leader>lf :Neoformat<CR>
+  autocmd FileType haskell nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
+  autocmd FileType haskell nnoremap <buffer> <C-]> :call LanguageClient_textDocument_definition()<CR>
 augroup END
 " }}}
 
