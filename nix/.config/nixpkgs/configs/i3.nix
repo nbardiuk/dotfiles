@@ -18,7 +18,6 @@ in
     enable = true;
     config = let
       mod = "Mod4";
-      mode_system = "System (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown";
       "bg-color"            = "#2f343f";
       "inactive-bg-color"   = "#2f343f";
       "text-color"          = "#f3f4f5";

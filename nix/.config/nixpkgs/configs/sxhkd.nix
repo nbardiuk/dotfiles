@@ -33,7 +33,7 @@ with lib;
       "super + ctrl + l"              = "xautolock -locknow && exec xset dpms force standby";
       "Print"                         = "maim -us ~/Snapshots/$(date +%s).png";
       "super + Return"                = "alacritty -e zsh";
-      "super + d"                     = "rofi -show combi -terminal alacritty";
+      "super + d"                     = "rofi -show combi";
       "super + Tab"                   = "rofi -show combi -combi-modi window";
       "super + b"                     = "${pkgs.open_book}/bin/open_book.sh";
       "super + c"                     = "${pkgs.connection_toggle}/bin/connection_toggle.py";
