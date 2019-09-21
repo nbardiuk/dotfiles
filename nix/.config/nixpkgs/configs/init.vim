@@ -347,3 +347,19 @@ augroup nix_bindings
   autocmd FileType nix nnoremap <buffer> <leader>lf :Neoformat<CR>
 augroup END
 " }}}
+
+" C {{{
+" more configuration options https://github.com/MaskRay/ccls/wiki/LanguageClient-neovim
+let g:LanguageClient_serverCommands.c = ['ccls']
+
+let g:ale_fixers.c = ['clang-format', 'clangtidy']
+let g:ale_linters.c = ['clang']
+augroup c_bindings
+  autocmd!
+  autocmd FileType c nnoremap <buffer> <leader>lf :ALEFix<CR>
+  autocmd FileType c nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
+  autocmd FileType c nnoremap <buffer> <C-]> :call LanguageClient_textDocument_definition()<CR>
+  autocmd FileType c nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<CR>
+  autocmd FileType c nnoremap <buffer> } :call LanguageClient_textDocument_references()<CR>
+augroup END
+" }}}

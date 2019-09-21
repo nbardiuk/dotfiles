@@ -68,5 +68,7 @@ in
     vim-vint                  # vim linter
     xclip                     # clipboard manager
     nodePackages.typescript-language-server
+    ccls                      # c/c++ language server
+    clang-tools               # clang dev tools
   ];
 }
