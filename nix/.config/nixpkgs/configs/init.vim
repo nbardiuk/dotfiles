@@ -356,6 +356,7 @@ let g:ale_fixers.c = ['clang-format', 'clangtidy']
 let g:ale_linters.c = ['clang']
 augroup c_bindings
   autocmd!
+  autocmd FileType c vnoremap <buffer> = :call LanguageClient_textDocument_rangeFormatting()<CR>
   autocmd FileType c nnoremap <buffer> <leader>lf :ALEFix<CR>
   autocmd FileType c nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
   autocmd FileType c nnoremap <buffer> <C-]> :call LanguageClient_textDocument_definition()<CR>
