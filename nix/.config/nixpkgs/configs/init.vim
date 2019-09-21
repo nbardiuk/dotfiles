@@ -177,11 +177,13 @@ function! s:build_quickfix_list(lines)
   cc
 endfunction
 
-let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+let g:fzf_action =
+      \{
+      \  'ctrl-q': function('s:build_quickfix_list'),
+      \  'ctrl-t': 'tab split',
+      \  'ctrl-x': 'split',
+      \  'ctrl-v': 'vsplit' 
+      \}
 " }}}
 
 " Files navigation {{{
@@ -216,10 +218,10 @@ let g:vim_markdown_conceal=1
 let g:vim_markdown_folding_style_pythonic=1
 
 " code block aliases for syntax highlight
-let g:vim_markdown_fenced_languages = [
-      \'haskell=hs',
-      \'javascript=js',
-      \'shell=sh',
+let g:vim_markdown_fenced_languages =
+      \[ 'haskell=hs'
+      \, 'javascript=js'
+      \, 'shell=sh'
       \]
 
 " }}}
@@ -240,7 +242,10 @@ let g:neoformat_run_all_formatters = 1
 " Git {{{
 
 " [[B]Commits] Customize the options used by 'git log':
-let g:fzf_commits_log_options = '--graph --color=always --format="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"'
+let g:fzf_commits_log_options =
+      \  '--graph'
+      \. ' --color=always'
+      \. ' --format="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"'
 
 " If this many milliseconds nothing is typed the swap file will be written to disk speedsup gitgutter
 set updatetime=100
