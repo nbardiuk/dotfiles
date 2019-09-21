@@ -278,7 +278,7 @@ augroup typescirpt_bindings
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <C-]> :call LanguageClient_textDocument_definition()<CR>
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<CR>
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lt :call LanguageClient_textDocument_typeDefinition()<CR>
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> } :call LanguageClient_textDocument_references()<CR>
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> } :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
   autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
 augroup END
 let g:ale_linters.javascript = ['eslint']
@@ -314,7 +314,7 @@ augroup rust_bindings
   autocmd FileType rust nnoremap <buffer> <leader>lf :ALEFix<CR>
   autocmd FileType rust nnoremap <buffer> <C-]> :call LanguageClient_textDocument_definition()<CR>
   autocmd FileType rust nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<CR>
-  autocmd FileType rust nnoremap <buffer> } :call LanguageClient_textDocument_references()<CR>
+  autocmd FileType rust nnoremap <buffer> } :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
   autocmd FileType rust nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
 augroup END
 let g:LanguageClient_rootMarkers.rust = ['Cargo.toml']
@@ -360,6 +360,6 @@ augroup c_bindings
   autocmd FileType c nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
   autocmd FileType c nnoremap <buffer> <C-]> :call LanguageClient_textDocument_definition()<CR>
   autocmd FileType c nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<CR>
-  autocmd FileType c nnoremap <buffer> } :call LanguageClient_textDocument_references()<CR>
+  autocmd FileType c nnoremap <buffer> } :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
 augroup END
 " }}}
