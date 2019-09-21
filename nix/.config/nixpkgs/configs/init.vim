@@ -350,7 +350,7 @@ augroup END
 
 " C {{{
 " more configuration options https://github.com/MaskRay/ccls/wiki/LanguageClient-neovim
-let g:LanguageClient_serverCommands.c = ['ccls']
+let g:LanguageClient_serverCommands.c = ['ccls', '--log-file=/tmp/cc.log']
 
 let g:ale_fixers.c = ['clang-format', 'clangtidy']
 let g:ale_linters.c = ['clang']
