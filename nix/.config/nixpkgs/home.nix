@@ -4,6 +4,7 @@
     ./configs/alacritty.nix
     ./configs/haskell.nix
     ./configs/i3.nix
+    ./configs/firefox.nix
     # ./configs/java.nix
     ./configs/keyboard.nix
     ./configs/obs.nix
@@ -35,7 +36,6 @@
   home.packages = with pkgs; [
     chromium
     dropbox
-    firefox
     google-fonts              # collection of fonts
     iosevka-bin               # monospace font
     keepassxc                 # password manager
