@@ -46,7 +46,7 @@ in
 
   # You should generally set this to the total number of logical cores in your system.
   # $ sysctl -n hw.ncpu
-  nix.maxJobs = 8;
+  nix.maxJobs = 1;
   nix.buildCores = 8;
 
   launchd.user.agents.syncthing = {
@@ -89,7 +89,7 @@ in
     # chwm-sa additions
     # https://github.com/koekeishiya/chwm-sa
     chunkc set window_float_topmost          1
-    chunkc set window_fade_inactive          1
+    chunkc set window_fade_inactive          0
     chunkc set window_fade_alpha             0.9
     chunkc set window_fade_duration          0.1
     chunkc tiling::rule --owner Dash --state float
@@ -114,8 +114,11 @@ in
     shift + alt - space : chunkc tiling::window --toggle float
 
     # change layout of desktop
-    alt - b : chunkc tiling::desktop --layout bsp
-    alt - m : chunkc tiling::desktop --layout monocle
+    alt - e : chunkc tiling::desktop --layout bsp
+    alt - w : chunkc tiling::desktop --layout monocle
+
+    # switch monitors
+    alt - m : chunkc tiling::desktop --move next
 
     alt - r : chunkc tiling::desktop --rotate 90
 
