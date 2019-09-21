@@ -246,15 +246,15 @@ let g:fzf_commits_log_options = '--graph --color=always --format="%Cred%h%Creset
 set updatetime=100
 
 let g:gitgutter_map_keys = 0
-nmap <Leader>hp <Plug>GitGutterPreviewHunk
-nmap <Leader>hs <Plug>GitGutterStageHunk
-nmap <Leader>hu <Plug>GitGutterUndoHunk
-nmap <Leader>h[ <Plug>GitGutterPrevHunk
-nmap <Leader>h] <Plug>GitGutterNextHunk
-omap ih <Plug>GitGutterTextObjectInnerPending
-xmap ih <Plug>GitGutterTextObjectInnerVisual
-omap ah <Plug>GitGutterTextObjectOuterPending
-xmap ah <Plug>GitGutterTextObjectOuterVisual
+nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
+nmap <Leader>hs <Plug>(GitGutterStageHunk)
+nmap <Leader>hu <Plug>(GitGutterUndoHunk)
+nmap <Leader>h[ <Plug>(GitGutterPrevHunk)
+nmap <Leader>h] <Plug>(GitGutterNextHunk
+omap ih <Plug>(GitGutterTextObjectInnerPending)
+xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+omap ah <Plug>(GitGutterTextObjectOuterPending)
+xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 " }}}
 
 " BAG {{{
