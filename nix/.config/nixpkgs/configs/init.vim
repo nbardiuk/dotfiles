@@ -45,7 +45,8 @@ if has('unnamedplus') " X11 support
   set clipboard+=unnamedplus
 endif
 syntax on                           " turn on syntax highlighting
-set spell spelllang=en_us           " spell check
+set spelllang=en_us                 " spell check
+set nospell                         " disabled by default
 set wildmode=list:longest,full      " Commands completion
 " fzf history
 cnoremap <C-F> History:<CR>
@@ -82,11 +83,23 @@ let g:airline_theme='github'
 " Status line {{{
 set laststatus=2
 set noshowmode
+" determine whether inactive windows should have the left section collapsed to only the filename of that buffer.
+let g:airline_inactive_collapse=1
+" Do not draw separators for empty sections (only for the active window)
+let g:airline_skip_empty_sections = 1
 let g:airline_powerline_fonts=1
 let g:airline_detect_spell=0
 let g:airline_exclude_preview=1
+" enable/disable showing a summary of changed hunks under source control.
+let g:airline#extensions#hunks#enabled = 0
+" enable/disable fugitive/lawrencium integration
+let g:airline#extensions#branch#enabled = 0
+" truncate long branch names to a fixed length
+let g:airline#extensions#branch#displayed_head_limit = 10
 let g:airline#extensions#branch#format = 2 " 'foo/bar/baz' becomes 'f/b/baz'
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]' " dont show default filetype
+" enable/disable detection of whitespace errors.
+let g:airline#extensions#whitespace#enabled = 0
 set title
 " }}}
 
