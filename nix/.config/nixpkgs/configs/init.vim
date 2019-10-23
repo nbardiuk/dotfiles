@@ -224,9 +224,10 @@ let g:deoplete#enable_at_startup = 1              " Use deoplete.
 
 " Markdown {{{
 " render style instead of markup
-set conceallevel=2
-let g:vim_markdown_conceal=1
-
+set conceallevel=0
+let g:vim_markdown_conceal=0
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_folding_disabled = 1
 " use header as folding text
 let g:vim_markdown_folding_style_pythonic=1
 
