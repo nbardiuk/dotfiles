@@ -310,7 +310,7 @@ augroup END
 " Rust {{{
 augroup rust_bindings
   autocmd!
-  autocmd FileType rust nnoremap <buffer> <leader>t :!time cargo test<CR>
+  autocmd FileType rust nnoremap <buffer> <leader>t :!time cargo test -q<CR>
   autocmd FileType rust nnoremap <buffer> <leader>lf :ALEFix<CR>
   autocmd FileType rust nnoremap <buffer> <C-]> :call LanguageClient_textDocument_definition()<CR>
   autocmd FileType rust nnoremap <buffer> <C-W><C-]> :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
@@ -321,6 +321,8 @@ augroup END
 let g:LanguageClient_rootMarkers.rust = ['Cargo.toml']
 let g:LanguageClient_serverCommands.rust = ['rls']
 let g:ale_fixers.rust = ['rustfmt']
+let g:ale_linters.rust = ['cargo']
+let g:ale_rust_cargo_use_clippy = 1
 " }}}
 
 " Haskell {{{
