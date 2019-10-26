@@ -37,8 +37,6 @@ in
       rust-vim
       tmux-navigator
       ultisnips
-      vim-airline
-      vim-airline-themes
       vim-colors-github
       vim-commentary
       vim-fugitive
