@@ -254,6 +254,11 @@ omap ih <Plug>(GitGutterTextObjectInnerPending)
 xmap ih <Plug>(GitGutterTextObjectInnerVisual)
 omap ah <Plug>(GitGutterTextObjectOuterPending)
 xmap ah <Plug>(GitGutterTextObjectOuterVisual)
+
+augroup git_bindings
+  autocmd FileType git set foldenable
+  autocmd FileType git set foldlevelstart=0
+augroup END
 " }}}
 
 " BAG {{{
