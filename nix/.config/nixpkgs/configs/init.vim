@@ -255,6 +255,15 @@ xmap ih <Plug>(GitGutterTextObjectInnerVisual)
 omap ah <Plug>(GitGutterTextObjectOuterPending)
 xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
+nmap <Leader>dw :call <SID>toggle_diff_whitespace()<CR>
+function! s:toggle_diff_whitespace()
+  if &diffopt =~ 'iwhiteall'
+    setlocal diffopt-=iwhiteall
+  else
+    setlocal diffopt+=iwhiteall
+  endif
+endfunction
+
 augroup git_bindings
   autocmd FileType git set foldenable
   autocmd FileType git set foldlevelstart=0
