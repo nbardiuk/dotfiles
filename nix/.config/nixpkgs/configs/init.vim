@@ -387,3 +387,20 @@ augroup c_bindings
   autocmd FileType c nnoremap <buffer> } :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
 augroup END
 " }}}
+
+" Wiki {{{
+let g:wiki_root = '~/Notes'
+let g:wiki_filetypes = ['md']
+let g:wiki_link_extension = '.md'
+let g:wiki_link_target_type = 'md'
+let g:wiki_journal =
+      \{
+      \ 'name': 'diary',
+      \ 'frequency': 'daily',
+      \ 'date_format': {
+      \   'daily' : '%Y-%m-%d',
+      \   'weekly' : '%Y_w%V',
+      \   'monthly' : '%Y_m%m',
+      \ },
+      \}
+" }}}

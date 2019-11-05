@@ -10,6 +10,16 @@ let
       sha256 = "1nnbyl6qm7rksz4sc0cs5hgpa9sw5mlan732bnn7vn296qm9sjv1";
     };
   };
+  wiki-vim = pkgs.vimUtils.buildVimPlugin {
+    pname = "wiki-vim";
+    version = "2019-11-02";
+    src = pkgs.fetchFromGitHub {
+      owner = "lervag";
+      repo = "wiki.vim";
+      rev = "0ff5b90eb076bd32d62414d8f0f10ea6792d91b6";
+      sha256 = "0v6k04i34i6r28mf6b1ya1rpsfgvh3gm72cw6ljf18q6cy70xh8b";
+    };
+  };
 in
 {
   programs.neovim = {
@@ -50,6 +60,7 @@ in
       vim-unimpaired
       vim-vinegar
       vimproc
+      wiki-vim
     ];
   };
 
