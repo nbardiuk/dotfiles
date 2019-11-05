@@ -257,10 +257,10 @@ xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
 nmap <Leader>dw :call <SID>toggle_diff_whitespace()<CR>
 function! s:toggle_diff_whitespace()
-  if &diffopt =~ 'iwhiteall'
-    setlocal diffopt-=iwhiteall
+  if &diffopt =~ 'iwhite'
+    setlocal diffopt-=iwhite
   else
-    setlocal diffopt+=iwhiteall
+    setlocal diffopt+=iwhite
   endif
 endfunction
 
