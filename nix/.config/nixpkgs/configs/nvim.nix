@@ -20,6 +20,16 @@ let
       sha256 = "0v6k04i34i6r28mf6b1ya1rpsfgvh3gm72cw6ljf18q6cy70xh8b";
     };
   };
+  fzf-filemru = pkgs.vimUtils.buildVimPlugin {
+    pname = "fzf-filemru";
+    version = "2018-11-02";
+    src = pkgs.fetchFromGitHub {
+      owner = "tweekmonster";
+      repo = "fzf-filemru";
+      rev = "090087d";
+      sha256 = "1axhq42cs4hf889adfhfy8h9hf5shbn9snxkz83razxbwc9vdjlq";
+    };
+  };
 in
 {
   programs.neovim = {
@@ -35,6 +45,7 @@ in
       ale
       deoplete-nvim
       echodoc-vim
+      fzf-filemru
       fzf-vim
       fzfWrapper
       ghcid
