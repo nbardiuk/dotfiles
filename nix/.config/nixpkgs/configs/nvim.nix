@@ -44,7 +44,6 @@ in
     plugins = with pkgs.vimPlugins; [
       ale
       deoplete-nvim
-      echodoc-vim
       fzf-filemru
       fzf-vim
       fzfWrapper
@@ -54,23 +53,17 @@ in
       neco-syntax
       neco-vim
       neoformat
-      rhubarb
-      rust-vim
+      rhubarb # github provider for fugitive
       tmux-navigator
-      ultisnips
       vim-colors-github
       vim-commentary
       vim-fugitive
-      vim-markdown
       vim-polyglot
       vim-repeat
       vim-sensible
-      vim-snippets
       vim-surround
-      vim-tsx
       vim-unimpaired
       vim-vinegar
-      vimproc
       wiki-vim
     ];
   };
