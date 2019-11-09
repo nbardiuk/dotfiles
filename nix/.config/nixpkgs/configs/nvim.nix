@@ -16,8 +16,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "lervag";
       repo = "wiki.vim";
-      rev = "0ff5b90eb076bd32d62414d8f0f10ea6792d91b6";
-      sha256 = "0v6k04i34i6r28mf6b1ya1rpsfgvh3gm72cw6ljf18q6cy70xh8b";
+      rev = "cb74e7a99213fa00b778c2343ae1a848f7c1b690";
+      sha256 = "0h88g82ywb8w51yqhzcl7r9n2yfis9wjnl04wg95l8mnv7hxmzyf";
     };
   };
   fzf-filemru = pkgs.vimUtils.buildVimPlugin {
