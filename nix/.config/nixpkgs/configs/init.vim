@@ -181,8 +181,8 @@ let g:fzf_action =
 
 " Files navigation {{{
 " search project file by selected text
-vnoremap <silent> <Leader>n :<c-u>call <SID>run_interact("ProjectMru")<CR>
-nnoremap <silent> <Leader>n :ProjectMru<CR>
+vnoremap <silent> <Leader>n :<c-u>call <SID>run_interact("FilesMru")<CR>
+nnoremap <silent> <Leader>n :FilesMru<CR>
 " search buffers by selected text
 vnoremap <silent> <Leader>e :<c-u>call <SID>run_interact("Buffers")<CR>
 nnoremap <silent> <Leader>e :Buffers<CR>
