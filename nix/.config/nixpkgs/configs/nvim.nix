@@ -58,10 +58,13 @@ in
       tmux-navigator
       vim-colors-github
       vim-commentary
+      vim-fireplace
       vim-fugitive
       vim-polyglot
       vim-repeat
       vim-sensible
+      vim-sexp
+      vim-sexp-mappings-for-regular-people
       vim-surround
       vim-unimpaired
       vim-vinegar
