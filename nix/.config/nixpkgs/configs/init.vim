@@ -200,6 +200,7 @@ nnoremap <leader>N :e %:h<CR>
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c                                  " turn off completion messages
 let g:deoplete#enable_at_startup = 1              " Use deoplete.
+let g:float_preview#docked = 0
 " }}}
 
 " Markdown {{{

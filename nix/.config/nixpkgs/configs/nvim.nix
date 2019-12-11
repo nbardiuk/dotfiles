@@ -44,6 +44,7 @@ in
     plugins = with pkgs.vimPlugins; [
       ale
       deoplete-nvim
+      float-preview-nvim
       fzf-filemru
       fzf-vim
       fzfWrapper
