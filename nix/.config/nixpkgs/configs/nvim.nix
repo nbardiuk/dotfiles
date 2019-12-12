@@ -30,6 +30,54 @@ let
       sha256 = "1axhq42cs4hf889adfhfy8h9hf5shbn9snxkz83razxbwc9vdjlq";
     };
   };
+  vim-iced = pkgs.vimUtils.buildVimPlugin {
+    pname = "vim-iced";
+    version = "2019-11-30";
+    src = pkgs.fetchFromGitHub {
+      owner = "liquidz";
+      repo = "vim-iced";
+      rev = "d4eef2c";
+      sha256 = "0zd6gnvwx3h47500b0b0h54vyx3x7fld5sc7w80200skzzxdybm3";
+    };
+    buildPhase = ":";
+    postInstall=''
+      install -Dt $out/bin $out/share/vim-plugins/vim-iced/bin/iced
+    '';
+  };
+  loadPlugin = plugin: ''
+    set rtp^=${plugin.rtp}
+    set rtp+=${plugin.rtp}/after
+  '';
+  plugins = with pkgs.vimPlugins; [
+    ale
+    deoplete-nvim
+    float-preview-nvim
+    fzf-filemru
+    fzf-vim
+    fzfWrapper
+    ghcid
+    gitgutter
+    LanguageClient-neovim
+    neco-syntax
+    neco-vim
+    neoformat
+    rhubarb # github provider for fugitive
+    tmux-navigator
+    vim-colors-github
+    vim-commentary
+    vim-dispatch
+    vim-fugitive
+    vim-iced
+    vim-polyglot
+    vim-repeat
+    vim-sensible
+    vim-sexp
+    vim-sexp-mappings-for-regular-people
+    vim-surround
+    vim-unimpaired
+    vim-vinegar
+    wiki-vim
+  ];
 in
 {
   programs.neovim = {
@@ -40,48 +88,21 @@ in
     withPython = true;
     withPython3 = true;
     withRuby = true;
-    extraConfig = builtins.readFile ./init.vim;
-    plugins = with pkgs.vimPlugins; [
-      ale
-      deoplete-nvim
-      float-preview-nvim
-      fzf-filemru
-      fzf-vim
-      fzfWrapper
-      ghcid
-      gitgutter
-      LanguageClient-neovim
-      neco-syntax
-      neco-vim
-      neoformat
-      rhubarb # github provider for fugitive
-      tmux-navigator
-      vim-colors-github
-      vim-commentary
-      vim-fireplace
-      vim-fugitive
-      vim-polyglot
-      vim-repeat
-      vim-sensible
-      vim-sexp
-      vim-sexp-mappings-for-regular-people
-      vim-surround
-      vim-unimpaired
-      vim-vinegar
-      wiki-vim
+    extraConfig = builtins.concatStringsSep "\n" [
+      ''
+        " Workaround for broken handling of packpath by vim8/neovim for ftplugins -- see https://github.com/NixOS/nixpkgs/issues/39364#issuecomment-425536054 for more info
+        filetype off | syn off
+        ${builtins.concatStringsSep "\n" (map loadPlugin plugins)}
+        filetype indent plugin on | syn on
+      ''
+      (builtins.readFile ./init.vim)
     ];
   };
 
   home.packages = with pkgs; [
-    nixfmt                    # nix formatter
-    haskellPackages.ghcid
-    haskellPackages.hdevtools
-    haskellPackages.hindent
-    haskellPackages.hlint
-    haskellPackages.stylish-haskell
+    vim-iced
     ripgrep                   # grep for developers
     shellcheck                # shell scripts linter
-    stack                     # haskell build tool
     vim-vint                  # vim linter
     xclip                     # clipboard manager
     nodePackages.typescript-language-server

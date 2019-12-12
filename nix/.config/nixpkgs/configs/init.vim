@@ -250,7 +250,7 @@ nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
 nmap <Leader>hs <Plug>(GitGutterStageHunk)
 nmap <Leader>hu <Plug>(GitGutterUndoHunk)
 nmap <Leader>h[ <Plug>(GitGutterPrevHunk)
-nmap <Leader>h] <Plug>(GitGutterNextHunk
+nmap <Leader>h] <Plug>(GitGutterNextHunk)
 omap ih <Plug>(GitGutterTextObjectInnerPending)
 xmap ih <Plug>(GitGutterTextObjectInnerVisual)
 omap ah <Plug>(GitGutterTextObjectOuterPending)
@@ -404,4 +404,21 @@ let g:wiki_journal =
       \   'monthly' : '%Y_m%m',
       \ },
       \}
+" }}}
+
+" Clojure {{{
+augroup clojure_bindings
+  autocmd!
+  autocmd FileType clojure nmap <buffer> <leader>tn <Plug>(iced_require)<Plug>(iced_test_ns)
+  autocmd FileType clojure nmap <buffer> <leader>ta <Plug>(iced_require_all)<Plug>(iced_test_all)
+  autocmd FileType clojure nnoremap <buffer> <leader>to :IcedTestBufferOpen<CR>
+  autocmd FileType clojure nmap <buffer> == <Plug>(iced_format)
+  autocmd FileType clojure nmap <buffer> <leader>lf <Plug>(iced_clean_all)
+  autocmd FileType clojure nnoremap <buffer> K :IcedPopupDocumentOpen<CR>
+  autocmd FileType clojure nnoremap <buffer> <C-]> :IcedDefJump<CR>
+  autocmd FileType clojure nnoremap <buffer> } :IcedBrowseReferences<CR>
+  autocmd FileType clojure nnoremap <buffer> <leader>la :IcedCommandPalette<CR>
+  autocmd FileType clojure nmap <buffer> cp <Plug>(iced_eval)
+  autocmd FileType clojure nmap <buffer> <leader>a <Plug>(iced_browse_related_namespace)
+augroup END
 " }}}
