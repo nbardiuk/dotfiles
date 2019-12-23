@@ -418,7 +418,7 @@ augroup clojure_bindings
   autocmd FileType clojure nnoremap <buffer> <C-]> :IcedDefJump<CR>
   autocmd FileType clojure nnoremap <buffer> } :IcedBrowseReferences<CR>
   autocmd FileType clojure nnoremap <buffer> <leader>la :IcedCommandPalette<CR>
-  autocmd FileType clojure nmap <buffer> cp <Plug>(iced_eval)
+  autocmd FileType clojure nmap <buffer> cp <Plug>(iced_eval_and_print)
   autocmd FileType clojure nmap <buffer> <leader>a <Plug>(iced_browse_related_namespace)
 augroup END
 " }}}
