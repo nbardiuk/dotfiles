@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
   # HACK: get macOS's clang++
   prePatch = ''
     export NIX_LDFLAGS="$NIX_LDFLAGS -F/System/Library/Frameworks"
-    substituteInPlace makefile \
-      --replace clang++ /usr/bin/clang++
+    substituteInPlace makefile --replace clang++ /usr/bin/clang++
+    substituteInPlace src/core/sa.mm --replace /System/Library/ScriptingAdditions /Library/ScriptingAdditions
   '';
 
   buildPhase = ''
