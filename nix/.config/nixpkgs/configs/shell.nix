@@ -31,5 +31,7 @@
     wget
     unzip
     unrar
+
+    entr                      # file watcher
   ];
 }
