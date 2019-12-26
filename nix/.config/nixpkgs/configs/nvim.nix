@@ -20,16 +20,6 @@ let
       sha256 = "1jgqvgaad96rd663rvz8j4pz59fj31zsbz78mywdrrv2d31imxna";
     };
   };
-  fzf-filemru = pkgs.vimUtils.buildVimPlugin {
-    pname = "fzf-filemru";
-    version = "2018-11-02";
-    src = pkgs.fetchFromGitHub {
-      owner = "tweekmonster";
-      repo = "fzf-filemru";
-      rev = "090087d";
-      sha256 = "1axhq42cs4hf889adfhfy8h9hf5shbn9snxkz83razxbwc9vdjlq";
-    };
-  };
   vim-iced = pkgs.vimUtils.buildVimPlugin {
     pname = "vim-iced";
     version = "2019-11-30";
@@ -51,7 +41,6 @@ let
   plugins = with pkgs.vimPlugins; [
     ale
     float-preview-nvim
-    fzf-filemru
     fzf-vim
     fzfWrapper
     ghcid
