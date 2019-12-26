@@ -198,8 +198,11 @@ nnoremap <leader>N :e %:h<CR>
 
 " Completion {{{
 set completeopt=menuone,noinsert,noselect
+augroup completoin
+  autocmd!
+  autocmd BufEnter * call ncm2#enable_for_buffer()
+augroup END
 set shortmess+=c                                  " turn off completion messages
-let g:deoplete#enable_at_startup = 1              " Use deoplete.
 let g:float_preview#docked = 0
 " }}}
 
@@ -266,6 +269,7 @@ function! s:toggle_diff_whitespace()
 endfunction
 
 augroup git_bindings
+  autocmd!
   autocmd FileType git set foldenable
   autocmd FileType git set foldlevelstart=0
 augroup END

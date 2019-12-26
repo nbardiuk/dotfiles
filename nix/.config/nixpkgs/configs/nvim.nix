@@ -50,7 +50,6 @@ let
   '';
   plugins = with pkgs.vimPlugins; [
     ale
-    deoplete-nvim
     float-preview-nvim
     fzf-filemru
     fzf-vim
@@ -58,9 +57,12 @@ let
     ghcid
     gitgutter
     LanguageClient-neovim
-    neco-syntax
-    neco-vim
+    ncm2
+    ncm2-bufword
+    ncm2-path
+    ncm2-tmux
     neoformat
+    nvim-yarp # remote plugin manager for ncm2
     rhubarb # github provider for fugitive
     tmux-navigator
     vim-colors-github
