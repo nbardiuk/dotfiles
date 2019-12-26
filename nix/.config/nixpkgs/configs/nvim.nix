@@ -12,12 +12,12 @@ let
   };
   wiki-vim = pkgs.vimUtils.buildVimPlugin {
     pname = "wiki-vim";
-    version = "2019-11-02";
+    version = "2019-12-13";
     src = pkgs.fetchFromGitHub {
       owner = "lervag";
       repo = "wiki.vim";
-      rev = "cb74e7a99213fa00b778c2343ae1a848f7c1b690";
-      sha256 = "0h88g82ywb8w51yqhzcl7r9n2yfis9wjnl04wg95l8mnv7hxmzyf";
+      rev = "002d09e67876235ba84dc294b71f888058f64150";
+      sha256 = "1jgqvgaad96rd663rvz8j4pz59fj31zsbz78mywdrrv2d31imxna";
     };
   };
   fzf-filemru = pkgs.vimUtils.buildVimPlugin {
