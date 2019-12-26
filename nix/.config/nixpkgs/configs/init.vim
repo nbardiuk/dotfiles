@@ -422,4 +422,6 @@ let g:iced_source.on_complete = {c -> iced#complete#candidates(c['base'], {ms ->
 let g:iced#hook = {}
 let g:iced#hook.connected = {'type': 'function', 'exec': {v -> ncm2#register_source(g:iced_source)}}
 let g:iced#hook.disconnected = {'type': 'function', 'exec': {v -> ncm2#unregister_source(g:iced_source.name)}}
+
+let g:iced#nrepl#connect#jack_in_command = 'iced repl --without-cljs'
 " }}}
