@@ -20,6 +20,26 @@ let
       sha256 = "1jgqvgaad96rd663rvz8j4pz59fj31zsbz78mywdrrv2d31imxna";
     };
   };
+  ncm2-vim = pkgs.vimUtils.buildVimPlugin {
+    pname = "ncm2-vim";
+    version = "2018-08-15";
+    src = pkgs.fetchFromGitHub {
+      owner = "ncm2";
+      repo = "ncm2-vim";
+      rev = "4ee5d3e8b5710890cb5da7875790bdd5a8b3ca07";
+      sha256 = "0m4rs2bs0j74l7gqyzcdhprvvx2n7hw64bbls877av6kix4azr31";
+    };
+  };
+  ncm2-syntax = pkgs.vimUtils.buildVimPlugin {
+    pname = "ncm2-syntax";
+    version = "2018-12-11";
+    src = pkgs.fetchFromGitHub {
+      owner = "ncm2";
+      repo = "ncm2-syntax";
+      rev = "7cd3857001a219be4bc7593b7378034b462415e4";
+      sha256 = "0l36qvsclhg8vr1ix1kpdl0kh739gp6b7s03f18vf9f0aj0im6w2";
+    };
+  };
   vim-iced = pkgs.vimUtils.buildVimPlugin {
     pname = "vim-iced";
     version = "2019-11-30";
@@ -49,7 +69,11 @@ let
     ncm2
     ncm2-bufword
     ncm2-path
+    ncm2-syntax # uses neco-syntax
     ncm2-tmux
+    ncm2-vim # uses neco-vim
+    neco-syntax # provides syntax completion function
+    neco-vim # provides vim completion function
     neoformat
     nvim-yarp # remote plugin manager for ncm2
     rhubarb # github provider for fugitive
