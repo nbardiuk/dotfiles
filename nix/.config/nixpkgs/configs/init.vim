@@ -408,20 +408,5 @@ augroup clojure_bindings
   autocmd FileType clojure nmap <buffer> <leader>a <Plug>(iced_browse_related_namespace)
 augroup END
 
-" docs ncm2#register_source
-let g:iced_source = {}
-let g:iced_source.name = 'vim-iced'
-let g:iced_source.mark = 'iced'
-let g:iced_source.priority = 9
-let g:iced_source.scope = ['clojure']
-let g:iced_source.complete_length = 2
-let g:iced_source.complete_pattern = ['/']
-let g:iced_source.word_pattern = '[\w!$&*\-=+:<>./?]+'
-let g:iced_source.on_complete = {c -> iced#complete#candidates(c['base'], {ms -> ncm2#complete(c, c['startccol'], ms)})}
-
-let g:iced#hook = {}
-let g:iced#hook.connected = {'type': 'function', 'exec': {v -> ncm2#register_source(g:iced_source)}}
-let g:iced#hook.disconnected = {'type': 'function', 'exec': {v -> ncm2#unregister_source(g:iced_source.name)}}
-
 let g:iced#nrepl#connect#jack_in_command = 'iced repl --without-cljs'
 " }}}
