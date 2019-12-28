@@ -2,6 +2,7 @@
 {
   imports = [
     ./configs/alacritty.nix
+    ./configs/clojure.nix
     ./configs/haskell.nix
     ./configs/i3.nix
     ./configs/firefox.nix
