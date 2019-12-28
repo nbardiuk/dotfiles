@@ -398,15 +398,19 @@ augroup clojure_bindings
   autocmd FileType clojure nmap <buffer> <leader>tn <Plug>(iced_require)<Plug>(iced_test_ns)
   autocmd FileType clojure nmap <buffer> <leader>ta <Plug>(iced_require_all)<Plug>(iced_test_all)
   autocmd FileType clojure nnoremap <buffer> <leader>to :IcedTestBufferOpen<CR>
+  autocmd FileType clojure nmap <buffer> <leader>oo <Plug>(iced_stdout_buffer_open)
+  autocmd FileType clojure nmap <buffer> <leader>oc <Plug>(iced_stdout_buffer_close)
   autocmd FileType clojure nmap <buffer> == <Plug>(iced_format)
   autocmd FileType clojure nmap <buffer> <leader>lf <Plug>(iced_clean_all)
   autocmd FileType clojure nnoremap <buffer> K :IcedPopupDocumentOpen<CR>
   autocmd FileType clojure nnoremap <buffer> <C-]> :IcedDefJump<CR>
   autocmd FileType clojure nnoremap <buffer> } :IcedBrowseReferences<CR>
   autocmd FileType clojure nnoremap <buffer> <leader>la :IcedCommandPalette<CR>
-  autocmd FileType clojure nmap <buffer> cp <Plug>(iced_eval_and_print)
+  autocmd FileType clojure nmap <buffer> <leader>p <Plug>(iced_eval_and_print)
+  autocmd FileType clojure nmap <buffer> <leader>pp <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)
   autocmd FileType clojure nmap <buffer> <leader>a <Plug>(iced_browse_related_namespace)
 augroup END
 
 let g:iced#nrepl#connect#jack_in_command = 'iced repl --without-cljs'
+let g:iced#buffer#stdout#mods = 'botright'
 " }}}
