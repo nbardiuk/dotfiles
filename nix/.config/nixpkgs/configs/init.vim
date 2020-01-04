@@ -395,25 +395,26 @@ let g:wiki_journal =
 " Clojure {{{
 augroup clojure_bindings
   autocmd!
+  autocmd FileType clojure nmap <buffer> <leader>tn <Plug>(iced_require)<Plug>(iced_test_ns)
+  autocmd FileType clojure nmap <buffer> <leader>ta <Plug>(iced_require_all)<Plug>(iced_test_all)
+  autocmd FileType clojure nnoremap <buffer> <leader>to :IcedTestBufferOpen<CR>
+  autocmd FileType clojure nmap <buffer> <leader>oo <Plug>(iced_stdout_buffer_open)
+  autocmd FileType clojure nmap <buffer> <leader>oc <Plug>(iced_stdout_buffer_close)
+  autocmd FileType clojure nmap <buffer> == <Plug>(iced_format)
+  autocmd FileType clojure nmap <buffer> <leader>lf <Plug>(iced_clean_all)
+  autocmd FileType clojure nnoremap <buffer> K :IcedPopupDocumentOpen<CR>
+  autocmd FileType clojure nnoremap <buffer> <C-]> :IcedDefJump<CR>
+  autocmd FileType clojure nnoremap <buffer> } :IcedBrowseReferences<CR>
+  autocmd FileType clojure nnoremap <buffer> <leader>la :IcedCommandPalette<CR>
+  autocmd FileType clojure nmap <buffer> <leader>p <Plug>(iced_eval_and_print)
+  autocmd FileType clojure nmap <buffer> <leader>pp <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)
+  autocmd FileType clojure nmap <buffer> <leader>a <Plug>(iced_browse_related_namespace)
 
   " extra sexp remappings
   autocmd FileType clojure nmap <buffer> doe <Plug>(sexp_raise_element)
   autocmd FileType clojure nmap <buffer> dof <Plug>(sexp_raise_list)
-
-  " ncm2 fireplace autocompletion
-  autocmd User Ncm2Plugin call ncm2#register_source({
-            \ 'name' : 'fireplace',
-            \ 'mark': 'clj',
-            \ 'priority': 9,
-            \ 'subscope_enable': v:true,
-            \ 'scope': ['clojure'],
-            \ 'complete_length': 2,
-            \ 'word_pattern': '[\w!$&*\-=+:<>./?]+',
-            \ 'complete_pattern': ['/', '\.'],
-            \ 'on_complete': {context ->
-            \    fireplace#omnicomplete(
-            \      {candidates -> ncm2#complete(context, context.startccol, candidates)},
-            \      context.base)},
-            \ })
 augroup END
+
+let g:iced#nrepl#connect#jack_in_command = 'iced repl --without-cljs'
+let g:iced#buffer#stdout#mods = 'botright'
 " }}}

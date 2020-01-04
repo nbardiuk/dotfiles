@@ -40,6 +40,30 @@ let
       sha256 = "0l36qvsclhg8vr1ix1kpdl0kh739gp6b7s03f18vf9f0aj0im6w2";
     };
   };
+  vim-iced-ncm2 = pkgs.vimUtils.buildVimPlugin {
+    pname = "vim-iced-ncm2";
+    version = "2019-12-27";
+    src = pkgs.fetchFromGitHub {
+      owner = "nbardiuk";
+      repo = "vim-iced-ncm2";
+      rev = "2de0ee2096c71ae8d73fe95fefc0afd2b1c5d0b3";
+      sha256 = "0yyxn0wjbwmr327pvqm2gmccc5lca2xm8i070d3xnn8rm08g2c03";
+    };
+  };
+  vim-iced = pkgs.vimUtils.buildVimPlugin {
+    pname = "vim-iced";
+    version = "2019-11-30";
+    src = pkgs.fetchFromGitHub {
+      owner = "liquidz";
+      repo = "vim-iced";
+      rev = "d4eef2c";
+      sha256 = "0zd6gnvwx3h47500b0b0h54vyx3x7fld5sc7w80200skzzxdybm3";
+    };
+    buildPhase = ":";
+    postInstall=''
+      install -Dt $out/bin $out/share/vim-plugins/vim-iced/bin/iced
+    '';
+  };
   loadPlugin = plugin: ''
     set rtp^=${plugin.rtp}
     set rtp+=${plugin.rtp}/after
@@ -67,8 +91,9 @@ let
     vim-colors-github
     vim-commentary
     vim-dispatch
-    vim-fireplace
     vim-fugitive
+    vim-iced
+    vim-iced-ncm2
     vim-polyglot
     vim-repeat
     vim-sensible
@@ -101,6 +126,7 @@ in
   };
 
   home.packages = with pkgs; [
+    vim-iced
     ripgrep                   # grep for developers
     shellcheck                # shell scripts linter
     vim-vint                  # vim linter
