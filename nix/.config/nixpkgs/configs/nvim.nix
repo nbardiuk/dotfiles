@@ -42,17 +42,17 @@ let
   };
   vim-iced-ncm2 = pkgs.vimUtils.buildVimPlugin {
     pname = "vim-iced-ncm2";
-    version = "2019-12-27";
+    version = "2020-01-04";
     src = pkgs.fetchFromGitHub {
       owner = "nbardiuk";
       repo = "vim-iced-ncm2";
-      rev = "2de0ee2096c71ae8d73fe95fefc0afd2b1c5d0b3";
-      sha256 = "0yyxn0wjbwmr327pvqm2gmccc5lca2xm8i070d3xnn8rm08g2c03";
+      rev = "f3fa54f84c046d074a6d2f3d363a9478cca5010b";
+      sha256 = "18q5k31qdkl8fb32w68l5d49c3yrcf621za2h3x68yw7p3hpqmqy";
     };
   };
   vim-iced = pkgs.vimUtils.buildVimPlugin {
     pname = "vim-iced";
-    version = "2019-11-30";
+    version = "2019-11-29";
     src = pkgs.fetchFromGitHub {
       owner = "liquidz";
       repo = "vim-iced";
