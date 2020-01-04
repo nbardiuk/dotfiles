@@ -19,11 +19,9 @@
     gnumake
     lsof
     ncdu
-    nodePackages.nodemon
 
     ranger                    # cli file manager
     w3m                       # cli browser, shows images
-    xpdf # pdf preview
     mediainfo # media details preview
 
     exa                       # fancy ls with tree
