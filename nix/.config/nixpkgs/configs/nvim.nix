@@ -126,7 +126,8 @@ in
   };
 
   home.packages = with pkgs; [
-    vim-iced
+    clj-kondo                 # clojure linter
+    vim-iced                  # clojure nrepl
     ripgrep                   # grep for developers
     shellcheck                # shell scripts linter
     vim-vint                  # vim linter
