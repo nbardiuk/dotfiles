@@ -204,6 +204,11 @@ augroup completoin
 augroup END
 set shortmess+=c                                  " turn off completion messages
 let g:float_preview#docked = 0
+
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 " }}}
 
 " Neoformat {{{
