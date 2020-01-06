@@ -4,6 +4,7 @@
     ./bat.nix
     ./direnv.nix
     ./fzf.nix
+    ./ripgrep.nix
     ./git.nix
     ./htop.nix
     ./nvim.nix
