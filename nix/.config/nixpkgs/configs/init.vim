@@ -405,8 +405,7 @@ augroup clojure_bindings
   autocmd FileType clojure nnoremap <buffer> <leader>to :IcedTestBufferOpen<CR>
   autocmd FileType clojure nmap <buffer> <leader>oo <Plug>(iced_stdout_buffer_open)
   autocmd FileType clojure nmap <buffer> <leader>oc <Plug>(iced_stdout_buffer_clear)
-  autocmd FileType clojure nmap <buffer> == <Plug>(iced_format)
-  autocmd FileType clojure nmap <buffer> <leader>lf <Plug>(iced_clean_all)
+  autocmd FileType clojure nmap <buffer> <leader>lf <Plug>(iced_format_all)
   autocmd FileType clojure nnoremap <buffer> K :IcedPopupDocumentOpen<CR>
   autocmd FileType clojure nnoremap <buffer> <C-]> :IcedDefJump<CR>
   autocmd FileType clojure nnoremap <buffer> } :IcedBrowseReferences<CR>
@@ -414,6 +413,7 @@ augroup clojure_bindings
   autocmd FileType clojure nmap <buffer> <leader>p <Plug>(iced_eval_and_print)
   autocmd FileType clojure nmap <buffer> <leader>pp <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)
   autocmd FileType clojure nmap <buffer> <leader>a <Plug>(iced_browse_related_namespace)
+  autocmd BufReadPost,BufWritePost *.clj IcedRequire
 
   " extra sexp remappings
   autocmd FileType clojure nmap <buffer> doe <Plug>(sexp_raise_element)
