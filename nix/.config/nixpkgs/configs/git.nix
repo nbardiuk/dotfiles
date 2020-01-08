@@ -38,5 +38,6 @@
   home.packages = with pkgs; [
     gitAndTools.hub
     git-secret
+    gnupg
   ];
 }
