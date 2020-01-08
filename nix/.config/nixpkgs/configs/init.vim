@@ -11,6 +11,7 @@ nnoremap <leader>la :call LanguageClient_textDocument_codeAction()<CR>
 " }}}
 
 let g:ale_fixers = { }
+let g:ale_fixers['*'] = ['remove_trailing_lines', 'trim_whitespace']
 let g:ale_linters = { }
 
 " Terminal {{{
@@ -276,6 +277,24 @@ nnoremap <leader>vs :source ~/.config/nixpkgs/configs/init.vim<cr>
 cabbrev W w
 " }}}
 
+" Json {{{
+augroup json_bindings
+  autocmd!
+  autocmd FileType json nnoremap <buffer> <leader>lf :ALEFix<CR>
+augroup END
+let g:ale_fixers.json = ['jq']
+let g:ale_json_jq_options = '--monochrome-output --indent 2 --sort-keys'
+" }}}
+
+" XML {{{
+augroup xml_bindings
+  autocmd!
+  autocmd FileType xml nnoremap <buffer> <leader>lf :ALEFix<CR>
+augroup END
+let g:ale_fixers.xml = ['xmllint']
+let g:ale_linters.xml = ['xmllint']
+" }}}
+
 " JavaScript/Typescript {{{
 augroup typescirpt_bindings
   autocmd!
@@ -289,7 +308,6 @@ augroup typescirpt_bindings
 augroup END
 let g:ale_linters.javascript = ['eslint']
 let g:ale_linters.typescript = ['tsserver', 'tslint']
-let g:ale_fixers.json = ['prettier']
 let g:ale_fixers.javascript = ['eslint', 'prettier']
 let g:ale_fixers.typescript = ['prettier']
 
@@ -413,12 +431,15 @@ augroup clojure_bindings
   autocmd FileType clojure nmap <buffer> <leader>p <Plug>(iced_eval_and_print)
   autocmd FileType clojure nmap <buffer> <leader>pp <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)
   autocmd FileType clojure nmap <buffer> <leader>a <Plug>(iced_browse_related_namespace)
-  autocmd BufReadPost,BufWritePost *.clj IcedRequire
+  autocmd FileType clojure autocmd BufReadPost,BufWritePost <buffer> IcedRequire
+  autocmd FileType clojure autocmd BufWritePre <buffer> :ALEFix
 
   " extra sexp remappings
   autocmd FileType clojure nmap <buffer> doe <Plug>(sexp_raise_element)
   autocmd FileType clojure nmap <buffer> dof <Plug>(sexp_raise_list)
 augroup END
+
+let g:ale_linters.clojure = ['joker']
 
 let g:iced#nrepl#connect#jack_in_command = 'iced repl --without-cljs'
 let g:iced#buffer#stdout#mods = 'botright'

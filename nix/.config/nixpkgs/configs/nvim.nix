@@ -126,14 +126,15 @@ in
   };
 
   home.packages = with pkgs; [
-    clj-kondo                 # clojure linter
+    joker                     # clojure linter
     vim-iced                  # clojure nrepl
-    ripgrep                   # grep for developers
     shellcheck                # shell scripts linter
     vim-vint                  # vim linter
     xclip                     # clipboard manager
     nodePackages.typescript-language-server
     ccls                      # c/c++ language server
     clang-tools               # clang dev tools
+    jq                        # json formatter
+    libxml2                   # for xmllint
   ];
 }
