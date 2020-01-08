@@ -295,6 +295,16 @@ let g:ale_fixers.xml = ['xmllint']
 let g:ale_linters.xml = ['xmllint']
 " }}}
 
+" SQL {{{
+augroup sql_bindings
+  autocmd!
+  autocmd FileType sql nnoremap <buffer> <leader>lf :ALEFix<CR>
+augroup END
+let g:ale_fixers.sql = ['pgformatter']
+let g:ale_linters.sql = ['sqlint']
+let g:ale_sql_pgformatter_options = '--spaces 4 --comma-break'
+" }}}
+
 " JavaScript/Typescript {{{
 augroup typescirpt_bindings
   autocmd!

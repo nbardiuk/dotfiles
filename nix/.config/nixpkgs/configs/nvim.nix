@@ -136,5 +136,7 @@ in
     clang-tools               # clang dev tools
     jq                        # json formatter
     libxml2                   # for xmllint
+    pgformatter               # sql formatter
+    sqlint                    # sql linter
   ];
 }
