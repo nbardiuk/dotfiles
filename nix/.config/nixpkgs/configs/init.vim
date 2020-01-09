@@ -442,7 +442,6 @@ augroup clojure_bindings
   autocmd FileType clojure nmap <buffer> <leader>pp <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)
   autocmd FileType clojure nmap <buffer> <leader>a <Plug>(iced_browse_related_namespace)
   autocmd FileType clojure autocmd BufReadPost,BufWritePost <buffer> IcedRequire
-  autocmd FileType clojure autocmd BufWritePre <buffer> :ALEFix
 
   " extra sexp remappings
   autocmd FileType clojure nmap <buffer> doe <Plug>(sexp_raise_element)
@@ -453,4 +452,11 @@ let g:ale_linters.clojure = ['joker']
 
 let g:iced#nrepl#connect#jack_in_command = 'iced repl --without-cljs'
 let g:iced#buffer#stdout#mods = 'botright'
+
+let indents = {}
+let indents['Given'] = '[[:inner 0]]'
+let indents['When'] = '[[:inner 0]]'
+let indents['Then'] = '[[:inner 0]]'
+let indents['let-system'] = '[[:inner 0]]'
+let g:iced#format#rule = indents
 " }}}
