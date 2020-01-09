@@ -10,6 +10,10 @@ nnoremap <leader>lc :call LanguageClient_contextMenu()<CR>
 nnoremap <leader>la :call LanguageClient_textDocument_codeAction()<CR>
 " }}}
 
+" Projectionist {{{
+let g:projectionist_heuristics = {}
+" }}}
+
 let g:ale_fixers = { }
 let g:ale_fixers['*'] = ['remove_trailing_lines', 'trim_whitespace']
 let g:ale_linters = { }
@@ -459,4 +463,19 @@ let indents['When'] = '[[:inner 0]]'
 let indents['Then'] = '[[:inner 0]]'
 let indents['let-system'] = '[[:inner 0]]'
 let g:iced#format#rule = indents
+
+let g:projectionist_heuristics['project.clj|deps.edn'] =
+\ {
+\   'src/*.clj': {
+\     'type': 'source',
+\     'alternate': 'test/{}_test.clj',
+\   },
+\   'dev/*.clj': {
+\     'type': 'source',
+\   },
+\   'test/*_test.clj': {
+\     'type': 'test',
+\     'alternate': 'src/{}.clj',
+\   }
+\ }
 " }}}

@@ -95,6 +95,7 @@ let
     vim-iced
     vim-iced-ncm2
     vim-polyglot
+    vim-projectionist
     vim-repeat
     vim-sensible
     vim-sexp
