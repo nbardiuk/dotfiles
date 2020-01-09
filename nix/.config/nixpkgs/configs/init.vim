@@ -450,7 +450,7 @@ augroup END
 
 let g:ale_linters.clojure = ['joker']
 
-let g:iced#nrepl#connect#jack_in_command = 'iced repl --without-cljs'
+let g:iced#nrepl#connect#jack_in_command = 'LOG_LEVEL="OFF" iced repl --without-cljs'
 let g:iced#buffer#stdout#mods = 'botright'
 
 let indents = {}
