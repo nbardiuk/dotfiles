@@ -438,14 +438,14 @@ augroup clojure_bindings
   autocmd FileType clojure nmap <buffer> <leader>oo <Plug>(iced_stdout_buffer_open)
   autocmd FileType clojure nmap <buffer> <leader>oc <Plug>(iced_stdout_buffer_clear)
   autocmd FileType clojure nmap <buffer> <leader>lf <Plug>(iced_format_all)
-  autocmd FileType clojure nnoremap <buffer> K :IcedPopupDocumentOpen<CR>
+  autocmd FileType clojure nnoremap <buffer> K :IcedDocumentPopupOpen<CR>
   autocmd FileType clojure nnoremap <buffer> <C-]> :IcedDefJump<CR>
   autocmd FileType clojure nnoremap <buffer> } :IcedBrowseReferences<CR>
   autocmd FileType clojure nnoremap <buffer> <leader>la :IcedCommandPalette<CR>
   autocmd FileType clojure nmap <buffer> <leader>p <Plug>(iced_eval_and_print)
   autocmd FileType clojure nmap <buffer> <leader>pp <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)
   autocmd FileType clojure nmap <buffer> <leader>a <Plug>(iced_browse_related_namespace)
-  autocmd FileType clojure autocmd BufReadPost,BufWritePost <buffer> IcedRequire
+  autocmd FileType clojure autocmd BufWritePost <buffer> IcedRequire
 
   " extra sexp remappings
   autocmd FileType clojure nmap <buffer> doe <Plug>(sexp_raise_element)
@@ -456,6 +456,9 @@ let g:ale_linters.clojure = ['joker']
 
 let g:iced#nrepl#connect#jack_in_command = 'LOG_LEVEL="OFF" iced repl --without-cljs'
 let g:iced#buffer#stdout#mods = 'botright'
+
+" it requires jet
+let g:iced_enable_enhanced_definition_extraction = v:false
 
 let indents = {}
 let indents['Given'] = '[[:inner 0]]'
