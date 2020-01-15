@@ -448,7 +448,6 @@ augroup clojure_bindings
   autocmd FileType clojure nnoremap <buffer> <leader>la :IcedCommandPalette<CR>
   autocmd FileType clojure nmap <buffer> <leader>p <Plug>(iced_eval_and_print)
   autocmd FileType clojure nmap <buffer> <leader>pp <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)
-  autocmd FileType clojure nmap <buffer> <leader>a <Plug>(iced_browse_related_namespace)
   autocmd FileType clojure autocmd BufWritePost <buffer> IcedRequire
 
   " extra sexp remappings
