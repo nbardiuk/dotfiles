@@ -56,8 +56,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "liquidz";
       repo = "vim-iced";
-      rev = "0ffd39910b7ec5c21b3689e04d19e99e93760a2d";
-      sha256 = "0klhmvrn1b57my2k2djxxxi5r63msklf5x5w2bvbgg0ra6dcjjq6";
+      rev = "4b45b2d6b04052f7490f101f62ad69560daf348f";
+      sha256 = "0q9sb3jrgn4b0lk0vz28w69arxc5zdp4arbj83cx11lxx5fi4xlr";
     };
     buildPhase = ":";
     postInstall=''
