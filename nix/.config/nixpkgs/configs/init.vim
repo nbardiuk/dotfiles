@@ -49,8 +49,12 @@ if has('unnamedplus') " X11 support
   set clipboard+=unnamedplus
 endif
 syntax on                           " turn on syntax highlighting
+
 set spelllang=en_us                 " spell check
 set nospell                         " disabled by default
+" limit spell suggestions list
+set spellsuggest+=10
+
 set wildmode=list:longest,full      " Commands completion
 " fzf history
 cnoremap <C-F> History:<CR>
