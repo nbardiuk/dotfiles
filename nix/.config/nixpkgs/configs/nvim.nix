@@ -92,6 +92,7 @@ let
     vim-commentary
     vim-dispatch
     vim-fugitive
+    vim-ghost
     vim-iced
     vim-iced-ncm2
     vim-polyglot
@@ -123,6 +124,11 @@ in
         filetype indent plugin on | syn on
       ''
       (builtins.readFile ./init.vim)
+    ];
+    extraPython3Packages = with pkgs.python37Packages; [
+      # for ghost-edit
+      simple-websocket-server
+      python-slugify
     ];
   };
 
