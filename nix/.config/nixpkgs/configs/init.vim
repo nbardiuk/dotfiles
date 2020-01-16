@@ -112,8 +112,8 @@ set undolevels=1000
 augroup autosave
   autocmd!
 
-  " Save file on loosing focus
-  autocmd FocusLost * :wa
+  " Autosafe file
+  autocmd TextChanged * if &modified | :w | endif
 
   " jum to last known position when opening buffer
   autocmd BufReadPost *
