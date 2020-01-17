@@ -470,6 +470,8 @@ let indents['Then'] = '[[:inner 0]]'
 let indents['let-system'] = '[[:inner 0]]'
 let g:iced#format#rule = indents
 
+let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let', '^Feature', '^Scenario', '^Given', '^When', '^Then', '^And']
+
 let g:projectionist_heuristics['project.clj|deps.edn'] =
 \ {
 \   'src/*.clj': {
