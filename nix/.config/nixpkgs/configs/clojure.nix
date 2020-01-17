@@ -6,6 +6,7 @@ let
   iced-nrepl = ''"0.7.0"'';
   cider-nrepl = ''"0.22.4"'';
   refactor-nrepl = ''"2.4.0"'';
+  hashp = ''"0.1.1"'';
   middleware = lib.concatStringsSep "," [
     "cider.nrepl/wrap-classpath"
     "cider.nrepl/wrap-clojuredocs"
@@ -41,9 +42,11 @@ in
           [iced-nrepl ${iced-nrepl}]
           [cider/cider-nrepl ${cider-nrepl}]
           [refactor-nrepl ${refactor-nrepl}]
+          [hashp ${hashp}]
         ]
        :repl-options {:nrepl-middleware [${middleware}]}
        :plugins [[refactor-nrepl ${refactor-nrepl}]]
+       :injections [(require 'hashp.core)]
       }
     }
   '';
