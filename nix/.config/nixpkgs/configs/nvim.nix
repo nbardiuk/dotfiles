@@ -70,7 +70,7 @@ let
   '';
   plugins = with pkgs.vimPlugins; [
     ale
-    float-preview-nvim
+    float-preview-nvim # ncm2 preview
     fzf-vim
     fzfWrapper
     ghcid
@@ -90,9 +90,8 @@ let
     tmux-navigator
     vim-colors-github
     vim-commentary
-    vim-dispatch
+    vim-dirvish # simple directory viewer
     vim-fugitive
-    vim-ghost
     vim-iced
     vim-iced-ncm2
     vim-polyglot
@@ -103,7 +102,6 @@ let
     vim-sexp-mappings-for-regular-people
     vim-surround
     vim-unimpaired
-    vim-vinegar
     wiki-vim
   ];
 in
@@ -124,11 +122,6 @@ in
         filetype indent plugin on | syn on
       ''
       (builtins.readFile ./init.vim)
-    ];
-    extraPython3Packages = with pkgs.python37Packages; [
-      # for ghost-edit
-      simple-websocket-server
-      python-slugify
     ];
   };
 

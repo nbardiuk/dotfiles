@@ -189,20 +189,17 @@ let g:fzf_action =
 " }}}
 
 " Files navigation {{{
+
 " search project file by selected text
 vnoremap <silent> <Leader>n :<c-u>call <SID>run_interact("Files")<CR>
 nnoremap <silent> <Leader>n :Files<CR>
+
 " search buffers by selected text
 vnoremap <silent> <Leader>e :<c-u>call <SID>run_interact("Buffers")<CR>
 nnoremap <silent> <Leader>e :Buffers<CR>
-" }}}
 
-" NetRW {{{
-let g:netrw_liststyle = 3                     " tree listing
-let g:netrw_sizestyle = 'H'                   " human readable
-let g:netrw_hide = 1                          " hide by default
-let g:netrw_banner = 0                        " turn banner off
-nnoremap <leader>N :e %:h<CR>
+nnoremap <leader>N :Dirvish<CR>
+let g:dirvish_mode=':sort ,^.*[\/],'
 " }}}
 
 " Completion {{{
