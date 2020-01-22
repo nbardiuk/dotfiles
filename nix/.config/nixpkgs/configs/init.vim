@@ -464,6 +464,9 @@ let g:iced#format#rule = indents
 
 let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let', '^Feature', '^Scenario', '^Given', '^When', '^Then', '^And']
 
+" use my fork clojure syntax fork
+let g:polyglot_disabled = ['clojure']
+
 let g:projectionist_heuristics['project.clj|deps.edn'] =
 \ {
 \   'src/*.clj': {

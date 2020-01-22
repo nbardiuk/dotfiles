@@ -64,6 +64,16 @@ let
       install -Dt $out/bin $out/share/vim-plugins/vim-iced/bin/iced
     '';
   };
+  vim-clojure-static = pkgs.vimUtils.buildVimPlugin {
+    pname = "vim-clojure-static";
+    version = "2020-01-22";
+    src = pkgs.fetchFromGitHub {
+      owner = "nbardiuk";
+      repo = "vim-clojure-static";
+      rev = "29e5f2d";
+      sha256 = "1cw1qzkl97l1ydggx7p0lik53r6yw1z26f2wqalz30y3ym7cpgfs";
+    };
+  };
   loadPlugin = plugin: ''
     set rtp^=${plugin.rtp}
     set rtp+=${plugin.rtp}/after
@@ -88,6 +98,7 @@ let
     nvim-yarp # remote plugin manager for ncm2
     rhubarb # github provider for fugitive
     tmux-navigator
+    vim-clojure-static
     vim-colors-github
     vim-commentary
     vim-dirvish # simple directory viewer
