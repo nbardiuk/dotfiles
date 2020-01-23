@@ -117,7 +117,7 @@ augroup autosave
   autocmd!
 
   " Autosafe file
-  autocmd TextChanged,InsertLeave * if &modified | :w | endif
+  autocmd FocusLost,BufLeave,CursorHold * silent! :update
 
   " jum to last known position when opening buffer
   autocmd BufReadPost *
