@@ -431,6 +431,30 @@ let g:wiki_journal =
       \}
 " }}}
 
+" sexp {{{
+function! s:sexp_mappings() abort
+
+  nmap <buffer> doe <Plug>(sexp_raise_element)
+  nmap <buffer> dof <Plug>(sexp_raise_list)
+
+  " emulate text object for pair of elements
+  " i.e. key/value binding/expr test/expr
+  "
+  "   pair forward
+  xmap <buffer> ip <Plug>(sexp_inner_element)<Plug>(sexp_move_to_next_element_tail)
+  omap <buffer> ip :<C-U>normal vip<CR>
+  "   pair backward
+  xmap <buffer> iP <Plug>(sexp_inner_element)o<Plug>(sexp_move_to_prev_element_head)
+  omap <buffer> iP :<C-U>normal viP<CR>
+
+endfunction
+
+augroup more_sexp_mappings
+    autocmd!
+    execute 'autocmd FileType' get(g:, 'sexp_filetypes', 'lisp,scheme,clojure') 'call s:sexp_mappings()'
+augroup END
+" }}}
+
 " Clojure {{{
 augroup clojure_bindings
   autocmd!
@@ -447,10 +471,6 @@ augroup clojure_bindings
   autocmd FileType clojure nmap <buffer> <leader>p <Plug>(iced_eval_and_print)
   autocmd FileType clojure nmap <buffer> <leader>pp <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)
   autocmd FileType clojure autocmd BufWritePost <buffer> IcedRequire
-
-  " extra sexp remappings
-  autocmd FileType clojure nmap <buffer> doe <Plug>(sexp_raise_element)
-  autocmd FileType clojure nmap <buffer> dof <Plug>(sexp_raise_list)
 augroup END
 
 let g:ale_linters.clojure = ['joker']
@@ -470,7 +490,7 @@ let g:iced#format#rule = indents
 
 let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let', '^Feature', '^Scenario', '^Given', '^When', '^Then', '^And']
 
-" use my fork clojure syntax fork
+" use my clojure syntax fork
 let g:polyglot_disabled = ['clojure']
 
 let g:projectionist_heuristics['project.clj|deps.edn'] =
