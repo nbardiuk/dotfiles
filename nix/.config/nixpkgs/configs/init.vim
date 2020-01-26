@@ -73,8 +73,6 @@ augroup panes
   " automatically rebalance windows on vim resize
   autocmd VimResized * :wincmd =
 augroup END
-" zoom a vim pane
-nnoremap <silent> <leader>z :wincmd _<cr>:wincmd \|<cr>
 " }}}
 
 " Text Wrapping {{{
@@ -248,14 +246,14 @@ let g:gitgutter_map_keys = 0
 nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
 nmap <Leader>hs <Plug>(GitGutterStageHunk)
 nmap <Leader>hu <Plug>(GitGutterUndoHunk)
-nmap <Leader>h[ <Plug>(GitGutterPrevHunk)
-nmap <Leader>h] <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
+nmap ]h <Plug>(GitGutterNextHunk)
 omap ih <Plug>(GitGutterTextObjectInnerPending)
 xmap ih <Plug>(GitGutterTextObjectInnerVisual)
 omap ah <Plug>(GitGutterTextObjectOuterPending)
 xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
-set diffopt+=internal,algorithm:patience
+set diffopt+=internal,algorithm:histogram
 
 nmap <Leader>dw :call <SID>toggle_diff_whitespace()<CR>
 function! s:toggle_diff_whitespace()

@@ -25,6 +25,7 @@
     extraConfig = {
       code.editor = "nvim";
       diff.tool = "vdiff";
+      diff.algorithm = "histogram";
       "difftool \"vdiff\"".cmd = "nvim -d $LOCAL $REMOTE";
       difftool.promt = true;
       merge.tool = "vmerge";
