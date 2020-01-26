@@ -95,7 +95,9 @@ colorscheme github
 
 " Status line {{{
 set laststatus=2
+set noruler
 set title
+set titlestring=%f " file name
 " }}}
 
 " Folding {{{
