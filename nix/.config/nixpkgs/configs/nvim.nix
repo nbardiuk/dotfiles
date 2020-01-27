@@ -108,10 +108,10 @@ let
     vim-polyglot
     vim-projectionist
     vim-repeat
-    vim-sandwich
     vim-sensible
     vim-sexp
     vim-sexp-mappings-for-regular-people
+    vim-surround
     vim-unimpaired
     wiki-vim
   ];

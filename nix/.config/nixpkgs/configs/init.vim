@@ -61,12 +61,6 @@ cnoremap <C-F> History:<CR>
 set list listchars=tab:\▸\ ,trail:· " Display tabs and trailing spaces visually
 set shell=~/.nix-profile/bin/zsh
 
-" {{{ sandwich
-" don't modify text on sandwich timeout
-nmap s <Nop>
-xmap s <Nop>
-" }}}
-
 " {{{ Panes
 augroup panes
   autocmd!
