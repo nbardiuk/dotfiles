@@ -199,6 +199,10 @@ let g:fzf_action =
 
 " Files navigation {{{
 
+" .  relative to the directory of the current file
+" ,, current directory
+set path=.,,
+
 " search project file by selected text
 vnoremap <silent> <Leader>n :<c-u>call <SID>run_interact("Files")<CR>
 nnoremap <silent> <Leader>n :Files<CR>
