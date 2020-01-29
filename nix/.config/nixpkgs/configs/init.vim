@@ -324,16 +324,20 @@ let g:ale_sql_pgformatter_options = '--spaces 4 --comma-break'
 " }}}
 
 " JavaScript/Typescript {{{
+function! s:typescript_mappings() abort 
+  nnoremap <buffer> <leader>lf  :ALEFix<CR>
+  nnoremap <buffer> <C-]>       :call LanguageClient_textDocument_definition()<CR>
+  nnoremap <buffer> <C-W><C-]>  :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
+  nnoremap <buffer> <leader>lr  :call LanguageClient_textDocument_rename()<CR>
+  nnoremap <buffer> <leader>lt  :call LanguageClient_textDocument_typeDefinition()<CR>
+  nnoremap <buffer> }           :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
+  nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
+endfunction
 augroup typescirpt_bindings
   autocmd!
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lf :ALEFix<CR>
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <C-]> :call LanguageClient_textDocument_definition()<CR>
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <C-W><C-]> :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<CR>
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> <leader>lt :call LanguageClient_textDocument_typeDefinition()<CR>
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> } :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
+  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx call s:typescript_mappings()
 augroup END
+
 let g:ale_linters.javascript = ['eslint']
 let g:ale_linters.typescript = ['tsserver', 'tslint']
 let g:ale_fixers.javascript = ['eslint', 'prettier']
@@ -360,15 +364,18 @@ augroup END
 " }}}
 
 " Rust {{{
+function! s:rust_mappings() abort
+  nnoremap <buffer> <leader>t   :!time cargo test -q<CR>
+  nnoremap <buffer> <leader>lf  :ALEFix<CR>
+  nnoremap <buffer> <C-]>       :call LanguageClient_textDocument_definition()<CR>
+  nnoremap <buffer> <C-W><C-]>  :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
+  nnoremap <buffer> <leader>lr  :call LanguageClient_textDocument_rename()<CR>
+  nnoremap <buffer> }           :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
+  nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
+endfunction
 augroup rust_bindings
   autocmd!
-  autocmd FileType rust nnoremap <buffer> <leader>t :!time cargo test -q<CR>
-  autocmd FileType rust nnoremap <buffer> <leader>lf :ALEFix<CR>
-  autocmd FileType rust nnoremap <buffer> <C-]> :call LanguageClient_textDocument_definition()<CR>
-  autocmd FileType rust nnoremap <buffer> <C-W><C-]> :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
-  autocmd FileType rust nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<CR>
-  autocmd FileType rust nnoremap <buffer> } :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
-  autocmd FileType rust nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
+  autocmd FileType rust call s:rust_mappings()
 augroup END
 let g:LanguageClient_rootMarkers.rust = ['Cargo.toml']
 let g:LanguageClient_serverCommands.rust = ['rls']
@@ -383,12 +390,15 @@ let g:LanguageClient_serverCommands.haskell = ['ghcide', '--lsp']
 
 let g:neoformat_enabled_haskell = ['hindent', 'stylish-haskell']
 
+function! s:haskell_mappings() abort 
+  nnoremap <buffer> <leader>lf  :Neoformat<CR>
+  nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
+  nnoremap <buffer> <C-]>       :call LanguageClient_textDocument_definition()<CR>
+  nnoremap <buffer> <C-W><C-]>  :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
+endfunction
 augroup haskell_bindings
   autocmd!
-  autocmd FileType haskell nnoremap <buffer> <leader>lf :Neoformat<CR>
-  autocmd FileType haskell nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
-  autocmd FileType haskell nnoremap <buffer> <C-]> :call LanguageClient_textDocument_definition()<CR>
-  autocmd FileType haskell nnoremap <buffer> <C-W><C-]> :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
+  autocmd FileType haskell call s:haskell_mappings()
 augroup END
 " }}}
 
@@ -414,15 +424,19 @@ let g:LanguageClient_serverCommands.c =
 
 let g:ale_fixers.c = ['clang-format', 'clangtidy']
 let g:ale_linters.c = ['clang']
+
+function! s:c_mappings() abort
+  vnoremap <buffer> =           :call LanguageClient_textDocument_rangeFormatting()<CR>
+  nnoremap <buffer> <leader>lf  :ALEFix<CR>
+  nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
+  nnoremap <buffer> <C-]>       :call LanguageClient_textDocument_definition()<CR>
+  nnoremap <buffer> <C-W><C-]>  :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
+  nnoremap <buffer> <leader>lr  :call LanguageClient_textDocument_rename()<CR>
+  nnoremap <buffer> }           :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
+endfunction
 augroup c_bindings
   autocmd!
-  autocmd FileType c vnoremap <buffer> = :call LanguageClient_textDocument_rangeFormatting()<CR>
-  autocmd FileType c nnoremap <buffer> <leader>lf :ALEFix<CR>
-  autocmd FileType c nnoremap <buffer> K :call LanguageClient_textDocument_hover()<CR>
-  autocmd FileType c nnoremap <buffer> <C-]> :call LanguageClient_textDocument_definition()<CR>
-  autocmd FileType c nnoremap <buffer> <C-W><C-]> :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
-  autocmd FileType c nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<CR>
-  autocmd FileType c nnoremap <buffer> } :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
+  autocmd FileType c call s:c_mappings()
 augroup END
 " }}}
 
@@ -468,23 +482,27 @@ augroup END
 " }}}
 
 " Clojure {{{
+function! s:clojure_mappings() abort
+  nmap      <buffer> <leader>tn <Plug>(iced_require)<Plug>(iced_test_ns)
+  nmap      <buffer> <leader>ta <Plug>(iced_require_all)<Plug>(iced_test_all)
+  nnoremap  <buffer> <leader>to :IcedTestBufferOpen<CR>
+  nmap      <buffer> <leader>oo <Plug>(iced_stdout_buffer_open)
+  nmap      <buffer> <leader>oc <Plug>(iced_stdout_buffer_clear)
+  nmap      <buffer> <leader>oq <Plug>(iced_stdout_buffer_close)
+  nmap      <buffer> <leader>lf <Plug>(iced_format_all)
+  nnoremap  <buffer> K          :IcedDocumentPopupOpen<CR>
+  nnoremap  <buffer> <C-]>      :IcedDefJump<CR>
+  nnoremap  <buffer> }          :IcedBrowseReferences<CR>
+  nnoremap  <buffer> <leader>la :IcedCommandPalette<CR>
+  nmap      <buffer> <leader>p  <Plug>(iced_eval_and_print)
+  nmap      <buffer> <leader>pe <Plug>(iced_eval_and_print)<Plug>(sexp_inner_element)
+  nmap      <buffer> <leader>pf <Plug>(iced_eval_and_print)<Plug>(sexp_outer_list)
+  nmap      <buffer> <leader>pp <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)
+endfunction
+
 augroup clojure_bindings
   autocmd!
-  autocmd FileType clojure nmap <buffer> <leader>tn <Plug>(iced_require)<Plug>(iced_test_ns)
-  autocmd FileType clojure nmap <buffer> <leader>ta <Plug>(iced_require_all)<Plug>(iced_test_all)
-  autocmd FileType clojure nnoremap <buffer> <leader>to :IcedTestBufferOpen<CR>
-  autocmd FileType clojure nmap <buffer> <leader>oo <Plug>(iced_stdout_buffer_open)
-  autocmd FileType clojure nmap <buffer> <leader>oc <Plug>(iced_stdout_buffer_clear)
-  autocmd FileType clojure nmap <buffer> <leader>oq <Plug>(iced_stdout_buffer_close)
-  autocmd FileType clojure nmap <buffer> <leader>lf <Plug>(iced_format_all)
-  autocmd FileType clojure nnoremap <buffer> K :IcedDocumentPopupOpen<CR>
-  autocmd FileType clojure nnoremap <buffer> <C-]> :IcedDefJump<CR>
-  autocmd FileType clojure nnoremap <buffer> } :IcedBrowseReferences<CR>
-  autocmd FileType clojure nnoremap <buffer> <leader>la :IcedCommandPalette<CR>
-  autocmd FileType clojure nmap <buffer> <leader>p <Plug>(iced_eval_and_print)
-  autocmd FileType clojure nmap <buffer> <leader>pe <Plug>(iced_eval_and_print)<Plug>(sexp_inner_element)
-  autocmd FileType clojure nmap <buffer> <leader>pf <Plug>(iced_eval_and_print)<Plug>(sexp_outer_list)
-  autocmd FileType clojure nmap <buffer> <leader>pp <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)
+  autocmd FileType clojure call s:clojure_mappings()
   autocmd FileType clojure autocmd BufWritePost <buffer> IcedRequire
 augroup END
 
