@@ -459,12 +459,15 @@ augroup clojure_bindings
   autocmd FileType clojure nnoremap <buffer> <leader>to :IcedTestBufferOpen<CR>
   autocmd FileType clojure nmap <buffer> <leader>oo <Plug>(iced_stdout_buffer_open)
   autocmd FileType clojure nmap <buffer> <leader>oc <Plug>(iced_stdout_buffer_clear)
+  autocmd FileType clojure nmap <buffer> <leader>oq <Plug>(iced_stdout_buffer_close)
   autocmd FileType clojure nmap <buffer> <leader>lf <Plug>(iced_format_all)
   autocmd FileType clojure nnoremap <buffer> K :IcedDocumentPopupOpen<CR>
   autocmd FileType clojure nnoremap <buffer> <C-]> :IcedDefJump<CR>
   autocmd FileType clojure nnoremap <buffer> } :IcedBrowseReferences<CR>
   autocmd FileType clojure nnoremap <buffer> <leader>la :IcedCommandPalette<CR>
   autocmd FileType clojure nmap <buffer> <leader>p <Plug>(iced_eval_and_print)
+  autocmd FileType clojure nmap <buffer> <leader>pe <Plug>(iced_eval_and_print)<Plug>(sexp_inner_element)
+  autocmd FileType clojure nmap <buffer> <leader>pf <Plug>(iced_eval_and_print)<Plug>(sexp_outer_list)
   autocmd FileType clojure nmap <buffer> <leader>pp <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)
   autocmd FileType clojure autocmd BufWritePost <buffer> IcedRequire
 augroup END
