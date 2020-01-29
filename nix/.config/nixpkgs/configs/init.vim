@@ -50,10 +50,17 @@ if has('unnamedplus') " X11 support
 endif
 syntax on                           " turn on syntax highlighting
 
+" {{{ Spelling
 set spelllang=en_us                 " spell check
 set nospell                         " disabled by default
 " limit spell suggestions list
 set spellsuggest+=10
+" turn on spell for misspells navigation
+nnoremap <silent> ]s :<C-U>execute ':setlocal spell'\| normal! ]s<CR>
+nnoremap <silent> ]S :<C-U>execute ':setlocal spell'\| normal! ]S<CR>
+nnoremap <silent> [s :<C-U>execute ':setlocal spell'\| normal! [s<CR>
+nnoremap <silent> [S :<C-U>execute ':setlocal spell'\| normal! [S<CR>
+" }}}
 
 set wildmode=list:longest,full      " Commands completion
 " commands history
