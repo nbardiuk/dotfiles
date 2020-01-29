@@ -250,6 +250,9 @@ let g:fzf_commits_log_options =
 set updatetime=100
 
 let g:gitgutter_map_keys = 0
+nmap <Leader>gd :Gdiffsplit<CR>
+nmap <Leader>gs :Gstatus<CR>
+nmap <Leader>gl :Glog<CR>
 nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
 nmap <Leader>hs <Plug>(GitGutterStageHunk)
 nmap <Leader>hu <Plug>(GitGutterUndoHunk)
@@ -273,8 +276,8 @@ endfunction
 
 augroup git_bindings
   autocmd!
-  autocmd FileType git set foldenable
-  autocmd FileType git set foldlevelstart=0
+  autocmd FileType git setlocal foldenable
+  autocmd FileType git setlocal foldlevelstart=0
 augroup END
 " }}}
 
