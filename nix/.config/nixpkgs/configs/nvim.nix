@@ -100,6 +100,7 @@ let
     tmux-navigator
     vim-clojure-static
     vim-colors-github
+    vim-cool # manages search highlight
     vim-commentary
     vim-dirvish # simple directory viewer
     vim-fugitive

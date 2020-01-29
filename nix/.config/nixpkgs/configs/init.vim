@@ -147,8 +147,6 @@ set incsearch  " Find the next match as we type the search
 set hlsearch   " Highlight searches by default
 set ignorecase " Ignore case when searching...
 set smartcase  " ...unless we type a capital
-" Stop highgliting until next search
-nnoremap <silent> <BS> :nohlsearch<CR>
 " search in project files with selected text
 vnoremap <silent> <Leader>f :<c-u>call <SID>run_interact("Rg")<CR>
 nnoremap <silent> <Leader>f :Rg<CR>
