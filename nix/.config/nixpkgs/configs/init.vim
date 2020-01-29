@@ -56,8 +56,8 @@ set nospell                         " disabled by default
 set spellsuggest+=10
 
 set wildmode=list:longest,full      " Commands completion
-" fzf history
-cnoremap <C-F> History:<CR>
+" commands history
+nnoremap q: :History:<CR>
 set list listchars=tab:\▸\ ,trail:· " Display tabs and trailing spaces visually
 set shell=~/.nix-profile/bin/zsh
 
@@ -154,6 +154,9 @@ nnoremap <silent> <Leader>f :Rg<CR>
 vnoremap / y/<c-r>"<cr>
 vnoremap <silent> <Leader>/ :<c-u>call <SID>run_interact("BLines")<CR>
 nnoremap <silent> <Leader>/ :BLines<CR>
+
+" search history
+nnoremap q/ :History/<CR>
 
 " paste yanked text several times
 vnoremap <C-P> "0p
