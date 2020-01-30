@@ -49,6 +49,7 @@ if has('unnamedplus') " X11 support
   set clipboard+=unnamedplus
 endif
 syntax on                           " turn on syntax highlighting
+set nostartofline                   " keep cursor on the same offset when paging
 
 " {{{ Spelling
 set spelllang=en_us                 " spell check
