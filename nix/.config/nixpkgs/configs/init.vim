@@ -166,9 +166,12 @@ nnoremap <silent> <Leader>/ :BLines<CR>
 " search history
 nnoremap q/ :History/<CR>
 
-" paste yanked text several times
-vnoremap <C-P> "0p
-nnoremap <C-P> "0p
+" paste escaped java/javascript string
+nmap <leader>jp :call setreg('e', json_encode(@+))\| normal "ep<CR>
+xmap <leader>jp :<C-U>call setreg('e', json_encode(@+))\| normal gv"ep<CR>
+nmap <leader>jP :call setreg('e', json_encode(@+))\| normal "eP<CR>
+" yank unescaped java/javascript string
+xmap <leader>jy :<C-U>execute 'normal! gv"ey'\| :call setreg('+', json_decode(@e))<CR>
 
 " run interactive command with selection
 function! s:run_interact(command)
