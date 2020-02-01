@@ -459,6 +459,21 @@ let g:wiki_journal =
       \   'monthly' : '%Y_m%m',
       \ },
       \}
+
+let g:wiki_mappings_global={}
+let g:wiki_mappings_local={}
+let g:wiki_mappings_global['<plug>(wiki-journal)']='<leader>w_disable'
+let g:wiki_mappings_local['<plug>(wiki-journal-copy-tonext)']='<leader>w_disable'
+
+let g:wiki_mappings_global['<plug>(wiki-open)']='<leader>we'
+let g:wiki_mappings_global['<plug>(wiki-fzf-pages)']='<leader>wn'
+" }}}
+
+" Date Time snippets {{{
+let time_format='%H:%M:%S'
+let date_format='%Y-%m-%d'
+nnoremap <leader>dt a<C-R>=strftime(time_format)<CR><Esc>
+nnoremap <leader>dd a<C-R>=strftime(date_format)<CR><Esc>
 " }}}
 
 " sexp {{{
