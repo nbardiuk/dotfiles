@@ -14,9 +14,14 @@ nnoremap <leader>la :call LanguageClient_textDocument_codeAction()<CR>
 let g:projectionist_heuristics = {}
 " }}}
 
+" Ale {{{
 let g:ale_fixers = { }
 let g:ale_fixers['*'] = ['remove_trailing_lines', 'trim_whitespace']
 let g:ale_linters = { }
+
+" toggle linting
+nmap yol :ALEToggle<CR>
+" }}}
 
 " Terminal {{{
 if has('nvim')
