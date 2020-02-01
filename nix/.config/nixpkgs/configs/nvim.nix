@@ -85,6 +85,7 @@ let
     fzfWrapper
     ghcid
     gitgutter
+    goyo-vim
     LanguageClient-neovim
     ncm2
     ncm2-bufword

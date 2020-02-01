@@ -20,7 +20,7 @@ let g:ale_fixers['*'] = ['remove_trailing_lines', 'trim_whitespace']
 let g:ale_linters = { }
 
 " toggle linting
-nmap yol :ALEToggle<CR>
+nmap yol :ALEToggleBuffer<CR>
 " }}}
 
 " Terminal {{{
@@ -564,4 +564,33 @@ let g:projectionist_heuristics['project.clj|deps.edn'] =
 \     'alternate': 'src/{}.clj',
 \   }
 \ }
+" }}}
+
+" Whiteroom {{{
+function! s:goyo_enter()
+  ALEDisableBuffer
+  setlocal nospell
+  call ncm2#disable_for_buffer()
+  setlocal wrap
+  set scrolloff=1000
+endfunction
+
+function! s:goyo_leave()
+  ALEEnableBuffer
+  set spell<
+  call ncm2#enable_for_buffer()
+  set wrap<
+  set scrolloff=0
+endfunction
+
+augroup whiteroom
+  autocmd!
+  autocmd User GoyoEnter nested call <SID>goyo_enter()
+  autocmd User GoyoLeave nested call <SID>goyo_leave()
+augroup END
+
+let g:goyo_height='100%'
+
+" toggle whiteroom
+nmap yog :Goyo<CR>
 " }}}
