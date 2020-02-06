@@ -71,6 +71,10 @@ nnoremap q: :History:<CR>
 set list listchars=tab:\▸\ ,trail:·,nbsp:+ | " Display tabs and trailing spaces visually
 set shell=~/.nix-profile/bin/zsh
 
+" {{{ Surround
+let g:surround_{char2nr("\<CR>")}="\n\r\n" | " surround with new lines on Enter
+" }}}
+
 " {{{ Panes
 augroup panes
   autocmd!
