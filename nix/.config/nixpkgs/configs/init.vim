@@ -221,6 +221,9 @@ augroup completoin
   autocmd!
   autocmd BufEnter * call ncm2#enable_for_buffer()
 augroup END
+let g:ncm2#auto_popup=0 | " popup on demand
+inoremap <C-N> <C-R>=ncm2#manual_trigger()<CR>
+let g:ncm2#manual_complete_length = [[1,1]]
 set shortmess+=c  | " turn off completion messages
 let g:float_preview#docked = 0
 " }}}
