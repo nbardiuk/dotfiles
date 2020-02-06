@@ -501,6 +501,7 @@ augroup END
 
 " Clojure {{{
 function! s:clojure_mappings() abort
+  setlocal iskeyword-=/ | " split namespace/function to separate words
   xmap      <buffer> gC         S<C-F>comment<CR>
   nmap      <buffer> gce        ysie<C-F>comment<CR>
   nmap      <buffer> gcf        ysaf<C-F>comment<CR>
