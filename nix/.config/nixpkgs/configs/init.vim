@@ -501,6 +501,10 @@ augroup END
 
 " Clojure {{{
 function! s:clojure_mappings() abort
+  xmap      <buffer> gC         S<C-F>comment<CR>
+  nmap      <buffer> gce        ysie<C-F>comment<CR>
+  nmap      <buffer> gcf        ysaf<C-F>comment<CR>
+  nmap      <buffer> gcF        ysaF<C-F>comment<CR>
   nmap      <buffer> <leader>tn <Plug>(iced_require)<Plug>(iced_test_ns)
   nmap      <buffer> <leader>ta <Plug>(iced_require_all)<Plug>(iced_test_all)
   nnoremap  <buffer> <leader>to :IcedTestBufferOpen<CR>
