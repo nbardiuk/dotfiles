@@ -38,29 +38,26 @@ if has('nvim')
 endif
 " }}}
 
-let mapleader = "\<Space>"
-set hidden                          " allows to switch a buffer with unsaved changes
-set backspace=indent,eol,start      " Allow backspace in insert mode
-set history=1000                    " Store lots of :cmdline history
-set showcmd                         " Show incomplete cmds down the bottom
-set guicursor=a:blinkon0            " Disable cursor blink
-set visualbell                      " No sounds
-set autoread                        " Reload files changed outside vim
-set mouse=a                         " Enable mouse
-set mousemodel=popup_setpos         " make mouse behave like in GUI app
-" Set default copy buffer the same as clipboard
-set clipboard=unnamed
-if has('unnamedplus') " X11 support
-  set clipboard+=unnamedplus
-endif
-syntax on                           " turn on syntax highlighting
-set nostartofline                   " keep cursor on the same offset when paging
+set scrolloff=1             | " minimal number of lines around cursor
+set sidescrolloff=5         | " minimal number of chars around cursor
+set nostartofline           | " keep cursor on the same offset when paging
+
+let mapleader="\<Space>"
+set hidden                  | " allows to switch a buffer with unsaved changes
+
+set guicursor=a:blinkon0    | " Disable cursor blink in all modes
+
+set mouse=a                 | " Enable mouse in all modes
+set mousemodel=popup_setpos | " make mouse behave like in GUI app
+
+set clipboard=unnamedplus   | " Set default copy buffer the same as clipboard
+
 
 " {{{ Spelling
-set spelllang=en_us                 " spell check
-set nospell                         " disabled by default
-" limit spell suggestions list
-set spellsuggest+=10
+set spelllang=en_us  | " spell check
+set nospell          | " disabled by default
+set spellsuggest+=10 | " limit spell suggestions list
+
 " turn on spell for misspells navigation
 nnoremap <silent> ]s :<C-U>execute ':setlocal spell'\| normal! ]s<CR>
 nnoremap <silent> ]S :<C-U>execute ':setlocal spell'\| normal! ]S<CR>
@@ -68,10 +65,10 @@ nnoremap <silent> [s :<C-U>execute ':setlocal spell'\| normal! [s<CR>
 nnoremap <silent> [S :<C-U>execute ':setlocal spell'\| normal! [S<CR>
 " }}}
 
-set wildmode=list:longest,full      " Commands completion
+set wildmode=list:longest,full | " Commands completion
 " commands history
 nnoremap q: :History:<CR>
-set list listchars=tab:\▸\ ,trail:· " Display tabs and trailing spaces visually
+set list listchars=tab:\▸\ ,trail:·,nbsp:+ | " Display tabs and trailing spaces visually
 set shell=~/.nix-profile/bin/zsh
 
 " {{{ Panes
@@ -99,7 +96,6 @@ colorscheme github
 " }}}
 
 " Status line {{{
-set laststatus=2
 set noruler
 set title
 set titlestring=%f " file name
@@ -122,9 +118,7 @@ set nobackup
 set nowritebackup
 
 " Keep undo history across sessions, by storing in file.
-call mkdir(&undodir, 'p')
 set undofile
-set undolevels=1000
 
 augroup autosave
   autocmd!
@@ -142,22 +136,15 @@ augroup END
 " }}}
 
 " Indentation {{{
-set autoindent
 set smartindent
-set smarttab
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 set expandtab
-
-filetype plugin on
-filetype indent on
 " }}}
 
 " Search and Substitute {{{
 set gdefault   " use global substitution
-set incsearch  " Find the next match as we type the search
-set hlsearch   " Highlight searches by default
 set ignorecase " Ignore case when searching...
 set smartcase  " ...unless we type a capital
 " search in project files with selected text
@@ -230,7 +217,7 @@ augroup completoin
   autocmd!
   autocmd BufEnter * call ncm2#enable_for_buffer()
 augroup END
-set shortmess+=c                                  " turn off completion messages
+set shortmess+=c  | " turn off completion messages
 let g:float_preview#docked = 0
 " }}}
 
@@ -276,7 +263,7 @@ set diffopt+=indent-heuristic,internal,algorithm:histogram
 
 nmap <Leader>dw :call <SID>toggle_diff_whitespace()<CR>
 function! s:toggle_diff_whitespace()
-  if &diffopt =~ 'iwhite'
+  if &diffopt =~? 'iwhite'
     setlocal diffopt-=iwhite
   else
     setlocal diffopt+=iwhite
@@ -572,7 +559,6 @@ function! s:goyo_enter()
   setlocal nospell
   call ncm2#disable_for_buffer()
   setlocal wrap
-  set scrolloff=1000
 endfunction
 
 function! s:goyo_leave()
@@ -580,7 +566,6 @@ function! s:goyo_leave()
   set spell<
   call ncm2#enable_for_buffer()
   set wrap<
-  set scrolloff=0
 endfunction
 
 augroup whiteroom
