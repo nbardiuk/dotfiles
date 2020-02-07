@@ -101,8 +101,8 @@ let
     tmux-navigator
     vim-clojure-static
     vim-colors-github
-    vim-cool # manages search highlight
     vim-commentary
+    vim-cool # manages search highlight
     vim-dirvish # simple directory viewer
     vim-fugitive
     vim-iced
@@ -114,6 +114,7 @@ let
     vim-sexp-mappings-for-regular-people
     vim-surround
     vim-unimpaired
+    vimux
     wiki-vim
   ];
 in
