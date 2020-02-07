@@ -46,6 +46,7 @@ let mapleader="\<Space>"
 set hidden                  | " allows to switch a buffer with unsaved changes
 
 set guicursor=a:blinkon0    | " Disable cursor blink in all modes
+set signcolumn=yes:1        | " Always show 1 sign
 
 set mouse=a                 | " Enable mouse in all modes
 set mousemodel=popup_setpos | " make mouse behave like in GUI app
