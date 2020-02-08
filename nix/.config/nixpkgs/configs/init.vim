@@ -38,7 +38,7 @@ if has('nvim')
 endif
 " }}}
 
-set scrolloff=1             | " minimal number of lines around cursor
+set scrolloff=0             | " minimal number of lines around cursor
 set sidescrolloff=5         | " minimal number of chars around cursor
 set nostartofline           | " keep cursor on the same offset when paging
 
@@ -46,12 +46,16 @@ let mapleader="\<Space>"
 set hidden                  | " allows to switch a buffer with unsaved changes
 
 set guicursor=a:blinkon0    | " Disable cursor blink in all modes
-set signcolumn=yes:1        | " Always show 1 sign
+set signcolumn=yes:1        | " Always show, width 1
 
 set mouse=a                 | " Enable mouse in all modes
 set mousemodel=popup_setpos | " make mouse behave like in GUI app
 
 set clipboard=unnamedplus   | " Set default copy buffer the same as clipboard
+
+set virtualedit=block       | " Allow virtual editing in Visual block mode.
+
+set matchpairs+=<:>         | " Characters that form pairs
 
 
 " {{{ Spelling
@@ -67,6 +71,8 @@ nnoremap <silent> [S :<C-U>execute ':setlocal spell'\| normal! [S<CR>
 " }}}
 
 set wildmode=list:longest,full | " Commands completion
+set wildignorecase             | " case is ignored when completing file names and directories
+
 " commands history
 nnoremap q: :History:<CR>
 set list listchars=tab:\▸\ ,trail:·,nbsp:+ | " Display tabs and trailing spaces visually
@@ -217,6 +223,7 @@ let g:dirvish_mode=':sort ,^.*[\/],'
 " }}}
 
 " Completion {{{
+set complete-=t | " i don't use tags
 set completeopt=menuone,noinsert,noselect
 augroup completoin
   autocmd!
