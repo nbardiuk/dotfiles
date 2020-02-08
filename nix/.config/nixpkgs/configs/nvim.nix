@@ -98,6 +98,7 @@ let
     neoformat
     nvim-yarp # remote plugin manager for ncm2
     rhubarb # github provider for fugitive
+    tabular
     tmux-navigator
     vim-clojure-static
     vim-colors-github
@@ -145,8 +146,6 @@ in
     vim-vint                  # vim linter
     xclip                     # clipboard manager
     nodePackages.typescript-language-server
-    ccls                      # c/c++ language server
-    clang-tools               # clang dev tools
     jq                        # json formatter
     libxml2                   # for xmllint
     pgformatter               # sql formatter

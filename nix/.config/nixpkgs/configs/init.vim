@@ -426,32 +426,6 @@ augroup nix_bindings
 augroup END
 " }}}
 
-" C {{{
-" more configuration options https://github.com/MaskRay/ccls/wiki/LanguageClient-neovim
-let g:LanguageClient_serverCommands.c =
-      \[ 'ccls'
-      \, '--init={"cache": {"directory": "/tmp/ccls-cache"}}'
-      \, '--log-file=/tmp/cc.log'
-      \]
-
-let g:ale_fixers.c = ['clang-format', 'clangtidy']
-let g:ale_linters.c = ['clang']
-
-function! s:c_mappings() abort
-  vnoremap <buffer> =           :call LanguageClient_textDocument_rangeFormatting()<CR>
-  nnoremap <buffer> <leader>lf  :ALEFix<CR>
-  nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
-  nnoremap <buffer> <C-]>       :call LanguageClient_textDocument_definition()<CR>
-  nnoremap <buffer> <C-W><C-]>  :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
-  nnoremap <buffer> <leader>lr  :call LanguageClient_textDocument_rename()<CR>
-  nnoremap <buffer> }           :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
-endfunction
-augroup c_bindings
-  autocmd!
-  autocmd FileType c call s:c_mappings()
-augroup END
-" }}}
-
 " Wiki {{{
 let g:wiki_root = '~/Notes'
 let g:wiki_filetypes = ['md']
