@@ -523,14 +523,14 @@ let g:iced#buffer#stdout#mods = 'botright'
 " it requires jet
 let g:iced_enable_enhanced_definition_extraction = v:false
 
-let indents = {}
-let indents['Given'] = '[[:inner 0]]'
-let indents['When'] = '[[:inner 0]]'
-let indents['Then'] = '[[:inner 0]]'
-let indents['let-system'] = '[[:inner 0]]'
-let g:iced#format#rule = indents
-
-let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let', '^Feature', '^Scenario', '^Given', '^When', '^Then', '^And']
+let extra_macros = ['Given', 'When', 'Then', 'And', 'let-system']
+let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let'] | " Default
+let g:iced#format#rule = {}
+for macro in extra_macros
+    let g:iced#format#rule[macro] = '[[:inner 0]]'
+    let g:clojure_fuzzy_indent_patterns += ['^' . macro]
+endfor
+let g:clojure_syntax_keywords = {'clojureMacro': extra_macros}
 
 " use my clojure syntax fork
 let g:polyglot_disabled = ['clojure']
