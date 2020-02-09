@@ -17,10 +17,6 @@
     ./configs/zathura.nix
   ];
 
-  # Configure fontconfig to discover fonts installed through home.packages and nix-env.
-  # Note, this is only necessary on non-NixOS systems.
-  fonts.fontconfig.enableProfileFonts = true;
-
   # How unread and relevant news should be presented
   # when running home-manager build and home-manager switch.
   news.display = "silent";
@@ -31,6 +27,9 @@
   };
 
   programs.command-not-found.enable = true;
+
+  # always starts new services
+  systemd.user.startServices = true;
 
   xdg.enable = true;
 
@@ -44,9 +43,7 @@
     google-fonts              # collection of fonts
     iosevka-bin               # monospace font
     keepassxc                 # password manager
-    libreoffice-fresh
-    pavucontrol               # pulse audio control GUI
-    spotify                   # music streaming
+    #libreoffice-fresh
     tdesktop                  # chat app
     transmission-gtk
     vscode-with-extensions

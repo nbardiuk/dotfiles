@@ -113,11 +113,12 @@ in
   services.screen-locker = {
     enable = true;
     inactiveInterval = 5;
-    lockCmd = "i3lock -n -c 000000";
+    lockCmd = "\${pkgs.i3lock}/bin/i3lock -n -c 000000";
   };
 
   services.blueman-applet.enable = true;
   services.udiskie.enable = true;
+  services.pasystray.enable = true; # pulse audio applet
 
   home.packages = with pkgs; [
     arandr                    # monitor settings GUI
@@ -138,11 +139,9 @@ in
     i3blocks-contrib.temperature
     i3blocks-contrib.usb
     i3blocks-contrib.volume
-    i3lock
     iosevka-bin               # monospace font
     maim                      # cli screenshot tool
-    networkmanagerapplet
-    xautolock
     xorg.xrandr               # monitor settings CLI
+    pavucontrol               # pulse audio control GUI
   ];
 }
