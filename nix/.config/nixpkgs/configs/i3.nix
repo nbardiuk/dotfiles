@@ -90,6 +90,11 @@ in
           };
         };
       }];
+      startup = [
+        { command = "dropbox start";  notification = false; }
+        { command = "firefox";        workspace = "'1:Ⅰ'"; }
+        { command = "keepassxc";      workspace = "'1:Ⅰ'"; }
+      ];
     };
   };
 
@@ -100,15 +105,9 @@ in
 
     xset -b
     xset s 300 300
-
-    nm-applet &
-
-    dropbox &
-
-    keepassxc &
-
-    firefox &
   '';
+
+  services.network-manager-applet.enable=true;
 
   services.gnome-keyring.enable = true;
   services.screen-locker = {

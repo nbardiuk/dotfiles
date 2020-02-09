@@ -3,9 +3,18 @@
 with lib;
 
 {
-  xsession.importedVariables = ["PATH"];
   services.sxhkd = {
     enable = true;
+    extraPath = let
+      username = builtins.getEnv "USER";
+    in
+      concatStringsSep ":" [
+        "/run/wrappers/bin"
+        "/home/${username}/.nix-profile/bin"
+        "/etc/profiles/per-user/${username}/bin"
+        "/nix/var/nix/profiles/default/bin"
+        "/run/current-system/sw/bin"
+      ];
     keybindings = let
       workspaces = [ "'1:Ⅰ'" "'2:Ⅱ'" "'3:Ⅲ'" "'4:Ⅳ'" "'5:Ⅴ'" "'6:Ⅵ'" "'7:Ⅶ'" "'8:Ⅷ'" "'9:Ⅸ'" "'10:Ⅹ'" ];
       workspacesList = concatStringsSep "," workspaces;
