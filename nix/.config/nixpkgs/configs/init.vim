@@ -122,10 +122,10 @@ set titlestring=%f " file name
 set foldmethod=syntax
 set nofoldenable
 
-augroup vimrcFold
+augroup folds
   autocmd!
   " fold vimrc itself by categories
-  autocmd FileType vim set foldmethod=marker
+  autocmd FileType vim setlocal foldmethod=marker
 augroup END
 " }}}
 
