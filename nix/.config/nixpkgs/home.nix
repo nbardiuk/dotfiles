@@ -34,6 +34,9 @@
 
   xdg.enable = true;
 
+  programs.mpv.enable = true;
+  programs.mpv.scripts = with pkgs.mpvScripts; [mpris];
+
   # The set of packages to appear in the user environment.
   home.packages = with pkgs; [
     chromium
@@ -42,7 +45,6 @@
     iosevka-bin               # monospace font
     keepassxc                 # password manager
     libreoffice-fresh
-    mpv-with-scripts
     pavucontrol               # pulse audio control GUI
     spotify                   # music streaming
     tdesktop                  # chat app
