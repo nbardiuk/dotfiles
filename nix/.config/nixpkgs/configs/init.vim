@@ -140,10 +140,10 @@ set undofile
 augroup autosave
   autocmd!
 
-  " Autosafe file
-  autocmd FocusLost,BufLeave,CursorHold * silent! :update
+  autocmd FocusLost,BufLeave,CursorHold * silent! :update       | " autosafe
+  autocmd FocusGained,BufEnter,CursorHold * silent! :checktime  | " autoload
 
-  " jum to last known position when opening buffer
+  " jump to last known position when opening buffer
   " https://github.com/vim/vim/blob/eaf35241197fc6b9ee9af993095bf5e6f35c8f1a/runtime/defaults.vim#L108-L117
   autocmd BufReadPost *
     \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
