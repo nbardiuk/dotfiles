@@ -6,7 +6,7 @@
     clock24 = true;
     escapeTime = 0;
 
-    shortcut = "s";
+    shortcut = "Space";
     keyMode = "vi";
     customPaneNavigationAndResize = true;
 
@@ -20,7 +20,7 @@
 
     extraConfig = ''
       # Add truecolor support
-      set-option -ga terminal-overrides ",xterm-256color:Tc"
+      set -ga terminal-overrides ",xterm-256color:Tc"
 
       set -g default-command zsh
 
@@ -28,7 +28,8 @@
       # stay in copy mode on mouse drag end
       unbind-key -T copy-mode-vi MouseDragEnd1Pane
 
-      set-option -g status-position top
+      set -g status-position top
+      set -g status-left ""
       set -g status-right ""
 
       set -g set-titles on
@@ -40,16 +41,20 @@
 
       # create new window in current path
       bind c new-window -c '#{pane_current_path}'
-      set-option -g renumber-window on
+      bind 2 run "tmux select-window -t 2) || tmux new-window -c '#{pane_current_path}'"
+      bind 3 run "tmux select-window -t 3) || tmux new-window -c '#{pane_current_path}'"
+      bind 4 run "tmux select-window -t 4) || tmux new-window -c '#{pane_current_path}'"
+      bind 5 run "tmux select-window -t 5) || tmux new-window -c '#{pane_current_path}'"
+      set -g renumber-window on
 
       # move current break to a new window
       bind-key b break-pane -d
 
       #### COLOUR (Solarized light)
-      set-option -g status-bg "#f4f4f4" #white
-      set-option -g status-fg blue
-      set-option -g display-panes-active-colour blue
-      set-option -g display-panes-colour brightred #orange
+      set -g status-bg "#f4f4f4" #white
+      set -g status-fg blue
+      set -g display-panes-active-colour blue
+      set -g display-panes-colour brightred #orange
       set-window-option -g clock-mode-colour green #green
       set-window-option -g window-status-bell-style fg=white,bg=red
       '';
