@@ -3,6 +3,7 @@
   imports = [
     ./configs/alacritty.nix
     ./configs/clojure.nix
+    # ./configs/javascript.nix
     ./configs/haskell.nix
     ./configs/i3.nix
     ./configs/firefox.nix
@@ -26,7 +27,7 @@
 
   programs.home-manager = {
     enable = true;
-    path = "https://github.com/rycee/home-manager/archive/release-19.03.tar.gz";
+    path = "https://github.com/rycee/home-manager/archive/master.tar.gz";
   };
 
   programs.command-not-found.enable = true;
@@ -42,7 +43,6 @@
     keepassxc                 # password manager
     libreoffice-fresh
     mpv-with-scripts
-    nodejs
     pavucontrol               # pulse audio control GUI
     spotify                   # music streaming
     tdesktop                  # chat app

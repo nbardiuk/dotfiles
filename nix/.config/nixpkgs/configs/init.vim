@@ -38,6 +38,9 @@ if has('nvim')
 endif
 " }}}
 
+
+let g:loaded_python_provider = 0 | " disable Python 2 support
+
 set shortmess+=I            | " don't give the intro message
 
 set scrolloff=0             | " minimal number of lines around cursor

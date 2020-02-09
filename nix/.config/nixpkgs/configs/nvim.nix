@@ -124,10 +124,10 @@ in
     enable = true;
     viAlias = true;
     vimAlias = true;
-    withNodeJs = true;
-    withPython = true;
+    withNodeJs = false;
+    withPython = false;
     withPython3 = true;
-    withRuby = true;
+    withRuby = false;
     extraConfig = builtins.concatStringsSep "\n" [
       ''
         " Workaround for broken handling of packpath by vim8/neovim for ftplugins -- see https://github.com/NixOS/nixpkgs/issues/39364#issuecomment-425536054 for more info
@@ -145,7 +145,6 @@ in
     shellcheck                # shell scripts linter
     vim-vint                  # vim linter
     xclip                     # clipboard manager
-    nodePackages.typescript-language-server
     jq                        # json formatter
     libxml2                   # for xmllint
     pgformatter               # sql formatter
