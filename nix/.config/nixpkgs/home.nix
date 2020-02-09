@@ -3,11 +3,11 @@
   imports = [
     ./configs/alacritty.nix
     ./configs/clojure.nix
-    # ./configs/javascript.nix
+    ./configs/javascript.nix
     ./configs/haskell.nix
     ./configs/i3.nix
     ./configs/firefox.nix
-    # ./configs/java.nix
+    ./configs/java.nix
     ./configs/keyboard.nix
     ./configs/obs.nix
     ./configs/redshift.nix
