@@ -38,6 +38,8 @@ if has('nvim')
 endif
 " }}}
 
+set shortmess+=I            | " don't give the intro message
+
 set scrolloff=0             | " minimal number of lines around cursor
 set sidescrolloff=5         | " minimal number of chars around cursor
 set nostartofline           | " keep cursor on the same offset when paging
@@ -88,6 +90,10 @@ augroup panes
   " automatically rebalance windows on vim resize
   autocmd VimResized * :wincmd =
 augroup END
+
+" focus on new split
+nnoremap <C-w>s <C-w>s<C-w>w
+nnoremap <C-w>v <C-w>v<C-w>w
 " }}}
 
 " Text Wrapping {{{
@@ -155,6 +161,11 @@ set expandtab
 " }}}
 
 " Search and Substitute {{{
+
+" center on next match
+noremap n nzz
+noremap N Nzz
+
 set gdefault   " use global substitution
 set ignorecase " Ignore case when searching...
 set smartcase  " ...unless we type a capital
@@ -484,10 +495,10 @@ augroup END
 
 " Clojure {{{
 function! s:clojure_mappings() abort
-  xmap      <buffer> gC         S<C-F>comment<CR>
-  nmap      <buffer> gce        ysie<C-F>comment<CR>
-  nmap      <buffer> gcf        ysaf<C-F>comment<CR>
-  nmap      <buffer> gcF        ysaF<C-F>comment<CR>
+  xmap      <buffer> gC         S<C-F>comment<CR> | " wrap selection in (comment ) macro
+  nmap      <buffer> gce        vieo<Esc>i#_<Esc> | " prepend #_ reader macro to element
+  nmap      <buffer> gcf        vafo<Esc>i#_<Esc> | " prepend #_ reader macro to form
+  nmap      <buffer> gcF        vaFo<Esc>i#_<Esc> | " prepend #_ reader macro to outer form
   nmap      <buffer> <leader>tn <Plug>(iced_require)<Plug>(iced_test_ns)
   nmap      <buffer> <leader>ta <Plug>(iced_require_all)<Plug>(iced_test_all)
   nnoremap  <buffer> <leader>to :IcedTestBufferOpen<CR>
