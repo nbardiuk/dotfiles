@@ -41,10 +41,10 @@
 
       # create new window in current path
       bind c new-window -c '#{pane_current_path}'
-      bind 2 run "tmux select-window -t 2) || tmux new-window -c '#{pane_current_path}'"
-      bind 3 run "tmux select-window -t 3) || tmux new-window -c '#{pane_current_path}'"
-      bind 4 run "tmux select-window -t 4) || tmux new-window -c '#{pane_current_path}'"
-      bind 5 run "tmux select-window -t 5) || tmux new-window -c '#{pane_current_path}'"
+      bind 2 run "(tmux select-window -t 2) || tmux new-window -c '#{pane_current_path}'"
+      bind 3 run "(tmux select-window -t 3) || tmux new-window -c '#{pane_current_path}'"
+      bind 4 run "(tmux select-window -t 4) || tmux new-window -c '#{pane_current_path}'"
+      bind 5 run "(tmux select-window -t 5) || tmux new-window -c '#{pane_current_path}'"
       set -g renumber-window on
 
       # move current break to a new window
