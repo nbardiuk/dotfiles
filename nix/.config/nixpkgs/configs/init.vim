@@ -300,6 +300,10 @@ function! s:toggle_diff_whitespace()
   endif
 endfunction
 
+nmap <Leader>dsd :vnew +set\ ft=diff \| :setlocal buftype=nofile \| :r !git secret changes<CR>
+nmap <Leader>dsh :!git secret hide
+nmap <Leader>dsr :!git secret reveal -f
+
 augroup git_bindings
   autocmd!
   autocmd FileType git setlocal foldenable
