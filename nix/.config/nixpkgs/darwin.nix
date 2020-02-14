@@ -21,11 +21,6 @@ in
   environment.variables.LANG = "en_IE.UTF-8";
   environment.variables.LC_ALL = "en_IE.UTF-8";
 
-  fonts.enableFontDir = true;
-  fonts.fonts = with pkgs; [
-    iosevka-bin
-  ];
-
   time.timeZone = "Europe/Lisbon";
 
   networking.hostName = "bardiuk-ee";
@@ -76,10 +71,10 @@ in
     chunkc set global_desktop_offset_left    0
     chunkc set global_desktop_offset_right   0
     chunkc set global_desktop_offset_gap     0
-    chunkc set bsp_spawn_left                1
+    chunkc set bsp_spawn_left                0
     chunkc set bsp_split_mode                optimal
     chunkc set bsp_optimal_ratio             1.618
-    chunkc set bsp_split_ratio               0.66
+    chunkc set bsp_split_ratio               0.5
     chunkc set window_focus_cycle            all
     chunkc set mouse_follows_focus           all
     chunkc set mouse_resize_window           alt
@@ -90,8 +85,6 @@ in
     # https://github.com/koekeishiya/chwm-sa
     chunkc set window_float_topmost          1
     chunkc set window_fade_inactive          0
-    chunkc set window_fade_alpha             0.9
-    chunkc set window_fade_duration          0.1
     chunkc tiling::rule --owner Dash --state float
     chunkc tiling::rule --owner Spotify --desktop 5
     chunkc tiling::rule --owner Slack --desktop 4
@@ -142,20 +135,6 @@ in
     shift + alt - j : chunkc tiling::window --warp south
     shift + alt - k : chunkc tiling::window --warp north
     shift + alt - l : chunkc tiling::window --warp east
-
-    # focus workspace
-    alt - p : chunkc tiling::desktop --focus prev
-    alt - n : chunkc tiling::desktop --focus next
-    alt - 1 : chunkc tiling::desktop --focus 1
-    alt - 2 : chunkc tiling::desktop --focus 2
-    alt - 3 : chunkc tiling::desktop --focus 3
-    alt - 4 : chunkc tiling::desktop --focus 4
-    alt - 5 : chunkc tiling::desktop --focus 5
-    alt - 6 : chunkc tiling::desktop --focus 6
-    alt - 7 : chunkc tiling::desktop --focus 7
-    alt - 8 : chunkc tiling::desktop --focus 8
-    alt - 9 : chunkc tiling::desktop --focus 9
-    alt - 0 : chunkc tiling::desktop --focus 10
 
     # move focused container to workspace
     shift + alt - p : chunkc tiling::window --send-to-desktop prev
