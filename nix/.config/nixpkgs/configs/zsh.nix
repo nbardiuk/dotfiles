@@ -34,10 +34,10 @@
       ll = l;
       ls = l;
       la = l + " -all";
-      latr = la + " --sort=newest";
+      lart = la + " --sort=newest";
       lat = la + " --sort=oldest";
       las = la + " --sort=size";
-      lasr = la + " --sort=size --reverse";
+      lars = la + " --sort=size --reverse";
       tree = la + " --tree";
     };
 
