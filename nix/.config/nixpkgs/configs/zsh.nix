@@ -42,6 +42,7 @@
     };
 
     initExtra = ''
+      eval $(keychain --quiet --agents gpg,ssh --eval id_rsa 1D8729AEF5622C0F7EA209C1C9C1904D44CDCDA1)
       setopt HIST_IGNORE_ALL_DUPS
       setopt HIST_SAVE_NO_DUPS
       setopt HIST_REDUCE_BLANKS
@@ -53,12 +54,8 @@
     '';
   };
 
-  services.gpg-agent.enable = true;
-  programs.keychain = {
-    enable = true;
-    keys = ["id_rsa" "1D8729AEF5622C0F7EA209C1C9C1904D44CDCDA1"];
-    agents = ["ssh" "gpg"];
-    extraFlags = [ "--quiet" ];
-    enableZshIntegration = true;
-  };
+  home.packages = with pkgs; [
+    gnupg
+    keychain # for ssh,gpg agents
+  ];
 }
