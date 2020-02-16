@@ -165,6 +165,9 @@ set expandtab
 
 " Search and Substitute {{{
 
+set inccommand=nosplit | " Shows the effects of a command incrementally, as you type.
+                         " Works for |:substitute|, |:smagic|, |:snomagic|. |hl-Substitute|
+
 " center on next match
 noremap n nzz
 noremap N Nzz
