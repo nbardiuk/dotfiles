@@ -288,6 +288,7 @@ omap ih <Plug>(GitGutterTextObjectInnerPending)
 xmap ih <Plug>(GitGutterTextObjectInnerVisual)
 omap ah <Plug>(GitGutterTextObjectOuterPending)
 xmap ah <Plug>(GitGutterTextObjectOuterVisual)
+nmap yoh :GitGutterSignsToggle<CR>
 
 set diffopt+=indent-heuristic,internal,algorithm:histogram
 
