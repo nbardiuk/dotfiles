@@ -30,7 +30,9 @@
 
       set -g status-position top
       set -g status-left ""
-      set -g status-right ""
+      set -g status-right '#( echo #{pane_current_path} | sed "s/.*\(.\{50\}\)$/\1/g" )'
+      set -g status-right-length 50
+      set -g status-interval 1
 
       set -g set-titles on
       set -g set-titles-string "#T > #S > #W"
