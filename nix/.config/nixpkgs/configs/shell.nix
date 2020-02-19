@@ -21,6 +21,11 @@
     gnumake
     lsof
     ncdu
+    watch
+    python3
+    python37Packages.autopep8
+    python37Packages.pip
+    python37Packages.virtualenv
 
     ranger                    # cli file manager
     w3m                       # cli browser, shows images

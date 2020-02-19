@@ -1,6 +1,7 @@
 " LSP {{{
 " Specify whether to use virtual text to display diagnostics.
-let g:LanguageClient_useVirtualText = 0
+let g:LanguageClient_useVirtualText = 'CodeLens'
+let g:LanguageClient_diagnosticsEnable = 0
 
 let g:LanguageClient_rootMarkers = { }
 let g:LanguageClient_serverCommands = { }
@@ -418,6 +419,24 @@ let g:ale_linters.rust = ['cargo']
 let g:ale_rust_cargo_use_clippy = 1
 " }}}
 
+" Python {{{
+let g:LanguageClient_rootMarkers.python = ['requirements.txt', 'setup.py']
+let g:LanguageClient_serverCommands.python = ['pyls']
+function! s:python_mappings() abort
+  nnoremap <buffer> <leader>lf  :call LanguageClient_textDocument_formatting()<CR>
+  nnoremap <buffer> <C-]>       :call LanguageClient_textDocument_definition()<CR>
+  nnoremap <buffer> <C-W><C-]>  :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
+  nnoremap <buffer> <leader>lr  :call LanguageClient_textDocument_rename()<CR>
+  nnoremap <buffer> }           :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
+  nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
+endfunction
+
+augroup python_bindings
+  autocmd!
+  autocmd FileType python call s:python_mappings()
+augroup END
+" }}}
+
 " Haskell {{{
 let g:LanguageClient_rootMarkers.haskell = ['*.cabal', 'stack.yaml']
 let g:LanguageClient_serverCommands.haskell = ['ghcide', '--lsp']
@@ -537,7 +556,7 @@ augroup clojure_bindings
   autocmd FileType clojure autocmd BufWritePost <buffer> IcedRequire
 augroup END
 
-let g:ale_linters.clojure = ['joker']
+let g:ale_linters.clojure = ['clj-kondo', 'joker']
 
 let g:iced#nrepl#connect#jack_in_command = 'LOG_LEVEL="OFF" iced repl --without-cljs'
 let g:iced#buffer#stdout#mods = 'botright'
