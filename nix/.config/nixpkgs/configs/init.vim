@@ -483,21 +483,23 @@ let g:wiki_journal =
       \ },
       \}
 
-let g:wiki_mappings_global={}
-let g:wiki_mappings_local={}
-let g:wiki_mappings_global['<plug>(wiki-journal)']='<leader>w_disable'
-let g:wiki_mappings_local['<plug>(wiki-link-toggle)']='<leader>w_disable'
-let g:wiki_mappings_local['<plug>(wiki-journal-copy-tonext)']='<leader>w_disable'
-
-let g:wiki_mappings_global['<plug>(wiki-open)']='<leader>we'
-let g:wiki_mappings_global['<plug>(wiki-fzf-pages)']='<leader>wn'
-
 command! -bang -nargs=* WikiGrep
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>).' '.g:wiki_root,
   \   1,
   \   <bang>0)
+
+let g:wiki_mappings_global={}
+let g:wiki_mappings_local={}
+let g:wiki_mappings_global['<plug>(wiki-journal)']='<leader>w_disable'
+let g:wiki_mappings_local['<plug>(wiki-link-toggle)']='<leader>w_disable'
+let g:wiki_mappings_local['<plug>(wiki-journal-copy-tonext)']='<leader>w_disable'
+let g:wiki_mappings_local['<plug>(wiki-page-toc)']='<leader>w_disable'
+
+let g:wiki_mappings_global['<plug>(wiki-open)']='<leader>we'
+let g:wiki_mappings_global['<plug>(wiki-fzf-pages)']='<leader>wn'
 nnoremap <silent> <Leader>wf :WikiGrep<CR>
+nnoremap <silent> <Leader>wt :WikiFzfTags<CR>
 " }}}
 
 " Date Time snippets {{{
