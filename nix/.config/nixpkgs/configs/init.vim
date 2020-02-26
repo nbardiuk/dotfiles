@@ -63,6 +63,8 @@ set virtualedit=block       | " Allow virtual editing in Visual block mode.
 
 set matchpairs+=<:>         | " Characters that form pairs
 
+set nojoinspaces            | " Insert only one space between joined lines
+
 
 " {{{ Spelling
 set spelllang=en_us  | " spell check
