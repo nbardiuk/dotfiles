@@ -42,7 +42,7 @@
     };
 
     initExtra = ''
-      eval $(keychain --quiet --agents gpg,ssh --eval id_rsa 1D8729AEF5622C0F7EA209C1C9C1904D44CDCDA1)
+      eval $(keychain --quiet --agents ssh --eval id_rsa)
       setopt HIST_IGNORE_ALL_DUPS
       setopt HIST_SAVE_NO_DUPS
       setopt HIST_REDUCE_BLANKS
