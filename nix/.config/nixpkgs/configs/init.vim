@@ -372,21 +372,22 @@ function! s:typescript_mappings() abort
 endfunction
 augroup typescirpt_bindings
   autocmd!
-  autocmd FileType typescript,javascript,typescript.tsx,javascript.jsx call s:typescript_mappings()
+  autocmd FileType typescript,javascript,typescriptreact,javascriptreact call s:typescript_mappings()
 augroup END
 
 let g:ale_linters.javascript = ['eslint']
 let g:ale_linters.typescript = ['tsserver', 'tslint']
 let g:ale_fixers.javascript = ['eslint', 'prettier']
 let g:ale_fixers.typescript = ['prettier']
+let g:ale_fixers.typescriptreact = ['prettier']
 
 let g:LanguageClient_rootMarkers.javascript = ['tsconfig.json', 'package.json']
 let g:LanguageClient_rootMarkers.typescript = ['tsconfig.json', 'package.json']
 
 let g:LanguageClient_serverCommands.javascript = ['typescript-language-server', '--stdio']
 let g:LanguageClient_serverCommands.typescript = ['typescript-language-server', '--stdio']
-let g:LanguageClient_serverCommands['javascript.jsx'] = ['typescript-language-server', '--stdio']
-let g:LanguageClient_serverCommands['typescript.tsx'] = ['typescript-language-server', '--stdio']
+let g:LanguageClient_serverCommands.javascriptreact = ['typescript-language-server', '--stdio']
+let g:LanguageClient_serverCommands.typescriptreact = ['typescript-language-server', '--stdio']
 " }}}
 
 " CSS/SASS {{{
