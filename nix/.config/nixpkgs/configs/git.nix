@@ -33,8 +33,23 @@
       mergetool.promt = true;
       pull.rebase = true;
       rebase.autoStash = true;
+      commit.template = "~/.config/git/commit";
     };
   };
+
+  home.file.".config/git/commit".text = ''
+    feat: 
+
+    # --- COMMIT END ---
+    #    feat     (new feature)
+    #    fix      (bug fix)
+    #    refactor (refactoring production code)
+    #    style    (formatting, missing semi colons, etc; no code change)
+    #    docs     (changes to documentation)
+    #    test     (adding or refactoring tests; no production code change)
+    #    chore    (updating grunt tasks etc; no production code change)
+    # --------------------
+  '';
 
   home.packages = with pkgs; [
     gitAndTools.hub
