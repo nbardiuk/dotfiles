@@ -66,7 +66,7 @@ in
         };
       };
       bars = [{
-        trayOutput = "primary";
+        trayOutput = "eDP-1";
         workspaceNumbers = false;
         statusCommand = "i3blocks -c ${i3blocksConfig}";
         position = "top";
@@ -113,7 +113,7 @@ in
   services.screen-locker = {
     enable = true;
     inactiveInterval = 5;
-    lockCmd = "\${pkgs.i3lock}/bin/i3lock -n -c 000000";
+    lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c 000000";
   };
 
   services.blueman-applet.enable = true;
