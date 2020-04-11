@@ -100,6 +100,7 @@ let
     rhubarb # github provider for fugitive
     tabular
     tmux-navigator
+    vim-abolish
     vim-clojure-static
     vim-colors-github
     vim-commentary
