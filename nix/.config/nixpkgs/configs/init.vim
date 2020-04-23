@@ -20,6 +20,9 @@ let g:ale_fixers = { }
 let g:ale_fixers['*'] = ['remove_trailing_lines', 'trim_whitespace']
 let g:ale_linters = { }
 
+" open lint error details
+nnoremap L :ALEDetail<CR>
+
 " toggle linting
 nmap yol :ALEToggleBuffer<CR>
 " }}}
