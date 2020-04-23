@@ -6,6 +6,11 @@ in
   home.file."/${rc}".text = ''
     --smart-case
     --no-ignore
+    --hidden
+    --glob=!.git
+    --glob=!target
+    --glob=!node_modules
+    --glob=!build
   '';
 
   home.sessionVariables = {
