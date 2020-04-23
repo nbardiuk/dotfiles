@@ -44,7 +44,7 @@ let g:loaded_python_provider = 0 | " disable Python 2 support
 
 set shortmess+=I            | " don't give the intro message
 
-set scrolloff=0             | " minimal number of lines around cursor
+set scrolloff=5             | " minimal number of lines around cursor
 set sidescrolloff=5         | " minimal number of chars around cursor
 set nostartofline           | " keep cursor on the same offset when paging
 
@@ -420,6 +420,7 @@ let g:LanguageClient_serverCommands.rust = ['rls']
 let g:ale_fixers.rust = ['rustfmt']
 let g:ale_linters.rust = ['cargo']
 let g:ale_rust_cargo_use_clippy = 1
+let g:ale_rust_cargo_check_all_targets = 1
 " }}}
 
 " Python {{{
