@@ -27,7 +27,8 @@
     };
 
     shellAliases = rec {
-      caffeine = "xset s off -dpms && pkill xautolock";
+      caffeine = "xset s off -dpms && systemctl --user stop xautolock-session.service";
+      decaff = "xset s on -dpms && systemctl --user start xautolock-session.service";
       upgrade = "sudo sysctl -p && sudo nixos-rebuild switch --upgrade && home-manager switch && nvim +PlugInstall +UpdateRemotePlugins +qa";
 
       l = "exa --long --header --time-style=long-iso";
