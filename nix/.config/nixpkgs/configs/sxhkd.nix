@@ -16,7 +16,7 @@ with lib;
         "/run/current-system/sw/bin"
       ];
     keybindings = let
-      workspaces = [ "'1:Ⅰ'" "'2:Ⅱ'" "'3:Ⅲ'" "'4:Ⅳ'" "'5:Ⅴ'" "'6:Ⅵ'" "'7:Ⅶ'" "'8:Ⅷ'" "'9:Ⅸ'" "'10:Ⅹ'" ];
+      workspaces = [ "'1'" "'2'" "'3'" "'4'" "'5'" "'6'" "'7'" "'8'" "'9'" "'10'" ];
       workspacesList = concatStringsSep "," workspaces;
     in {
       "super + shift + {r,c}"         = "i3-msg {restart,reload}";

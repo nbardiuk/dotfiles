@@ -66,7 +66,7 @@ in
         };
       };
       bars = [{
-        trayOutput = "eDP-1";
+        trayOutput = "eDP-1-1";
         workspaceNumbers = false;
         statusCommand = "i3blocks -c ${i3blocksConfig}";
         position = "top";
@@ -92,8 +92,8 @@ in
       }];
       startup = [
         { command = "dropbox start";  notification = false; }
-        { command = "firefox";        workspace = "'1:Ⅰ'"; }
-        { command = "keepassxc";      workspace = "'1:Ⅰ'"; }
+        { command = "firefox";        workspace = "'1'"; }
+        { command = "keepassxc";      workspace = "'1'"; }
       ];
     };
   };
@@ -143,5 +143,6 @@ in
     maim                      # cli screenshot tool
     xorg.xrandr               # monitor settings CLI
     pavucontrol               # pulse audio control GUI
+    xautolock                 # screen locker command
   ];
 }
