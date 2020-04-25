@@ -143,6 +143,7 @@ in
     maim                      # cli screenshot tool
     xorg.xrandr               # monitor settings CLI
     pavucontrol               # pulse audio control GUI
+    pulseeffects              # pulse audio mixer and effects GUI
     xautolock                 # screen locker command
   ];
 }
