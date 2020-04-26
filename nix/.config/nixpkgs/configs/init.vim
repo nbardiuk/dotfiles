@@ -62,7 +62,7 @@ set mousemodel=popup_setpos | " make mouse behave like in GUI app
 
 set clipboard=unnamedplus   | " Set default copy buffer the same as clipboard
 
-set virtualedit=block       | " Allow virtual editing in Visual block mode.
+set virtualedit=all         | " Allow virtual editing in all modes.
 
 set matchpairs+=<:>         | " Characters that form pairs
 
