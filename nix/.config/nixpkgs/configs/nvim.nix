@@ -1,15 +1,5 @@
 { pkgs, ... }:
 let
-  vim-colors-github = pkgs.vimUtils.buildVimPlugin {
-    pname = "vim-colors-github";
-    version = "2018-11-14";
-    src = pkgs.fetchFromGitHub {
-      owner = "cormacrelf";
-      repo = "vim-colors-github";
-      rev = "acb712c";
-      sha256 = "1nnbyl6qm7rksz4sc0cs5hgpa9sw5mlan732bnn7vn296qm9sjv1";
-    };
-  };
   wiki-vim = pkgs.vimUtils.buildVimPlugin {
     pname = "wiki-vim";
     version = "2020-02-06";
@@ -74,6 +64,16 @@ let
       sha256 = "1cw1qzkl97l1ydggx7p0lik53r6yw1z26f2wqalz30y3ym7cpgfs";
     };
   };
+  mycolors = pkgs.vimUtils.buildVimPlugin {
+    pname = "vim-colors";
+    version = "2020-04-26";
+    src = pkgs.fetchFromGitHub {
+      owner = "nbardiuk";
+      repo = "vim-colors";
+      rev = "dc31753";
+      sha256 = "1x5rllmmmyi60sm3yb9g7qfdh00p6z0qxrgiklc3xyf4jlw40izg";
+    };
+  };
   loadPlugin = plugin: ''
     set rtp^=${plugin.rtp}
     set rtp+=${plugin.rtp}/after
@@ -87,6 +87,7 @@ let
     gitgutter
     goyo-vim
     LanguageClient-neovim
+    mycolors
     ncm2
     ncm2-bufword
     ncm2-path
@@ -102,7 +103,6 @@ let
     tmux-navigator
     vim-abolish
     vim-clojure-static
-    vim-colors-github
     vim-commentary
     vim-cool # manages search highlight
     vim-dirvish # simple directory viewer

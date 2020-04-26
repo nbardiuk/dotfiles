@@ -128,7 +128,7 @@ set formatoptions=cjlnoqr
 " Theme {{{
 set background=light
 set termguicolors
-colorscheme github
+colorscheme mycolors
 " }}}
 
 " Status line {{{
