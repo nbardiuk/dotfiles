@@ -106,13 +106,23 @@ augroup END
 " focus on new split
 nnoremap <C-w>s <C-w>s<C-w>w
 nnoremap <C-w>v <C-w>v<C-w>w
+
+set winwidth=80    " minimal width of active window
 " }}}
 
-" Text Wrapping {{{
+" Text Formatting {{{
 set nowrap         " Don't soft wrap lines
 set linebreak      " break lines at convenient points
 set textwidth=79   " where to break a line
-set winwidth=80    " minimal width of active window
+
+" c - auto-wrap comments (not code)
+" j - join comment lines
+" l - does not break existing long line in insert mode
+" n - recognize number list
+" o - auto add comment prefix on 'O'
+" q - format comments using gq
+" r - auto add comment prefix on Enter
+set formatoptions=cjlnoqr
 " }}}
 
 " Theme {{{
