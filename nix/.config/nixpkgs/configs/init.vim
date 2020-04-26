@@ -150,9 +150,9 @@ augroup autosave
   " jump to last known position when opening buffer
   " https://github.com/vim/vim/blob/eaf35241197fc6b9ee9af993095bf5e6f35c8f1a/runtime/defaults.vim#L108-L117
   autocmd BufReadPost *
-    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-    \ |   exe "normal! g`\""
-    \ | endif
+        \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+        \ |   exe "normal! g`\""
+        \ | endif
 augroup END
 " }}}
 
@@ -174,8 +174,9 @@ augroup END
 
 " Search and Substitute {{{
 
-set inccommand=nosplit | " Shows the effects of a command incrementally, as you type.
-                         " Works for |:substitute|, |:smagic|, |:snomagic|. |hl-Substitute|
+" Shows the effects of a command incrementally, as you type.
+" Works for |:substitute|, |:smagic|, |:snomagic|. |hl-Substitute|
+set inccommand=nosplit
 
 " center on next match
 noremap n nzz
@@ -494,10 +495,10 @@ let g:wiki_journal =
       \}
 
 command! -bang -nargs=* WikiGrep
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>).' '.g:wiki_root,
-  \   1,
-  \   <bang>0)
+      \ call fzf#vim#grep(
+      \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>).' '.g:wiki_root,
+      \   1,
+      \   <bang>0)
 
 let g:wiki_mappings_global={}
 let g:wiki_mappings_local={}
@@ -538,8 +539,8 @@ function! s:sexp_mappings() abort
 endfunction
 
 augroup more_sexp_mappings
-    autocmd!
-    execute 'autocmd FileType' get(g:, 'sexp_filetypes', 'lisp,scheme,clojure') 'call s:sexp_mappings()'
+  autocmd!
+  execute 'autocmd FileType' get(g:, 'sexp_filetypes', 'lisp,scheme,clojure') 'call s:sexp_mappings()'
 augroup END
 " }}}
 
@@ -589,8 +590,8 @@ let extra_macros = ['Given', 'When', 'Then', 'And', 'let-system']
 let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let'] | " Default
 let g:iced#format#rule = {}
 for macro in extra_macros
-    let g:iced#format#rule[macro] = '[[:inner 0]]'
-    let g:clojure_fuzzy_indent_patterns += ['^' . macro]
+  let g:iced#format#rule[macro] = '[[:inner 0]]'
+  let g:clojure_fuzzy_indent_patterns += ['^' . macro]
 endfor
 let g:clojure_syntax_keywords = {'clojureMacro': extra_macros}
 
@@ -598,19 +599,19 @@ let g:clojure_syntax_keywords = {'clojureMacro': extra_macros}
 let g:polyglot_disabled = ['clojure']
 
 let g:projectionist_heuristics['project.clj|deps.edn'] =
-\ {
-\   'src/*.clj': {
-\     'type': 'source',
-\     'alternate': 'test/{}_test.clj',
-\   },
-\   'dev/*.clj': {
-\     'type': 'source',
-\   },
-\   'test/*_test.clj': {
-\     'type': 'test',
-\     'alternate': 'src/{}.clj',
-\   }
-\ }
+      \ {
+      \   'src/*.clj': {
+      \     'type': 'source',
+      \     'alternate': 'test/{}_test.clj',
+      \   },
+      \   'dev/*.clj': {
+      \     'type': 'source',
+      \   },
+      \   'test/*_test.clj': {
+      \     'type': 'test',
+      \     'alternate': 'src/{}.clj',
+      \   }
+      \ }
 " }}}
 
 " Whiteroom {{{
