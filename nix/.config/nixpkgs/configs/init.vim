@@ -86,7 +86,10 @@ set wildignorecase             | " case is ignored when completing file names an
 
 " commands history
 nnoremap q: :History:<CR>
+
 set list listchars=tab:\▸\ ,trail:·,nbsp:+ | " Display tabs and trailing spaces visually
+set showbreak=↳\                           | " a soft wrap break symbol
+
 set shell=~/.nix-profile/bin/zsh
 
 " {{{ Surround
@@ -110,9 +113,6 @@ set nowrap         " Don't soft wrap lines
 set linebreak      " break lines at convenient points
 set textwidth=79   " where to break a line
 set winwidth=80    " minimal width of active window
-" navigate through display lines
-nnoremap j gj
-nnoremap k gk
 " }}}
 
 " Theme {{{
