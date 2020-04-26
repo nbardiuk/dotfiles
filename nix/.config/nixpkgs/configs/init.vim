@@ -565,6 +565,7 @@ function! s:clojure_mappings() abort
   nmap      <buffer> <Leader>vta :call VimuxRunCommand("(time (run-tests))")<CR>
   nmap      <buffer> <Leader>vr :call VimuxRunCommand("(time (refresh-all))")<CR>
   nmap      <buffer> <Leader>vR :call VimuxRunCommand("(time (reset-all))")<CR>
+  setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 endfunction
 
 augroup clojure_bindings
