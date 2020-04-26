@@ -131,11 +131,6 @@ set titlestring=%f " file name
 set foldmethod=syntax
 set nofoldenable
 
-augroup folds
-  autocmd!
-  " fold vimrc itself by categories
-  autocmd FileType vim setlocal foldmethod=marker
-augroup END
 " }}}
 
 " Swap Undo {{{
@@ -167,6 +162,14 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 set expandtab
+" }}}
+
+" VimL {{{
+augroup viml_settings
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+  setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+augroup END
 " }}}
 
 " Search and Substitute {{{
