@@ -109,6 +109,7 @@ let
     vim-fugitive
     vim-iced
     vim-iced-ncm2
+    vim-indent-object
     vim-polyglot
     vim-projectionist
     vim-repeat
