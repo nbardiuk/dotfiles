@@ -110,6 +110,20 @@ nnoremap <C-w>v <C-w>v<C-w>w
 set winwidth=80    " minimal width of active window
 " }}}
 
+" Tabs {{{
+nnoremap <Leader>tt :tab split<CR>
+nnoremap <Leader>tc :tabclose<CR>
+nnoremap <Leader>tn :$tabnew<CR>
+nnoremap <Leader>to :tabonly<CR>
+nnoremap ]t :tabnext<CR>
+nnoremap [t :tabprevious<CR>
+nnoremap [T :tabfirst<CR>
+nnoremap ]T :tablast<CR>
+for tab in range(1, 9)
+  execute 'nnoremap <silent> <Leader>' . tab . ' :' . tab . 'tabnext<CR>'
+endfor
+" }}}
+
 " Text Formatting {{{
 set nowrap         " Don't soft wrap lines
 set linebreak      " break lines at convenient points
