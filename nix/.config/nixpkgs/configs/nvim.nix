@@ -110,6 +110,7 @@ let
     vim-iced
     vim-iced-ncm2
     vim-indent-object
+    vim-markdown
     vim-polyglot
     vim-projectionist
     vim-repeat

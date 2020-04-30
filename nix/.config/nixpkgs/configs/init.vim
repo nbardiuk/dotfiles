@@ -139,8 +139,8 @@ set titlestring=%f " file name
 
 " Folding {{{
 set foldmethod=syntax
-set nofoldenable
-
+set foldenable         | " enable folding
+set foldlevelstart=99  | " but do not fold by default
 " }}}
 
 " Swap Undo {{{
@@ -649,6 +649,17 @@ let g:goyo_height='100%'
 
 " toggle whiteroom
 nmap yog :Goyo<CR>
+" }}}
+
+" Markdown {{{
+let g:markdown_syntax_conceal=0
+let g:polyglot_disabled = ['markdown'] | " use dedicated plugin
+
+augroup markdown_bindings
+  autocmd!
+  autocmd FileType markdown setlocal foldenable
+  autocmd FileType makrdown setlocal foldlevelstart=0
+augroup END
 " }}}
 
 " Tmux {{{
