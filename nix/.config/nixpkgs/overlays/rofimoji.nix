@@ -1,25 +1,29 @@
 final: previous:
 let
-rofimoji = with final; with stdenv; mkDerivation rec {
+rofimoji = with final; python3Packages.buildPythonPackage rec {
 
-  name = "rofimoji-${version}";
-  version = "2.1.0";
+  pname = "rofimoji-${version}";
+  version = "4.1.1";
 
   src = fetchFromGitHub {
     owner = "fdw";
     repo = "rofimoji";
     rev = version;
-    sha256 = "17pwdc3jwqqx7qp1z6v9gsvwbrpyd1miz6nl2xqgw5p8851h5n79";
+    sha256 = "0l0shfv3jvxrnhynrqqhp7flvd71c8yi57hqk00syzh960s8pw68";
   };
 
   nativeBuildInputs = [makeWrapper];
-  buildInputs = [python3 rofi xdotool];
-
-  installPhase = ''
-    mkdir -p $out
-    cp rofimoji.py $out/rofimoji.py
-    wrapProgram $out/rofimoji.py --prefix PATH : "${lib.makeBinPath buildInputs}"
-  '';
+  propagatedBuildInputs = with python3Packages; [
+    rofi
+    xsel
+    xdotool
+    python3
+    ConfigArgParse
+    beautifulsoup4
+    lxml
+    pyxdg
+    requests
+  ];
 
   meta = with lib; {
     description = "A simple emoji picker for rofi";
