@@ -146,6 +146,7 @@ in
     joker                     # clojure linter
     vim-iced                  # clojure nrepl
     shellcheck                # shell scripts linter
+    shfmt                     # shell scripts formatter
     vim-vint                  # vim linter
     xclip                     # clipboard manager
     jq                        # json formatter

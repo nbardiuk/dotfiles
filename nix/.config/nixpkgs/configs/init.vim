@@ -679,6 +679,16 @@ augroup markdown_bindings
 augroup END
 " }}}
 
+" Shell {{{
+augroup sh_bindings
+  autocmd!
+  autocmd FileType sh nnoremap <buffer> <leader>lf :ALEFix<CR>
+augroup END
+let g:ale_linters.sh = ['shellcheck']
+let g:ale_fixers.sh = ['shfmt']
+let g:ale_sh_shfmt_options = '-i=2 -sr'
+" }}}
+
 " Tmux {{{
 let g:VimuxOrientation = 'h'
 nmap <Leader>vi :VimuxInspectRunner<CR>
