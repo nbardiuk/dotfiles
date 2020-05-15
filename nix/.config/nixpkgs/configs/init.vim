@@ -107,7 +107,10 @@ augroup END
 nnoremap <C-w>s <C-w>s<C-w>w
 nnoremap <C-w>v <C-w>v<C-w>w
 
-set winwidth=80    " minimal width of active window
+set winwidth=80     " minimal width of active window
+set winminwidth=10  " minimal width of inactive window
+set winheight=50    " minimal height of active window
+set winminheight=10 " minimal height of inactive window
 " }}}
 
 " Tabs {{{
