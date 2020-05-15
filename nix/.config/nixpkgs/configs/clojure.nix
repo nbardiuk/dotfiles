@@ -3,7 +3,7 @@ let
   # https://liquidz.github.io/vim-iced/vim-iced.html#vim-iced-install-manually
   # https://github.com/liquidz/vim-iced/blob/master/bin/iced
   nrepl = ''"0.7.0"'';
-  iced-nrepl = ''"1.0.0"'';
+  iced-nrepl = ''"1.0.1"'';
   cider-nrepl = ''"0.24.0"'';
   refactor-nrepl = ''"2.5.0"'';
   hashp = ''"0.1.1"'';
