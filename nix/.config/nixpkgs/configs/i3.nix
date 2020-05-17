@@ -98,6 +98,10 @@ in
     };
   };
 
+  services.picom = {
+    enable = true;
+  };
+
   xsession.profileExtra = ''
     feh --bg-scale ${wallpaper}
 
