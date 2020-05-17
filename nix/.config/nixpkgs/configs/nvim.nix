@@ -74,6 +74,16 @@ let
       sha256 = "1x5rllmmmyi60sm3yb9g7qfdh00p6z0qxrgiklc3xyf4jlw40izg";
     };
   };
+  vim-gol = pkgs.vimUtils.buildVimPlugin {
+    pname = "vim-gol";
+    version = "2020-05-17";
+    src = pkgs.fetchFromGitHub {
+      owner = "nbardiuk";
+      repo = "vim-gol";
+      rev = "ec5314c";
+      sha256 = "0bpm54857x6ls2kdjblf23lgskhychhcqvm5v39v62jr0il6pj4h";
+    };
+  };
   loadPlugin = plugin: ''
     set rtp^=${plugin.rtp}
     set rtp+=${plugin.rtp}/after
@@ -107,6 +117,7 @@ let
     vim-cool # manages search highlight
     vim-dirvish # simple directory viewer
     vim-fugitive
+    vim-gol
     vim-iced
     vim-iced-ncm2
     vim-indent-object
