@@ -30,7 +30,7 @@
 
       set -g status-position top
       set -g status-left ""
-      set -g status-right '#( echo #{pane_current_path} | sed "s/.*\(.\{50\}\)$/\1/g" )'
+      set -g status-right '#( echo #{pane_current_path} | sed "s/\/home\/[^\/]*/~/g" | sed "s/.*\(.\{50\}\)$/\1/g" )'
       set -g status-right-length 50
       set -g status-interval 1
 
@@ -59,7 +59,7 @@
       set -g display-panes-colour brightred #orange
       set-window-option -g clock-mode-colour green #green
       set-window-option -g window-status-bell-style fg=white,bg=red
-      '';
+    '';
 
     plugins = with pkgs; [
       {
