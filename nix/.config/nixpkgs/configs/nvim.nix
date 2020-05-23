@@ -166,5 +166,7 @@ in
     pgformatter               # sql formatter
     sqlint                    # sql linter
     python37Packages.python-language-server
+    ccls
+    clang-tools
   ];
 }
