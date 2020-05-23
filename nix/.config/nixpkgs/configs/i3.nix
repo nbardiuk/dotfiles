@@ -28,6 +28,7 @@ in
       modifier = mod;
       focus.newWindow = "focus";
       window.border = 1;
+      window.titlebar = false;
       floating = {
         border = 1;
         modifier = mod;
