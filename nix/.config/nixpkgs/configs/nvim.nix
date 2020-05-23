@@ -84,12 +84,24 @@ let
       sha256 = "0bpm54857x6ls2kdjblf23lgskhychhcqvm5v39v62jr0il6pj4h";
     };
   };
+  colorizer = pkgs.vimUtils.buildVimPlugin {
+    pname = "colorizer";
+    version = "2020-05-03";
+    src = pkgs.fetchFromGitHub {
+      owner = "chrisbra";
+      repo = "colorizer";
+      rev = "61b652b";
+      sha256 = "1nhplyissw6g38mpcc4jghdq6rcc1cmq5rmc58gkfvc12qzhrlvp";
+    };
+    buildPhase = ":";
+  };
   loadPlugin = plugin: ''
     set rtp^=${plugin.rtp}
     set rtp+=${plugin.rtp}/after
   '';
   plugins = with pkgs.vimPlugins; [
     ale
+    colorizer
     float-preview-nvim # ncm2 preview
     fzf-vim
     fzfWrapper
