@@ -160,7 +160,7 @@ in
     shellcheck                # shell scripts linter
     shfmt                     # shell scripts formatter
     vim-vint                  # vim linter
-    xclip                     # clipboard manager
+    xsel                      # clipboard manager
     jq                        # json formatter
     libxml2                   # for xmllint
     pgformatter               # sql formatter
