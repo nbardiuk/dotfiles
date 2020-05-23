@@ -35,11 +35,13 @@
       ll = l;
       ls = l;
       la = l + " -all";
-      lart = la + " --sort=newest";
+      latr = la + " --sort=newest";
       lat = la + " --sort=oldest";
       las = la + " --sort=size";
-      lars = la + " --sort=size --reverse";
+      lasr = la + " --sort=size --reverse";
       tree = la + " --tree";
+      copy = "xsel --clipboard --input";
+      paste = "xsel --clipboard --output";
     };
 
     initExtra = ''
@@ -58,5 +60,6 @@
   home.packages = with pkgs; [
     gnupg
     keychain # for ssh,gpg agents
+    xsel     # clipboard
   ];
 }
