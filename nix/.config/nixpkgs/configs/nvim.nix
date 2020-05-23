@@ -70,8 +70,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "nbardiuk";
       repo = "vim-colors";
-      rev = "dc31753";
-      sha256 = "1x5rllmmmyi60sm3yb9g7qfdh00p6z0qxrgiklc3xyf4jlw40izg";
+      rev = "404869b";
+      sha256 = "179cq2ccrfbamhs6yv6acb58pw76vdcq10wjg5ikkvhpldcafxpx";
     };
   };
   vim-gol = pkgs.vimUtils.buildVimPlugin {
