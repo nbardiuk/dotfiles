@@ -23,7 +23,7 @@ with lib;
       "super + {s,w}"                 = "i3-msg {stacking,tabbed}";
       "super + {_,shift +} {1-9,0}"   = "i3-msg {workspace,move container to workspace} {${workspacesList}}";
       "super + {_,shift +} {h,j,k,l}" = "i3-msg {focus,move} {left,down,up,right}";
-      "super + m"                     = "i3-msg move workspace to output up";
+      "super + m"                     = "i3-msg move workspace to output up; i3-msg move workspace to output right";
       "super + f"                     = "i3-msg fullscreen";
       "super + t"                     = "i3-msg focus paren";
       "super + ctrl + t"              = "i3-msg focus child";
