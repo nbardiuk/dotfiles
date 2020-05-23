@@ -195,7 +195,7 @@ set expandtab
 augroup viml_settings
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
-  setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+  autocmd FileType vim setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 augroup END
 " }}}
 
@@ -495,13 +495,11 @@ augroup END
 
 " Nix {{{
 let g:ale_linters.nix = ['nix']
-
-let g:neoformat_nix_nixfmt = { 'exe': 'nixfmt', 'stdin': 1 }
-let g:neoformat_enabled_nix = ['nixfmt']
+let g:ale_fixers.nix = ['nixpkgs-fmt']
 
 augroup nix_bindings
   autocmd!
-  autocmd FileType nix nnoremap <buffer> <leader>lf :Neoformat<CR>
+  autocmd FileType nix nnoremap <buffer> <leader>lf :ALEFix<CR>
 augroup END
 " }}}
 

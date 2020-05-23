@@ -154,6 +154,7 @@ in
   };
 
   home.packages = with pkgs; [
+    nixpkgs-fmt               # nix formatter
     joker                     # clojure linter
     vim-iced                  # clojure nrepl
     shellcheck                # shell scripts linter
