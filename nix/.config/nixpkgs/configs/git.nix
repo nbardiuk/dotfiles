@@ -1,5 +1,7 @@
-{ pkgs, ... }:
-{
+{ config, pkgs, ... }:
+let
+  commit = "git/commit";
+in {
   programs.git = {
     enable = true;
     userName = "Nazarii Bardiuk";
@@ -33,11 +35,11 @@
       mergetool.promt = true;
       pull.rebase = true;
       rebase.autoStash = true;
-      commit.template = "~/.config/git/commit";
+      commit.template = "${config.xdg.configHome}/${commit}";
     };
   };
 
-  home.file.".config/git/commit".text = ''
+  xdg.configFile.${commit}.text = ''
     feat: 
 
     # --- COMMIT END ---

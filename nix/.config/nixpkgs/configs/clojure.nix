@@ -1,4 +1,4 @@
-{ lib, pkgs, ...}:
+{ lib, pkgs, ... }:
 let
   # https://liquidz.github.io/vim-iced/vim-iced.html#vim-iced-install-manually
   # https://github.com/liquidz/vim-iced/blob/master/bin/iced
@@ -51,7 +51,7 @@ in
     }
   '';
 
-  home.file.".config/clojure/deps.edn".text = ''
+  xdg.configFile."clojure/deps.edn".text = ''
     {:aliases
       {:iced
         {:extra-deps

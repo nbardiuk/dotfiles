@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
-  rc = ".config/ripgrep/.ripgreprc";
+  rc = "ripgrep/.ripgreprc";
 in
 {
-  home.file."/${rc}".text = ''
+  xdg.configFile.${rc}.text = ''
     --smart-case
     --no-ignore
     --hidden
@@ -14,7 +14,7 @@ in
   '';
 
   home.sessionVariables = {
-    RIPGREP_CONFIG_PATH = "$HOME/${rc}";
+    RIPGREP_CONFIG_PATH = "${config.xdg.configHome}/${rc}";
   };
 
   home.packages = with pkgs; [
