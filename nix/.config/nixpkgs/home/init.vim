@@ -357,10 +357,10 @@ augroup END
 inoremap <c-u> <esc>g~iw`]a
 
 " edit my vim config
-nnoremap <leader>ve :vsplit ~/.config/nixpkgs/configs/init.vim<cr>
+nnoremap <leader>ve :vsplit ~/.config/nixpkgs/home/init.vim<cr>
 
 " source my vim config
-nnoremap <leader>vs :source ~/.config/nixpkgs/configs/init.vim<cr>
+nnoremap <leader>vs :source ~/.config/nixpkgs/home/init.vim<cr>
 
 " always type wrong letter
 cabbrev W w

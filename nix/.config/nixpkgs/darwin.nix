@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  chunkwm = pkgs.recurseIntoAttrs (pkgs.callPackage ~/.config/nixpkgs/pkgs/chunkwm {
+  chunkwm = pkgs.recurseIntoAttrs (pkgs.callPackage ~/.config/nixpkgs/darwin/chunkwm {
     inherit (pkgs) callPackage stdenv fetchFromGitHub;
     inherit (pkgs.darwin.apple_sdk.frameworks) Carbon Cocoa ApplicationServices;
   });

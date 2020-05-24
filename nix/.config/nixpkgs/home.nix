@@ -1,21 +1,21 @@
 { pkgs, ... }:
 {
   imports = [
-    ./configs/alacritty.nix
-    ./configs/clojure.nix
-    ./configs/javascript.nix
-    ./configs/rust.nix
-    ./configs/haskell.nix
-    ./configs/i3.nix
-    ./configs/firefox.nix
-    ./configs/java.nix
-    ./configs/keyboard.nix
-    ./configs/obs.nix
-    ./configs/redshift.nix
-    ./configs/shell.nix
-    ./configs/syncthing.nix
-    ./configs/termite.nix
-    ./configs/zathura.nix
+    ./home/alacritty.nix
+    ./home/clojure.nix
+    ./home/javascript.nix
+    ./home/rust.nix
+    ./home/haskell.nix
+    ./home/i3.nix
+    ./home/firefox.nix
+    ./home/java.nix
+    ./home/keyboard.nix
+    ./home/obs.nix
+    ./home/redshift.nix
+    ./home/shell.nix
+    ./home/syncthing.nix
+    ./home/termite.nix
+    ./home/zathura.nix
   ];
 
   # How unread and relevant news should be presented
