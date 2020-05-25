@@ -77,7 +77,7 @@ in
     chunkc set bsp_split_ratio               0.5
     chunkc set window_focus_cycle            all
     chunkc set mouse_follows_focus           all
-    chunkc set mouse_resize_window           alt
+    chunkc set mouse_resize_window           ctrl shift
     chunkc set mouse_move_window             ctrl
     chunkc set window_region_locked          1
 
