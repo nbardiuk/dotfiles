@@ -66,12 +66,12 @@ let
   };
   mycolors = pkgs.vimUtils.buildVimPlugin {
     pname = "vim-colors";
-    version = "2020-04-26";
+    version = "2020-05-30";
     src = pkgs.fetchFromGitHub {
       owner = "nbardiuk";
       repo = "vim-colors";
-      rev = "404869b";
-      sha256 = "179cq2ccrfbamhs6yv6acb58pw76vdcq10wjg5ikkvhpldcafxpx";
+      rev = "7068cf3";
+      sha256 = "10qlf15ani476fdwyaf11y2ddrdil4jizqi2i92bhad1mahb7sac";
     };
   };
   vim-gol = pkgs.vimUtils.buildVimPlugin {
