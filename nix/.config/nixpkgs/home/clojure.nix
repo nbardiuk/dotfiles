@@ -4,7 +4,7 @@ let
   # https://github.com/liquidz/vim-iced/blob/master/bin/iced
   nrepl = ''"0.7.0"'';
   iced-nrepl = ''"1.0.4"'';
-  cider-nrepl = ''"0.25.2"'';
+  cider-nrepl = ''"0.25.3"'';
   refactor-nrepl = ''"2.5.0"'';
   hashp = ''"0.1.1"'';
   middleware = lib.concatStringsSep "," [

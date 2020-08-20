@@ -43,12 +43,12 @@ let
   };
   vim-iced = pkgs.vimUtils.buildVimPlugin {
     pname = "vim-iced";
-    version = "2.1.1";
+    version = "2.1.6";
     src = pkgs.fetchFromGitHub {
       owner = "liquidz";
       repo = "vim-iced";
-      rev = "76dbcad";
-      sha256 = "1ncpq39kxymssxnczzm5r4cs791q88aj7sxq7srv3j29rnf9r0gp";
+      rev = "8707a26";
+      sha256 = "0bcixkfsrk697zpjkzx22sxk0jwh9fsagbldbrccpq0aq81rp0v1";
     };
     buildPhase = ":";
     postInstall=''
