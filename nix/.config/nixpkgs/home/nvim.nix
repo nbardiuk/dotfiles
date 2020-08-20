@@ -2,13 +2,13 @@
 let
   wiki-vim = pkgs.vimUtils.buildVimPlugin {
     pname = "wiki-vim";
-    version = "2020-05-20";
+    version = "2020-08-05";
     src = pkgs.fetchFromGitHub {
       # https://github.com/lervag/wiki.vim
       owner = "lervag";
       repo = "wiki.vim";
-      rev = "3ad5039";
-      sha256 = "1n763s7q6bxxy5gacm0347d994jy82331p2xijdpw5rlrrnilrhx";
+      rev = "cde315a";
+      sha256 = "04w0b2da9vvdph3k5ja2xad5x13bi9js6nxy1a9k1pyh2z0b5mnr";
     };
   };
   ncm2-vim = pkgs.vimUtils.buildVimPlugin {
