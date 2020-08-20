@@ -45,7 +45,6 @@
 
   networking.hostName = "bardiuk"; # Define your hostname.
   networking.networkmanager.enable = true;
-  networking.enableIPv6 = false; # my router does not play well with fastly ipv6
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_IE.UTF-8";
