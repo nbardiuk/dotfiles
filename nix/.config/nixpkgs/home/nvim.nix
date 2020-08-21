@@ -11,6 +11,17 @@ let
       sha256 = "04w0b2da9vvdph3k5ja2xad5x13bi9js6nxy1a9k1pyh2z0b5mnr";
     };
   };
+  vim-rest-console = pkgs.vimUtils.buildVimPlugin {
+    pname = "vim-rest-console";
+    version = "2020-08-05";
+    src = pkgs.fetchFromGitHub {
+      # https://github.com/diepm/vim-rest-console
+      owner = "diepm";
+      repo = "vim-rest-console";
+      rev = "7b407f4";
+      sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj";
+    };
+  };
   ncm2-vim = pkgs.vimUtils.buildVimPlugin {
     pname = "ncm2-vim";
     version = "2018-08-15";
@@ -138,6 +149,7 @@ let
     vim-polyglot
     vim-projectionist
     vim-repeat
+    vim-rest-console
     vim-sexp
     vim-sexp-mappings-for-regular-people
     vim-surround

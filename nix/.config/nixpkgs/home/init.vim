@@ -721,3 +721,31 @@ augroup c_bindings
   autocmd FileType c setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 augroup END
 " }}}
+
+" Curl {{{
+let g:vrc_curl_opts = {
+  \ '--silent': '',
+  \ '--show-error': '',
+  \ '--connect-timeout' : 10,
+  \ '--location': '',
+  \ '--include': '',
+  \ '--max-time': 60,
+  \ '--insecure': '',
+\}
+
+function! s:toggle_split_body() abort
+  if exists('b:vrc_split_request_body') && b:vrc_split_request_body
+    let b:vrc_split_request_body = 0
+  else
+    let b:vrc_split_request_body = 1
+  endif
+  echom 'let b:vrc_split_request_body = ' . b:vrc_split_request_body
+endfunction
+
+let g:vrc_set_default_mapping = 0
+augroup curl_bindings
+  autocmd!
+  autocmd FileType rest nnoremap <buffer> <leader>cc :call VrcQuery()<CR>
+  autocmd FileType rest nnoremap <buffer> <leader>cs :call <SID>toggle_split_body()<CR>
+augroup END
+" }}}
