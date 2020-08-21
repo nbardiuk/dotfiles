@@ -730,7 +730,6 @@ let g:vrc_curl_opts = {
   \ '--location': '',
   \ '--include': '',
   \ '--max-time': 60,
-  \ '--insecure': '',
 \}
 
 function! s:toggle_split_body() abort
@@ -742,10 +741,20 @@ function! s:toggle_split_body() abort
   echom 'let b:vrc_split_request_body = ' . b:vrc_split_request_body
 endfunction
 
+function! s:toggle_debug() abort
+  if exists('b:vrc_debug') && b:vrc_debug
+    let b:vrc_debug = 0
+  else
+    let b:vrc_debug = 1
+  endif
+  echom 'let b:vrc_debug = ' . b:vrc_debug
+endfunction
+
 let g:vrc_set_default_mapping = 0
 augroup curl_bindings
   autocmd!
   autocmd FileType rest nnoremap <buffer> <leader>cc :call VrcQuery()<CR>
   autocmd FileType rest nnoremap <buffer> <leader>cs :call <SID>toggle_split_body()<CR>
+  autocmd FileType rest nnoremap <buffer> <leader>cd :call <SID>toggle_debug()<CR>
 augroup END
 " }}}
