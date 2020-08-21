@@ -755,10 +755,15 @@ function! s:toggle_debug() abort
   echom 'let b:vrc_debug = ' . b:vrc_debug
 endfunction
 
+function! s:request() abort
+  let b:vrc_output_buffer_name = escape(getline('.'), '"') . ' [' . expand('%:t') . ' @ ' . strftime('%H:%M:%S') . ']'
+  call VrcQuery()
+endfunction
+
 let g:vrc_set_default_mapping = 0
 augroup curl_bindings
   autocmd!
-  autocmd FileType rest nnoremap <buffer> <leader>cc :call VrcQuery()<CR>
+  autocmd FileType rest nnoremap <buffer> <leader>cc :call <SID>request()<CR>
   autocmd FileType rest nnoremap <buffer> <leader>cs :call <SID>toggle_split_body()<CR>
   autocmd FileType rest nnoremap <buffer> <leader>cd :call <SID>toggle_debug()<CR>
 augroup END
