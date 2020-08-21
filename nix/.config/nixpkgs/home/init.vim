@@ -732,6 +732,11 @@ let g:vrc_curl_opts = {
   \ '--max-time': 60,
 \}
 
+let g:vrc_auto_format_response_patterns = {
+  \ 'json': 'jq',
+  \ 'xml': 'grep "\S" | xmllint --format --nonet --recover -',
+\}
+
 function! s:toggle_split_body() abort
   if exists('b:vrc_split_request_body') && b:vrc_split_request_body
     let b:vrc_split_request_body = 0
