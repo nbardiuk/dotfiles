@@ -44,7 +44,9 @@ in
           [refactor-nrepl ${refactor-nrepl}]
           [hashp ${hashp}]
         ]
-       :repl-options {:nrepl-middleware [${middleware}]}
+       :repl-options {:nrepl-middleware [${middleware}]
+                      :prompt (fn [ns] (format "%s %s\nλ " (clojure.string/join "/" (take-last 2 (clojure.string/split (System/getenv "PWD") #"/"))) ns))
+                     }
        :plugins [[refactor-nrepl ${refactor-nrepl}]]
        :injections [(require 'hashp.core)]
       }
