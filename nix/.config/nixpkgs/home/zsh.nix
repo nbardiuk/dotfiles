@@ -13,6 +13,7 @@
         "bgnotify"
         "git"
         "tmux"
+        "vi-mode"
       ];
       theme = "refined";
     };
@@ -22,7 +23,6 @@
       VISUAL = "nvim";
       MANPAGER = "nvim +set\\ filetype=man -";
       SUDO_EDITOR = "nvim";
-      TERM = "xterm-256color";
       ZSH_TMUX_AUTOSTART = true;
     };
 
