@@ -68,6 +68,9 @@ set matchpairs+=<:>         | " Characters that form pairs
 
 set nojoinspaces            | " Insert only one space between joined lines
 
+set number                  | " Enable line numbers
+set relativenumber          | " with relative
+
 
 " {{{ Spelling
 set spelllang=en_us  | " spell check
