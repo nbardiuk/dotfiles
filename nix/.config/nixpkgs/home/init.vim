@@ -71,6 +71,8 @@ set nojoinspaces            | " Insert only one space between joined lines
 set number                  | " Enable line numbers
 set relativenumber          | " with relative
 
+set colorcolumn=100         | " visual vertical line
+
 
 " {{{ Spelling
 set spelllang=en_us  | " spell check
