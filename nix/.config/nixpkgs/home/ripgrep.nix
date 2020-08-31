@@ -11,6 +11,7 @@ in
     --glob=!target
     --glob=!node_modules
     --glob=!build
+    --glob=!.clj-kondo
   '';
 
   home.sessionVariables = {

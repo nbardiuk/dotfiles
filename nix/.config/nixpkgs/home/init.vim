@@ -247,20 +247,32 @@ function! s:run_interact(command)
   call feedkeys(substitute(@r, "\n$", '', ''))
 endfunction
 
-" An action can be a reference to a function that processes selected lines
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
-endfunction
+let g:FerretMap=0
+nmap <leader>s <Plug>(FerretAckWord)
+vmap <leader>s y:Ack <c-r>"<cr>
+nmap <leader>S <Plug>(FerretAck)
+vmap <leader>S y:Ack <c-r>"
+nmap <leader>qs yaw:Quack <c-r>"<cr>
+vmap <leader>qs y:Quack <c-r>"<cr>
+nmap <leader>qS yaw:Quack <c-r>"
+vmap <leader>qS y:Quack <c-r>"
+nmap <leader>r <Plug>(FerretAcks)
 
-let g:fzf_action =
-      \{
-      \  'ctrl-q': function('s:build_quickfix_list'),
-      \  'ctrl-t': 'tab split',
-      \  'ctrl-x': 'split',
-      \  'ctrl-v': 'vsplit' 
-      \}
+let g:FerretExecutable='rg'
+let g:FerretExecutableArguments = {
+  \   'rg': '
+            \ --vimgrep
+            \ --no-heading
+            \ --smart-case
+            \ --no-ignore
+            \ --hidden
+            \ --glob=!.git
+            \ --glob=!target
+            \ --glob=!node_modules
+            \ --glob=!build
+            \ --glob=!.clj-kondo
+            \'
+  \ }
 " }}}
 
 " Files navigation {{{
