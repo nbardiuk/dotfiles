@@ -264,6 +264,7 @@ let g:FerretExecutableArguments = {
             \ --vimgrep
             \ --no-heading
             \ --smart-case
+            \ --sort path
             \ --no-ignore
             \ --hidden
             \ --glob=!.git
