@@ -114,6 +114,7 @@ let
   plugins = with pkgs.vimPlugins; [
     ale
     colorizer
+    ferret
     float-preview-nvim # ncm2 preview
     fzf-vim
     fzfWrapper
