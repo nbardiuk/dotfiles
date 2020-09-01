@@ -220,10 +220,6 @@ set smartcase  " ...unless we type a capital
 " search in project files with selected text
 vnoremap <silent> <Leader>f :<c-u>call <SID>run_interact("Rg")<CR>
 nnoremap <silent> <Leader>f :Rg<CR>
-" search in current buffer with selected text
-vnoremap / y/<c-r>"<cr>
-vnoremap <silent> <Leader>/ :<c-u>call <SID>run_interact("BLines")<CR>
-nnoremap <silent> <Leader>/ :BLines<CR>
 
 " search history
 nnoremap q/ :History/<CR>
@@ -248,14 +244,10 @@ function! s:run_interact(command)
 endfunction
 
 let g:FerretMap=0
-nmap <leader>s <Plug>(FerretAckWord)
-vmap <leader>s y:Ack <c-r>"<cr>
-nmap <leader>S <Plug>(FerretAck)
-vmap <leader>S y:Ack <c-r>"
-nmap <leader>qs yaw:Quack <c-r>"<cr>
-vmap <leader>qs y:Quack <c-r>"<cr>
-nmap <leader>qS yaw:Quack <c-r>"
-vmap <leader>qS y:Quack <c-r>"
+nmap <leader>* <Plug>(FerretAckWord)
+vmap <leader>* y:Ack <c-r>"<cr>
+nmap <leader>/ <Plug>(FerretAck)
+vmap <leader>/ y:Ack <c-r>"
 nmap <leader>r <Plug>(FerretAcks)
 
 let g:FerretExecutable='rg'
