@@ -163,6 +163,9 @@ set titlestring=%f " file name
 set foldmethod=syntax
 set foldenable         | " enable folding
 set foldlevelstart=99  | " but do not fold by default
+
+" toggle current fold
+nnoremap <tab> za
 " }}}
 
 " Swap Undo {{{
@@ -546,6 +549,7 @@ let g:wiki_mappings_global['<plug>(wiki-journal)']='<leader>w_disable'
 let g:wiki_mappings_local['<plug>(wiki-link-toggle)']='<leader>w_disable'
 let g:wiki_mappings_local['<plug>(wiki-journal-copy-tonext)']='<leader>w_disable'
 let g:wiki_mappings_local['<plug>(wiki-page-toc)']='<leader>w_disable'
+let g:wiki_mappings_local['<plug>(wiki-link-next)']='<leader>w_disable'
 
 let g:wiki_mappings_global['<plug>(wiki-open)']='<leader>we'
 let g:wiki_mappings_global['<plug>(wiki-fzf-pages)']='<leader>wn'
