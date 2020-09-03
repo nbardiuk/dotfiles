@@ -284,6 +284,11 @@ nnoremap <silent> <Leader>e :Buffers<CR>
 
 nnoremap <leader>N :Dirvish<CR>
 let g:dirvish_mode=':sort ,^.*[\/],'
+
+" unload current buffer
+nnoremap <leader>x :bd!<cr>
+" unload all buffers
+nnoremap <leader>X :%bd!<cr>
 " }}}
 
 " Completion {{{
