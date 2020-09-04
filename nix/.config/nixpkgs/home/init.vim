@@ -123,10 +123,6 @@ nnoremap <Leader>tt :tab split<CR>
 nnoremap <Leader>tc :tabclose<CR>
 nnoremap <Leader>tn :$tabnew<CR>
 nnoremap <Leader>to :tabonly<CR>
-nnoremap ]t :tabnext<CR>
-nnoremap [t :tabprevious<CR>
-nnoremap [T :tabfirst<CR>
-nnoremap ]T :tablast<CR>
 for tab in range(1, 9)
   execute 'nnoremap <silent> <Leader>' . tab . ' :' . tab . 'tabnext<CR>'
 endfor
