@@ -179,8 +179,8 @@ set undofile
 augroup autosave
   autocmd!
 
-  autocmd FocusLost,BufLeave,CursorHold * silent! :update       | " autosafe
-  autocmd FocusGained,BufEnter,CursorHold * silent! :checktime  | " autoload
+  autocmd FocusLost,BufLeave,CursorHold * ++nested silent! :update | " autosafe
+  autocmd FocusGained,BufEnter,CursorHold * silent! :checktime     | " autoload
 
   " jump to last known position when opening buffer
   " https://github.com/vim/vim/blob/eaf35241197fc6b9ee9af993095bf5e6f35c8f1a/runtime/defaults.vim#L108-L117
@@ -594,8 +594,8 @@ function! s:clojure_mappings() abort
   nmap      <buffer> gce        vieo<Esc>i#_<Esc> | " prepend #_ reader macro to element
   nmap      <buffer> gcf        vafo<Esc>i#_<Esc> | " prepend #_ reader macro to form
   nmap      <buffer> gcF        vaFo<Esc>i#_<Esc> | " prepend #_ reader macro to outer form
-  nmap      <buffer> <leader>tn <Plug>(iced_require)<Plug>(iced_test_ns)
-  nmap      <buffer> <leader>ta <Plug>(iced_require_all)<Plug>(iced_test_all)
+  nmap      <buffer> <leader>tn <Plug>(iced_test_ns)
+  nmap      <buffer> <leader>ta <Plug>(iced_test_all)
   nnoremap  <buffer> <leader>to :IcedTestBufferOpen<CR>
   nmap      <buffer> <leader>oo <Plug>(iced_stdout_buffer_open)
   nmap      <buffer> <leader>oc <Plug>(iced_stdout_buffer_clear)
