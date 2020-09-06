@@ -1,3 +1,9 @@
+scriptencoding utf-8
+
+" Fat finger escape |map-modes|
+noremap <F1> <ESC>
+noremap! <F1> <ESC>
+
 " LSP {{{
 " Specify whether to use virtual text to display diagnostics.
 let g:LanguageClient_useVirtualText = 'CodeLens'
