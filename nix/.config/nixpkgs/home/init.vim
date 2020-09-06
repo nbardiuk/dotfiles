@@ -157,7 +157,7 @@ colorscheme mycolors
 
 " Status line {{{
 set noruler         | " line and column number of the cursor position
-set laststatus=0    | " 0 - never show status line
+set laststatus=2    | " 2 - allways show status line
 set noshowmode      | " dissable mode message
 set title           | " update window title
 set titlestring=%f  | " file name
