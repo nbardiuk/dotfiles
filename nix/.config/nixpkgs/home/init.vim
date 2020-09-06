@@ -74,8 +74,8 @@ set matchpairs+=<:>         | " Characters that form pairs
 
 set nojoinspaces            | " Insert only one space between joined lines
 
-set number                  | " Enable line numbers
-set relativenumber          | " with relative
+set nonumber                | " no line numbers
+set norelativenumber        | " not even relative
 
 set colorcolumn=100         | " visual vertical line
 
