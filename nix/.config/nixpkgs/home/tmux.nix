@@ -42,6 +42,9 @@
       bind v split-window -h -c '#{pane_current_path}'
       bind s split-window -v -c '#{pane_current_path}'
 
+      bind e choose-tree -Z
+      unbind-key w
+
       # create new window in current path
       bind c new-window -c '#{pane_current_path}'
       bind 2 run "(tmux select-window -t 2) || tmux new-window -c '#{pane_current_path}'"
