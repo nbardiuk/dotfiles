@@ -175,8 +175,9 @@ set undofile
 augroup autosave
   autocmd!
 
-  autocmd FocusLost,BufLeave,CursorHold * ++nested silent! :update | " autosafe
-  autocmd FocusGained,BufEnter,CursorHold * silent! :checktime     | " autoload
+  " |autocmd-nested| - also execute the BufRead and BufWrite autocommands
+  autocmd FocusLost,BufLeave,CursorHold   * ++nested silent! :update    | " autosafe
+  autocmd FocusGained,BufEnter,CursorHold * ++nested silent! :checktime | " autoread
 
   " jump to last known position when opening buffer
   " https://github.com/vim/vim/blob/eaf35241197fc6b9ee9af993095bf5e6f35c8f1a/runtime/defaults.vim#L108-L117
