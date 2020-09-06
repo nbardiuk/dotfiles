@@ -269,9 +269,10 @@ let g:FerretExecutableArguments = {
 
 " Files navigation {{{
 
-" .  relative to the directory of the current file
-" ,, current directory
-set path=.,,
+" 'path'
+set path=
+set path+=.  | " .  current file
+set path+=** | " ** children subdirectories 'starstar'
 
 " search project file by selected text
 vnoremap <silent> <Leader>n :<c-u>call <SID>run_interact("Files")<CR>
