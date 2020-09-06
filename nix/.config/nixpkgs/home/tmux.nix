@@ -30,12 +30,13 @@
 
       set -g status-position top
       set -g status-left ""
-      set -g status-right '#( echo #{pane_current_path} | sed "s/\/home\/[^\/]*/~/g" | sed "s/.*\(.\{50\}\)$/\1/g" )'
-      set -g status-right-length 50
-      set -g status-interval 1
+      set -g status-left-length 0
+      set -g status-right ""
+      set -g status-right-length 0
+      set -g status-interval 0
 
       set -g set-titles on
-      set -g set-titles-string "#T > #S > #W"
+      set -g set-titles-string "#T (#{pane_current_path})"
 
       bind -T copy-mode-vi v send-keys -X begin-selection
       bind v split-window -h -c '#{pane_current_path}'

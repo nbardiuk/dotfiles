@@ -156,9 +156,11 @@ colorscheme mycolors
 " }}}
 
 " Status line {{{
-set noruler
-set title
-set titlestring=%f " file name
+set noruler         | " line and column number of the cursor position
+set laststatus=0    | " 0 - never show status line
+set noshowmode      | " dissable mode message
+set title           | " update window title
+set titlestring=%f  | " file name
 " }}}
 
 " Folding {{{
@@ -417,7 +419,7 @@ let g:ale_sql_pgformatter_options = '--spaces 4 --comma-break'
 " }}}
 
 " JavaScript/Typescript {{{
-function! s:typescript_mappings() abort 
+function! s:typescript_mappings() abort
   nnoremap <buffer> <leader>lf  :ALEFix<CR>
   nnoremap <buffer> <C-]>       :call LanguageClient_textDocument_definition()<CR>
   nnoremap <buffer> <C-W><C-]>  :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
@@ -503,7 +505,7 @@ let g:LanguageClient_serverCommands.haskell = ['ghcide', '--lsp']
 
 let g:neoformat_enabled_haskell = ['hindent', 'stylish-haskell']
 
-function! s:haskell_mappings() abort 
+function! s:haskell_mappings() abort
   nnoremap <buffer> <leader>lf  :Neoformat<CR>
   nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
   nnoremap <buffer> <C-]>       :call LanguageClient_textDocument_definition()<CR>
