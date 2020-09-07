@@ -65,7 +65,7 @@ let
       rev = "6fefe7f";
       sha256 = "1rf283p0344by2m600p06wbf21d9ik0gcg9c4w3dic6vchqq438d";
     };
-    postInstall=''
+    postInstall = ''
       install -Dt $out/bin $out/share/vim-plugins/vim-iced/bin/iced
     '';
   };
@@ -113,57 +113,6 @@ let
       sha256 = "1wbmd9qyb4qsqdmd4dqnfi5jn44scv1pgacr56sy7dagx2iz5zj6";
     };
   };
-  loadPlugin = plugin: ''
-    set rtp^=${plugin.rtp}
-    set rtp+=${plugin.rtp}/after
-  '';
-  plugins = with pkgs.vimPlugins; [
-    ale
-    colorizer
-    ferret
-    float-preview-nvim # ncm2 preview
-    fzf-vim
-    fzfWrapper
-    ghcid
-    gitgutter
-    goyo-vim
-    LanguageClient-neovim
-    mycolors
-    ncm2
-    ncm2-bufword
-    ncm2-path
-    ncm2-syntax # uses neco-syntax
-    ncm2-tmux
-    ncm2-vim # uses neco-vim
-    neco-syntax # provides syntax completion function
-    neco-vim # provides vim completion function
-    neoformat
-    nvim-yarp # remote plugin manager for ncm2
-    rhubarb # github provider for fugitive
-    tabular
-    tmux-navigator
-    vim-abolish
-    vim-clojure-static
-    vim-commentary
-    vim-cool # manages search highlight
-    vim-dirvish # simple directory viewer
-    vim-fugitive
-    vim-gol
-    vim-iced
-    vim-iced-ncm2
-    vim-indent-object
-    vim-markdown
-    vim-polyglot
-    vim-projectionist
-    vim-repeat
-    vim-rest-console
-    vim-sexp
-    vim-sexp-mappings-for-regular-people
-    vim-surround
-    vim-unimpaired
-    vimux
-    wiki-vim
-  ];
 in
 {
   programs.neovim = {
@@ -174,15 +123,56 @@ in
     withPython = false;
     withPython3 = true;
     withRuby = false;
-    extraConfig = builtins.concatStringsSep "\n" [
-      ''
-        " Workaround for broken handling of packpath by vim8/neovim for ftplugins -- see https://github.com/NixOS/nixpkgs/issues/39364#issuecomment-425536054 for more info
-        filetype off | syn off
-        ${builtins.concatStringsSep "\n" (map loadPlugin plugins)}
-        filetype indent plugin on | syn on
-      ''
-      (builtins.readFile ./init.vim)
-    ];
+    configure = {
+      customRC = (builtins.readFile ./init.vim);
+      packages.myVimPackage.start = with pkgs.vimPlugins; [
+        ale
+        colorizer
+        ferret
+        float-preview-nvim # ncm2 preview
+        fzf-vim
+        fzfWrapper
+        ghcid
+        gitgutter
+        goyo-vim
+        LanguageClient-neovim
+        mycolors
+        ncm2
+        ncm2-bufword
+        ncm2-path
+        ncm2-syntax # uses neco-syntax
+        ncm2-tmux
+        ncm2-vim # uses neco-vim
+        neco-syntax # provides syntax completion function
+        neco-vim # provides vim completion function
+        neoformat
+        nvim-yarp # remote plugin manager for ncm2
+        rhubarb # github provider for fugitive
+        tabular
+        tmux-navigator
+        vim-abolish
+        vim-clojure-static
+        vim-commentary
+        vim-cool # manages search highlight
+        vim-dirvish # simple directory viewer
+        vim-fugitive
+        vim-gol
+        vim-iced
+        vim-iced-ncm2
+        vim-indent-object
+        vim-markdown
+        vim-polyglot
+        vim-projectionist
+        vim-repeat
+        vim-rest-console
+        vim-sexp
+        vim-sexp-mappings-for-regular-people
+        vim-surround
+        vim-unimpaired
+        vimux
+        wiki-vim
+      ];
+    };
   };
 
   home.packages = with pkgs; [
