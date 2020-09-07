@@ -1,6 +1,14 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
-  fd-flags = ''--hidden --no-ignore --exclude ".git" --exclude "build" --exclude "target" --exclude "node_modules"'';
+  fd-flags = lib.concatStringsSep " " [
+    "--no-ignore"
+    "--hidden"
+    "--exclude '.git'"
+    "--exclude 'target'"
+    "--exclude 'node_modules'"
+    "--exclude 'build'"
+    "--exclude '.clj-kondo'"
+  ];
 in
 {
   programs.fzf = {
