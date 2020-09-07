@@ -1,28 +1,29 @@
 { pkgs, ... }:
 let
-  wiki-vim = pkgs.vimUtils.buildVimPlugin {
+  wiki-vim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/lervag/wiki.vim";
     pname = "wiki-vim";
-    version = "2020-08-05";
+    version = "2020-08-24";
     src = pkgs.fetchFromGitHub {
-      # https://github.com/lervag/wiki.vim
       owner = "lervag";
       repo = "wiki.vim";
-      rev = "cde315a";
-      sha256 = "04w0b2da9vvdph3k5ja2xad5x13bi9js6nxy1a9k1pyh2z0b5mnr";
+      rev = "c54f917";
+      sha256 = "08gmp6y78jczpa5b2w6f1yj4yw2vna7zajg0cxp5pf5h4g6l3n91";
     };
   };
-  vim-rest-console = pkgs.vimUtils.buildVimPlugin {
+  vim-rest-console = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/diepm/vim-rest-console";
     pname = "vim-rest-console";
-    version = "2020-08-05";
+    version = "2019-03-22";
     src = pkgs.fetchFromGitHub {
-      # https://github.com/diepm/vim-rest-console
       owner = "diepm";
       repo = "vim-rest-console";
       rev = "7b407f4";
       sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj";
     };
   };
-  ncm2-vim = pkgs.vimUtils.buildVimPlugin {
+  ncm2-vim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/ncm2/ncm2-vim";
     pname = "ncm2-vim";
     version = "2018-08-15";
     src = pkgs.fetchFromGitHub {
@@ -32,17 +33,19 @@ let
       sha256 = "0m4rs2bs0j74l7gqyzcdhprvvx2n7hw64bbls877av6kix4azr31";
     };
   };
-  ncm2-syntax = pkgs.vimUtils.buildVimPlugin {
+  ncm2-syntax = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/ncm2/ncm2-syntax";
     pname = "ncm2-syntax";
-    version = "2018-12-11";
+    version = "2020-06-19";
     src = pkgs.fetchFromGitHub {
       owner = "ncm2";
       repo = "ncm2-syntax";
-      rev = "7cd3857001a219be4bc7593b7378034b462415e4";
-      sha256 = "0l36qvsclhg8vr1ix1kpdl0kh739gp6b7s03f18vf9f0aj0im6w2";
+      rev = "d41d60b22175822c14f497378a05398e3eca2517";
+      sha256 = "065sflxr6sp491ifvcf7bzvpn5c47qc0mr091v2p2k73lp9jx2s2";
     };
   };
-  vim-iced-ncm2 = pkgs.vimUtils.buildVimPlugin {
+  vim-iced-ncm2 = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/nbardiuk/vim-iced-ncm2";
     pname = "vim-iced-ncm2";
     version = "2020-01-04";
     src = pkgs.fetchFromGitHub {
@@ -52,21 +55,22 @@ let
       sha256 = "18q5k31qdkl8fb32w68l5d49c3yrcf621za2h3x68yw7p3hpqmqy";
     };
   };
-  vim-iced = pkgs.vimUtils.buildVimPlugin {
+  vim-iced = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/liquidz/vim-iced";
     pname = "vim-iced";
-    version = "2.1.6";
+    version = "2.1.9";
     src = pkgs.fetchFromGitHub {
       owner = "liquidz";
       repo = "vim-iced";
-      rev = "8707a26";
-      sha256 = "0bcixkfsrk697zpjkzx22sxk0jwh9fsagbldbrccpq0aq81rp0v1";
+      rev = "6fefe7f";
+      sha256 = "1rf283p0344by2m600p06wbf21d9ik0gcg9c4w3dic6vchqq438d";
     };
-    buildPhase = ":";
     postInstall=''
       install -Dt $out/bin $out/share/vim-plugins/vim-iced/bin/iced
     '';
   };
-  vim-clojure-static = pkgs.vimUtils.buildVimPlugin {
+  vim-clojure-static = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/nbardiuk/vim-clojure-static";
     pname = "vim-clojure-static";
     version = "2020-01-22";
     src = pkgs.fetchFromGitHub {
@@ -76,7 +80,8 @@ let
       sha256 = "1cw1qzkl97l1ydggx7p0lik53r6yw1z26f2wqalz30y3ym7cpgfs";
     };
   };
-  mycolors = pkgs.vimUtils.buildVimPlugin {
+  mycolors = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/nbardiuk/vim-colors";
     pname = "vim-colors";
     version = "2020-05-30";
     src = pkgs.fetchFromGitHub {
@@ -86,7 +91,8 @@ let
       sha256 = "10qlf15ani476fdwyaf11y2ddrdil4jizqi2i92bhad1mahb7sac";
     };
   };
-  vim-gol = pkgs.vimUtils.buildVimPlugin {
+  vim-gol = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/nbardiuk/vim-gol";
     pname = "vim-gol";
     version = "2020-05-17";
     src = pkgs.fetchFromGitHub {
@@ -96,16 +102,16 @@ let
       sha256 = "0bpm54857x6ls2kdjblf23lgskhychhcqvm5v39v62jr0il6pj4h";
     };
   };
-  colorizer = pkgs.vimUtils.buildVimPlugin {
+  colorizer = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/chrisbra/colorizer";
     pname = "colorizer";
-    version = "2020-05-03";
+    version = "2020-05-29";
     src = pkgs.fetchFromGitHub {
       owner = "chrisbra";
       repo = "colorizer";
-      rev = "61b652b";
-      sha256 = "1nhplyissw6g38mpcc4jghdq6rcc1cmq5rmc58gkfvc12qzhrlvp";
+      rev = "879e6c69c0c02c4ef0f08b3955c60de16efd8fb8";
+      sha256 = "1wbmd9qyb4qsqdmd4dqnfi5jn44scv1pgacr56sy7dagx2iz5zj6";
     };
-    buildPhase = ":";
   };
   loadPlugin = plugin: ''
     set rtp^=${plugin.rtp}
