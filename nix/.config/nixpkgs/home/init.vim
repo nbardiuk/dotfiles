@@ -24,6 +24,9 @@ nnoremap <leader>la :call LanguageClient_textDocument_codeAction()<CR>
 
 " Projectionist {{{
 let g:projectionist_heuristics = {}
+nnoremap <leader>aa :A<CR>
+nnoremap <leader>av :AV<CR><C-W><C-W>
+nnoremap <leader>as :AS<CR><C-W><C-W>
 " }}}
 
 " Ale {{{
@@ -57,6 +60,7 @@ endif
 let g:loaded_python_provider = 0 | " disable Python 2 support
 
 set shortmess+=I            | " don't give the intro message
+set shortmess+=W            | " don't give 'written' when writing a file
 
 set scrolloff=5             | " minimal number of lines around cursor
 set sidescrolloff=5         | " minimal number of chars around cursor
@@ -66,8 +70,6 @@ let mapleader="\<Space>"
 set hidden                  | " allows to switch a buffer with unsaved changes
 
 set guicursor=a:blinkon0    | " Disable cursor blink in all modes
-set signcolumn=yes:1        | " Always show, width 1
-
 set mouse=a                 | " Enable mouse in all modes
 set mousemodel=popup_setpos | " make mouse behave like in GUI app
 
@@ -79,6 +81,7 @@ set matchpairs+=<:>         | " Characters that form pairs
 
 set nojoinspaces            | " Insert only one space between joined lines
 
+set signcolumn=yes:1        | " Always show, width 1
 set nonumber                | " no line numbers
 set norelativenumber        | " not even relative
 
@@ -108,10 +111,6 @@ set showbreak=↳\                           | " a soft wrap break symbol
 
 set shell=~/.nix-profile/bin/zsh
 
-" {{{ Surround
-let g:surround_{char2nr("\<CR>")}="\n\r\n" | " surround with new lines on Enter
-" }}}
-
 " {{{ Panes
 augroup panes
   autocmd!
@@ -140,18 +139,18 @@ endfor
 " }}}
 
 " Text Formatting {{{
-set nowrap         " Don't soft wrap lines
-set linebreak      " break lines at convenient points
-set textwidth=79   " where to break a line
+set nowrap      | " Don't soft wrap lines
+set nolinebreak | " do not break lines at convenient points
+set textwidth=0 | " do not break lines
 
-" c - auto-wrap comments (not code)
-" j - join comment lines
-" l - does not break existing long line in insert mode
-" n - recognize number list
-" o - auto add comment prefix on 'O'
-" q - format comments using gq
-" r - auto add comment prefix on Enter
-set formatoptions=cjlnoqr
+set formatoptions=
+set formatoptions+=c | " auto-wrap comments (not code)
+set formatoptions+=j | " join comment lines
+set formatoptions+=l | " does not break existing long line in insert mode
+set formatoptions+=n | " recognize number list
+set formatoptions+=o | " auto add comment prefix on 'O'
+set formatoptions+=q | " format comments using gq
+set formatoptions+=r | " auto add comment prefix on Enter
 " }}}
 
 " Theme {{{
@@ -165,16 +164,16 @@ set noruler         | " line and column number of the cursor position
 set laststatus=2    | " 2 - allways show status line
 set noshowmode      | " dissable mode message
 set title           | " update window title
-set titlestring=%f  | " file name
+set titlestring=%f  | " file name in title
 " }}}
 
 " Folding {{{
 set foldmethod=syntax
 set foldenable         | " enable folding
-set foldlevelstart=99  | " but do not fold by default
+set foldlevelstart=999 | " all folds are open
 
 " toggle current fold
-nnoremap <tab> za
+nnoremap <tab> zA
 " }}}
 
 " Swap Undo {{{
@@ -184,6 +183,7 @@ set nowritebackup
 
 " Keep undo history across sessions, by storing in file.
 set undofile
+set undolevels=10000
 
 augroup autosave
   autocmd!
@@ -233,6 +233,9 @@ set smartcase  " ...unless we type a capital
 " search in project files with selected text
 vnoremap <silent> <Leader>f :<c-u>call <SID>run_interact("Rg")<CR>
 nnoremap <silent> <Leader>f :Rg<CR>
+
+" search in current buffer with selected text
+vnoremap / y/<c-r>"<cr>
 
 " search history
 nnoremap q/ :History/<CR>
@@ -296,6 +299,7 @@ nnoremap <silent> <Leader>n :Files<CR>
 vnoremap <silent> <Leader>e :<c-u>call <SID>run_interact("Buffers")<CR>
 nnoremap <silent> <Leader>e :Buffers<CR>
 
+let g:loaded_netrwPlugin = 1
 nnoremap <leader>N :Dirvish<CR>
 let g:dirvish_mode=':sort ,^.*[\/],'
 
@@ -370,10 +374,6 @@ function! s:toggle_diff_whitespace()
   endif
 endfunction
 
-nmap <Leader>dsd :vnew +set\ ft=diff \| :setlocal buftype=nofile \| :r !git secret changes<CR>
-nmap <Leader>dsh :!git secret hide
-nmap <Leader>dsr :!git secret reveal -f
-
 augroup git_bindings
   autocmd!
   autocmd FileType git setlocal foldenable
@@ -401,7 +401,7 @@ augroup json_bindings
   autocmd FileType json nnoremap <buffer> <leader>lf :ALEFix<CR>
 augroup END
 let g:ale_fixers.json = ['jq']
-let g:ale_json_jq_options = '--monochrome-output --indent 2 --sort-keys'
+let g:ale_json_jq_options = '--monochrome-output --indent 2'
 " }}}
 
 " XML {{{
@@ -411,6 +411,7 @@ augroup xml_bindings
 augroup END
 let g:ale_fixers.xml = ['xmllint']
 let g:ale_linters.xml = ['xmllint']
+let g:ale_xml_xmllint_options = '--format --nonet --recover -'
 " }}}
 
 " SQL {{{
@@ -580,6 +581,9 @@ function! s:sexp_mappings() abort
 
   nmap <buffer> doe <Plug>(sexp_raise_element)
   nmap <buffer> dof <Plug>(sexp_raise_list)
+
+  " widens scope of parent expression
+  nmap <buffer> yc <Plug>(sexp_convolute)
 
   " emulate text object for pair of elements
   " i.e. key/value binding/expr test/expr
@@ -791,7 +795,8 @@ function! s:toggle_debug() abort
 endfunction
 
 function! s:request() abort
-  let b:vrc_output_buffer_name = escape(getline('.'), '"') . ' [' . expand('%:t') . ' @ ' . strftime('%H:%M:%S') . ']'
+  let b:vrc_output_buffer_name = escape(getline('.'), '"') 
+              \. ' [' . expand('%:t') . ' @ ' . strftime('%H:%M:%S') . ']'
   call VrcQuery()
 endfunction
 
