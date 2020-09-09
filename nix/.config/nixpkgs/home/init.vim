@@ -1,8 +1,13 @@
 scriptencoding utf-8
 
+" Help {{{
+
 " Fat finger escape |map-modes|
 noremap <F1> <ESC>
 noremap! <F1> <ESC>
+
+noremap <leader>k :Helptags<CR>
+"}}}
 
 " LSP {{{
 " Specify whether to use virtual text to display diagnostics.
