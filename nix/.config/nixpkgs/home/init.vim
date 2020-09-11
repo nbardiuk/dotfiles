@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 " run interactive command with selection
-function! s:run_interact(command)
+function! s:run_interact(command) abort
   " copy last selection into register r
   execute 'normal! gv"ry'
 
@@ -386,7 +386,7 @@ nmap yoh :GitGutterSignsToggle<CR>
 set diffopt+=indent-heuristic,internal,algorithm:histogram
 
 nmap <Leader>dw :call <SID>toggle_diff_whitespace()<CR>
-function! s:toggle_diff_whitespace()
+function! s:toggle_diff_whitespace() abort
   if &diffopt =~? 'iwhite'
     setlocal diffopt-=iwhite
   else
@@ -699,14 +699,14 @@ let g:projectionist_heuristics['project.clj|deps.edn'] =
 " }}}
 
 " Whiteroom {{{
-function! s:goyo_enter()
+function! s:goyo_enter() abort
   ALEDisableBuffer
   setlocal nospell
   call ncm2#disable_for_buffer()
   setlocal wrap
 endfunction
 
-function! s:goyo_leave()
+function! s:goyo_leave() abort
   ALEEnableBuffer
   set spell<
   call ncm2#enable_for_buffer()
