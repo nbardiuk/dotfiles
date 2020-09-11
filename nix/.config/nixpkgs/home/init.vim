@@ -1,5 +1,20 @@
 scriptencoding utf-8
 
+" run interactive command with selection
+function! s:run_interact(command)
+  " copy last selection into register r
+  execute 'normal! gv"ry'
+
+  " copy last selection into search register
+  let @/ = @r
+
+  " start interactive command
+  execute 'normal :' . a:command . " \<CR>"
+
+  " enter the selection into prompt
+  call feedkeys(substitute(@r, "\n$", '', ''))
+endfunction
+
 " Help {{{
 
 " Fat finger escape |map-modes|
@@ -7,6 +22,7 @@ noremap <F1> <ESC>
 noremap! <F1> <ESC>
 
 noremap <leader>k :Helptags<CR>
+vnoremap <silent> <Leader>k :<c-u>call <SID>run_interact("Helptags")<CR>
 "}}}
 
 " LSP {{{
@@ -262,17 +278,6 @@ nmap <leader>jP :call setreg('e', json_encode(@+))\| normal "eP<CR>
 " yank unescaped java/javascript string
 xmap <leader>jy :<C-U>execute 'normal! gv"ey'\| :call setreg('+', json_decode(@e))<CR>
 
-" run interactive command with selection
-function! s:run_interact(command)
-  " copy last selection into register r
-  execute 'normal! gv"ry'
-
-  " start interactive command
-  execute 'normal :' . a:command . " \<CR>"
-
-  " enter the selection into prompt
-  call feedkeys(substitute(@r, "\n$", '', ''))
-endfunction
 
 let g:FerretMap=0
 nmap <leader>* <Plug>(FerretAckWord)
