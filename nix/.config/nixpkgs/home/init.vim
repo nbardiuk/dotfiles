@@ -41,8 +41,10 @@ nnoremap <leader>la :call LanguageClient_textDocument_codeAction()<CR>
 " Projectionist {{{
 let g:projectionist_heuristics = {}
 nnoremap <leader>aa :A<CR>
-nnoremap <leader>av :AV<CR><C-W><C-W>
-nnoremap <leader>as :AS<CR><C-W><C-W>
+nnoremap <leader>at :Etest<CR>
+nnoremap <leader>aT :Vtest<CR>
+nnoremap <leader>as :Esource<CR>
+nnoremap <leader>aS :Vsource<CR>
 " }}}
 
 " Ale {{{
