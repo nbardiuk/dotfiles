@@ -54,9 +54,13 @@ let g:ale_linters = { }
 
 " open lint error details
 nnoremap L :ALEDetail<CR>
-
 " toggle linting
-nmap yol :ALEToggleBuffer<CR>
+nnoremap yol :ALEToggleBuffer<CR>
+
+nmap <silent> [W :ALEFirst<CR>
+nmap <silent> [w :ALEPrevious<CR>
+nmap <silent> ]w :ALENext<CR>
+nmap <silent> ]W :ALELast<CR>
 " }}}
 
 " Terminal {{{
