@@ -204,7 +204,7 @@ set foldenable         | " enable folding
 set foldlevelstart=999 | " all folds are open
 
 " toggle current fold
-nnoremap <tab> zA
+nnoremap <tab> za
 " }}}
 
 " Swap Undo {{{
