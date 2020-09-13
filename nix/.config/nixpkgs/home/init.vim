@@ -1,5 +1,7 @@
 scriptencoding utf-8
 
+let mapleader="\<Space>"
+
 " run interactive command with selection
 function! s:run_interact(command) abort
   " copy last selection into register r
@@ -88,7 +90,6 @@ set scrolloff=5             | " minimal number of lines around cursor
 set sidescrolloff=5         | " minimal number of chars around cursor
 set nostartofline           | " keep cursor on the same offset when paging
 
-let mapleader="\<Space>"
 set hidden                  | " allows to switch a buffer with unsaved changes
 
 set guicursor=a:blinkon0    | " Disable cursor blink in all modes
