@@ -21,8 +21,8 @@ endfunction
 noremap <F1> <ESC>
 noremap! <F1> <ESC>
 
-noremap <leader>k :Helptags<CR>
-vnoremap <silent> <Leader>k :<c-u>call <SID>run_interact("Helptags")<CR>
+nnoremap <silent> <leader>k :Helptags<CR>
+vnoremap <silent> <leader>k :<c-u>call <SID>run_interact("Helptags")<CR>
 "}}}
 
 " LSP {{{
@@ -272,7 +272,8 @@ vnoremap <silent> <Leader>f :<c-u>call <SID>run_interact("Rg")<CR>
 nnoremap <silent> <Leader>f :Rg<CR>
 
 " search in current buffer with selected text
-vnoremap / y/<c-r>"<cr>
+vnoremap / y/\V<c-r>"<cr>
+nnoremap / /\v
 
 " search history
 nnoremap q/ :History/<CR>
