@@ -55,15 +55,15 @@ let
       sha256 = "18q5k31qdkl8fb32w68l5d49c3yrcf621za2h3x68yw7p3hpqmqy";
     };
   };
-  vim-iced = pkgs.vimUtils.buildVimPluginFrom2Nix {
+  vim-iced = pkgs.vimUtils.buildVimPluginFrom2Nix rec{
     meta.homepage = "https://github.com/liquidz/vim-iced";
     pname = "vim-iced";
-    version = "2.1.9";
+    version = "2.2.0";
     src = pkgs.fetchFromGitHub {
       owner = "liquidz";
       repo = "vim-iced";
-      rev = "6fefe7f";
-      sha256 = "1rf283p0344by2m600p06wbf21d9ik0gcg9c4w3dic6vchqq438d";
+      rev = version;
+      sha256 = "1ylzgpdf3jcrs7x3d4xxk5rjyk6kbysx431hbd2bkff0vdm8kwf4";
     };
     postInstall = ''
       install -Dt $out/bin $out/share/vim-plugins/vim-iced/bin/iced
