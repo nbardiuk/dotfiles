@@ -678,6 +678,10 @@ let g:iced#buffer#stdout#mods = 'botright'
 " it requires jet
 let g:iced_enable_enhanced_definition_extraction = v:false
 
+" use clojure syntax for indentation
+let g:iced_enable_auto_indent = v:false
+let g:clojure_fuzzy_indent = v:true
+
 let extra_macros = ['Given', 'When', 'Then', 'And', 'let-system']
 let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let'] | " Default
 let g:iced#format#rule = {}
