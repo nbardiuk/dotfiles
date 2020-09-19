@@ -126,9 +126,6 @@ nnoremap <silent> [S :<C-U>execute ':setlocal spell'\| normal! [S<CR>
 set wildmode=list:longest,full | " Commands completion
 set wildignorecase             | " case is ignored when completing file names and directories
 
-" commands history
-nnoremap q: :History:<CR>
-
 set list listchars=tab:\▸\ ,trail:·,nbsp:+ | " Display tabs and trailing spaces visually
 set showbreak=↳\                           | " a soft wrap break symbol
 
@@ -275,9 +272,6 @@ nnoremap <silent> <Leader>f :Rg<CR>
 " search in current buffer with selected text
 vnoremap / y/\V<c-r>"<cr>
 nnoremap / /\v
-
-" search history
-nnoremap q/ :History/<CR>
 
 " paste escaped java/javascript string
 nmap <leader>jp :call setreg('e', json_encode(@+))\| normal "ep<CR>
