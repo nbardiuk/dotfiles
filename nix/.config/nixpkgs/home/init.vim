@@ -638,6 +638,7 @@ function! s:clojure_mappings() abort
   nmap      <buffer> <leader>oc <Plug>(iced_stdout_buffer_clear)
   nmap      <buffer> <leader>oq <Plug>(iced_stdout_buffer_close)
   nmap      <buffer> <leader>lf <Plug>(iced_format_all)
+  nmap      <buffer> <leader>lr <Plug>(iced_rename_symbol)
   nnoremap  <buffer> K          :IcedDocumentPopupOpen<CR>
   nnoremap  <buffer> <C-]>      :IcedDefJump<CR>
   nnoremap  <buffer> }          :IcedBrowseReferences<CR>
