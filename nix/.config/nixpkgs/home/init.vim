@@ -159,9 +159,9 @@ endfor
 " }}}
 
 " Text Formatting {{{
-set nowrap      | " Don't soft wrap lines
-set nolinebreak | " do not break lines at convenient points
-set textwidth=0 | " do not break lines
+set wrap        | " soft wrap lines
+set linebreak   | " break lines at convenient points
+set textwidth=0 | " do not break lines while typing
 
 set formatoptions=
 set formatoptions+=c | " auto-wrap comments (not code)
