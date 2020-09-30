@@ -644,6 +644,7 @@ function! s:clojure_mappings() abort
   nnoremap  <buffer> }          :IcedBrowseReferences<CR>
   nnoremap  <buffer> <leader>la :IcedCommandPalette<CR>
   nmap      <buffer> <leader>p  <Plug>(iced_eval_and_print)
+  xmap      <buffer> <leader>p  <Plug>(iced_eval_visual)<Plug>(iced_print_last)
   nmap      <buffer> <leader>pe <Plug>(iced_eval_and_print)<Plug>(sexp_inner_element)
   nmap      <buffer> <leader>pf <Plug>(iced_eval_and_print)<Plug>(sexp_outer_list)
   nmap      <buffer> <leader>pp <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)
