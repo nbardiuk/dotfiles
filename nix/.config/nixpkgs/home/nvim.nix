@@ -3,12 +3,12 @@ let
   wiki-vim = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/lervag/wiki.vim";
     pname = "wiki-vim";
-    version = "2020-08-24";
+    version = "2020-10-01";
     src = pkgs.fetchFromGitHub {
       owner = "lervag";
       repo = "wiki.vim";
-      rev = "c54f917";
-      sha256 = "08gmp6y78jczpa5b2w6f1yj4yw2vna7zajg0cxp5pf5h4g6l3n91";
+      rev = "292d96e";
+      sha256 = "1jp5z61n5k64khwwa3g7l3224bjiwgd6x3jqwmnk41x9vsk0g5l3";
     };
   };
   vim-rest-console = pkgs.vimUtils.buildVimPluginFrom2Nix {
