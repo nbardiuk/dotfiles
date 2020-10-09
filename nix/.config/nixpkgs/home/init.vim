@@ -617,6 +617,15 @@ function! s:sexp_mappings() abort
   xmap <buffer> iP <Plug>(sexp_inner_element)o<Plug>(sexp_move_to_prev_element_head)
   omap <buffer> iP :<C-U>normal viP<CR>
 
+  "  swap pair
+  nmap <buffer> >p vip>eo<Esc>
+  nmap <buffer> <p vip<eo<Esc>
+
+  xmap <buffer> >e <Plug>(sexp_swap_element_forward)
+  xmap <buffer> <e <Plug>(sexp_swap_element_backward)
+  xmap <buffer> >f <Plug>(sexp_swap_list_forward)
+  xmap <buffer> <f <Plug>(sexp_swap_list_backward)
+
 endfunction
 
 augroup more_sexp_mappings
