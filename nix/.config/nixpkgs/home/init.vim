@@ -696,7 +696,7 @@ for macro in extra_macros
 endfor
 let g:clojure_syntax_keywords = {'clojureMacro': extra_macros}
 
-" use my clojure syntax fork
+" use clojure.vim package directly
 let g:polyglot_disabled = ['clojure']
 
 let g:projectionist_heuristics['project.clj|deps.edn'] =
