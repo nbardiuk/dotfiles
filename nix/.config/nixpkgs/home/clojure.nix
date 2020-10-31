@@ -25,7 +25,6 @@ let
     "refactor-nrepl.middleware/wrap-refactor"
     "iced.nrepl/wrap-iced"
   ];
-  rep = (import (fetchTarball "https://github.com/eraserhd/rep/tarball/develop"));
 in
 {
   # clojure uses jdk11
