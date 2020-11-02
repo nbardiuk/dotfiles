@@ -449,8 +449,7 @@ let g:ale_sql_pgformatter_options = '--spaces 4 --comma-break'
 " JavaScript/Typescript {{{
 function! s:typescript_mappings() abort
   nnoremap <buffer> <leader>lf  :ALEFix<CR>
-  nnoremap <buffer> <C-]>       :call LanguageClient_textDocument_definition()<CR>
-  nnoremap <buffer> <C-W><C-]>  :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
+  nnoremap <buffer> gd          :call LanguageClient_textDocument_definition()<CR>
   nnoremap <buffer> <leader>lr  :call LanguageClient_textDocument_rename()<CR>
   nnoremap <buffer> <leader>lt  :call LanguageClient_textDocument_typeDefinition()<CR>
   nnoremap <buffer> }           :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
@@ -491,8 +490,7 @@ augroup END
 function! s:rust_mappings() abort
   nnoremap <buffer> <leader>t   :!time cargo test -q<CR>
   nnoremap <buffer> <leader>lf  :ALEFix<CR>
-  nnoremap <buffer> <C-]>       :call LanguageClient_textDocument_definition()<CR>
-  nnoremap <buffer> <C-W><C-]>  :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
+  nnoremap <buffer> gd          :call LanguageClient_textDocument_definition()<CR>
   nnoremap <buffer> <leader>lr  :call LanguageClient_textDocument_rename()<CR>
   nnoremap <buffer> }           :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
   nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
@@ -514,8 +512,7 @@ let g:LanguageClient_rootMarkers.python = ['requirements.txt', 'setup.py']
 let g:LanguageClient_serverCommands.python = ['pyls']
 function! s:python_mappings() abort
   nnoremap <buffer> <leader>lf  :call LanguageClient_textDocument_formatting()<CR>
-  nnoremap <buffer> <C-]>       :call LanguageClient_textDocument_definition()<CR>
-  nnoremap <buffer> <C-W><C-]>  :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
+  nnoremap <buffer> gd          :call LanguageClient_textDocument_definition()<CR>
   nnoremap <buffer> <leader>lr  :call LanguageClient_textDocument_rename()<CR>
   nnoremap <buffer> }           :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
   nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
@@ -536,8 +533,7 @@ let g:neoformat_enabled_haskell = ['hindent', 'stylish-haskell']
 function! s:haskell_mappings() abort
   nnoremap <buffer> <leader>lf  :Neoformat<CR>
   nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
-  nnoremap <buffer> <C-]>       :call LanguageClient_textDocument_definition()<CR>
-  nnoremap <buffer> <C-W><C-]>  :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
+  nnoremap <buffer> gd          :call LanguageClient_textDocument_definition()<CR>
 endfunction
 augroup haskell_bindings
   autocmd!
@@ -649,7 +645,7 @@ function! s:clojure_mappings() abort
   nmap      <buffer> <leader>lf <Plug>(iced_format_all)
   nmap      <buffer> <leader>lr <Plug>(iced_rename_symbol)
   nnoremap  <buffer> K          :IcedDocumentPopupOpen<CR>
-  nnoremap  <buffer> <C-]>      :IcedDefJump<CR>
+  nnoremap  <buffer> gd         :IcedDefJump<CR>
   nnoremap  <buffer> }          :IcedBrowseReferences<CR>
   nnoremap  <buffer> <leader>la :IcedCommandPalette<CR>
   nmap      <buffer> <leader>p  <Plug>(iced_eval_and_print)
@@ -786,8 +782,7 @@ function! s:c_mappings() abort
   vnoremap <buffer> =           :call LanguageClient_textDocument_rangeFormatting()<CR>
   nnoremap <buffer> <leader>lf  :ALEFix<CR>
   nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
-  nnoremap <buffer> <C-]>       :call LanguageClient_textDocument_definition()<CR>
-  nnoremap <buffer> <C-W><C-]>  :call LanguageClient#textDocument_definition({'gotoCmd': 'vsplit'})<CR>
+  nnoremap <buffer> gd          :call LanguageClient_textDocument_definition()<CR>
   nnoremap <buffer> <leader>lr  :call LanguageClient_textDocument_rename()<CR>
   nnoremap <buffer> }           :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
 endfunction
