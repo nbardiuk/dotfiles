@@ -196,6 +196,9 @@ set foldmethod=syntax
 set foldenable         | " enable folding
 set foldlevelstart=0   | " all folds are close
 
+set fillchars=fold:‧
+let g:crease_foldtext = { 'default': '%t %= %l lines %f%f' }
+
 " toggle current fold
 nnoremap <BS> za
 
@@ -543,6 +546,7 @@ let g:wiki_mappings_local['<plug>(wiki-link-toggle)']='<leader>w_disable'
 let g:wiki_mappings_local['<plug>(wiki-journal-copy-tonext)']='<leader>w_disable'
 let g:wiki_mappings_local['<plug>(wiki-page-toc)']='<leader>w_disable'
 let g:wiki_mappings_local['<plug>(wiki-link-next)']='<leader>w_disable'
+let g:wiki_mappings_local['<plug>(wiki-link-return)']='<leader>w_disable'
 
 let g:wiki_mappings_global['<plug>(wiki-open)']='<leader>we'
 let g:wiki_mappings_global['<plug>(wiki-fzf-pages)']='<leader>wn'
@@ -699,6 +703,9 @@ nmap yog :Goyo<CR>
 " Markdown {{{1
 let g:markdown_syntax_conceal=0
 let g:polyglot_disabled = ['markdown'] | " use dedicated plugin
+let g:vim_markdown_folding_style_pythonic = 1
+let g:vim_markdown_folding_level = 0
+let g:vim_markdown_override_foldtext = 0
 
 " Shell {{{1
 augroup sh_bindings

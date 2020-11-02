@@ -124,6 +124,17 @@ let
       sha256 = "019k26g88y713wy3q06sbab82dgcgsj7f08g9xr2z2xsjmijp8g4";
     };
   };
+  vim-crease = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/scr1pt0r/crease.vim";
+    pname = "vim-crease";
+    version = "2020-08-03";
+    src = pkgs.fetchFromGitHub {
+      owner = "scr1pt0r";
+      repo = "crease.vim";
+      rev = "b2e5b43b7faad17c0497ea5b6a4a9d732a227eb1";
+      sha256 = "1yg0p58ajd9xf00sr1y9sjy3nxim8af96svrcsy4yn7xbwk24xgm";
+    };
+  };
 in
 {
   programs.neovim = {
@@ -165,6 +176,7 @@ in
         vim-clojure
         vim-commentary
         vim-cool # manages search highlight
+        vim-crease
         vim-dadbod
         vim-dirvish # simple directory viewer
         vim-fugitive
