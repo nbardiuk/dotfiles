@@ -194,10 +194,10 @@ set titlestring=%f  | " file name in title
 " Folding {{{1
 set foldmethod=syntax
 set foldenable         | " enable folding
-set foldlevelstart=999 | " all folds are open
+set foldlevelstart=0   | " all folds are close
 
 " toggle current fold
-nnoremap <tab> za
+nnoremap <BS> za
 
 " Swap Undo {{{1
 set noswapfile
@@ -375,12 +375,6 @@ function! s:toggle_diff_whitespace() abort
     setlocal diffopt+=iwhite
   endif
 endfunction
-
-augroup git_bindings
-  autocmd!
-  autocmd FileType git setlocal foldenable
-  autocmd FileType git setlocal foldlevelstart=0
-augroup END
 
 " BAG {{{1
 " switch word case
@@ -705,12 +699,6 @@ nmap yog :Goyo<CR>
 " Markdown {{{1
 let g:markdown_syntax_conceal=0
 let g:polyglot_disabled = ['markdown'] | " use dedicated plugin
-
-augroup markdown_bindings
-  autocmd!
-  autocmd FileType markdown setlocal foldenable
-  autocmd FileType makrdown setlocal foldlevelstart=0
-augroup END
 
 " Shell {{{1
 augroup sh_bindings
