@@ -17,7 +17,7 @@ function! s:run_interact(command) abort
   call feedkeys(substitute(@r, "\n$", '', ''))
 endfunction
 
-" Help {{{
+" Help {{{1
 
 " Fat finger escape |map-modes|
 noremap <F1> <ESC>
@@ -25,9 +25,8 @@ noremap! <F1> <ESC>
 
 nnoremap <silent> <leader>k :Helptags<CR>
 vnoremap <silent> <leader>k :<c-u>call <SID>run_interact("Helptags")<CR>
-"}}}
 
-" LSP {{{
+" LSP {{{1
 " Specify whether to use virtual text to display diagnostics.
 let g:LanguageClient_useVirtualText = 'CodeLens'
 let g:LanguageClient_diagnosticsEnable = 0
@@ -38,18 +37,16 @@ let g:LanguageClient_serverCommands = { }
 " Common LSP bindings
 nnoremap <leader>lc :call LanguageClient_contextMenu()<CR>
 nnoremap <leader>la :call LanguageClient_textDocument_codeAction()<CR>
-" }}}
 
-" Projectionist {{{
+" Projectionist {{{1
 let g:projectionist_heuristics = {}
 nnoremap <leader>aa :A<CR>
 nnoremap <leader>at :Etest<CR>
 nnoremap <leader>aT :Vtest<CR>
 nnoremap <leader>as :Esource<CR>
 nnoremap <leader>aS :Vsource<CR>
-" }}}
 
-" Ale {{{
+" Ale {{{1
 let g:ale_fixers = { }
 let g:ale_fixers['*'] = ['remove_trailing_lines', 'trim_whitespace']
 let g:ale_linters = { }
@@ -63,9 +60,8 @@ nmap <silent> [W :ALEFirst<CR>
 nmap <silent> [w :ALEPrevious<CR>
 nmap <silent> ]w :ALENext<CR>
 nmap <silent> ]W :ALELast<CR>
-" }}}
 
-" Terminal {{{
+" Terminal {{{1
 if has('nvim')
 
   " use Esc to exit terminal mode
@@ -78,7 +74,6 @@ if has('nvim')
   highlight! TermCursorNC guibg=red guifg=white ctermbg=1 ctermfg=15
 
 endif
-" }}}
 
 
 let g:loaded_python_provider = 0 | " disable Python 2 support
@@ -111,7 +106,7 @@ set norelativenumber        | " not even relative
 set colorcolumn=100         | " visual vertical line
 
 
-" {{{ Spelling
+" Spelling {{{1
 set spelllang=en_us  | " spell check
 set nospell          | " disabled by default
 set spellsuggest+=10 | " limit spell suggestions list
@@ -121,7 +116,6 @@ nnoremap <silent> ]s :<C-U>execute ':setlocal spell'\| normal! ]s<CR>
 nnoremap <silent> ]S :<C-U>execute ':setlocal spell'\| normal! ]S<CR>
 nnoremap <silent> [s :<C-U>execute ':setlocal spell'\| normal! [s<CR>
 nnoremap <silent> [S :<C-U>execute ':setlocal spell'\| normal! [S<CR>
-" }}}
 
 set wildmode=list:longest,full | " Commands completion
 set wildignorecase             | " case is ignored when completing file names and directories
@@ -131,7 +125,7 @@ set showbreak=↳\                           | " a soft wrap break symbol
 
 set shell=~/.nix-profile/bin/zsh
 
-" {{{ Panes
+" {{{1 Panes
 augroup panes
   autocmd!
   " automatically rebalance windows on vim resize
@@ -146,9 +140,8 @@ set winwidth=80     " minimal width of active window
 set winminwidth=10  " minimal width of inactive window
 set winheight=50    " minimal height of active window
 set winminheight=10 " minimal height of inactive window
-" }}}
 
-" Tabs {{{
+" Tabs {{{1
 nnoremap <Leader>tt :tab split<CR>
 nnoremap <Leader>tc :tabclose<CR>
 nnoremap <Leader>tn :$tabnew<CR>
@@ -156,9 +149,8 @@ nnoremap <Leader>to :tabonly<CR>
 for tab in range(1, 9)
   execute 'nnoremap <silent> <Leader>' . tab . ' :' . tab . 'tabnext<CR>'
 endfor
-" }}}
 
-" Text Formatting {{{
+" Text Formatting {{{1
 set wrap        | " soft wrap lines
 set linebreak   | " break lines at convenient points
 set textwidth=0 | " do not break lines while typing
@@ -171,9 +163,8 @@ set formatoptions+=n | " recognize number list
 set formatoptions+=o | " auto add comment prefix on 'O'
 set formatoptions+=q | " format comments using gq
 set formatoptions+=r | " auto add comment prefix on Enter
-" }}}
 
-" Theme {{{
+" Theme {{{1
 set background=light
 set termguicolors
 colorscheme mycolors
@@ -192,26 +183,23 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
-" }}}
 
-" Status line {{{
+" Status line {{{1
 set noruler         | " line and column number of the cursor position
 set laststatus=2    | " 2 - allways show status line
 set noshowmode      | " dissable mode message
 set title           | " update window title
 set titlestring=%f  | " file name in title
-" }}}
 
-" Folding {{{
+" Folding {{{1
 set foldmethod=syntax
 set foldenable         | " enable folding
 set foldlevelstart=999 | " all folds are open
 
 " toggle current fold
 nnoremap <tab> za
-" }}}
 
-" Swap Undo {{{
+" Swap Undo {{{1
 set noswapfile
 set nobackup
 set nowritebackup
@@ -234,25 +222,22 @@ augroup autosave
         \ |   exe "normal! g`\""
         \ | endif
 augroup END
-" }}}
 
-" Indentation {{{
+" Indentation {{{1
 set smartindent
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 set expandtab
-" }}}
 
-" VimL {{{
+" VimL {{{1
 augroup viml_settings
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
   autocmd FileType vim setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 augroup END
-" }}}
 
-" Search and Substitute {{{
+" Search and Substitute {{{1
 
 " Shows the effects of a command incrementally, as you type.
 " Works for |:substitute|, |:smagic|, |:snomagic|. |hl-Substitute|
@@ -304,9 +289,8 @@ let g:FerretExecutableArguments = {
             \ --glob=!.clj-kondo
             \'
   \ }
-" }}}
 
-" Files navigation {{{
+" Files navigation {{{1
 
 " 'path'
 set path=
@@ -329,9 +313,8 @@ let g:dirvish_mode=':sort ,^.*[\/],'
 nnoremap <leader>x :bd!<cr>
 " unload all buffers
 nnoremap <leader>X :%bd!<cr>
-" }}}
 
-" Completion {{{
+" Completion {{{1
 set complete-=t | " i don't use tags
 set completeopt=menuone,noinsert,noselect
 augroup completoin
@@ -344,9 +327,8 @@ let g:ncm2#manual_complete_length=[[1,1]]
 let g:ncm2#total_popup_limit=20
 set shortmess+=c  | " turn off completion messages
 let g:float_preview#docked = 0
-" }}}
 
-" Neoformat {{{
+" Neoformat {{{1
 
 " Enable tab to spaces conversion globally
 let g:neoformat_basic_format_retab = 1
@@ -357,9 +339,7 @@ let g:neoformat_basic_format_trim = 1
 " Run all enabled formatters (by default Neoformat stops after the first formatter succeeds)
 let g:neoformat_run_all_formatters = 1
 
-" }}}
-
-" Git {{{
+" Git {{{1
 
 " [[B]Commits] Customize the options used by 'git log':
 let g:fzf_commits_log_options =
@@ -401,9 +381,8 @@ augroup git_bindings
   autocmd FileType git setlocal foldenable
   autocmd FileType git setlocal foldlevelstart=0
 augroup END
-" }}}
 
-" BAG {{{
+" BAG {{{1
 " switch word case
 inoremap <c-u> <esc>g~iw`]a
 
@@ -415,18 +394,16 @@ nnoremap <leader>vs :source ~/.config/nixpkgs/home/init.vim<cr>
 
 " always type wrong letter
 cabbrev W w
-" }}}
 
-" Json {{{
+" Json {{{1
 augroup json_bindings
   autocmd!
   autocmd FileType json nnoremap <buffer> <leader>lf :ALEFix<CR>
 augroup END
 let g:ale_fixers.json = ['jq']
 let g:ale_json_jq_options = '--monochrome-output --indent 2'
-" }}}
 
-" XML {{{
+" XML {{{1
 augroup xml_bindings
   autocmd!
   autocmd FileType xml nnoremap <buffer> <leader>lf :ALEFix<CR>
@@ -434,9 +411,8 @@ augroup END
 let g:ale_fixers.xml = ['xmllint']
 let g:ale_linters.xml = ['xmllint']
 let g:ale_xml_xmllint_options = '--format --nonet --recover -'
-" }}}
 
-" SQL {{{
+" SQL {{{1
 augroup sql_bindings
   autocmd!
   autocmd FileType sql nnoremap <buffer> <leader>lf :ALEFix<CR>
@@ -444,9 +420,8 @@ augroup END
 let g:ale_fixers.sql = ['pgformatter']
 let g:ale_linters.sql = ['sqlint']
 let g:ale_sql_pgformatter_options = '--spaces 4 --comma-break'
-" }}}
 
-" JavaScript/Typescript {{{
+" JavaScript/Typescript {{{1
 function! s:typescript_mappings() abort
   nnoremap <buffer> <leader>lf  :ALEFix<CR>
   nnoremap <buffer> gd          :call LanguageClient_textDocument_definition()<CR>
@@ -473,9 +448,8 @@ let g:LanguageClient_serverCommands.javascript = ['typescript-language-server', 
 let g:LanguageClient_serverCommands.typescript = ['typescript-language-server', '--stdio']
 let g:LanguageClient_serverCommands.javascriptreact = ['typescript-language-server', '--stdio']
 let g:LanguageClient_serverCommands.typescriptreact = ['typescript-language-server', '--stdio']
-" }}}
 
-" CSS/SASS {{{
+" CSS/SASS {{{1
 let g:ale_linters.scss = ['stylelint']
 let g:ale_linters.css = ['stylelint']
 let g:ale_fixers.scss = ['prettier', 'stylelint']
@@ -484,9 +458,8 @@ augroup css_bindings
   autocmd!
   autocmd FileType css,scss nnoremap <buffer> <leader>lf :ALEFix<CR>
 augroup END
-" }}}
 
-" Rust {{{
+" Rust {{{1
 function! s:rust_mappings() abort
   nnoremap <buffer> <leader>t   :!time cargo test -q<CR>
   nnoremap <buffer> <leader>lf  :ALEFix<CR>
@@ -505,9 +478,8 @@ let g:ale_fixers.rust = ['rustfmt']
 let g:ale_linters.rust = ['cargo']
 let g:ale_rust_cargo_use_clippy = 1
 let g:ale_rust_cargo_check_all_targets = 1
-" }}}
 
-" Python {{{
+" Python {{{1
 let g:LanguageClient_rootMarkers.python = ['requirements.txt', 'setup.py']
 let g:LanguageClient_serverCommands.python = ['pyls']
 function! s:python_mappings() abort
@@ -522,9 +494,8 @@ augroup python_bindings
   autocmd!
   autocmd FileType python call s:python_mappings()
 augroup END
-" }}}
 
-" Haskell {{{
+" Haskell {{{1
 let g:LanguageClient_rootMarkers.haskell = ['*.cabal', 'stack.yaml']
 let g:LanguageClient_serverCommands.haskell = ['ghcide', '--lsp']
 
@@ -539,9 +510,8 @@ augroup haskell_bindings
   autocmd!
   autocmd FileType haskell call s:haskell_mappings()
 augroup END
-" }}}
 
-" Nix {{{
+" Nix {{{1
 let g:ale_linters.nix = ['nix']
 let g:ale_fixers.nix = ['nixpkgs-fmt']
 
@@ -549,9 +519,8 @@ augroup nix_bindings
   autocmd!
   autocmd FileType nix nnoremap <buffer> <leader>lf :ALEFix<CR>
 augroup END
-" }}}
 
-" Wiki {{{
+" Wiki {{{1
 let g:wiki_root = '~/Notes'
 let g:wiki_filetypes = ['md']
 let g:wiki_link_extension = '.md'
@@ -585,16 +554,14 @@ let g:wiki_mappings_global['<plug>(wiki-open)']='<leader>we'
 let g:wiki_mappings_global['<plug>(wiki-fzf-pages)']='<leader>wn'
 nnoremap <silent> <Leader>wf :WikiGrep<CR>
 nnoremap <silent> <Leader>wt :WikiFzfTags<CR>
-" }}}
 
-" Date Time snippets {{{
+" Date Time snippets {{{1
 let time_format='%H:%M:%S'
 let date_format='%Y-%m-%d'
 nnoremap <leader>dt a<C-R>=strftime(time_format)<CR><Esc>
 nnoremap <leader>dd a<C-R>=strftime(date_format)<CR><Esc>
-" }}}
 
-" sexp {{{
+" sexp {{{1
 function! s:sexp_mappings() abort
 
   nmap <buffer> doe <Plug>(sexp_raise_element)
@@ -628,9 +595,8 @@ augroup more_sexp_mappings
   autocmd!
   execute 'autocmd FileType' get(g:, 'sexp_filetypes', 'lisp,scheme,clojure') 'call s:sexp_mappings()'
 augroup END
-" }}}
 
-" Clojure {{{
+" Clojure {{{1
 function! s:clojure_mappings() abort
   xmap      <buffer> gC         S<C-F>comment<CR> | " wrap selection in (comment ) macro
   nmap      <buffer> gce        vieo<Esc>i#_<Esc> | " prepend #_ reader macro to element
@@ -709,9 +675,8 @@ let g:projectionist_heuristics['project.clj|deps.edn'] =
       \     'alternate': 'src/{}.clj',
       \   }
       \ }
-" }}}
 
-" Whiteroom {{{
+" Whiteroom {{{1
 function! s:goyo_enter() abort
   ALEDisableBuffer
   setlocal nospell
@@ -736,9 +701,8 @@ let g:goyo_height='100%'
 
 " toggle whiteroom
 nmap yog :Goyo<CR>
-" }}}
 
-" Markdown {{{
+" Markdown {{{1
 let g:markdown_syntax_conceal=0
 let g:polyglot_disabled = ['markdown'] | " use dedicated plugin
 
@@ -747,9 +711,8 @@ augroup markdown_bindings
   autocmd FileType markdown setlocal foldenable
   autocmd FileType makrdown setlocal foldlevelstart=0
 augroup END
-" }}}
 
-" Shell {{{
+" Shell {{{1
 augroup sh_bindings
   autocmd!
   autocmd FileType sh nnoremap <buffer> <leader>lf :ALEFix<CR>
@@ -757,17 +720,15 @@ augroup END
 let g:ale_linters.sh = ['shellcheck']
 let g:ale_fixers.sh = ['shfmt']
 let g:ale_sh_shfmt_options = '-i=2 -sr'
-" }}}
 
-" Tmux {{{
+" Tmux {{{1
 let g:VimuxOrientation = 'h'
 nmap <Leader>vi :VimuxInspectRunner<CR>
 nmap <Leader>vv :VimuxRunLastCommand<CR>
 nmap <Leader>vz :VimuxZoomRunner<CR>
 xmap <Leader>v  "vy :call VimuxSendText(@v)\| call VimuxSendKeys("Enter")<CR>
-" }}}
 
-" C {{{
+" C {{{1
 " more configuration options https://github.com/MaskRay/ccls/wiki/LanguageClient-neovim
 let g:LanguageClient_serverCommands.c =
       \[ 'ccls'
@@ -791,9 +752,8 @@ augroup c_bindings
   autocmd FileType c call s:c_mappings()
   autocmd FileType c setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 augroup END
-" }}}
 
-" Curl {{{
+" Curl {{{1
 let g:vrc_curl_opts = {
   \ '--silent': '',
   \ '--show-error': '',
@@ -839,9 +799,8 @@ augroup curl_bindings
   autocmd FileType rest nnoremap <buffer> <leader>cs :call <SID>toggle_split_body()<CR>
   autocmd FileType rest nnoremap <buffer> <leader>cd :call <SID>toggle_debug()<CR>
 augroup END
-" }}}
 
-" DB {{{
+" DB {{{1
 augroup db_bindings
   autocmd!
   " select connection under the cursor
@@ -877,4 +836,3 @@ augroup db_bindings
   " help for word under cursor
   autocmd FileType sql nnoremap <buffer> K :DB \h <C-R><C-W>
 augroup END
-" }}}
