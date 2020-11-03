@@ -193,8 +193,8 @@ set titlestring=%f  | " file name in title
 
 " Folding {{{1
 set foldmethod=syntax
-set foldenable         | " enable folding
-set foldlevelstart=0   | " all folds are close
+set foldenable          | " enable folding
+set foldlevelstart=999  | " all folds are open
 
 set fillchars=fold:‧
 let g:crease_foldtext = { 'default': '%t %= %l lines %f%f' }
@@ -237,6 +237,7 @@ set expandtab
 augroup viml_settings
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
+  autocmd FileType vim setlocal foldlevel=0
   autocmd FileType vim setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 augroup END
 
@@ -706,6 +707,11 @@ let g:polyglot_disabled = ['markdown'] | " use dedicated plugin
 let g:vim_markdown_folding_style_pythonic = 1
 let g:vim_markdown_folding_level = 0
 let g:vim_markdown_override_foldtext = 0
+
+augroup markdown_bindings
+  autocmd!
+  autocmd FileType markdown setlocal foldlevel=0
+augroup END
 
 " Shell {{{1
 augroup sh_bindings
