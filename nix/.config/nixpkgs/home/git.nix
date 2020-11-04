@@ -25,17 +25,24 @@ in {
       ".envrc"
     ];
     extraConfig = {
+      checkout.defaultRemote = "origin";
       code.editor = "nvim";
-      diff.tool = "vdiff";
+      commit.template = "${config.xdg.configHome}/${commit}";
       diff.algorithm = "histogram";
-      "difftool \"vdiff\"".cmd = "nvim -d $LOCAL $REMOTE";
+      diff.tool = "vdiff";
       difftool.promt = true;
+      "difftool \"vdiff\"".cmd = "nvim -d $LOCAL $REMOTE";
+      fetch.prune = true;
+      fetch.pruneTags = true;
+      merge.autoStash = true;
+      merge.stat = true;
       merge.tool = "vmerge";
       "mergetool \"vmerge\"".cmd = "nvim -d $LOCAL $REMOTE $MERGED -c 'wincmd w' -c 'wincmd J'";
       mergetool.promt = true;
       pull.rebase = true;
       rebase.autoStash = true;
-      commit.template = "${config.xdg.configHome}/${commit}";
+      rebase.stat = true;
+      remote.defaultPush = "origin";
     };
   };
 
