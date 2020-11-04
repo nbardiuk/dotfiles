@@ -393,6 +393,9 @@ nnoremap <leader>vs :source ~/.config/nixpkgs/home/init.vim<cr>
 " always type wrong letter
 cabbrev W w
 
+" create a scratch file with specified suffix in a name
+command! -nargs=? Scr exe 'edit '.tempname().'-'.<q-args>
+
 " Json {{{1
 augroup json_bindings
   autocmd!
