@@ -708,13 +708,7 @@ nmap yog :Goyo<CR>
 let g:markdown_syntax_conceal=0
 let g:polyglot_disabled = ['markdown'] | " use dedicated plugin
 let g:vim_markdown_folding_style_pythonic = 1
-let g:vim_markdown_folding_level = 0
 let g:vim_markdown_override_foldtext = 0
-
-augroup markdown_bindings
-  autocmd!
-  autocmd FileType markdown setlocal foldlevel=0
-augroup END
 
 " Shell {{{1
 augroup sh_bindings
