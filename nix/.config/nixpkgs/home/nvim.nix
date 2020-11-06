@@ -171,6 +171,7 @@ in
         nvim-yarp # remote plugin manager for ncm2
         rhubarb # github provider for fugitive
         tabular
+        targets-vim
         tmux-navigator
         vim-abolish
         vim-clojure
