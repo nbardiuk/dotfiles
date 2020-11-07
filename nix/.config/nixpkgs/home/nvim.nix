@@ -58,12 +58,12 @@ let
   vim-iced = pkgs.vimUtils.buildVimPluginFrom2Nix rec{
     meta.homepage = "https://github.com/liquidz/vim-iced";
     pname = "vim-iced";
-    version = "2.3.1";
+    version = "2.5.0";
     src = pkgs.fetchFromGitHub {
       owner = "liquidz";
       repo = "vim-iced";
       rev = version;
-      sha256 = "1i1x8kqpbbpkvfar379nc72frggc28d2k4qql5nbr4jjjmldirs3";
+      sha256 = "013mf6f6cg2yz6axyss63q5hcp7znlfn5vsjz32rfagi37pfdf37";
     };
     postInstall = ''
       install -Dt $out/bin $out/share/vim-plugins/vim-iced/bin/iced

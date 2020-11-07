@@ -2,9 +2,9 @@
 let
   # https://liquidz.github.io/vim-iced/vim-iced.html#vim-iced-install-manually
   # https://github.com/liquidz/vim-iced/blob/master/bin/iced
-  nrepl = ''"0.8.1"'';
-  iced-nrepl = ''"1.0.5"'';
-  cider-nrepl = ''"0.25.3"'';
+  nrepl = ''"0.8.3"'';
+  iced-nrepl = ''"1.1.0"'';
+  cider-nrepl = ''"0.25.4"'';
   refactor-nrepl = ''"2.5.0"'';
   hashp = ''"0.1.1"'';
   middleware = lib.concatStringsSep "," [
