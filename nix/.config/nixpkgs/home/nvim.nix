@@ -124,17 +124,6 @@ let
       sha256 = "019k26g88y713wy3q06sbab82dgcgsj7f08g9xr2z2xsjmijp8g4";
     };
   };
-  firenvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    meta.homepage = "https://github.com/glacambre/firenvim";
-    pname = "firenvim";
-    version = "2020-11-10";
-    src = pkgs.fetchFromGitHub {
-      owner = "glacambre";
-      repo = "firenvim";
-      rev = "f60bf27";
-      sha256 = "0qsczhcf4ikrnzygg3blsllgx0hzfmmri7k4ix3xm0clbd6y364c";
-    };
-  };
   vim-crease = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/scr1pt0r/crease.vim";
     pname = "vim-crease";
@@ -162,7 +151,6 @@ in
         ale
         colorizer
         ferret
-        firenvim
         float-preview-nvim # ncm2 preview
         fzf-vim
         fzfWrapper
