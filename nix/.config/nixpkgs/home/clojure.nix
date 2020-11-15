@@ -57,12 +57,11 @@ in
   xdg.configFile."clojure/deps.edn".text = ''
     {:aliases
       {:iced
-        {:extra-deps
-          { nrepl {:mvn/version ${nrepl}}
-            iced-nrepl {:mvn/version ${iced-nrepl}}
-            cider/cider-nrepl {:mvn/version ${cider-nrepl}}
-            refactor-nrepl {:mvn/version ${refactor-nrepl}}
-          }
+        {:extra-deps { nrepl/nrepl {:mvn/version ${nrepl}}
+                       iced-nrepl/iced-nrepl {:mvn/version ${iced-nrepl}}
+                       cider/cider-nrepl {:mvn/version ${cider-nrepl}}
+                       refactor-nrepl/refactor-nrepl {:mvn/version ${refactor-nrepl}}
+                       hashp/hashp {:mvn/version ${hashp}}}
          :main-opts ["-m" "nrepl.cmdline" "--middleware" "[${middleware}]"]
         }
       }
