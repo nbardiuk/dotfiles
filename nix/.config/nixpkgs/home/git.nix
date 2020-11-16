@@ -44,9 +44,12 @@ in {
       rebase.stat = true;
       remote.defaultPush = "origin";
       "diff \"clojure\"".xfuncname = "^\\(.*";
+      "diff \"secret\"".textconv = "gpg --no-tty --decrypt --quiet";
+      "diff \"secret\"".cachetextconv = true;
     };
     attributes = [
       "*.clj diff=clojure"
+      "*.secret diff=secret"
     ];
   };
 
