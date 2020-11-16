@@ -43,7 +43,11 @@ in {
       rebase.autoStash = true;
       rebase.stat = true;
       remote.defaultPush = "origin";
+      "diff \"clojure\"".xfuncname = "^\\(.*";
     };
+    attributes = [
+      "*.clj diff=clojure"
+    ];
   };
 
   xdg.configFile.${commit}.text = ''
