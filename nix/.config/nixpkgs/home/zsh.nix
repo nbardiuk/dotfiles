@@ -29,7 +29,6 @@
     shellAliases = rec {
       caffeine = "xset s off -dpms && systemctl --user stop xautolock-session.service";
       decaff = "xset s on -dpms && systemctl --user start xautolock-session.service";
-      upgrade = "sudo sysctl -p && sudo nixos-rebuild switch --upgrade && home-manager switch && nvim +PlugInstall +UpdateRemotePlugins +qa";
 
       l = "exa --long --header --time-style=long-iso";
       ll = l;
@@ -45,7 +44,7 @@
     };
 
     initExtra = ''
-      eval $(keychain --quiet --agents ssh --eval id_rsa)
+      eval $(keychain --quiet --agents gpg,ssh --eval id_rsa 1D8729AEF5622C0F7EA209C1C9C1904D44CDCDA1)
       setopt HIST_IGNORE_ALL_DUPS
       setopt HIST_SAVE_NO_DUPS
       setopt HIST_REDUCE_BLANKS
