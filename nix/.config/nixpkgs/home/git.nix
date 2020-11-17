@@ -34,6 +34,7 @@ in {
       "difftool \"vdiff\"".cmd = "nvim -d $LOCAL $REMOTE";
       fetch.prune = true;
       fetch.pruneTags = true;
+      init.defaultBranch = "main";
       merge.autoStash = true;
       merge.stat = true;
       merge.tool = "vmerge";
