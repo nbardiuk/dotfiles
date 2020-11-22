@@ -798,39 +798,3 @@ augroup curl_bindings
   autocmd FileType rest nnoremap <buffer> <leader>cd :call <SID>toggle_debug()<CR>
 augroup END
 
-" DB {{{1
-augroup db_bindings
-  autocmd!
-  " select connection under the cursor
-  autocmd FileType sql nnoremap <buffer> <leader>sc yiW:DB b:db = <C-R>"<CR>
-  " execute statement under the cursor
-  autocmd FileType sql nnoremap <buffer> <leader>ss vip:DB
-              \ \set ECHO all \;
-              \ \timing on \;
-              \ \pset null :nil \;<CR>
-  autocmd FileType sql xnoremap <buffer> <leader>ss :DB
-              \ \set ECHO all \;
-              \ \timing on \;
-              \ \pset null :nil \;<CR>
-  " execute statement under the cursor extended
-  autocmd FileType sql nnoremap <buffer> <leader>sx vip:DB
-              \ \x on \;
-              \ \set ECHO all \;
-              \ \timing on \;
-              \ \pset null :nil \;<CR>
-  " db schema
-  autocmd FileType sql nnoremap <buffer> <leader>sd :DB \dt<CR>
-  " functions shema
-  autocmd FileType sql nnoremap <buffer> <leader>sf :DB \df<CR>
-  " table schema under cursor
-  autocmd FileType sql nnoremap <buffer> <leader>st :DB \d <C-R><C-W><CR>
-  " preview table under cursor
-  autocmd FileType sql nnoremap <buffer> <leader>sp :DB
-              \ \x on \;
-              \ \set ECHO all \;
-              \ \timing on \;
-              \ \pset null :nil \;
-              \ select * from <C-R><C-W> limit 2\;<CR>
-  " help for word under cursor
-  autocmd FileType sql nnoremap <buffer> K :DB \h <C-R><C-W>
-augroup END

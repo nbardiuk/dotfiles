@@ -113,17 +113,6 @@ let
       sha256 = "1wbmd9qyb4qsqdmd4dqnfi5jn44scv1pgacr56sy7dagx2iz5zj6";
     };
   };
-  vim-dadbod = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    meta.homepage = "https://github.com/tpope/vim-dadbod/";
-    pname = "vim-dadbod";
-    version = "2020-04-30";
-    src = pkgs.fetchFromGitHub {
-      owner = "tpope";
-      repo = "vim-dadbod";
-      rev = "779e8d6efc89b68be951ac1419baae75541cf51c";
-      sha256 = "019k26g88y713wy3q06sbab82dgcgsj7f08g9xr2z2xsjmijp8g4";
-    };
-  };
   vim-crease = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/scr1pt0r/crease.vim";
     pname = "vim-crease";
@@ -178,7 +167,6 @@ in
         vim-commentary
         vim-cool # manages search highlight
         vim-crease
-        vim-dadbod
         vim-dirvish # simple directory viewer
         vim-fugitive
         vim-gol
