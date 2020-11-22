@@ -215,6 +215,5 @@ in
     python37Packages.python-language-server
     ccls
     clang-tools
-    postgresql                # for psql tool
   ];
 }

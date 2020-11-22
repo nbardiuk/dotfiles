@@ -11,6 +11,7 @@
     ./home/java.nix
     ./home/keyboard.nix
     ./home/obs.nix
+    ./home/psql.nix
     ./home/redshift.nix
     ./home/shell.nix
     ./home/syncthing.nix
