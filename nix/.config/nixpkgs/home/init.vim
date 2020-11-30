@@ -603,27 +603,60 @@ augroup more_sexp_mappings
 augroup END
 
 " Clojure {{{1
+
+function! s:clj_ignore(type) abort
+  " navigate to beginning of a text object
+  silent normal! `[
+
+  " prepend reader macro
+  silent normal! i#_
+endfunction
+
+function! s:clj_eval(type) abort
+    " print text object
+    let reg_save = @@
+    try
+        silent exe 'normal! `[v`]y'
+        let code = @@
+        for line in split(code, '\n')
+            exec 'IcedEval (println ";; '. escape(line, '"') .'")'
+        endfor
+    finally
+        let @@ = reg_save
+    endtry
+
+    " evaluate and print result
+    call iced#operation#eval_and_print(a:type)
+endfunction
+
 function! s:clojure_mappings() abort
-  xmap      <buffer> gC         S<C-F>comment<CR> | " wrap selection in (comment ) macro
-  nmap      <buffer> gce        vieo<Esc>i#_<Esc> | " prepend #_ reader macro to element
-  nmap      <buffer> gcf        vafo<Esc>i#_<Esc> | " prepend #_ reader macro to form
-  nmap      <buffer> gcF        vaFo<Esc>i#_<Esc> | " prepend #_ reader macro to outer form
+  nmap      <buffer> <leader>cu :let s=@/<CR>l?\v(#_)+<CR>dgn:let @/=s<CR>
+  nmap      <buffer> <leader>c  :<C-U>set opfunc=<SID>clj_ignore<CR>g@
+  xmap      <buffer> <leader>c  :<C-U>set opfunc=<SID>clj_ignore<CR>g@`<
+  nmap      <buffer> <leader>cc :<C-U>set opfunc=<SID>clj_ignore<CR>g@aF
+
   nmap      <buffer> <leader>tn <Plug>(iced_test_ns)
   nmap      <buffer> <leader>ta <Plug>(iced_test_all)
   nnoremap  <buffer> <leader>to :IcedTestBufferOpen<CR>
+
   nmap      <buffer> <leader>oo <Plug>(iced_stdout_buffer_toggle)
   nmap      <buffer> <leader>oc <Plug>(iced_stdout_buffer_clear)
+
   nmap      <buffer> <leader>lf <Plug>(iced_format_all)
+
   nmap      <buffer> <leader>lr <Plug>(iced_rename_symbol)
+
   nnoremap  <buffer> K          :IcedDocumentPopupOpen<CR>
+  nnoremap  <buffer> <leader>cd :IcedClojureDocsOpen<CR>
+
   nnoremap  <buffer> gd         :IcedDefJump<CR>
   nnoremap  <buffer> }          :IcedBrowseReferences<CR>
+
   nnoremap  <buffer> <leader>la :IcedCommandPalette<CR>
-  nmap      <buffer> <leader>p  <Plug>(iced_eval_and_print)
-  xmap      <buffer> <leader>p  <Plug>(iced_eval_visual)<Plug>(iced_print_last)
-  nmap      <buffer> <leader>pe <Plug>(iced_eval_and_print)<Plug>(sexp_inner_element)
-  nmap      <buffer> <leader>pf <Plug>(iced_eval_and_print)<Plug>(sexp_outer_list)
-  nmap      <buffer> <leader>pp <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)
+
+  nmap      <buffer> <leader>p  :<C-U>set opfunc=<SID>clj_eval<CR>g@
+  xmap      <buffer> <leader>p  <esc>`<:set opfunc=<SID>clj_eval<CR>g@v`>
+  nmap      <buffer> <leader>pp :<C-U>set opfunc=<SID>clj_eval<CR>g@<Plug>(sexp_outer_top_list)
 
   setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
@@ -635,7 +668,6 @@ endfunction
 augroup clojure_bindings
   autocmd!
   autocmd FileType clojure call s:clojure_mappings()
-  autocmd FileType clojure autocmd BufWritePost <buffer> IcedRequire
 augroup END
 
 let g:ale_linters.clojure = ['clj-kondo', 'joker']
