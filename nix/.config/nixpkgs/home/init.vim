@@ -618,6 +618,7 @@ function! s:clj_eval(type) abort
     try
         silent exe 'normal! `[v`]y'
         let code = @@
+        exec 'IcedEval (println ";; @'. strftime('%X') .'")'
         for line in split(code, '\n')
             exec 'IcedEval (println ";; '. escape(line, '"') .'")'
         endfor
