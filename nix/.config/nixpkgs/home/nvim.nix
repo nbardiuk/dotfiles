@@ -182,7 +182,6 @@ in
         vim-sexp-mappings-for-regular-people
         vim-surround
         vim-unimpaired
-        vimux
         wiki-vim
       ];
     };

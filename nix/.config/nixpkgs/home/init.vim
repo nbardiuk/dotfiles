@@ -620,10 +620,6 @@ function! s:clojure_mappings() abort
   nmap      <buffer> <leader>pe <Plug>(iced_eval_and_print)<Plug>(sexp_inner_element)
   nmap      <buffer> <leader>pf <Plug>(iced_eval_and_print)<Plug>(sexp_outer_list)
   nmap      <buffer> <leader>pp <Plug>(iced_eval_and_print)<Plug>(sexp_outer_top_list)
-  nmap      <buffer> <Leader>vtp :VimuxPromptCommand('(time (do (refresh-all) (clojure.test/run-all-tests #"^.*{}.*-test$")))')<CR>
-  nmap      <buffer> <Leader>vta :call VimuxRunCommand("(time (run-tests))")<CR>
-  nmap      <buffer> <Leader>vr :call VimuxRunCommand("(time (refresh-all))")<CR>
-  nmap      <buffer> <Leader>vR :call VimuxRunCommand("(time (reset-all))")<CR>
 
   setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
@@ -717,13 +713,6 @@ augroup END
 let g:ale_linters.sh = ['shellcheck']
 let g:ale_fixers.sh = ['shfmt']
 let g:ale_sh_shfmt_options = '-i=2 -sr'
-
-" Tmux {{{1
-let g:VimuxOrientation = 'h'
-nmap <Leader>vi :VimuxInspectRunner<CR>
-nmap <Leader>vv :VimuxRunLastCommand<CR>
-nmap <Leader>vz :VimuxZoomRunner<CR>
-xmap <Leader>v  "vy :call VimuxSendText(@v)\| call VimuxSendKeys("Enter")<CR>
 
 " C {{{1
 " more configuration options https://github.com/MaskRay/ccls/wiki/LanguageClient-neovim
