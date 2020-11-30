@@ -197,10 +197,10 @@ set foldenable          | " enable folding
 set foldlevelstart=999  | " all folds are open
 
 set fillchars=fold:‧
-let g:crease_foldtext = { 'default': '%t %= %l lines %f%f' }
+let g:crease_foldtext = { 'default': '%{repeat("  ", v:foldlevel - 1)}%t %= %l lines %f%f' }
 
 " toggle current fold
-nnoremap <BS> za
+nnoremap <BS> zA
 
 " Swap Undo {{{1
 set noswapfile
