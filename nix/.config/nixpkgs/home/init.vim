@@ -607,9 +607,8 @@ function! s:clojure_mappings() abort
   nmap      <buffer> <leader>tn <Plug>(iced_test_ns)
   nmap      <buffer> <leader>ta <Plug>(iced_test_all)
   nnoremap  <buffer> <leader>to :IcedTestBufferOpen<CR>
-  nmap      <buffer> <leader>oo <Plug>(iced_stdout_buffer_open)
+  nmap      <buffer> <leader>oo <Plug>(iced_stdout_buffer_toggle)
   nmap      <buffer> <leader>oc <Plug>(iced_stdout_buffer_clear)
-  nmap      <buffer> <leader>oq <Plug>(iced_stdout_buffer_close)
   nmap      <buffer> <leader>lf <Plug>(iced_format_all)
   nmap      <buffer> <leader>lr <Plug>(iced_rename_symbol)
   nnoremap  <buffer> K          :IcedDocumentPopupOpen<CR>

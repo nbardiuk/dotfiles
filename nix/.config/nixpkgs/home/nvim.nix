@@ -58,12 +58,12 @@ let
   vim-iced = pkgs.vimUtils.buildVimPluginFrom2Nix rec{
     meta.homepage = "https://github.com/liquidz/vim-iced";
     pname = "vim-iced";
-    version = "2.5.0";
+    version = "2.6.0";
     src = pkgs.fetchFromGitHub {
       owner = "liquidz";
       repo = "vim-iced";
       rev = version;
-      sha256 = "013mf6f6cg2yz6axyss63q5hcp7znlfn5vsjz32rfagi37pfdf37";
+      sha256 = "0jc7gaabkha9pkslc6a1gpg0iingr7v8sq9va4kyxzaz26mya5br";
     };
     postInstall = ''
       install -Dt $out/bin $out/share/vim-plugins/vim-iced/bin/iced
@@ -191,6 +191,7 @@ in
   home.packages = with pkgs; [
     nixpkgs-fmt               # nix formatter
     joker                     # clojure linter
+    clj-kondo                 # clojure linter
     vim-iced                  # clojure nrepl
     shellcheck                # shell scripts linter
     shfmt                     # shell scripts formatter
