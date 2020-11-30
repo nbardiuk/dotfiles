@@ -178,6 +178,7 @@ in
         vim-projectionist
         vim-repeat
         vim-rest-console
+        vim-rsi
         vim-sexp
         vim-sexp-mappings-for-regular-people
         vim-surround
