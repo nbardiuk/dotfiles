@@ -26,6 +26,10 @@ noremap! <F1> <ESC>
 nnoremap <silent> <leader>k :Helptags<CR>
 vnoremap <silent> <leader>k :<c-u>call <SID>run_interact("Helptags")<CR>
 
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter'
+nnoremap <silent> <leader><leader> :Commands<CR>
+
 " LSP {{{1
 " Specify whether to use virtual text to display diagnostics.
 let g:LanguageClient_useVirtualText = 'CodeLens'
