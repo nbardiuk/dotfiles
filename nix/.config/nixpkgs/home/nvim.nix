@@ -181,6 +181,7 @@ in
         vim-rsi
         vim-sexp
         vim-sexp-mappings-for-regular-people
+        vim-slime
         vim-surround
         vim-unimpaired
         wiki-vim

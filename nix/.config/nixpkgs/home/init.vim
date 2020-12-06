@@ -823,3 +823,16 @@ augroup curl_bindings
   autocmd FileType rest nnoremap <buffer> <leader>cd :call <SID>toggle_debug()<CR>
 augroup END
 
+" Slime {{{1
+
+let g:slime_target = 'tmux'
+let g:slime_paste_file = tempname()
+let g:slime_default_config = {}
+let g:slime_default_config.socket_name = 'default'
+let g:slime_default_config.target_pane = ':.2'
+
+let g:slime_no_mappings = 1
+xmap <leader>s  <Plug>SlimeRegionSend
+nmap <leader>s  <Plug>SlimeMotionSend
+nmap <leader>ss <Plug>SlimeLineSend
+nmap <leader>sc <Plug>SlimeConfig
