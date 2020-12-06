@@ -188,6 +188,10 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
+let $FZF_DEFAULT_OPTS='--reverse'
+let g:fzf_layout = {'window': { 'width': 0.6, 'height': 1, 'border': 'top' }}
+let g:fzf_preview_window = ''
+
 " Status line {{{1
 set noruler         | " line and column number of the cursor position
 set laststatus=2    | " 2 - allways show status line
