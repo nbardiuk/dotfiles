@@ -642,9 +642,9 @@ function! s:clojure_mappings() abort
   nnoremap  <buffer> <leader>la :IcedCommandPalette<CR>
 
   nmap      <buffer> <leader>p  "e<Plug>(iced_eval)
-  xmap      <buffer> <leader>p  "e<Plug>(iced_eval)``
+  xmap      <buffer> <leader>p  <esc>`<"e:call iced#operation#setup_eval()<CR>g@v`>
   nmap      <buffer> <leader>pp "e<Plug>(iced_eval)<Plug>(sexp_outer_top_list)``
-  nmap      <buffer> <leader>pc A;; <Esc>"ep
+  nmap      <buffer> <leader>pc A ;; => <Esc>"ep
 
   setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
