@@ -616,24 +616,6 @@ function! s:clj_ignore(type) abort
   silent normal! i#_
 endfunction
 
-function! s:clj_eval(type) abort
-    " print text object
-    let reg_save = @@
-    try
-        silent exe 'normal! `[v`]y'
-        let code = @@
-        exec 'IcedEval (println ";; @'. strftime('%X') .'")'
-        for line in split(code, '\n')
-            exec 'IcedEval (println ";; '. escape(line, '"') .'")'
-        endfor
-    finally
-        let @@ = reg_save
-    endtry
-
-    " evaluate and print result
-    call iced#operation#eval_and_print(a:type)
-endfunction
-
 function! s:clojure_mappings() abort
   nmap      <buffer> <leader>cu :let s=@/<CR>l?\v(#_)+<CR>dgn:let @/=s<CR>
   nmap      <buffer> <leader>c  :<C-U>set opfunc=<SID>clj_ignore<CR>g@
@@ -659,9 +641,10 @@ function! s:clojure_mappings() abort
 
   nnoremap  <buffer> <leader>la :IcedCommandPalette<CR>
 
-  nmap      <buffer> <leader>p  :<C-U>set opfunc=<SID>clj_eval<CR>g@
-  xmap      <buffer> <leader>p  <esc>`<:set opfunc=<SID>clj_eval<CR>g@v`>
-  nmap      <buffer> <leader>pp :<C-U>set opfunc=<SID>clj_eval<CR>g@<Plug>(sexp_outer_top_list)
+  nmap      <buffer> <leader>p  "e<Plug>(iced_eval)
+  xmap      <buffer> <leader>p  "e<Plug>(iced_eval)``
+  nmap      <buffer> <leader>pp "e<Plug>(iced_eval)<Plug>(sexp_outer_top_list)``
+  nmap      <buffer> <leader>pc A;; <Esc>"ep
 
   setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
@@ -836,7 +819,7 @@ let g:slime_default_config.socket_name = 'default'
 let g:slime_default_config.target_pane = ':.2'
 
 let g:slime_no_mappings = 1
-xmap <leader>s  <Plug>SlimeRegionSend
+xmap <leader>s  <Plug>SlimeRegionSend``
 nmap <leader>s  <Plug>SlimeMotionSend
 nmap <leader>ss <Plug>SlimeLineSend
 nmap <leader>sc <Plug>SlimeConfig
