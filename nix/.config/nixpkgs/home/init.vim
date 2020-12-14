@@ -823,3 +823,14 @@ xmap <leader>s  <Plug>SlimeRegionSend``
 nmap <leader>s  <Plug>SlimeMotionSend
 nmap <leader>ss <Plug>SlimeLineSend
 nmap <leader>sc <Plug>SlimeConfig
+
+" Git Secret {{{1
+" inpired by gpg transparent editing
+augroup secrets
+  autocmd!
+  autocmd BufReadPre,FileReadPre *.secret set bin
+  autocmd BufReadPost,FileReadPost *.secret '[,']!gpg --quiet --decrypt
+  autocmd BufReadPost,FileReadPost *.secret set nobin
+  autocmd BufReadPost,FileReadPost *.secret set readonly
+  autocmd BufReadPost,FileReadPost *.secret execute ":doautocmd BufReadPost " . expand("%:r")
+augroup END
