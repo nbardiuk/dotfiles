@@ -23,6 +23,8 @@ in {
       "dist" "dist-*" "cabal-dev" "*.o" "*.hi" "*.chi" "*.chs.h" "*.dyn_o" "*.dyn_hi" ".hpc" ".hsenv" ".cabal-sandbox/" "cabal.sandbox.config" "*.prof" "*.aux" "*.hp" "*.eventlog" ".stack-work/" "cabal.project.local" "cabal.project.local~" ".HTF/" ".ghc.environment.*"
       # direnv
       ".envrc"
+      # Clojure
+      "pom.xml" "pom.xml.asc" "*.jar" "*.class" "/lib/" "/classes/" "/target/" "/checkouts/" ".lein-deps-sum" ".lein-repl-history" ".lein-plugins/" ".lein-failures" ".nrepl-port" ".cpcache/"
     ];
     extraConfig = {
       checkout.defaultRemote = "origin";

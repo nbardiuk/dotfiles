@@ -299,6 +299,7 @@ let g:FerretExecutableArguments = {
             \ --glob=!node_modules
             \ --glob=!build
             \ --glob=!.clj-kondo
+            \ --glob=!.cpcache
             \'
   \ }
 

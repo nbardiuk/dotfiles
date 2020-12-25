@@ -12,6 +12,7 @@ in
     --glob=!node_modules
     --glob=!build
     --glob=!.clj-kondo
+    --glob=!.cpcache
   '';
 
   home.sessionVariables = {

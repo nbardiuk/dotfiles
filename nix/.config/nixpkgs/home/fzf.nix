@@ -8,6 +8,7 @@ let
     "--exclude 'node_modules'"
     "--exclude 'build'"
     "--exclude '.clj-kondo'"
+    "--exclude '.cpcache'"
   ];
 in
 {
