@@ -697,32 +697,6 @@ let g:projectionist_heuristics['project.clj|deps.edn'] =
       \   }
       \ }
 
-" Whiteroom {{{1
-function! s:goyo_enter() abort
-  ALEDisableBuffer
-  setlocal nospell
-  call ncm2#disable_for_buffer()
-  setlocal wrap
-endfunction
-
-function! s:goyo_leave() abort
-  ALEEnableBuffer
-  set spell<
-  call ncm2#enable_for_buffer()
-  set wrap<
-endfunction
-
-augroup whiteroom
-  autocmd!
-  autocmd User GoyoEnter nested call <SID>goyo_enter()
-  autocmd User GoyoLeave nested call <SID>goyo_leave()
-augroup END
-
-let g:goyo_height='100%'
-
-" toggle whiteroom
-nmap yog :Goyo<CR>
-
 " Markdown {{{1
 let g:markdown_syntax_conceal=0
 let g:polyglot_disabled = ['markdown'] | " use dedicated plugin

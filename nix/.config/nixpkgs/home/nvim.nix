@@ -145,7 +145,6 @@ in
         fzfWrapper
         ghcid
         gitgutter
-        goyo-vim
         LanguageClient-neovim
         mycolors
         ncm2
