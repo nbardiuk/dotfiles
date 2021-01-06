@@ -8,6 +8,7 @@
     ./home/haskell.nix
     ./home/i3.nix
     ./home/firefox.nix
+    ./home/guile.nix
     ./home/java.nix
     ./home/keyboard.nix
     ./home/obs.nix
