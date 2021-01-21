@@ -663,6 +663,7 @@ let g:ale_linters.clojure = ['clj-kondo', 'joker']
 
 let g:iced#nrepl#connect#jack_in_command = 'LOG_LEVEL="OFF" iced repl --without-cljs'
 let g:iced#buffer#stdout#mods = 'botright'
+let g:iced#buffer#stdout#enable_notify = v:false
 
 " it requires jet
 let g:iced_enable_enhanced_definition_extraction = v:false
