@@ -1,22 +1,7 @@
 { config, pkgs, ... }:
-
-let
-  chunkwm = pkgs.recurseIntoAttrs (pkgs.callPackage ~/.config/nixpkgs/darwin/chunkwm {
-    inherit (pkgs) callPackage stdenv fetchFromGitHub;
-    inherit (pkgs.darwin.apple_sdk.frameworks) Carbon Cocoa ApplicationServices;
-  });
-in
 {
   nixpkgs.config.allowUnfree = true;
   environment.darwinConfig = "$HOME/.config/nixpkgs/darwin.nix";
-
-  # List packages installed in system profile.
-  environment.systemPackages = with pkgs; [
-    chunkwm.border
-    chunkwm.core
-    chunkwm.ffm
-    chunkwm.tiling
-  ];
 
   environment.variables.LANG = "en_IE.UTF-8";
   environment.variables.LC_ALL = "en_IE.UTF-8";
@@ -27,8 +12,7 @@ in
 
   programs.man.enable = true;
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  services.nix-daemon.enable = false;
   nix.package = pkgs.nix;
 
   # Create /etc/bashrc that loads the nix-darwin environment.
@@ -58,96 +42,57 @@ in
     serviceConfig.LowPriorityIO = true;
   };
 
-
-  services.chunkwm.enable = true;
-  services.chunkwm.hotload = false;
-  services.chunkwm.package = chunkwm.core;
-  services.chunkwm.plugins.dir = "/run/current-system/sw/bin/chunkwm-plugins/";
-  services.chunkwm.plugins."tiling".config = ''
-    chunkc set desktop_padding_step_size     0
-    chunkc set desktop_gap_step_size         0
-    chunkc set global_desktop_offset_top     0
-    chunkc set global_desktop_offset_bottom  0
-    chunkc set global_desktop_offset_left    0
-    chunkc set global_desktop_offset_right   0
-    chunkc set global_desktop_offset_gap     0
-    chunkc set bsp_spawn_left                0
-    chunkc set bsp_split_mode                optimal
-    chunkc set bsp_optimal_ratio             1.618
-    chunkc set bsp_split_ratio               0.5
-    chunkc set window_focus_cycle            all
-    chunkc set mouse_follows_focus           all
-    chunkc set mouse_resize_window           ctrl shift
-    chunkc set mouse_move_window             ctrl
-    chunkc set window_region_locked          1
-
-    # chwm-sa additions
-    # https://github.com/koekeishiya/chwm-sa
-    chunkc set window_float_topmost          1
-    chunkc set window_fade_inactive          0
-    chunkc tiling::rule --owner Dash --state float
-    chunkc tiling::rule --owner Spotify --desktop 5
-    chunkc tiling::rule --owner Slack --desktop 4
-  '';
-
-  launchd.user.agents.chwm-sa = {
-    # installation https://koekeishiya.github.io/chunkwm/docs/sa.html
-    command = "${chunkwm.core}/bin/chunkwm --load-sa";
-    serviceConfig.KeepAlive = false;
-    serviceConfig.ProcessType = "Background";
-    serviceConfig.RunAtLoad = true;
-  };
+  services.yabai.enable = true;
+  services.yabai.package = pkgs.yabai;
+  services.yabai.enableScriptingAddition = false;
+  services.yabai.config.layout = "bsp";
 
   services.skhd.enable = true;
   services.skhd.skhdConfig = ''
     # enter fullscreen mode for the focused container
-    alt - f : chunkc tiling::window --toggle fullscreen
+    alt - f : yabai -m window --toggle zoom-fullscreen
 
     # change focus between tiling / floating windows
-    shift + alt - space : chunkc tiling::window --toggle float
+    shift + alt - space : yabai -m window --toggle float
 
     # change layout of desktop
-    alt - e : chunkc tiling::desktop --layout bsp
-    alt - w : chunkc tiling::desktop --layout monocle
+    alt - w : yabai -m space --layout monocle
+    alt - e : yabai -m space --layout bsp
 
-    # switch monitors
-    alt - m : chunkc tiling::desktop --move next
-
-    alt - r : chunkc tiling::desktop --rotate 90
-
-    # resize
-    shift + alt - a : chunkc tiling::window --use-temporary-ratio  0.03 --adjust-window-edge west;  chunkc tiling::window --use-temporary-ratio -0.03 --adjust-window-edge east;
-    shift + alt - d : chunkc tiling::window --use-temporary-ratio -0.03 --adjust-window-edge west;  chunkc tiling::window --use-temporary-ratio  0.03 --adjust-window-edge east;
-    shift + alt - w : chunkc tiling::window --use-temporary-ratio  0.05 --adjust-window-edge north; chunkc tiling::window --use-temporary-ratio -0.05 --adjust-window-edge south;
-    shift + alt - s : chunkc tiling::window --use-temporary-ratio -0.05 --adjust-window-edge north; chunkc tiling::window --use-temporary-ratio  0.05 --adjust-window-edge south;
-
-    # kill focused window
-    shift + alt - q : chunkc tiling::window --close
 
     # change focus
-    alt - h : chunkc tiling::window --focus west
-    alt - j : chunkc tiling::window --focus south
-    alt - k : chunkc tiling::window --focus north
-    alt - l : chunkc tiling::window --focus east
+    alt - h : yabai -m window --focus west
+    alt - j : yabai -m window --focus south
+    alt - k : yabai -m window --focus north
+    alt - l : yabai -m window --focus east
 
     # move focused window
-    shift + alt - h : chunkc tiling::window --warp west
-    shift + alt - j : chunkc tiling::window --warp south
-    shift + alt - k : chunkc tiling::window --warp north
-    shift + alt - l : chunkc tiling::window --warp east
+    shift + alt - h : yabai -m window --warp west
+    shift + alt - j : yabai -m window --warp south
+    shift + alt - k : yabai -m window --warp north
+    shift + alt - l : yabai -m window --warp east
+
+    alt - 1 : yabai -m space --focus 1
+    alt - 2 : yabai -m space --focus 2
+    alt - 3 : yabai -m space --focus 3
+    alt - 4 : yabai -m space --focus 4
+    alt - 5 : yabai -m space --focus 5
+    alt - 6 : yabai -m space --focus 6
+    alt - 7 : yabai -m space --focus 7
+    alt - 8 : yabai -m space --focus 8
+    alt - 9 : yabai -m space --focus 9
+    alt - 0 : yabai -m space --focus 10
 
     # move focused container to workspace
-    shift + alt - p : chunkc tiling::window --send-to-desktop prev
-    shift + alt - n : chunkc tiling::window --send-to-desktop next
-    shift + alt - 1 : chunkc tiling::window --send-to-desktop 1
-    shift + alt - 2 : chunkc tiling::window --send-to-desktop 2
-    shift + alt - 3 : chunkc tiling::window --send-to-desktop 3
-    shift + alt - 4 : chunkc tiling::window --send-to-desktop 4
-    shift + alt - 5 : chunkc tiling::window --send-to-desktop 5
-    shift + alt - 6 : chunkc tiling::window --send-to-desktop 6
-    shift + alt - 7 : chunkc tiling::window --send-to-desktop 7
-    shift + alt - 8 : chunkc tiling::window --send-to-desktop 8
-    shift + alt - 9 : chunkc tiling::window --send-to-desktop 9
-    shift + alt - 0 : chunkc tiling::window --send-to-desktop 10
+    shift + alt - 1 : yabai -m window --space  1; yabai -m space --focus 1
+    shift + alt - 2 : yabai -m window --space  2; yabai -m space --focus 2
+    shift + alt - 3 : yabai -m window --space  3; yabai -m space --focus 3
+    shift + alt - 4 : yabai -m window --space  4; yabai -m space --focus 4
+    shift + alt - 5 : yabai -m window --space  5; yabai -m space --focus 5
+    shift + alt - 6 : yabai -m window --space  6; yabai -m space --focus 6
+    shift + alt - 7 : yabai -m window --space  7; yabai -m space --focus 7
+    shift + alt - 8 : yabai -m window --space  8; yabai -m space --focus 8
+    shift + alt - 9 : yabai -m window --space  9; yabai -m space --focus 9
+    shift + alt - 0 : yabai -m window --space  10; yabai -m space --focus 10
   '';
 }
