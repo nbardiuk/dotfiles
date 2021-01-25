@@ -4,10 +4,10 @@ let
   # https://github.com/liquidz/vim-iced/blob/master/bin/iced
   nrepl = ''"0.8.3"'';
   iced-nrepl = ''"1.1.2"'';
-  cider-nrepl = ''"0.25.7"'';
+  cider-nrepl = ''"0.25.8"'';
   refactor-nrepl = ''"2.5.0"'';
   hashp = ''"0.1.1"'';
-  reveal = ''"1.2.190"'';
+  reveal = ''"1.3.193"'';
   middleware = lib.concatStringsSep "," [
     "cider.nrepl/wrap-classpath"
     "cider.nrepl/wrap-clojuredocs"
@@ -53,7 +53,7 @@ in
                      }
        :plugins [[refactor-nrepl ${refactor-nrepl}]]
        :injections [(require 'hashp.core)]
-       :jvm-opts ["-Dvlaaad.reveal.prefs={:theme :light, :font-family \"Iosevka\", :font-size 18}"]
+       :jvm-opts ["-Dvlaaad.reveal.prefs={:theme :light, :font-family \"Iosevka\", :font-size 16}"]
       }
     }
   '';
