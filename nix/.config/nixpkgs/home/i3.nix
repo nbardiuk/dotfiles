@@ -67,7 +67,7 @@ in
         };
       };
       bars = [{
-        trayOutput = "eDP-1-1";
+        trayOutput = "primary";
         workspaceNumbers = false;
         statusCommand = "i3blocks -c ${i3blocksConfig}";
         position = "top";
@@ -106,7 +106,7 @@ in
   xsession.profileExtra = ''
     feh --bg-scale ${wallpaper}
 
-    xrandr --output eDP-1-1 --auto --below HDMI-1-1 --primary --output HDMI-1-1 --auto
+    xrandr --output eDP-1-1 --auto --primary
 
     xset -b
     xset s 300 300
