@@ -46,7 +46,6 @@ with lib;
       "super + Tab"                   = "rofi -show combi -combi-modi window";
       "super + b"                     = "${pkgs.open_book}/bin/open_book.sh";
       "super + c"                     = "${pkgs.connection_toggle}/bin/connection_toggle.py";
-      "super + u"                     = "${pkgs.rofimoji}/bin/rofimoji --copy-only --files all";
     };
   };
 }
