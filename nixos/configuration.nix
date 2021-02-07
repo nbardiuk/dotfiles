@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
 
   imports = [
@@ -146,4 +146,21 @@
   services.acpid.logEvents = true;
 
   services.sysstat.enable = true;
+
+  services.plex.enable = true;
+  services.plex.user = "nazarii";
+  services.plex.group = "users";
+  services.plex.openFirewall = true;
+
+  # https://github.com/keyboardio/Chrysalis/blob/master/static/udev/60-kaleidoscope.rules
+  services.udev.packages = lib.singleton (pkgs.writeTextFile {
+    name = "kaleidoscope-udev-rules";
+    destination = "/etc/udev/rules.d/60-kaleidoscope.rules";
+    text = ''
+      SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2300", SYMLINK+="model01", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", TAG+="uaccess", TAG+="seat"
+      SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2301", SYMLINK+="model01", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", TAG+="uaccess", TAG+="seat"
+      SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2302", SYMLINK+="Atreus2", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", TAG+="uaccess", TAG+="seat"
+      SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2303", SYMLINK+="Atreus2", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", TAG+="uaccess", TAG+="seat"
+    '';
+  });
 }
