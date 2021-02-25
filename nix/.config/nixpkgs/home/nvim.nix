@@ -134,58 +134,56 @@ in
     withPython = false;
     withPython3 = true;
     withRuby = false;
-    configure = {
-      customRC = (builtins.readFile ./init.vim);
-      packages.myVimPackage.start = with pkgs.vimPlugins; [
-        ale
-        colorizer
-        ferret
-        float-preview-nvim # ncm2 preview
-        fzf-vim
-        fzfWrapper
-        ghcid
-        gitgutter
-        LanguageClient-neovim
-        mycolors
-        ncm2
-        ncm2-bufword
-        ncm2-path
-        ncm2-syntax # uses neco-syntax
-        ncm2-tmux
-        ncm2-vim # uses neco-vim
-        neco-syntax # provides syntax completion function
-        neco-vim # provides vim completion function
-        neoformat
-        nvim-yarp # remote plugin manager for ncm2
-        rhubarb # github provider for fugitive
-        tabular
-        targets-vim
-        tmux-navigator
-        vim-abolish
-        vim-clojure
-        vim-commentary
-        vim-cool # manages search highlight
-        vim-crease
-        vim-dirvish # simple directory viewer
-        vim-fugitive
-        vim-gol
-        vim-iced
-        vim-iced-ncm2
-        vim-indent-object
-        vim-markdown
-        vim-polyglot
-        vim-projectionist
-        vim-repeat
-        vim-rest-console
-        vim-rsi
-        vim-sexp
-        vim-sexp-mappings-for-regular-people
-        vim-slime
-        vim-surround
-        vim-unimpaired
-        wiki-vim
-      ];
-    };
+    extraConfig = (builtins.readFile ./init.vim);
+    plugins = with pkgs.vimPlugins; [
+      ale
+      colorizer
+      ferret
+      float-preview-nvim # ncm2 preview
+      fzf-vim
+      fzfWrapper
+      ghcid
+      gitgutter
+      LanguageClient-neovim
+      mycolors
+      ncm2
+      ncm2-bufword
+      ncm2-path
+      ncm2-syntax # uses neco-syntax
+      ncm2-tmux
+      ncm2-vim # uses neco-vim
+      neco-syntax # provides syntax completion function
+      neco-vim # provides vim completion function
+      neoformat
+      nvim-yarp # remote plugin manager for ncm2
+      rhubarb # github provider for fugitive
+      tabular
+      targets-vim
+      tmux-navigator
+      vim-abolish
+      vim-clojure
+      vim-commentary
+      vim-cool # manages search highlight
+      vim-crease
+      vim-dirvish # simple directory viewer
+      vim-fugitive
+      vim-gol
+      vim-iced
+      vim-iced-ncm2
+      vim-indent-object
+      vim-markdown
+      vim-polyglot
+      vim-projectionist
+      vim-repeat
+      vim-rest-console
+      vim-rsi
+      vim-sexp
+      vim-sexp-mappings-for-regular-people
+      vim-slime
+      vim-surround
+      vim-unimpaired
+      wiki-vim
+    ];
   };
 
   home.packages = with pkgs; [
