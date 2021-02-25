@@ -319,7 +319,6 @@ vnoremap <silent> <Leader>e :<c-u>call <SID>run_interact("Buffers")<CR>
 nnoremap <silent> <Leader>e :Buffers<CR>
 
 let g:loaded_netrwPlugin = 1
-nnoremap <leader>N :Dirvish<CR>
 let g:dirvish_mode=':sort ,^.*[\/],'
 
 " unload current buffer
@@ -795,7 +794,7 @@ let g:slime_default_config.socket_name = 'default'
 let g:slime_default_config.target_pane = ':.2'
 
 let g:slime_no_mappings = 1
-xmap <leader>s  <Plug>SlimeRegionSend``
+xmap <leader>s  <Plug>SlimeRegionSend
 nmap <leader>s  <Plug>SlimeMotionSend
 nmap <leader>ss <Plug>SlimeLineSend
 nmap <leader>sc <Plug>SlimeConfig
