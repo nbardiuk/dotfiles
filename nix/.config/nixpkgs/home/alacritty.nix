@@ -80,7 +80,7 @@ in
   programs.alacritty.settings = base16-grayscale-light-my // {
 
     # Allow terminal applications to change Alacritty's window title.
-    dynamic_title = true;
+    window.dynamic_title = true;
 
     # Disable scroll buffer, use tmux instead
     scrolling.history = 0;
