@@ -93,8 +93,8 @@ in
       }];
       startup = [
         { command = "dropbox start";  notification = false; }
-        { command = "firefox";        workspace = "'1'"; }
-        { command = "keepassxc";      workspace = "'1'"; }
+        { command = "firefox"; }
+        { command = "keepassxc"; }
       ];
     };
   };
@@ -149,7 +149,8 @@ in
     maim                      # cli screenshot tool
     xorg.xrandr               # monitor settings CLI
     pavucontrol               # pulse audio control GUI
-    pulseeffects              # pulse audio mixer and effects GUI
+    pulseeffects-legacy       # pulse audio mixer and effects GUI
     xautolock                 # screen locker command
+    dropbox
   ];
 }
