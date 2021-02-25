@@ -8,12 +8,12 @@
     separator = "none";
     theme = "Arc-Dark";
     terminal = "${pkgs.alacritty}/bin/alacritty";
-    extraConfig = ''
-      rofi.modi:            window,drun,run,ssh,combi
-      rofi.combi-modi:      window,drun,run
-      rofi.matching:        normal
-      rofi.sorting-method:  fzf
-    '';
+    extraConfig = {
+      modi = "window,drun,run,ssh,combi";
+      combi-modi = "window,drun,run";
+      matching = "normal";
+      sorting-method = "fzf";
+    };
   };
 
 }
