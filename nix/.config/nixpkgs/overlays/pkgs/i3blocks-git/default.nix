@@ -1,4 +1,4 @@
-{ fetchFromGitHub, stdenv, autoreconfHook}:
+{ fetchFromGitHub, lib, stdenv, autoreconfHook}:
 
 stdenv.mkDerivation rec {
 
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A minimalist scheduler for your status line scripts";
     homepage = https://github.com/vivien/i3blocks;
     license = licenses.gpl3;

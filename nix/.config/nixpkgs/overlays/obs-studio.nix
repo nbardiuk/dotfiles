@@ -4,7 +4,7 @@ let
   alsaSupport = true;
   pulseaudioSupport = true;
   obs-studio = with final; with final.pkgs; with pkgs.qt5; with pkgs.xorg; let
-    inherit (stdenv.lib) optional optionals;
+    inherit (lib) optional optionals;
   in
     mkDerivation rec {
       pname = "obs-studio";
@@ -56,12 +56,12 @@ let
           --prefix "LD_LIBRARY_PATH" : "${xorg.libX11.out}/lib:${vlc}/lib"
       '';
 
-      postFixup = stdenv.lib.optionalString stdenv.isLinux ''
+      postFixup = lib.optionalString stdenv.isLinux ''
         addOpenGLRunpath $out/lib/lib*.so
         addOpenGLRunpath $out/lib/obs-plugins/*.so
       '';
 
-      meta = with stdenv.lib; {
+      meta = with lib; {
         description = "Free and open source software for video recording and live streaming";
         longDescription = ''
           This project is a rewrite of what was formerly known as "Open Broadcaster

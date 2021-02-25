@@ -21,7 +21,7 @@ let
     '';
     makeFlags = [ "prefix=$(out)" ];
 
-    meta = with stdenv.lib; {
+    meta = with lib; {
       description = "Single-shot nREPL client";
       homepage = "https://github.com/eraserhd/rep";
       license = licenses.epl10;

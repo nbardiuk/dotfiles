@@ -5,6 +5,7 @@
   fetchFromGitHub,
   iw,
   kbdd,
+  lib,
   lm_sensors,
   makeWrapper,
   mpv,
@@ -18,7 +19,7 @@
   youtube-dl,
 }:
 
-with stdenv.lib;
+with lib;
 with perlPackages;
 
 let

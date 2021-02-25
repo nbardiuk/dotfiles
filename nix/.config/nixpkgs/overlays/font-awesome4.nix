@@ -14,7 +14,7 @@ let
 
     sha256 = "0w8y7gxbqiy444phg4jl89kc5hq3jffbkhab8p110qy9jx8s106s";
 
-    meta = with final.stdenv.lib; {
+    meta = with final.lib; {
       description = "Font Awesome - TTF font";
       longDescription = ''
         Font Awesome gives you scalable vector icons that can instantly be customized.
