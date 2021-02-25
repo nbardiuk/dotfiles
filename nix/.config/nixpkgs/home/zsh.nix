@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   programs.zsh = rec {
     enable = true;
@@ -24,6 +24,10 @@
       MANPAGER = "nvim +set\\ filetype=man -";
       SUDO_EDITOR = "nvim";
       ZSH_TMUX_AUTOSTART = true;
+      CDPATH = lib.concatStringsSep ":" [
+        "${config.home.homeDirectory}/dev"
+        "${config.home.homeDirectory}"
+      ];
     };
 
     shellAliases = rec {
@@ -56,6 +60,6 @@
   home.packages = with pkgs; [
     gnupg
     keychain # for ssh,gpg agents
-    xsel     # clipboard
+    xsel # clipboard
   ];
 }
