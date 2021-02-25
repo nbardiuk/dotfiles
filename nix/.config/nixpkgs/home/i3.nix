@@ -124,6 +124,7 @@ in
   services.blueman-applet.enable = true;
   services.udiskie.enable = true;
   services.pasystray.enable = true; # pulse audio applet
+  services.caffeine.enable = true;
 
   home.packages = with pkgs; [
     arandr                    # monitor settings GUI

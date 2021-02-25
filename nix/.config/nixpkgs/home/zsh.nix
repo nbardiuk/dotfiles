@@ -27,9 +27,6 @@
     };
 
     shellAliases = rec {
-      caffeine = "xset s off -dpms && systemctl --user stop xautolock-session.service";
-      decaff = "xset s on -dpms && systemctl --user start xautolock-session.service";
-
       l = "exa --long --header --time-style=long-iso";
       ll = l;
       ls = l;
