@@ -364,8 +364,8 @@ set updatetime=100
 
 let g:gitgutter_map_keys = 0
 nmap <Leader>gd :Gdiffsplit<CR>
-nmap <Leader>gs :Gstatus<CR>
-nmap <Leader>gl :Glog<CR>
+nmap <Leader>gs :Git<CR>
+nmap <Leader>gl :Gclog<CR>
 nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
 nmap <Leader>hs <Plug>(GitGutterStageHunk)
 nmap <Leader>hu <Plug>(GitGutterUndoHunk)
