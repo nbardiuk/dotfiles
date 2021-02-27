@@ -77,9 +77,9 @@
       # layouts
       bind-key M-v select-layout even-horizontal
       bind-key M-V set -g main-pane-width \; select-layout main-vertical
-      bind-key M-V run-shell "tmux setw main-pane-width $(($(tmux display -p '#{window_width}') * 70 / 100)); tmux select-layout main-vertical"
+      bind-key M-V run-shell "tmux setw main-pane-width $(($(tmux display -p '#{window_width}') * 66 / 100)); tmux select-layout main-vertical"
       bind-key M-h select-layout even-vertical
-      bind-key M-H run-shell "tmux setw main-pane-height $(($(tmux display -p '#{window_height}') * 70 / 100)); tmux select-layout main-horizontal"
+      bind-key M-H run-shell "tmux setw main-pane-height $(($(tmux display -p '#{window_height}') * 66 / 100)); tmux select-layout main-horizontal"
       bind-key M-t select-layout tiled
 
       #### COLOUR (Solarized light)
