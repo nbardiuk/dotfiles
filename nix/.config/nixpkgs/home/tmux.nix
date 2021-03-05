@@ -58,15 +58,15 @@
       set -g renumber-window on
 
       # move pane between windows
-      bind-key M-1 move-pane -t :1
-      bind-key M-2 move-pane -t :2
-      bind-key M-3 move-pane -t :3
-      bind-key M-4 move-pane -t :4
-      bind-key M-5 move-pane -t :5
-      bind-key M-6 move-pane -t :6
-      bind-key M-7 move-pane -t :7
-      bind-key M-8 move-pane -t :8
-      bind-key M-9 move-pane -t :9
+      bind-key C-1 move-pane -t :1
+      bind-key C-2 move-pane -t :2
+      bind-key C-3 move-pane -t :3
+      bind-key C-4 move-pane -t :4
+      bind-key C-5 move-pane -t :5
+      bind-key C-6 move-pane -t :6
+      bind-key C-7 move-pane -t :7
+      bind-key C-8 move-pane -t :8
+      bind-key C-9 move-pane -t :9
 
       # move pane inside window
       bind-key H swap-pane -d -t '{left-of}'
@@ -75,12 +75,11 @@
       bind-key J swap-pane -d -t '{down-of}'
 
       # layouts
-      bind-key M-v select-layout even-horizontal
-      bind-key M-V set -g main-pane-width \; select-layout main-vertical
-      bind-key M-V run-shell "tmux setw main-pane-width $(($(tmux display -p '#{window_width}') * 66 / 100)); tmux select-layout main-vertical"
-      bind-key M-h select-layout even-vertical
-      bind-key M-H run-shell "tmux setw main-pane-height $(($(tmux display -p '#{window_height}') * 66 / 100)); tmux select-layout main-horizontal"
-      bind-key M-t select-layout tiled
+      bind-key C-V select-layout even-horizontal
+      bind-key C-v run-shell "tmux setw main-pane-width $(($(tmux display -p '#{window_width}') * 66 / 100)); tmux select-layout main-vertical"
+      bind-key C-H select-layout even-vertical
+      bind-key C-h run-shell "tmux setw main-pane-height $(($(tmux display -p '#{window_height}') * 66 / 100)); tmux select-layout main-horizontal"
+      bind-key C-t select-layout tiled
 
       #### COLOUR (Solarized light)
       set -g status-bg "#f4f4f4" #white
