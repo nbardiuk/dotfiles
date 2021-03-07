@@ -799,6 +799,9 @@ nmap <leader>s  <Plug>SlimeMotionSend
 nmap <leader>ss <Plug>SlimeLineSend
 nmap <leader>sc <Plug>SlimeConfig
 
+xmap <leader>sy "sy
+nmap <leader>sp :SlimeSend1 <C-R>s<CR>
+
 " Git Secret {{{1
 " inpired by gpg transparent editing
 augroup secrets
