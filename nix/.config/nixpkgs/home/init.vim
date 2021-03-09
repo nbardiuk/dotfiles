@@ -249,6 +249,15 @@ augroup viml_settings
   autocmd FileType vim setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 augroup END
 
+" Edit my vim config
+nnoremap <silent> <leader>ve :vsplit ~/.config/nixpkgs/home/init.vim<cr>
+
+" Source my vim config
+nnoremap <silent> <leader>vs :runtime ~/.config/nixpkgs/home/init.vim<cr>
+
+" eXecute selection as vim command
+xnoremap <silent> <leader>vx "vy:@v<cr>
+
 " Search and Substitute {{{1
 
 " Shows the effects of a command incrementally, as you type.
@@ -391,12 +400,6 @@ endfunction
 " BAG {{{1
 " switch word case
 inoremap <c-u> <esc>g~iw`]a
-
-" edit my vim config
-nnoremap <leader>ve :vsplit ~/.config/nixpkgs/home/init.vim<cr>
-
-" source my vim config
-nnoremap <leader>vs :source ~/.config/nixpkgs/home/init.vim<cr>
 
 " always type wrong letter
 cabbrev W w
