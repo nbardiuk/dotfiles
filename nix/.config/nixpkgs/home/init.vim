@@ -670,6 +670,10 @@ let g:iced#buffer#stdout#enable_notify = v:false
 " it requires jet
 let g:iced_enable_enhanced_definition_extraction = v:false
 
+" static analysis to speedup navigation/refactorings
+let g:iced_enable_clj_kondo_analysis = v:true
+let g:iced_enable_clj_kondo_local_analysis = v:true
+
 " use clojure syntax for indentation
 let g:iced_enable_auto_indent = v:false
 let g:clojure_fuzzy_indent = v:true
