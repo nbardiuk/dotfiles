@@ -72,12 +72,12 @@ let
   vim-clojure = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/clojure-vim/clojure.vim";
     pname = "vim-clojure";
-    version = "2021-02-24";
+    version = "2021-03-09";
     src = pkgs.fetchFromGitHub {
       owner = "clojure-vim";
       repo = "clojure.vim";
-      rev = "bd2a734";
-      sha256 = "03jci0wdw4vwmyyq3hxl9ih9yh87vndrii4cgyq6g6slbnz32mrs";
+      rev = "fa110a4";
+      sha256 = "04ngf6mx88syijvx4w6higkihz3npv8c92sgq1a73is5fnygm3rz";
     };
   };
   mycolors = pkgs.vimUtils.buildVimPluginFrom2Nix {
