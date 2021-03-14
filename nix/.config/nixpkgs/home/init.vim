@@ -609,6 +609,33 @@ augroup more_sexp_mappings
   execute 'autocmd FileType' get(g:, 'sexp_filetypes', 'lisp,scheme,clojure') 'call s:sexp_mappings()'
 augroup END
 
+" Scheme {{{1
+
+function! s:scm_ignore(type) abort
+  " navigate to beginning of a text object
+  silent normal! `[
+
+  " prepend sexp comment
+  silent normal! i#;
+endfunction
+
+function! s:scheme_mappings() abort
+  nmap      <buffer> <leader>cu :let s=@/<CR>l?\v(#;)+<CR>dgn:let @/=s<CR>
+  nmap      <buffer> <leader>c  :<C-U>set opfunc=<SID>scm_ignore<CR>g@
+  xmap      <buffer> <leader>c  :<C-U>set opfunc=<SID>scm_ignore<CR>g@`<
+  nmap      <buffer> <leader>cc :<C-U>set opfunc=<SID>scm_ignore<CR>g@aF
+
+  nmap      <buffer> <leader>pp <Plug>SlimeMotionSend<Plug>(sexp_outer_top_list)``
+  nnoremap  <buffer> K          :SlimeSend1 (pp <C-R><C-W>)<CR>
+
+  nmap      <buffer> <leader>lf ggvG=``
+endfunction
+
+augroup scheme_bindings
+  autocmd!
+  autocmd FileType scheme call s:scheme_mappings()
+augroup END
+
 " Clojure {{{1
 
 function! s:clj_ignore(type) abort
