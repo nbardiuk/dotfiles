@@ -838,3 +838,9 @@ augroup secrets
   autocmd BufReadPost,FileReadPost *.secret set readonly
   autocmd BufReadPost,FileReadPost *.secret execute ":doautocmd BufReadPost " . expand("%:r")
 augroup END
+
+" Bang {{{1
+nmap <silent> <leader>tj :silent !firefox https://jira.inbcu.com/browse/<cfile><CR>
+nmap <silent> <leader>tc :silent !firefox https://clojuredocs.org/search\?q=<cword><CR>
+nmap <silent> <leader>ts :silent !firefox https://duckduckgo.com/\?q=<cword><CR>
+nmap <silent> <leader>tp :silent !firefox https://postgresql.org/search/\?q=<cword><CR>
