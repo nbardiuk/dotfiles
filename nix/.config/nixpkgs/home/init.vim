@@ -145,14 +145,6 @@ set winminwidth=10  " minimal width of inactive window
 set winheight=50    " minimal height of active window
 set winminheight=10 " minimal height of inactive window
 
-" Tabs {{{1
-nnoremap <Leader>tt :tab split<CR>
-nnoremap <Leader>tc :tabclose<CR>
-nnoremap <Leader>tn :$tabnew<CR>
-nnoremap <Leader>to :tabonly<CR>
-for tab in range(1, 9)
-  execute 'nnoremap <silent> <Leader>' . tab . ' :' . tab . 'tabnext<CR>'
-endfor
 
 " Text Formatting {{{1
 set wrap        | " soft wrap lines
