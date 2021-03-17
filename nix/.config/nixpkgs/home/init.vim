@@ -200,7 +200,7 @@ set fillchars=fold:‧
 let g:crease_foldtext = { 'default': '%{repeat("  ", v:foldlevel - 1)}%t %= %l lines %f%f' }
 
 " toggle current fold
-nnoremap <BS> zA
+nnoremap <BS> za
 
 " Swap Undo {{{1
 set noswapfile
