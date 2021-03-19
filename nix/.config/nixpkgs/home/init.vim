@@ -245,7 +245,7 @@ augroup END
 nnoremap <silent> <leader>ve :vsplit ~/.config/nixpkgs/home/init.vim<cr>
 
 " Source my vim config
-nnoremap <silent> <leader>vs :runtime ~/.config/nixpkgs/home/init.vim<cr>
+nnoremap <silent> <leader>vs :so ~/.config/nixpkgs/home/init.vim<cr>
 
 " eXecute selection as vim command
 xnoremap <silent> <leader>vx "vy:@v<cr>
