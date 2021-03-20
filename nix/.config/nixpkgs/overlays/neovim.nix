@@ -1,5 +1,5 @@
 import
   (builtins.fetchTarball {
-    url = https://github.com/nix-community/neovim-nightly-overlay/archive/35a1aa6e87de1c7404b6395eaed776173289f45f.tar.gz;
+    url = https://github.com/nix-community/neovim-nightly-overlay/archive/cb82efb321892ff8a1a0d722f2ce91e746b104c5.tar.gz;
   })
 
