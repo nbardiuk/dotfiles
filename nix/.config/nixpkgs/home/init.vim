@@ -327,6 +327,9 @@ nnoremap <leader>x :bd!<cr>
 " unload all buffers
 nnoremap <leader>X :%bd!<cr>
 
+" jump to any word in buffer
+map <silent> <leader>' <cmd>HopWord<cr>
+
 " Completion {{{1
 set complete-=t | " i don't use tags
 set completeopt=menuone,noinsert,noselect

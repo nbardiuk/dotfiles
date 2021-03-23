@@ -124,6 +124,17 @@ let
       sha256 = "1yg0p58ajd9xf00sr1y9sjy3nxim8af96svrcsy4yn7xbwk24xgm";
     };
   };
+  hop-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/phaazon/hop.nvim";
+    pname = "hop-nvim";
+    version = "2021-03-18";
+    src = pkgs.fetchFromGitHub {
+      owner = "phaazon";
+      repo = "hop.nvim";
+      rev = "8d1a199";
+      sha256 = "1skya8iqkf9bblpdf1vvkl73i9rqm0lqd40114a8ppk8vbqjp53x";
+    };
+  };
 in
 {
   programs.neovim = {
@@ -145,6 +156,7 @@ in
       fzfWrapper
       ghcid
       gitgutter
+      hop-nvim
       LanguageClient-neovim
       mycolors
       ncm2
