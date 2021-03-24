@@ -2,6 +2,15 @@ scriptencoding utf-8
 
 let mapleader="\<Space>"
 
+lua << EOF
+require('telescope').setup{
+  defaults = {
+    prompt_position='top',
+    sorting_strategy='ascending'
+  }
+}
+EOF
+
 " run interactive command with selection
 function! s:run_interact(command) abort
   " copy last selection into register r
@@ -23,12 +32,9 @@ endfunction
 noremap <F1> <ESC>
 noremap! <F1> <ESC>
 
-nnoremap <silent> <leader>k :Helptags<CR>
-vnoremap <silent> <leader>k :<c-u>call <SID>run_interact("Helptags")<CR>
+nnoremap <silent> <leader>k <cmd>lua require('telescope.builtin').help_tags{previewer = false}<cr>
 
-" [Commands] --expect expression for directly executing the command
-let g:fzf_commands_expect = 'alt-enter'
-nnoremap <silent> <leader><leader> :Commands<CR>
+nnoremap <silent> <leader><leader> <cmd>lua require('telescope.builtin').commands{ previewer = false }<cr>
 
 " LSP {{{1
 " Specify whether to use virtual text to display diagnostics.
@@ -311,13 +317,21 @@ set path=
 set path+=.  | " .  current file
 set path+=** | " ** children subdirectories 'starstar'
 
-" search project file by selected text
-vnoremap <silent> <Leader>n :<c-u>call <SID>run_interact("Files")<CR>
-nnoremap <silent> <Leader>n :Files<CR>
+nnoremap <silent> <leader>n <cmd>lua require("telescope.builtin").find_files{previewer = false, find_command = {
+            \"fd",
+            \"--no-ignore",
+            \"--hidden",
+            \"--exclude", ".git",
+            \"--exclude", "target",
+            \"--exclude", "node_modules",
+            \"--exclude", "build",
+            \"--exclude", ".clj-kondo",
+            \"--exclude", ".cpcache",
+            \"--exclude", ".venv"
+            \}}<CR>
 
-" search buffers by selected text
-vnoremap <silent> <Leader>e :<c-u>call <SID>run_interact("Buffers")<CR>
-nnoremap <silent> <Leader>e :Buffers<CR>
+nnoremap <silent> <leader>e <cmd>lua require('telescope.builtin').buffers{ previewer = false }<cr>
+
 
 let g:loaded_netrwPlugin = 1
 let g:dirvish_mode=':sort ,^.*[\/],'

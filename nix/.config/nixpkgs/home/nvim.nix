@@ -135,6 +135,39 @@ let
       sha256 = "1skya8iqkf9bblpdf1vvkl73i9rqm0lqd40114a8ppk8vbqjp53x";
     };
   };
+  telescope-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/nvim-telescope/telescope.nvim";
+    pname = "telescope-nvim";
+    version = "2021-03-21";
+    src = pkgs.fetchFromGitHub {
+      owner = "nvim-telescope";
+      repo = "telescope.nvim";
+      rev = "a7fa604";
+      sha256 = "0g8rp6qx3n43ipycav5jrhzbd5p3kp9cmcn277yn81y3f76sarij";
+    };
+  };
+  popup-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/nvim-lua/popup.nvim";
+    pname = "popup-nvim";
+    version = "2021-03-10";
+    src = pkgs.fetchFromGitHub {
+      owner = "nvim-lua";
+      repo = "popup.nvim";
+      rev = "bc98ca6";
+      sha256 = "0j1gkaba6z5vb922j47i7sq0d1zwkr5581w0nxd8c31klghg3kyn";
+    };
+  };
+  plenary-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/nvim-lua/plenary.nvim";
+    pname = "plenary-nvim";
+    version = "2021-03-15";
+    src = pkgs.fetchFromGitHub {
+      owner = "nvim-lua";
+      repo = "plenary.nvim";
+      rev = "2768ba7";
+      sha256 = "14l47j8j5idm170vk92j72ndmkkn0gqjp709yb1b731nsnz9wcjh";
+    };
+  };
 in
 {
   programs.neovim = {
@@ -169,9 +202,12 @@ in
       neco-vim # provides vim completion function
       neoformat
       nvim-yarp # remote plugin manager for ncm2
+      plenary-nvim # for telescope
+      popup-nvim # for telescope
       rhubarb # github provider for fugitive
       tabular
       targets-vim
+      telescope-nvim
       tmux-navigator
       vim-abolish
       vim-clojure
