@@ -328,7 +328,7 @@ nnoremap <leader>x :bd!<cr>
 nnoremap <leader>X :%bd!<cr>
 
 " jump to any word in buffer
-map <silent> <leader>' <cmd>HopWord<cr>
+map <silent> <leader>' <cmd>HopChar1<cr>
 
 " Completion {{{1
 set complete-=t | " i don't use tags
