@@ -582,6 +582,10 @@ let time_format='%H:%M:%S'
 let date_format='%Y-%m-%d'
 nnoremap <leader>dt a<C-R>=strftime(time_format)<CR><Esc>
 nnoremap <leader>dd a<C-R>=strftime(date_format)<CR><Esc>
+nnoremap <leader>dz :r!date --utc --iso-8601=seconds<CR><Esc>
+xnoremap <leader>dz "zy:r!date --utc --iso-8601=seconds --date='<C-R>z'<CR><Esc>
+nnoremap <leader>ds :r!date +'\%s'<CR><Esc>
+xnoremap <leader>ds "zy:r!date +'\%s' --date='<C-R>z'<CR><Esc>
 
 " sexp {{{1
 function! s:sexp_mappings() abort
