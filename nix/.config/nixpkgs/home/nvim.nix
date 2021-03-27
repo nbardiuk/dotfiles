@@ -3,12 +3,12 @@ let
   wiki-vim = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/lervag/wiki.vim";
     pname = "wiki-vim";
-    version = "2020-12-23";
+    version = "2021-03-09";
     src = pkgs.fetchFromGitHub {
       owner = "lervag";
       repo = "wiki.vim";
-      rev = "3f6a55f";
-      sha256 = "1skcqaqy88d4vgkcmsc87n8ls1rrf2ig21pk2y4a305r1w2anfxa";
+      rev = "749c5d5";
+      sha256 = "1pkl7g3r6z00d267fh5mm0ks0cwi2brk2slsvw5h34p19pvws1m3";
     };
   };
   vim-rest-console = pkgs.vimUtils.buildVimPluginFrom2Nix {
@@ -25,12 +25,12 @@ let
   vim-iced = pkgs.vimUtils.buildVimPluginFrom2Nix rec{
     meta.homepage = "https://github.com/liquidz/vim-iced";
     pname = "vim-iced";
-    version = "3.0.0";
+    version = "3.1.0";
     src = pkgs.fetchFromGitHub {
       owner = "liquidz";
       repo = "vim-iced";
       rev = version;
-      sha256 = "08kl6wqq18nzr9yhb77zgbif0kzwhcpjrrhdx6yacnsarv0w3nnr";
+      sha256 = "19brm0zbpz23y4n2mcyhwlnfq6zmqq6k3h16gq8mk82lk26rlj6v";
     };
     postInstall = ''
       install -Dt $out/bin $out/share/vim-plugins/vim-iced/bin/iced
@@ -72,12 +72,12 @@ let
   colorizer = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/chrisbra/colorizer";
     pname = "colorizer";
-    version = "2020-05-29";
+    version = "2021-01-15";
     src = pkgs.fetchFromGitHub {
       owner = "chrisbra";
       repo = "colorizer";
-      rev = "879e6c69c0c02c4ef0f08b3955c60de16efd8fb8";
-      sha256 = "1wbmd9qyb4qsqdmd4dqnfi5jn44scv1pgacr56sy7dagx2iz5zj6";
+      rev = "826d569";
+      sha256 = "069f8gqjihjzzv2qmpv3mid55vi52c6yyiijfarxpwmfchby9gc5";
     };
   };
   vim-crease = pkgs.vimUtils.buildVimPluginFrom2Nix {
@@ -94,12 +94,12 @@ let
   hop-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/phaazon/hop.nvim";
     pname = "hop-nvim";
-    version = "2021-03-18";
+    version = "2021-03-27";
     src = pkgs.fetchFromGitHub {
       owner = "phaazon";
       repo = "hop.nvim";
-      rev = "8d1a199";
-      sha256 = "1skya8iqkf9bblpdf1vvkl73i9rqm0lqd40114a8ppk8vbqjp53x";
+      rev = "07c9410";
+      sha256 = "1m2bm4fmmfyr6cvrbzfa3vigf69nzhzkm73py3qjlbpr0d5la1s2";
     };
   };
   telescope-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {

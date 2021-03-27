@@ -3,11 +3,10 @@ let
   # https://liquidz.github.io/vim-iced/vim-iced.html#vim-iced-install-manually
   # https://github.com/liquidz/vim-iced/blob/master/bin/iced
   nrepl = ''"0.8.3"'';
-  iced-nrepl = ''"1.2.1"'';
+  iced-nrepl = ''"1.2.2"'';
   cider-nrepl = ''"0.25.8"'';
   refactor-nrepl = ''"2.5.1"'';
   hashp = ''"0.1.1"'';
-  reveal = ''"1.3.193"'';
   middleware = lib.concatStringsSep "," [
     "cider.nrepl/wrap-classpath"
     "cider.nrepl/wrap-clojuredocs"
@@ -25,7 +24,6 @@ let
     "cider.nrepl/wrap-xref"
     "refactor-nrepl.middleware/wrap-refactor"
     "iced.nrepl/wrap-iced"
-    "vlaaad.reveal.nrepl/middleware"
   ];
 in
 {
@@ -42,18 +40,16 @@ in
     {:user
       {:dependencies
         [ [nrepl ${nrepl}]
-          [iced-nrepl ${iced-nrepl}]
+          [com.github.liquidz/iced-nrepl ${iced-nrepl}]
           [cider/cider-nrepl ${cider-nrepl}]
           [refactor-nrepl ${refactor-nrepl}]
           [hashp ${hashp}]
-          [vlaaad/reveal ${reveal}]
         ]
        :repl-options {:nrepl-middleware [${middleware}]
                       :prompt (fn [ns] (format "%s %s\nλ " (clojure.string/join "/" (take-last 2 (clojure.string/split (System/getenv "PWD") #"/"))) ns))
                      }
        :plugins [[refactor-nrepl ${refactor-nrepl}]]
        :injections [(require 'hashp.core)]
-       :jvm-opts ["-Dvlaaad.reveal.prefs={:theme :light, :font-family \"Iosevka\", :font-size 16}"]
       }
     }
   '';
@@ -62,11 +58,10 @@ in
     {:aliases
       {:iced
         {:extra-deps { nrepl/nrepl {:mvn/version ${nrepl}}
-                       iced-nrepl/iced-nrepl {:mvn/version ${iced-nrepl}}
+                       com.github.liquidz/iced-nrepl {:mvn/version ${iced-nrepl}}
                        cider/cider-nrepl {:mvn/version ${cider-nrepl}}
                        refactor-nrepl/refactor-nrepl {:mvn/version ${refactor-nrepl}}
-                       hashp/hashp {:mvn/version ${hashp}}
-                       vlaaad/reveal {:mvn/version ${reveal}}}
+                       hashp/hashp {:mvn/version ${hashp}}}
          :main-opts ["-m" "nrepl.cmdline" "--middleware" "[${middleware}]"]
         }
       }
