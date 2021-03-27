@@ -32,9 +32,13 @@ endfunction
 noremap <F1> <ESC>
 noremap! <F1> <ESC>
 
-nnoremap <silent> <leader>k <cmd>lua require('telescope.builtin').help_tags{previewer = false}<cr>
+nnoremap <silent> <leader>k <cmd>lua require('telescope.builtin').help_tags{
+            \previewer = false,
+            \prompt_prefix = 'Help> '}<cr>
 
-nnoremap <silent> <leader><leader> <cmd>lua require('telescope.builtin').commands{ previewer = false }<cr>
+nnoremap <silent> <leader><leader> <cmd>lua require('telescope.builtin').commands{
+            \previewer = false,
+            \prompt_prefix = 'Command> '}<cr>
 
 " LSP {{{1
 
@@ -320,7 +324,9 @@ set path=
 set path+=.  | " .  current file
 set path+=** | " ** children subdirectories 'starstar'
 
-nnoremap <silent> <leader>n <cmd>lua require("telescope.builtin").find_files{previewer = false, find_command = {
+nnoremap <silent> <leader>n <cmd>lua require("telescope.builtin").find_files{
+            \previewer = false,
+            \find_command = {
             \"fd",
             \"--no-ignore",
             \"--hidden",
@@ -331,9 +337,12 @@ nnoremap <silent> <leader>n <cmd>lua require("telescope.builtin").find_files{pre
             \"--exclude", ".clj-kondo",
             \"--exclude", ".cpcache",
             \"--exclude", ".venv"
-            \}}<CR>
+            \},
+            \prompt_prefix = 'Files> '}<CR>
 
-nnoremap <silent> <leader>e <cmd>lua require('telescope.builtin').buffers{ previewer = false }<cr>
+nnoremap <silent> <leader>e <cmd>lua require('telescope.builtin').buffers{
+            \previewer = false,
+            \prompt_prefix = 'Buf> '}<cr>
 
 
 let g:loaded_netrwPlugin = 1
@@ -548,12 +557,6 @@ let g:wiki_journal =
       \ },
       \}
 
-command! -bang -nargs=* WikiGrep
-      \ call fzf#vim#grep(
-      \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>).' '.g:wiki_root,
-      \   1,
-      \   <bang>0)
-
 let g:wiki_mappings_global={}
 let g:wiki_mappings_local={}
 let g:wiki_mappings_global['<plug>(wiki-journal)']='<leader>w_disable'
@@ -564,9 +567,15 @@ let g:wiki_mappings_local['<plug>(wiki-link-next)']='<leader>w_disable'
 let g:wiki_mappings_local['<plug>(wiki-link-return)']='<leader>w_disable'
 
 let g:wiki_mappings_global['<plug>(wiki-open)']='<leader>we'
-let g:wiki_mappings_global['<plug>(wiki-fzf-pages)']='<leader>wn'
-nnoremap <silent> <Leader>wf :WikiGrep<CR>
-nnoremap <silent> <Leader>wt :WikiFzfTags<CR>
+nnoremap <silent> <leader>wn <cmd>lua require("telescope.builtin").find_files{
+            \previewer = false,
+            \find_command = {
+            \"fd",
+            \"--exclude", ".stversions",
+            \"--exclude", ".stfoldre",
+            \},
+            \cwd = vim.g.wiki_root,
+            \prompt_prefix = 'Wiki> '}<CR>
 
 " Date Time snippets {{{1
 let time_format='%H:%M:%S'
