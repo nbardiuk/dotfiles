@@ -22,39 +22,6 @@ let
       sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj";
     };
   };
-  ncm2-vim = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    meta.homepage = "https://github.com/ncm2/ncm2-vim";
-    pname = "ncm2-vim";
-    version = "2018-08-15";
-    src = pkgs.fetchFromGitHub {
-      owner = "ncm2";
-      repo = "ncm2-vim";
-      rev = "4ee5d3e8b5710890cb5da7875790bdd5a8b3ca07";
-      sha256 = "0m4rs2bs0j74l7gqyzcdhprvvx2n7hw64bbls877av6kix4azr31";
-    };
-  };
-  ncm2-syntax = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    meta.homepage = "https://github.com/ncm2/ncm2-syntax";
-    pname = "ncm2-syntax";
-    version = "2020-06-19";
-    src = pkgs.fetchFromGitHub {
-      owner = "ncm2";
-      repo = "ncm2-syntax";
-      rev = "d41d60b22175822c14f497378a05398e3eca2517";
-      sha256 = "065sflxr6sp491ifvcf7bzvpn5c47qc0mr091v2p2k73lp9jx2s2";
-    };
-  };
-  vim-iced-ncm2 = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    meta.homepage = "https://github.com/nbardiuk/vim-iced-ncm2";
-    pname = "vim-iced-ncm2";
-    version = "2020-01-04";
-    src = pkgs.fetchFromGitHub {
-      owner = "nbardiuk";
-      repo = "vim-iced-ncm2";
-      rev = "f3fa54f84c046d074a6d2f3d363a9478cca5010b";
-      sha256 = "18q5k31qdkl8fb32w68l5d49c3yrcf621za2h3x68yw7p3hpqmqy";
-    };
-  };
   vim-iced = pkgs.vimUtils.buildVimPluginFrom2Nix rec{
     meta.homepage = "https://github.com/liquidz/vim-iced";
     pname = "vim-iced";
@@ -168,6 +135,39 @@ let
       sha256 = "14l47j8j5idm170vk92j72ndmkkn0gqjp709yb1b731nsnz9wcjh";
     };
   };
+  nvim-compe = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/hrsh7th/nvim-compe";
+    pname = "nvim-compe";
+    version = "2021-03-25";
+    src = pkgs.fetchFromGitHub {
+      owner = "hrsh7th";
+      repo = "nvim-compe";
+      rev = "a392842";
+      sha256 = "0648gz8rc6l79hg3xqkr0049fn762v7rcyvq50ya81ljrs2jl004";
+    };
+  };
+  nvim-lspconfig = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    meta.homepage = "https://github.com/neovim/nvim-lspconfig";
+    pname = "nvim-lspconfig";
+    version = "2021-03-21";
+    src = pkgs.fetchFromGitHub {
+      owner = "neovim";
+      repo = "nvim-lspconfig";
+      rev = "97bdebe";
+      sha256 = "1j7051cj4lim97kfpzhwgp95y63lk336yshbjsr89al9dxhvsaa3";
+    };
+  };
+  conjure = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
+    meta.homepage = "https://github.com/Olical/conjure";
+    pname = "conjure";
+    version = "v4.16.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "Olical";
+      repo = "conjure";
+      rev = version;
+      sha256 = "0ifmv5n0mvvlasa56kr6bwnlm7p1y59kxmvpbdw42cp3az9mcrhj";
+    };
+  };
 in
 {
   programs.neovim = {
@@ -183,25 +183,16 @@ in
     plugins = with pkgs.vimPlugins; [
       ale
       colorizer
+      conjure
       ferret
-      float-preview-nvim # ncm2 preview
       fzf-vim
       fzfWrapper
       ghcid
       gitgutter
       hop-nvim
-      LanguageClient-neovim
       mycolors
-      ncm2
-      ncm2-bufword
-      ncm2-path
-      ncm2-syntax # uses neco-syntax
-      ncm2-tmux
-      ncm2-vim # uses neco-vim
-      neco-syntax # provides syntax completion function
-      neco-vim # provides vim completion function
-      neoformat
-      nvim-yarp # remote plugin manager for ncm2
+      nvim-compe
+      nvim-lspconfig
       plenary-nvim # for telescope
       popup-nvim # for telescope
       rhubarb # github provider for fugitive
@@ -218,7 +209,6 @@ in
       vim-fugitive
       vim-gol
       vim-iced
-      vim-iced-ncm2
       vim-indent-object
       vim-markdown
       vim-polyglot

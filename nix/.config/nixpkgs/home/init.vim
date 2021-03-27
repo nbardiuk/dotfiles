@@ -37,24 +37,32 @@ nnoremap <silent> <leader>k <cmd>lua require('telescope.builtin').help_tags{prev
 nnoremap <silent> <leader><leader> <cmd>lua require('telescope.builtin').commands{ previewer = false }<cr>
 
 " LSP {{{1
-" Specify whether to use virtual text to display diagnostics.
-let g:LanguageClient_useVirtualText = 'CodeLens'
-let g:LanguageClient_diagnosticsEnable = 0
 
-let g:LanguageClient_rootMarkers = { }
-let g:LanguageClient_serverCommands = { }
+" Configure diagnostics
+lua << EOF
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+ vim.lsp.diagnostic.on_publish_diagnostics, {
+   underline = false,
+   virtual_text = false,
+   signs = false,
+   update_in_insert = false,
+ }
+)
+EOF
 
 " Common LSP bindings
-nnoremap <leader>lc :call LanguageClient_contextMenu()<CR>
-nnoremap <leader>la :call LanguageClient_textDocument_codeAction()<CR>
+nnoremap <silent> <leader>la <cmd>lua require('telescope.builtin').lsp_code_actions()<cr>
+
+" Conjure {{{1
+let g:conjure#eval#result_register = 'e'
+let g:conjure#log#botright = v:true
+
+" list of filetypes to load conjure
+let g:conjure#filetypes = []
 
 " Projectionist {{{1
 let g:projectionist_heuristics = {}
 nnoremap <leader>aa :A<CR>
-nnoremap <leader>at :Etest<CR>
-nnoremap <leader>aT :Vtest<CR>
-nnoremap <leader>as :Esource<CR>
-nnoremap <leader>aS :Vsource<CR>
 
 " Ale {{{1
 let g:ale_fixers = { }
@@ -65,11 +73,6 @@ let g:ale_linters = { }
 nnoremap L :ALEDetail<CR>
 " toggle linting
 nnoremap yol :ALEToggleBuffer<CR>
-
-nmap <silent> [W :ALEFirst<CR>
-nmap <silent> [w :ALEPrevious<CR>
-nmap <silent> ]w :ALENext<CR>
-nmap <silent> ]W :ALELast<CR>
 
 " Terminal {{{1
 if has('nvim')
@@ -254,7 +257,7 @@ nnoremap <silent> <leader>ve :vsplit ~/.config/nixpkgs/home/init.vim<cr>
 nnoremap <silent> <leader>vs :so ~/.config/nixpkgs/home/init.vim<cr>
 
 " eXecute selection as vim command
-xnoremap <silent> <leader>vx "vy:@v<cr>
+nnoremap <silent> <leader>vx "vyy:@v<cr>
 
 " Search and Substitute {{{1
 
@@ -346,36 +349,32 @@ map <silent> <leader>' <cmd>HopChar1<cr>
 
 " Completion {{{1
 set complete-=t | " i don't use tags
-set completeopt=menuone,noinsert,noselect
-augroup completoin
-  autocmd!
-  autocmd BufEnter * call ncm2#enable_for_buffer()
-augroup END
-let g:ncm2#auto_popup=0 | " popup on demand
-inoremap <C-N> <C-R>=ncm2#manual_trigger()<CR>
-let g:ncm2#manual_complete_length=[[1,1]]
-let g:ncm2#total_popup_limit=20
+set completeopt=menuone,noselect
 set shortmess+=c  | " turn off completion messages
-let g:float_preview#docked = 0
 
-" Neoformat {{{1
+let g:compe = {}
+let g:compe.enabled = v:true
+let g:compe.autocomplete = v:false
+let g:compe.debug = v:false
+let g:compe.min_length = 1
+let g:compe.preselect = 'enable'
+let g:compe.throttle_time = 80
+let g:compe.source_timeout = 200
+let g:compe.incomplete_delay = 400
+let g:compe.max_abbr_width = 100
+let g:compe.max_kind_width = 100
+let g:compe.max_menu_width = 100
+let g:compe.documentation = v:true
 
-" Enable tab to spaces conversion globally
-let g:neoformat_basic_format_retab = 1
+let g:compe.source = {}
+let g:compe.source.path = v:true
+let g:compe.source.buffer = v:true
+let g:compe.source.nvim_lsp = v:true
+let g:compe.source.omni = v:true
 
-" Enable trimming of trailing whitespace globally
-let g:neoformat_basic_format_trim = 1
-
-" Run all enabled formatters (by default Neoformat stops after the first formatter succeeds)
-let g:neoformat_run_all_formatters = 1
+inoremap <silent><expr> <C-N> compe#complete()
 
 " Git {{{1
-
-" [[B]Commits] Customize the options used by 'git log':
-let g:fzf_commits_log_options =
-      \  '--graph'
-      \. ' --color=always'
-      \. ' --format="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"'
 
 " If this many milliseconds nothing is typed the swap file will be written to disk speedsup gitgutter
 set updatetime=100
@@ -414,7 +413,7 @@ inoremap <c-u> <esc>g~iw`]a
 cabbrev W w
 
 " create a scratch file with specified suffix in a name
-command! -nargs=? Scr exe 'edit '.tempname().'-'.<q-args>
+command! -nargs=? Scratch exe 'edit '.tempname().'-'.<q-args>
 
 " Json {{{1
 augroup json_bindings
@@ -445,11 +444,11 @@ let g:ale_sql_pgformatter_options = '--spaces 4 --comma-break'
 " JavaScript/Typescript {{{1
 function! s:typescript_mappings() abort
   nnoremap <buffer> <leader>lf  :ALEFix<CR>
-  nnoremap <buffer> gd          :call LanguageClient_textDocument_definition()<CR>
-  nnoremap <buffer> <leader>lr  :call LanguageClient_textDocument_rename()<CR>
-  nnoremap <buffer> <leader>lt  :call LanguageClient_textDocument_typeDefinition()<CR>
-  nnoremap <buffer> }           :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
-  nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
+  nnoremap <buffer> gd          :lua vim.lsp.buf.definition()<CR>
+  nnoremap <buffer> <leader>lr  :lua vim.lsp.buf.rename()<CR>
+  nnoremap <buffer> <leader>lt  :lua vim.lsp.buf.type_definition()<CR>
+  nnoremap <buffer> }           :lua vim.lsp.buf.references()<CR>
+  nnoremap <buffer> K           :lua vim.lsp.buf.hover()<CR>
 endfunction
 augroup typescirpt_bindings
   autocmd!
@@ -462,13 +461,7 @@ let g:ale_fixers.javascript = ['eslint', 'prettier']
 let g:ale_fixers.typescript = ['prettier']
 let g:ale_fixers.typescriptreact = ['prettier']
 
-let g:LanguageClient_rootMarkers.javascript = ['tsconfig.json', 'package.json']
-let g:LanguageClient_rootMarkers.typescript = ['tsconfig.json', 'package.json']
-
-let g:LanguageClient_serverCommands.javascript = ['typescript-language-server', '--stdio']
-let g:LanguageClient_serverCommands.typescript = ['typescript-language-server', '--stdio']
-let g:LanguageClient_serverCommands.javascriptreact = ['typescript-language-server', '--stdio']
-let g:LanguageClient_serverCommands.typescriptreact = ['typescript-language-server', '--stdio']
+lua require'lspconfig'.tsserver.setup{}
 
 " CSS/SASS {{{1
 let g:ale_linters.scss = ['stylelint']
@@ -482,33 +475,32 @@ augroup END
 
 " Rust {{{1
 function! s:rust_mappings() abort
-  nnoremap <buffer> <leader>t   :!time cargo test -q<CR>
   nnoremap <buffer> <leader>lf  :ALEFix<CR>
-  nnoremap <buffer> gd          :call LanguageClient_textDocument_definition()<CR>
-  nnoremap <buffer> <leader>lr  :call LanguageClient_textDocument_rename()<CR>
-  nnoremap <buffer> }           :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
-  nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
+  nnoremap <buffer> gd          :lua vim.lsp.buf.definition()<CR>
+  nnoremap <buffer> <leader>lr  :lua vim.lsp.buf.rename()<CR>
+  nnoremap <buffer> }           :lua vim.lsp.buf.references()<CR>
+  nnoremap <buffer> K           :lua vim.lsp.buf.hover()<CR>
 endfunction
 augroup rust_bindings
   autocmd!
   autocmd FileType rust call s:rust_mappings()
 augroup END
-let g:LanguageClient_rootMarkers.rust = ['Cargo.toml']
-let g:LanguageClient_serverCommands.rust = ['rls']
+
+lua require'lspconfig'.rls.setup{}
+
 let g:ale_fixers.rust = ['rustfmt']
 let g:ale_linters.rust = ['cargo']
 let g:ale_rust_cargo_use_clippy = 1
 let g:ale_rust_cargo_check_all_targets = 1
 
 " Python {{{1
-let g:LanguageClient_rootMarkers.python = ['requirements.txt', 'setup.py']
-let g:LanguageClient_serverCommands.python = ['pyls']
+lua require'lspconfig'.pyls.setup{}
 function! s:python_mappings() abort
-  nnoremap <buffer> <leader>lf  :call LanguageClient_textDocument_formatting()<CR>
-  nnoremap <buffer> gd          :call LanguageClient_textDocument_definition()<CR>
-  nnoremap <buffer> <leader>lr  :call LanguageClient_textDocument_rename()<CR>
-  nnoremap <buffer> }           :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
-  nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
+  nnoremap <buffer> <leader>lf  :lua vim.lsp.buf.formatting()<CR>
+  nnoremap <buffer> gd          :lua vim.lsp.buf.definition()<CR>
+  nnoremap <buffer> <leader>lr  :lua vim.lsp.buf.rename()<CR>
+  nnoremap <buffer> }           :lua vim.lsp.buf.references()<CR>
+  nnoremap <buffer> K           :lua vim.lsp.buf.hover()<CR>
 endfunction
 
 augroup python_bindings
@@ -517,15 +509,14 @@ augroup python_bindings
 augroup END
 
 " Haskell {{{1
-let g:LanguageClient_rootMarkers.haskell = ['*.cabal', 'stack.yaml']
-let g:LanguageClient_serverCommands.haskell = ['ghcide', '--lsp']
+lua require'lspconfig'.ghcide.setup{}
 
-let g:neoformat_enabled_haskell = ['hindent', 'stylish-haskell']
+let g:ale_fixers.haskell = ['hindent']
 
 function! s:haskell_mappings() abort
-  nnoremap <buffer> <leader>lf  :Neoformat<CR>
-  nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
-  nnoremap <buffer> gd          :call LanguageClient_textDocument_definition()<CR>
+  nnoremap <buffer> <leader>lf  :ALEFix<CR>
+  nnoremap <buffer> K           :lua vim.lsp.buf.hover()<CR>
+  nnoremap <buffer> gd          :lua vim.lsp.buf.definition()<CR>
 endfunction
 augroup haskell_bindings
   autocmd!
@@ -678,8 +669,6 @@ function! s:clojure_mappings() abort
   nnoremap  <buffer> gd         :IcedDefJump<CR>
   nnoremap  <buffer> }          :IcedBrowseReferences<CR>
 
-  nnoremap  <buffer> <leader>la :IcedCommandPalette<CR>
-
   nmap      <buffer> <leader>p  "e<Plug>(iced_eval)
   xmap      <buffer> <leader>p  <esc>`<"e:call iced#operation#setup_eval()<CR>g@v`>
   nmap      <buffer> <leader>pp "e<Plug>(iced_eval)<Plug>(sexp_outer_top_list)``
@@ -697,9 +686,8 @@ augroup clojure_bindings
   autocmd FileType clojure call s:clojure_mappings()
 augroup END
 
-let g:ale_linters.clojure = ['clj-kondo', 'joker']
+let g:ale_linters.clojure = ['clj-kondo']
 
-let g:iced#nrepl#connect#jack_in_command = 'LOG_LEVEL="OFF" iced repl --without-cljs'
 let g:iced#buffer#stdout#mods = 'botright'
 let g:iced#buffer#stdout#enable_notify = v:false
 
@@ -757,23 +745,18 @@ let g:ale_fixers.sh = ['shfmt']
 let g:ale_sh_shfmt_options = '-i=2 -sr'
 
 " C {{{1
-" more configuration options https://github.com/MaskRay/ccls/wiki/LanguageClient-neovim
-let g:LanguageClient_serverCommands.c =
-      \[ 'ccls'
-      \, '--init={"cache": {"directory": "/tmp/ccls-cache"}}'
-      \, '--log-file=/tmp/cc.log'
-      \]
+lua require'lspconfig'.ccls.setup{}
 
 let g:ale_fixers.c = ['clang-format', 'clangtidy']
 let g:ale_linters.c = ['clang']
 
 function! s:c_mappings() abort
-  vnoremap <buffer> =           :call LanguageClient_textDocument_rangeFormatting()<CR>
+  vnoremap <buffer> =           :lua vim.lsp.buf.range_formatting()<CR>
   nnoremap <buffer> <leader>lf  :ALEFix<CR>
-  nnoremap <buffer> K           :call LanguageClient_textDocument_hover()<CR>
-  nnoremap <buffer> gd          :call LanguageClient_textDocument_definition()<CR>
-  nnoremap <buffer> <leader>lr  :call LanguageClient_textDocument_rename()<CR>
-  nnoremap <buffer> }           :call LanguageClient_textDocument_references({'includeDeclaration': v:false})<CR>
+  nnoremap <buffer> K           :lua vim.lsp.buf.hover()<CR>
+  nnoremap <buffer> gd          :lua vim.lsp.buf.definition()<CR>
+  nnoremap <buffer> <leader>lr  :lua vim.lsp.buf.rename()<CR>
+  nnoremap <buffer> }           :lua vim.lsp.buf.references()<CR>
 endfunction
 augroup c_bindings
   autocmd!
@@ -815,7 +798,7 @@ function! s:toggle_debug() abort
 endfunction
 
 function! s:request() abort
-  let b:vrc_output_buffer_name = escape(getline('.'), '"') 
+  let b:vrc_output_buffer_name = escape(getline('.'), '"')
               \. ' [' . expand('%:t') . ' @ ' . strftime('%H:%M:%S') . ']'
   call VrcQuery()
 endfunction
@@ -844,17 +827,6 @@ nmap <leader>sc <Plug>SlimeConfig
 
 xmap <leader>sy "sy
 nmap <leader>sp :SlimeSend1 <C-R>s<CR>
-
-" Git Secret {{{1
-" inpired by gpg transparent editing
-augroup secrets
-  autocmd!
-  autocmd BufReadPre,FileReadPre *.secret set bin
-  autocmd BufReadPost,FileReadPost *.secret '[,']!gpg --quiet --decrypt
-  autocmd BufReadPost,FileReadPost *.secret set nobin
-  autocmd BufReadPost,FileReadPost *.secret set readonly
-  autocmd BufReadPost,FileReadPost *.secret execute ":doautocmd BufReadPost " . expand("%:r")
-augroup END
 
 " Bang {{{1
 nmap <silent> <leader>tj :silent !firefox https://jira.inbcu.com/browse/<cfile><CR>
