@@ -12,8 +12,11 @@ if !enable then {} else {
     \set PROMPT2 '  '
 
     \pset null <NULL>
+
     \pset format wrapped
     \pset linestyle old-ascii
+
+    \pset expanded
 
     \set FETCH_COUNT 100
 
