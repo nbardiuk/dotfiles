@@ -50,12 +50,12 @@ let
   mycolors = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/nbardiuk/vim-colors";
     pname = "vim-colors";
-    version = "2020-05-30";
+    version = "2021-04-14";
     src = pkgs.fetchFromGitHub {
       owner = "nbardiuk";
       repo = "vim-colors";
-      rev = "7068cf3";
-      sha256 = "10qlf15ani476fdwyaf11y2ddrdil4jizqi2i92bhad1mahb7sac";
+      rev = "930e022";
+      sha256 = "12z1rlwcgmsdp8zhsf5qqbr5hfdyccylqssg76svj86d5a92fswd";
     };
   };
   vim-gol = pkgs.vimUtils.buildVimPluginFrom2Nix {
