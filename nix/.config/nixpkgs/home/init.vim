@@ -342,7 +342,10 @@ nnoremap <silent> <leader>n <cmd>lua require("telescope.builtin").find_files{
 
 nnoremap <silent> <leader>e <cmd>lua require('telescope.builtin').buffers{
             \previewer = false,
-            \prompt_prefix = 'Buf> '}<cr>
+            \prompt_prefix = 'Buf> ',
+            \sort_lastused = true,
+            \ignore_current_buffer = true,
+            \}<cr>
 
 
 let g:loaded_netrwPlugin = 1
