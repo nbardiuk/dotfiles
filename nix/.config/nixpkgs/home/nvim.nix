@@ -105,12 +105,12 @@ let
   telescope-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/nvim-telescope/telescope.nvim";
     pname = "telescope-nvim";
-    version = "2021-03-21";
+    version = "2021-04-14";
     src = pkgs.fetchFromGitHub {
       owner = "nvim-telescope";
       repo = "telescope.nvim";
-      rev = "a7fa604";
-      sha256 = "0g8rp6qx3n43ipycav5jrhzbd5p3kp9cmcn277yn81y3f76sarij";
+      rev = "07d5181";
+      sha256 = "01xasjdcyxc4diyv7pz658qdhpwd1lv3q8j8bqczcn0d0l49w3yj";
     };
   };
   popup-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
@@ -127,12 +127,12 @@ let
   plenary-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/nvim-lua/plenary.nvim";
     pname = "plenary-nvim";
-    version = "2021-03-15";
+    version = "2021-04-10";
     src = pkgs.fetchFromGitHub {
       owner = "nvim-lua";
       repo = "plenary.nvim";
-      rev = "2768ba7";
-      sha256 = "14l47j8j5idm170vk92j72ndmkkn0gqjp709yb1b731nsnz9wcjh";
+      rev = "a3276a4";
+      sha256 = "005xf3g9b38x6b29q9csbr2yyxvpw6f3nr6npygr65a2z4f1cjak";
     };
   };
   nvim-compe = pkgs.vimUtils.buildVimPluginFrom2Nix {
