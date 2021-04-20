@@ -206,6 +206,7 @@ in
       vim-cool # manages search highlight
       vim-crease
       vim-dirvish # simple directory viewer
+      vim-eunuch
       vim-fugitive
       vim-gol
       vim-iced
