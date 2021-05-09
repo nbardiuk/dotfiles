@@ -17,6 +17,7 @@ let
     "cider.nrepl/wrap-macroexpand"
     "cider.nrepl/wrap-ns"
     "cider.nrepl/wrap-out"
+    "cider.nrepl/wrap-refresh"
     "cider.nrepl/wrap-spec"
     "cider.nrepl/wrap-test"
     "cider.nrepl/wrap-trace"
