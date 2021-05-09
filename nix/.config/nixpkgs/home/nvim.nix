@@ -212,6 +212,7 @@ in
       vim-iced
       vim-indent-object
       vim-markdown
+      vim-matchup
       vim-polyglot
       vim-projectionist
       vim-repeat
