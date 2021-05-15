@@ -675,7 +675,7 @@ function! s:clojure_mappings() abort
   nmap      <buffer> <leader>oo <Plug>(iced_stdout_buffer_toggle)
   nmap      <buffer> <leader>oc <Plug>(iced_stdout_buffer_clear)
 
-  nmap      <buffer> <leader>lf <Plug>(iced_format_all)
+  nmap      <buffer> <leader>lf :ALEFix<CR>
 
   nmap      <buffer> <leader>lr <Plug>(iced_rename_symbol)
 
@@ -702,7 +702,22 @@ augroup clojure_bindings
   autocmd FileType clojure call s:clojure_mappings()
 augroup END
 
+function! Cljfmt(buffer) abort
+    return {
+    \   'command': 'cljfmt fix %t'
+    \     . ' --indents ~/.config/cljfmt/indentation.edn'
+    \     . ' --remove-surrounding-whitespace'
+    \     . ' --remove-trailing-whitespace'
+    \     . ' --no-remove-consecutive-blank-lines'
+    \     . ' --insert-missing-whitespace',
+    \   'read_temporary_file': 1,
+    \}
+endfunction
+
+execute ale#fix#registry#Add('cljfmt', 'Cljfmt', ['clojure'], 'cljfmt for clj')
+
 let g:ale_linters.clojure = ['clj-kondo']
+let g:ale_fixers.clojure = ['cljfmt']
 
 let g:iced#buffer#stdout#mods = 'botright'
 let g:iced#buffer#stdout#enable_notify = v:false

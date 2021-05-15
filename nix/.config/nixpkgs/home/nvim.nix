@@ -174,5 +174,6 @@ in
     python37Packages.python-language-server
     ccls
     clang-tools
+    cljfmt
   ];
 }

@@ -66,4 +66,14 @@ in
       }
     }
   '';
+
+  xdg.configFile."cljfmt/indentation.edn".text = ''
+    {
+      Given [[:inner 0]]
+      When [[:inner 0]]
+      Then [[:inner 0]]
+      And [[:inner 0]]
+      let-system [[:inner 0]]
+    }
+  '';
 }
