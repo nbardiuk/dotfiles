@@ -176,7 +176,6 @@ in
     viAlias = true;
     vimAlias = true;
     withNodeJs = false;
-    withPython = false;
     withPython3 = true;
     withRuby = false;
     extraConfig = (builtins.readFile ./init.vim);
