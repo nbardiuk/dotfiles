@@ -33,7 +33,8 @@ in
         border = 1;
         modifier = mod;
       };
-      fonts = ["FontAwesome 10" "Iosevka 10"];
+      fonts.names = ["FontAwesome" "Iosevka"];
+      fonts.size = 10.0;
       keybindings = {};
       colors = {
         background    = "${bg-color}";
