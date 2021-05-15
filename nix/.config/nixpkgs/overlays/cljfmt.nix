@@ -10,6 +10,49 @@ let
     sha256 = "19zi8k95ivgz516866w73yllycihpkb3hnbzaqlfbv4xqn6gi47b";
   };
 
+  # like clojure-lsp hacks jars separately from native image
+  # https://github.com/NixOS/nixpkgs/commit/2c3ad4ef9c5715fd5b74b4a664b54f5ab8ac7a2c
+  deps = previous.stdenv.mkDerivation rec {
+    name = "${pname}-${version}-deps";
+
+    inherit src;
+
+    nativeBuildInputs = with final.pkgs; [
+      (leiningen.override { jdk = jdk11; })
+    ];
+
+    postPatch = ''
+      cd cljfmt
+
+      substituteInPlace project.clj \
+        --replace ":native-image" ":local-repo \"$out\" :native-image"
+
+      export LEIN_HOME="$TMP"
+    '';
+
+    buildPhase = ''
+      runHook preBuild
+
+      lein with-profile +dev do deps, uberjar
+
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+      find $out -type f \
+        -name \*.lastUpdated -or \
+        -name resolver-status.properties -or \
+        -name _remote.repositories \
+        -delete
+      runHook postInstall
+    '';
+
+    outputHashAlgo = "sha256";
+    outputHashMode = "recursive";
+    outputHash = "sha256:1xa8g5gl16cip0bj3bjvak133254wj1fdhd05rh6qa84w48anqsm";
+  };
+
   cljfmt = previous.stdenv.mkDerivation rec {
     name = "${pname}-${version}-binary";
 
@@ -24,9 +67,13 @@ let
       cd cljfmt
 
       substituteInPlace project.clj \
-        --replace ":native-image" ":local-repo \".m2\" :native-image"
+        --replace ":native-image" ":local-repo \"${deps}\" :native-image"
+
+      substituteInPlace project.clj \
+        --replace "\"--verbose\"" "\"--verbose\" \"-H:-CheckToolchain\""
 
       export LEIN_HOME="$TMP"
+      export LEIN_OFFLINE=true
     '';
 
     buildPhase = ''
@@ -44,10 +91,6 @@ let
 
       runHook postInstall
     '';
-
-    outputHashAlgo = "sha256";
-    outputHashMode = "recursive";
-    outputHash = "sha256:0fnjimahxm3hs7ql4ma5mhwi4c3xl8lvl9bgkixi6c9cibwr1lc0";
 
     meta = with previous.lib; with final.pkgs; {
       description = "Code formatter for Clojure";
