@@ -5,16 +5,6 @@ with lib;
 {
   services.sxhkd = {
     enable = true;
-    extraPath = let
-      username = builtins.getEnv "USER";
-    in
-      concatStringsSep ":" [
-        "/run/wrappers/bin"
-        "/home/${username}/.nix-profile/bin"
-        "/etc/profiles/per-user/${username}/bin"
-        "/nix/var/nix/profiles/default/bin"
-        "/run/current-system/sw/bin"
-      ];
     keybindings = let
       workspaces = [ "'1'" "'2'" "'3'" "'4'" "'5'" "'6'" "'7'" "'8'" "'9'" "'10'" ];
       workspacesList = concatStringsSep "," workspaces;
@@ -37,11 +27,11 @@ with lib;
       "super + alt + shift + {Left,Right}"  = "i3-msg resize {shrink,grow} width 10 px";
       "super + alt + shift + {Down,Up}"     = "i3-msg resize {shrink,grow} height 10 px";
       "super + alt + shift + space"         = "i3-msg 'floating toggle; resize set 1000 800; move position center'";
-      "XF86MonBrightness{Up,Down}"    = "light -{A,U} 5";
-      "XF86Audio{Raise,Lower}Volume"  = "amixer set Master 5%{+,-} unmute; pkill -RTMIN+10 i3blocks";
+      "XF86MonBrightness{Up,Down}"          = "light -{A,U} 5";
+      "XF86Audio{Raise,Lower}Volume"        = "amixer set Master 5%{+,-} unmute; pkill -RTMIN+10 i3blocks";
       "super + alt + ctrl + l"              = "xautolock -locknow && exec xset dpms force standby";
-      "Print"                         = "maim -us ~/Snapshots/$(date +%s).png";
-      "super + alt + Return"                = "alacritty -e zsh";
+      "Print"                               = "maim -us ~/Snapshots/$(date +%s).png";
+      "super + alt + Return"                = "alacritty --command zsh";
       "super + alt + d"                     = "rofi -show combi";
       "super + alt + Tab"                   = "rofi -show combi -combi-modi window";
       "super + alt + b"                     = "${pkgs.open_book}/bin/open_book.sh";
