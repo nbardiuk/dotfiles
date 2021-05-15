@@ -91,10 +91,18 @@ let
       sha256 = "1yg0p58ajd9xf00sr1y9sjy3nxim8af96svrcsy4yn7xbwk24xgm";
     };
   };
+  # workaround for flake https://github.com/nix-community/neovim-nightly-overlay/issues/111
+  neovim-nightly = (import <nixpkgs> {
+    overlays = [
+      (import (builtins.fetchTarball {
+        url = https://github.com/nix-community/neovim-nightly-overlay/archive/216ece1.tar.gz;
+      }))
+    ];
+  }).neovim-nightly;
 in
 {
   programs.neovim = {
-    package = pkgs.neovim-nightly;
+    package = neovim-nightly;
     enable = true;
     viAlias = true;
     vimAlias = true;
