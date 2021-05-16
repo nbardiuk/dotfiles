@@ -24,6 +24,7 @@
       MANPAGER = "nvim +set\\ filetype=man -";
       SUDO_EDITOR = "nvim";
       ZSH_TMUX_AUTOSTART = true;
+      ZSH_TMUX_CONFIG = "${config.home.homeDirectory}/.config/tmux/tmux.conf";
       CDPATH = lib.concatStringsSep ":" [
         "${config.home.homeDirectory}/dev"
         "${config.home.homeDirectory}"

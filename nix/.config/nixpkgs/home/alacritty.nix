@@ -79,6 +79,8 @@ in
   programs.alacritty.enable = true;
   programs.alacritty.settings = base16-grayscale-light-my // {
 
+    shell.program = "zsh";
+
     # Allow terminal applications to change Alacritty's window title.
     window.dynamic_title = true;
 

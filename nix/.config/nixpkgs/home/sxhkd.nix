@@ -31,7 +31,7 @@ with lib;
       "XF86Audio{Raise,Lower}Volume"        = "amixer set Master 5%{+,-} unmute; pkill -RTMIN+10 i3blocks";
       "super + alt + ctrl + l"              = "xautolock -locknow && exec xset dpms force standby";
       "Print"                               = "maim -us ~/Snapshots/$(date +%s).png";
-      "super + alt + Return"                = "alacritty --command zsh";
+      "super + alt + Return"                = "alacritty";
       "super + alt + d"                     = "rofi -show combi";
       "super + alt + Tab"                   = "rofi -show combi -combi-modi window";
       "super + alt + b"                     = "${pkgs.open_book}/bin/open_book.sh";
