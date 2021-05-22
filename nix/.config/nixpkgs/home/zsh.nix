@@ -1,4 +1,7 @@
 { config, lib, pkgs, ... }:
+let
+  minutes = m: (m * 60);
+in
 {
   programs.zsh = rec {
     enable = true;
@@ -12,6 +15,7 @@
       plugins = [
         "bgnotify"
         "git"
+        "git-auto-fetch"
         "tmux"
         "vi-mode"
       ];
@@ -25,6 +29,7 @@
       SUDO_EDITOR = "nvim";
       ZSH_TMUX_AUTOSTART = true;
       ZSH_TMUX_CONFIG = "${config.home.homeDirectory}/.config/tmux/tmux.conf";
+      GIT_AUTO_FETCH_INTERVAL = minutes 10;
       CDPATH = lib.concatStringsSep ":" [
         "${config.home.homeDirectory}/dev"
         "${config.home.homeDirectory}"
