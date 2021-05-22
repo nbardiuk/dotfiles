@@ -1,21 +1,32 @@
-{ ... }:
-let
-  meter = mode: kind: { inherit mode; inherit kind; };
-  bar = meter 1;
-  text = meter 2;
-  graph = meter 3;
-  led = meter 4;
-in
+{ config, ... }:
 {
   programs.htop = {
-    colorScheme = 0; # Default
     enable = true;
-    fields = ["PID" "USER" "STATE" "M_RESIDENT" "PERCENT_MEM" "PERCENT_CPU" "TIME" "IO_RATE" "COMM"];
-    hideKernelThreads = true;
-    hideThreads = true;
-    hideUserlandThreads = true;
-    meters.left = [(graph "CPU") (graph "Memory")];
-    meters.right = [(text "Tasks") (bar "AllCPUs2") (bar "Memory") (bar "Swap")];
-    showProgramPath = false;
+    settings = with config.lib.htop; {
+      color_scheme = 0; # Default
+      fields = with fields; [
+        PID
+        USER
+        STATE
+        M_RESIDENT
+        PERCENT_MEM
+        PERCENT_CPU
+        TIME
+        IO_RATE
+        COMM
+      ];
+      hide_kernel_threads = true;
+      hide_threads = true;
+      hide_userland_threads = true;
+      show_program_path = false;
+    } // (leftMeters {
+      CPU = modes.Graph;
+      Memory = modes.Graph;
+    }) // (rightMeters {
+      Tasks = modes.Text;
+      AllCPUs2 = modes.Bar;
+      Memory = modes.Bar;
+      Swap = modes.Bar;
+    });
   };
 }
