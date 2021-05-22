@@ -19,54 +19,39 @@
 
   hardware.cpu.intel.updateMicrocode = true;
 
-  # exfat support
-  boot.extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
-
   # Graphics
-  # hardware.nvidia.optimus_prime.sync.enable = true;
-  hardware.nvidia.optimus_prime.enable = true;
-  hardware.nvidia.optimus_prime.intelBusId = "PCI:0:2:0";
-  hardware.nvidia.optimus_prime.nvidiaBusId = "PCI:1:0:0";
+  hardware.nvidia.prime.sync.enable = true;
+  hardware.nvidia.prime.intelBusId = "PCI:0:2:0";
+  hardware.nvidia.prime.nvidiaBusId = "PCI:1:0:0";
   services.xserver.videoDrivers = [ "modsetting" "nvidia" ];
   services.xserver.dpi = 96;
 
-  hardware.opengl.driSupport32Bit = false; # enbales opengl for 32bit apps
-  hardware.pulseaudio.support32Bit = false;
-
-  services.dbus.packages = with pkgs; [
-    gnome3.dconf # fixes https://github.com/rycee/home-manager/pull/436#issuecomment-449755377
-    blueman # for blueman applet https://github.com/rycee/home-manager/blob/6aa44d62ad6526177a8c1f1babe1646c06738614/modules/services/blueman-applet.nix#L15
-  ];
+  hardware.opengl.enable = true;
+  # hardware.opengl.driSupport32Bit = true; # enbales opengl for 32bit apps
+  # hardware.pulseaudio.support32Bit = true;
 
   nixpkgs.config.allowUnfree = true;
-  systemd.packages = with pkgs; [
-    blueman # for blueman applet https://github.com/rycee/home-manager/blob/6aa44d62ad6526177a8c1f1babe1646c06738614/modules/services/blueman-applet.nix#L15
-  ];
 
-  networking.hostName = "bardiuk"; # Define your hostname.
+  programs.dconf.enable = true; # fixes https://github.com/rycee/home-manager/pull/436#issuecomment-449755377
+
+  networking.hostName = "bardiuk";
   networking.networkmanager.enable = true;
+  networking.networkmanager.insertNameservers = [ "1.1.1.1" "8.8.8.8" ];
+  networking.resolvconf.dnsExtensionMechanism = false;
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_IE.UTF-8";
-
-  # Set your time zone.
   time.timeZone = "Europe/Lisbon";
 
-  # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
-    blueman # for blueman applet https://github.com/rycee/home-manager/blob/6aa44d62ad6526177a8c1f1babe1646c06738614/modules/services/blueman-applet.nix#L15
     vim
     pciutils
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
   programs.mtr.enable = true;
   programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
   programs.light.enable = true;
   programs.adb.enable = true;
 
-  # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplipWithPlugin ];
   hardware.printers.ensurePrinters = [
@@ -78,25 +63,24 @@
     }
   ];
 
-  # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
 
   hardware.bluetooth.enable = true;
   # hardware.bluetooth.package = pkgs.bluez.override { enableMidi = true; };
+  services.blueman.enable = true; # for blueman applet https://github.com/rycee/home-manager/blob/6aa44d62ad6526177a8c1f1babe1646c06738614/modules/services/blueman-applet.nix#L15
 
-  # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.layout = "us,ua";
-  services.xserver.xkbOptions = "grp:shifts_toggle";
+  services.xserver.xkbOptions = "grp:win_space_toggle"; # man xkeyboard-config
 
   # Enable touchpad support.
   services.xserver.libinput.enable = true;
-  services.xserver.libinput.naturalScrolling = true;
-  services.xserver.libinput.clickMethod = "clickfinger";
-  services.xserver.libinput.scrollMethod = "twofinger";
-  services.xserver.libinput.additionalOptions = ''
+  services.xserver.libinput.touchpad.naturalScrolling = true;
+  services.xserver.libinput.touchpad.clickMethod = "clickfinger";
+  services.xserver.libinput.touchpad.scrollMethod = "twofinger";
+  services.xserver.libinput.touchpad.additionalOptions = ''
     Option "TappingButtonMap" "lmr"
   '';
 
@@ -129,11 +113,7 @@
     uid = 1000;
   };
 
-  # This value determines the NixOS release with which your system is to be
-  # compatible, in order to avoid breaking some software such as database
-  # servers. You should change this only after NixOS release notes say you
-  # should.
-  system.stateVersion = "19.03"; # Did you read the comment?
+  system.stateVersion = "19.03";
 
   nix = {
     binaryCaches = [
