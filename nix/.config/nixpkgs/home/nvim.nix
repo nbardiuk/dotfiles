@@ -25,12 +25,12 @@ let
   vim-iced = pkgs.vimUtils.buildVimPluginFrom2Nix rec{
     meta.homepage = "https://github.com/liquidz/vim-iced";
     pname = "vim-iced";
-    version = "3.3.0";
+    version = "3.4.0";
     src = pkgs.fetchFromGitHub {
       owner = "liquidz";
       repo = "vim-iced";
       rev = version;
-      sha256 = "18l171lnndknyf6lk0lv7inqr6aj3alk1yypz7n8ddrgxncg53bn";
+      sha256 = "1q8zs3f8dfvp2y3k8d2acw6gqzzdhgpai8l40d5g42y8943whfgh";
     };
     postInstall = ''
       install -Dt $out/bin $out/share/vim-plugins/vim-iced/bin/iced
@@ -91,7 +91,7 @@ let
       sha256 = "1yg0p58ajd9xf00sr1y9sjy3nxim8af96svrcsy4yn7xbwk24xgm";
     };
   };
-  # workaround for flake https://github.com/nix-community/neovim-nightly-overlay/issues/111
+  # workaround for overlay cycle https://github.com/nix-community/neovim-nightly-overlay/issues/111
   neovim-nightly = (import <nixpkgs> {
     overlays = [
       (import (builtins.fetchTarball {
