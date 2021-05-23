@@ -1,6 +1,7 @@
 scriptencoding utf-8
 
 let mapleader="\<Space>"
+let maplocalleader="\<Tab>"
 
 lua << EOF
 require('telescope').setup{
@@ -62,7 +63,7 @@ let g:conjure#eval#result_register = 'e'
 let g:conjure#log#botright = v:true
 
 " list of filetypes to load conjure
-let g:conjure#filetypes = []
+let g:conjure#filetypes = ['clojure', 'fennel']
 
 " Projectionist {{{1
 let g:projectionist_heuristics = {}
@@ -383,6 +384,7 @@ let g:compe.source.path = v:true
 let g:compe.source.buffer = v:true
 let g:compe.source.nvim_lsp = v:true
 let g:compe.source.omni = v:true
+let g:compe.source.conjure = v:true
 
 inoremap <silent><expr> <C-N> compe#complete()
 
@@ -654,6 +656,8 @@ augroup END
 
 " Clojure {{{1
 
+let g:lispdocs_mappings = 0
+
 function! s:clj_ignore(type) abort
   " navigate to beginning of a text object
   silent normal! `[
@@ -662,33 +666,29 @@ function! s:clj_ignore(type) abort
   silent normal! i#_
 endfunction
 
+function! s:switch_conjure_state() abort
+  call fzf#run(fzf#wrap('conjure_state', {
+          \ 'options': '--prompt "repl > "',
+          \ 'source': 'find -name .nrepl-port | xargs dirname',
+          \ 'sink': {v -> execute("ConjureClientState '" . join(reverse(split(v[1:], "/"))[:2], ".") . "'")},
+          \ }))
+endfunction
+
 function! s:clojure_mappings() abort
-  nmap      <buffer> <leader>cu :let s=@/<CR>l?\v(#_)+<CR>dgn:let @/=s<CR>
-  nmap      <buffer> <leader>c  :<C-U>set opfunc=<SID>clj_ignore<CR>g@
-  xmap      <buffer> <leader>c  :<C-U>set opfunc=<SID>clj_ignore<CR>g@`<
-  nmap      <buffer> <leader>cc :<C-U>set opfunc=<SID>clj_ignore<CR>g@aF
 
-  nmap      <buffer> <leader>tn <Plug>(iced_test_ns)
-  nmap      <buffer> <leader>ta <Plug>(iced_test_all)
-  nnoremap  <buffer> <leader>to :IcedTestBufferOpen<CR>
+  nmap  <buffer> <localleader>cc :call <SID>switch_conjure_state()<CR>
 
-  nmap      <buffer> <leader>oo <Plug>(iced_stdout_buffer_toggle)
-  nmap      <buffer> <leader>oc <Plug>(iced_stdout_buffer_clear)
+  nmap  <buffer> <leader>cu :let s=@/<CR>l?\v(#_)+<CR>dgn:let @/=s<CR>
+  nmap  <buffer> <leader>cu :let s=@/<CR>l?\v(#_)+<CR>dgn:let @/=s<CR>
+  nmap  <buffer> <leader>c  :<C-U>set opfunc=<SID>clj_ignore<CR>g@
+  xmap  <buffer> <leader>c  :<C-U>set opfunc=<SID>clj_ignore<CR>g@`<
+  nmap  <buffer> <leader>cc :<C-U>set opfunc=<SID>clj_ignore<CR>g@aF
 
-  nmap      <buffer> <leader>lf :ALEFix<CR>
+  nmap  <buffer> <leader>lf :ALEFix<CR>
 
-  nmap      <buffer> <leader>lr <Plug>(iced_rename_symbol)
-
-  nnoremap  <buffer> K          :IcedDocumentPopupOpen<CR>
-  nnoremap  <buffer> <leader>cd :IcedClojureDocsOpen<CR>
-
-  nnoremap  <buffer> gd         :IcedDefJump<CR>
-  nnoremap  <buffer> }          :IcedBrowseReferences<CR>
-
-  nmap      <buffer> <leader>p  "e<Plug>(iced_eval)
-  xmap      <buffer> <leader>p  <esc>`<"e:call iced#operation#setup_eval()<CR>g@v`>
-  nmap      <buffer> <leader>pp <Plug>(iced_eval_outer_top_list)
-  nmap      <buffer> <leader>pc A ;; => <Esc>"ep
+  nmap  <buffer> K          <localleader>K
+  nmap  <buffer> <leader>K  :lua require'lispdocs'.split()<cr>
+  nmap  <buffer> gd         <localleader>gd
 
   setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
@@ -719,31 +719,15 @@ execute ale#fix#registry#Add('cljfmt', 'Cljfmt', ['clojure'], 'cljfmt for clj')
 let g:ale_linters.clojure = ['clj-kondo']
 let g:ale_fixers.clojure = ['cljfmt']
 
-let g:iced#buffer#stdout#mods = 'botright'
-let g:iced#buffer#stdout#enable_notify = v:false
-
-" it requires jet
-let g:iced_enable_enhanced_definition_extraction = v:false
-
-" static analysis to speedup navigation/refactorings
-let g:iced_enable_clj_kondo_analysis = v:true
-let g:iced_enable_clj_kondo_local_analysis = v:true
-
 " use clojure syntax for indentation
-let g:iced_enable_auto_indent = v:false
 let g:clojure_fuzzy_indent = v:true
 
 let extra_macros = ['Given', 'When', 'Then', 'And', 'let-system']
 let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let'] | " Default
-let g:iced#format#rule = {}
 for macro in extra_macros
-  let g:iced#format#rule[macro] = '[[:inner 0]]'
   let g:clojure_fuzzy_indent_patterns += ['^' . macro]
 endfor
 let g:clojure_syntax_keywords = {'clojureMacro': extra_macros}
-
-" use clojure.vim package directly
-let g:polyglot_disabled = ['clojure']
 
 let g:projectionist_heuristics['project.clj|deps.edn'] =
       \ {
@@ -759,6 +743,9 @@ let g:projectionist_heuristics['project.clj|deps.edn'] =
       \     'alternate': 'src/{}.clj',
       \   }
       \ }
+
+let g:conjure#client#clojure#nrepl#test#current_form_names = ['deftest', 'def-integration-test']
+let g:conjure#client#clojure#nrepl#test#runner = 'kaocha'
 
 " Markdown {{{1
 let g:markdown_syntax_conceal=0

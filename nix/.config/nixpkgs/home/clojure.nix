@@ -1,12 +1,9 @@
 { lib, pkgs, ... }:
 let
-  # https://liquidz.github.io/vim-iced/vim-iced.html#vim-iced-install-manually
-  # https://github.com/liquidz/vim-iced/blob/master/bin/iced
   nrepl = ''"0.8.3"'';
-  iced-nrepl = ''"1.2.4"'';
   cider-nrepl = ''"0.26.0"'';
-  refactor-nrepl = ''"2.5.1"'';
   hashp = ''"0.1.1"'';
+  kaocha = ''"1.0.861"'';
   middleware = lib.concatStringsSep "," [
     "cider.nrepl/wrap-classpath"
     "cider.nrepl/wrap-clojuredocs"
@@ -23,8 +20,6 @@ let
     "cider.nrepl/wrap-trace"
     "cider.nrepl/wrap-undef"
     "cider.nrepl/wrap-xref"
-    "refactor-nrepl.middleware/wrap-refactor"
-    "iced.nrepl/wrap-iced"
   ];
 in
 {
@@ -39,15 +34,13 @@ in
     {:user
       {:dependencies
         [ [nrepl ${nrepl}]
-          [com.github.liquidz/iced-nrepl ${iced-nrepl}]
           [cider/cider-nrepl ${cider-nrepl}]
-          [refactor-nrepl ${refactor-nrepl}]
           [hashp ${hashp}]
+          [lambdaisland/kaocha ${kaocha}]
         ]
        :repl-options {:nrepl-middleware [${middleware}]
                       :prompt (fn [ns] (format "%s %s\nλ " (clojure.string/join "/" (take-last 2 (clojure.string/split (System/getenv "PWD") #"/"))) ns))
                      }
-       :plugins [[refactor-nrepl ${refactor-nrepl}]]
        :injections [(require 'hashp.core)]
       }
     }
@@ -55,11 +48,10 @@ in
 
   xdg.configFile."clojure/deps.edn".text = ''
     {:aliases
-      {:iced
+      {:rep
         {:extra-deps { nrepl/nrepl {:mvn/version ${nrepl}}
-                       com.github.liquidz/iced-nrepl {:mvn/version ${iced-nrepl}}
                        cider/cider-nrepl {:mvn/version ${cider-nrepl}}
-                       refactor-nrepl/refactor-nrepl {:mvn/version ${refactor-nrepl}}
+                       lambdaisland/kaocha {:mvn/version ${kaocha}}
                        hashp/hashp {:mvn/version ${hashp}}}
          :main-opts ["-m" "nrepl.cmdline" "--middleware" "[${middleware}]"]
         }

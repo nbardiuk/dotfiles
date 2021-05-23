@@ -22,31 +22,6 @@ let
       sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj";
     };
   };
-  vim-iced = pkgs.vimUtils.buildVimPluginFrom2Nix rec{
-    meta.homepage = "https://github.com/liquidz/vim-iced";
-    pname = "vim-iced";
-    version = "3.4.0";
-    src = pkgs.fetchFromGitHub {
-      owner = "liquidz";
-      repo = "vim-iced";
-      rev = version;
-      sha256 = "1q8zs3f8dfvp2y3k8d2acw6gqzzdhgpai8l40d5g42y8943whfgh";
-    };
-    postInstall = ''
-      install -Dt $out/bin $out/share/vim-plugins/vim-iced/bin/iced
-    '';
-  };
-  vim-clojure = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    meta.homepage = "https://github.com/clojure-vim/clojure.vim";
-    pname = "vim-clojure";
-    version = "2021-05-18";
-    src = pkgs.fetchFromGitHub {
-      owner = "clojure-vim";
-      repo = "clojure.vim";
-      rev = "ab5004c";
-      sha256 = "0mjkphbgnls42rgfk2q2yacpa2vsrxy44i6als0vqpqh51ki3syj";
-    };
-  };
   mycolors = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/nbardiuk/vim-colors";
     pname = "vim-colors";
@@ -113,6 +88,7 @@ in
     plugins = with pkgs.vimPlugins; [
       ale
       colorizer
+      compe-conjure
       conjure
       ferret
       fzf-vim
@@ -120,18 +96,19 @@ in
       ghcid
       gitgutter
       hop-nvim
+      lispdocs-nvim # clojure docs for conjure
       mycolors
       nvim-compe
       nvim-lspconfig
       plenary-nvim # for telescope
       popup-nvim # for telescope
       rhubarb # github provider for fugitive
+      sql-nvim # for lispdocs-nvim
       tabular
       targets-vim
       telescope-nvim
       tmux-navigator
       vim-abolish
-      vim-clojure
       vim-commentary
       vim-cool # manages search highlight
       vim-crease
@@ -139,11 +116,9 @@ in
       vim-eunuch
       vim-fugitive
       vim-gol
-      vim-iced
       vim-indent-object
       vim-markdown
       vim-matchup
-      vim-polyglot
       vim-projectionist
       vim-repeat
       vim-rest-console
@@ -162,7 +137,6 @@ in
     nixpkgs-fmt               # nix formatter
     joker                     # clojure linter
     clj-kondo                 # clojure linter
-    vim-iced                  # clojure nrepl
     shellcheck                # shell scripts linter
     shfmt                     # shell scripts formatter
     vim-vint                  # vim linter
