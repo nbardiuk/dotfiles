@@ -252,6 +252,8 @@
       :javascript ["eslint" "prettier"]
       :typescript ["prettier"]
       :typescriptreact ["prettier"]
+      :hcl ["terraform"]
+      :terraform ["terraform"]
       :xml ["xmllint"]})
 
 (set vim.g.ale_linters
@@ -265,6 +267,8 @@
       :sql ["sqlint"]
       :javascript ["eslint"]
       :typescript ["tsserver" "tslint"]
+      :yaml ["yamllint"]
+      :terraform ["terraform"]
       :xml ["xmllint"]})
 
 (set vim.g.ale_json_jq_options "--monochrome-output --indent 2")
@@ -273,6 +277,11 @@
 (set vim.g.ale_rust_cargo_use_clippy 1)
 (set vim.g.ale_rust_cargo_check_all_targets 1)
 (set vim.g.ale_sh_shfmt_options "-i=2 -sr")
+(set vim.g.ale_yaml_yamllint_options
+     (.."-d \"{extends: default,"
+            "  rules: {"
+            "    line-length: {max: 120},"
+            "    document-start: {present: false}}}\""))
 
 
 (set vim.g.wiki_root "~/Notes")

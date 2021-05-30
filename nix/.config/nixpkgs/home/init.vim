@@ -195,6 +195,19 @@ augroup json_bindings
   autocmd FileType json nnoremap <buffer> <leader>lf :ALEFix<CR>
 augroup END
 
+" Yaml {{{1
+augroup yaml_bindings
+  autocmd!
+  autocmd FileType yaml nnoremap <buffer> <leader>lf :ALEFix<CR>
+augroup END
+
+" Terraform {{{1
+augroup tf_bindings
+  autocmd!
+  autocmd FileType terraform nnoremap <buffer> <leader>lf :ALEFix<CR>
+  autocmd FileType hcl nnoremap <buffer> <leader>lf :ALEFix<CR>
+augroup END
+
 " XML {{{1
 augroup xml_bindings
   autocmd!
