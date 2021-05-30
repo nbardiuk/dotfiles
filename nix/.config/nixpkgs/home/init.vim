@@ -25,19 +25,6 @@ endfunction
 noremap <F1> <ESC>
 noremap! <F1> <ESC>
 
-" LSP {{{1
-
-" Configure diagnostics
-lua << EOF
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
- vim.lsp.diagnostic.on_publish_diagnostics, {
-   underline = false,
-   virtual_text = false,
-   signs = false,
-   update_in_insert = false,
- }
-)
-EOF
 
 " Conjure {{{1
 let g:conjure#eval#result_register = 'e'
@@ -234,8 +221,6 @@ augroup typescirpt_bindings
   autocmd FileType typescript,javascript,typescriptreact,javascriptreact call s:typescript_mappings()
 augroup END
 
-lua require'lspconfig'.tsserver.setup{}
-
 " CSS/SASS {{{1
 augroup css_bindings
   autocmd!
@@ -255,10 +240,7 @@ augroup rust_bindings
   autocmd FileType rust call s:rust_mappings()
 augroup END
 
-lua require'lspconfig'.rls.setup{}
-
 " Python {{{1
-lua require'lspconfig'.pyls.setup{}
 function! s:python_mappings() abort
   nnoremap <buffer> <leader>lf  :lua vim.lsp.buf.formatting()<CR>
   nnoremap <buffer> gd          :lua vim.lsp.buf.definition()<CR>
@@ -273,8 +255,6 @@ augroup python_bindings
 augroup END
 
 " Haskell {{{1
-lua require'lspconfig'.ghcide.setup{}
-
 function! s:haskell_mappings() abort
   nnoremap <buffer> <leader>lf  :ALEFix<CR>
   nnoremap <buffer> K           :lua vim.lsp.buf.hover()<CR>
@@ -467,8 +447,6 @@ augroup sh_bindings
 augroup END
 
 " C {{{1
-lua require'lspconfig'.ccls.setup{}
-
 function! s:c_mappings() abort
   vnoremap <buffer> =           :lua vim.lsp.buf.range_formatting()<CR>
   nnoremap <buffer> <leader>lf  :ALEFix<CR>

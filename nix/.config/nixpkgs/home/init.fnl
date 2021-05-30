@@ -1,7 +1,8 @@
 (module init
   {autoload {telescope telescope
              compe compe
-             nvim aniseed.nvim}})
+             nvim aniseed.nvim
+             lspconfig lspconfig}})
 
 (set vim.g.mapleader " ")
 (set vim.g.maplocalleader "\t")
@@ -311,3 +312,18 @@
       "}<CR>")
   {:noremap true
    :silent true})
+
+
+; Configure diagnostics
+(tset vim.lsp.handlers :textDocument/publishDiagnostics
+      (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
+                    {:underline false
+                     :virtual_text false
+                     :signs false
+                     :update_in_insert false}))
+
+(lspconfig.tsserver.setup {})
+(lspconfig.rls.setup {})
+(lspconfig.pyls.setup {})
+(lspconfig.ghcide.setup {})
+(lspconfig.ccls.setup {})
