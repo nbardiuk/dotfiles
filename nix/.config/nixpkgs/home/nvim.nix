@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   wiki-vim = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/lervag/wiki.vim";
@@ -87,6 +87,7 @@ in
     extraConfig = (builtins.readFile ./init.vim);
     plugins = with pkgs.vimPlugins; [
       ale
+      aniseed # fennel neovim configuration
       colorizer
       compe-conjure
       conjure
@@ -131,6 +132,8 @@ in
       wiki-vim
     ];
   };
+
+  xdg.configFile."nvim/fnl/init.fnl".source = config.lib.file.mkOutOfStoreSymlink ./init.fnl;
 
   home.packages = with pkgs; [
     cachix     # to fetch nightly neovim

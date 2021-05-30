@@ -1,16 +1,9 @@
 scriptencoding utf-8
 
+let g:aniseed#env = v:true
+
 let mapleader="\<Space>"
 let maplocalleader="\<Tab>"
-
-lua << EOF
-require('telescope').setup{
-  defaults = {
-    prompt_position='top',
-    sorting_strategy='ascending'
-  }
-}
-EOF
 
 " run interactive command with selection
 function! s:run_interact(command) abort
@@ -33,14 +26,6 @@ endfunction
 noremap <F1> <ESC>
 noremap! <F1> <ESC>
 
-nnoremap <silent> <leader>k <cmd>lua require('telescope.builtin').help_tags{
-            \previewer = false,
-            \prompt_prefix = 'Help> '}<cr>
-
-nnoremap <silent> <leader><leader> <cmd>lua require('telescope.builtin').commands{
-            \previewer = false,
-            \prompt_prefix = 'Command> '}<cr>
-
 " LSP {{{1
 
 " Configure diagnostics
@@ -54,9 +39,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
  }
 )
 EOF
-
-" Common LSP bindings
-nnoremap <silent> <leader>la <cmd>lua require('telescope.builtin').lsp_code_actions()<cr>
 
 " Conjure {{{1
 let g:conjure#eval#result_register = 'e'
@@ -325,30 +307,6 @@ set path=
 set path+=.  | " .  current file
 set path+=** | " ** children subdirectories 'starstar'
 
-nnoremap <silent> <leader>n <cmd>lua require("telescope.builtin").find_files{
-            \previewer = false,
-            \find_command = {
-            \"fd",
-            \"--no-ignore",
-            \"--hidden",
-            \"--exclude", ".git",
-            \"--exclude", "target",
-            \"--exclude", "node_modules",
-            \"--exclude", "build",
-            \"--exclude", ".clj-kondo",
-            \"--exclude", ".cpcache",
-            \"--exclude", ".venv"
-            \},
-            \prompt_prefix = 'Files> '}<CR>
-
-nnoremap <silent> <leader>e <cmd>lua require('telescope.builtin').buffers{
-            \previewer = false,
-            \prompt_prefix = 'Buf> ',
-            \sort_lastused = true,
-            \ignore_current_buffer = true,
-            \}<cr>
-
-
 let g:loaded_netrwPlugin = 1
 let g:dirvish_mode=':sort ,^.*[\/],'
 
@@ -572,15 +530,6 @@ let g:wiki_mappings_local['<plug>(wiki-link-next)']='<leader>w_disable'
 let g:wiki_mappings_local['<plug>(wiki-link-return)']='<leader>w_disable'
 
 let g:wiki_mappings_global['<plug>(wiki-open)']='<leader>we'
-nnoremap <silent> <leader>wn <cmd>lua require("telescope.builtin").find_files{
-            \previewer = false,
-            \find_command = {
-            \"fd",
-            \"--exclude", ".stversions",
-            \"--exclude", ".stfoldre",
-            \},
-            \cwd = vim.g.wiki_root,
-            \prompt_prefix = 'Wiki> '}<CR>
 
 " Date Time snippets {{{1
 let time_format='%H:%M:%S'
