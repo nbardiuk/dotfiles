@@ -126,7 +126,7 @@
 (set vim.opt.listchars {:trail "·" :tab "▸ " :nbsp "+"}) ; display tabs and trailing spaces visually
 (set vim.opt.showbreak "↳ ")                             ; a soft wrap break symbol
 
-(set vim.opt.shell "/home/nazarii/.nix-profile/bin/zsh")
+(set vim.opt.shell "/usr/bin/env zsh")
 
 (set vim.opt.winwidth 80)     ; minimal width of active window
 (set vim.opt.winminwidth 10)  ; minimal width of inactive window
