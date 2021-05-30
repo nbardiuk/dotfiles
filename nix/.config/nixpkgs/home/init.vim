@@ -3,7 +3,6 @@ scriptencoding utf-8
 let g:aniseed#env = v:true
 
 let mapleader="\<Space>"
-let maplocalleader="\<Tab>"
 
 " run interactive command with selection
 function! s:run_interact(command) abort
@@ -76,54 +75,13 @@ if has('nvim')
 endif
 
 
-let g:loaded_python_provider = 0 | " disable Python 2 support
-
-set shortmess+=I            | " don't give the intro message
-set shortmess+=W            | " don't give 'written' when writing a file
-
-set scrolloff=5             | " minimal number of lines around cursor
-set sidescrolloff=5         | " minimal number of chars around cursor
-set nostartofline           | " keep cursor on the same offset when paging
-
-set hidden                  | " allows to switch a buffer with unsaved changes
-
-set guicursor=a:blinkon0    | " Disable cursor blink in all modes
-set mouse=a                 | " Enable mouse in all modes
-set mousemodel=popup_setpos | " make mouse behave like in GUI app
-
-set clipboard=unnamedplus   | " Set default copy buffer the same as clipboard
-
-set virtualedit=block       | " Allow virtual editing only in Visual Block mode.
-
-set matchpairs+=<:>         | " Characters that form pairs
-
-set nojoinspaces            | " Insert only one space between joined lines
-
-set signcolumn=yes:1        | " Always show, width 1
-set nonumber                | " no line numbers
-set norelativenumber        | " not even relative
-
-set colorcolumn=100         | " visual vertical line
-
-
 " Spelling {{{1
-set spelllang=en_us  | " spell check
-set nospell          | " disabled by default
-set spellsuggest+=10 | " limit spell suggestions list
-
 " turn on spell for misspells navigation
 nnoremap <silent> ]s :<C-U>execute ':setlocal spell'\| normal! ]s<CR>
 nnoremap <silent> ]S :<C-U>execute ':setlocal spell'\| normal! ]S<CR>
 nnoremap <silent> [s :<C-U>execute ':setlocal spell'\| normal! [s<CR>
 nnoremap <silent> [S :<C-U>execute ':setlocal spell'\| normal! [S<CR>
 
-set wildmode=list:longest,full | " Commands completion
-set wildignorecase             | " case is ignored when completing file names and directories
-
-set list listchars=tab:\▸\ ,trail:·,nbsp:+ | " Display tabs and trailing spaces visually
-set showbreak=↳\                           | " a soft wrap break symbol
-
-set shell=~/.nix-profile/bin/zsh
 
 " {{{1 Panes
 augroup panes
@@ -136,77 +94,11 @@ augroup END
 nnoremap <C-w>s <C-w>s<C-w>w
 nnoremap <C-w>v <C-w>v<C-w>w
 
-set winwidth=80     " minimal width of active window
-set winminwidth=10  " minimal width of inactive window
-set winheight=50    " minimal height of active window
-set winminheight=10 " minimal height of inactive window
-
-
-" Text Formatting {{{1
-set wrap        | " soft wrap lines
-set linebreak   | " break lines at convenient points
-set textwidth=0 | " do not break lines while typing
-
-set formatoptions=
-set formatoptions+=c | " auto-wrap comments (not code)
-set formatoptions+=j | " join comment lines
-set formatoptions+=l | " does not break existing long line in insert mode
-set formatoptions+=n | " recognize number list
-set formatoptions+=o | " auto add comment prefix on 'O'
-set formatoptions+=q | " format comments using gq
-set formatoptions+=r | " auto add comment prefix on Enter
-
-" Theme {{{1
-set background=light
-set termguicolors
-colorscheme mycolors
-
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'Normal'],
-  \ 'bg+':     ['bg', 'Normal'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-let $FZF_DEFAULT_OPTS='--reverse'
-let g:fzf_layout = {'window': { 'width': 0.6, 'height': 1, 'border': 'top' }}
-let g:fzf_preview_window = ''
-
-" Status line {{{1
-set noruler         | " line and column number of the cursor position
-set laststatus=2    | " 2 - allways show status line
-set noshowmode      | " dissable mode message
-set title           | " update window title
-set titlestring=%f  | " file name in title
-
 " Folding {{{1
-set foldmethod=syntax
-set foldenable          | " enable folding
-set foldlevelstart=999  | " all folds are open
-
-set fillchars=fold:‧
-let g:crease_foldtext = { 'default': '%{repeat("  ", v:foldlevel - 1)}%t %= %l lines %f%f' }
-
 " toggle current fold
 nnoremap <BS> za
 
 " Swap Undo {{{1
-set noswapfile
-set nobackup
-set nowritebackup
-
-" Keep undo history across sessions, by storing in file.
-set undofile
-set undolevels=10000
-
 augroup autosave
   autocmd!
 
@@ -221,13 +113,6 @@ augroup autosave
         \ |   exe "normal! g`\""
         \ | endif
 augroup END
-
-" Indentation {{{1
-set smartindent
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-set expandtab
 
 " VimL {{{1
 augroup viml_settings
@@ -248,17 +133,10 @@ nnoremap <silent> <leader>vx "vyy:@v<cr>
 
 " Search and Substitute {{{1
 
-" Shows the effects of a command incrementally, as you type.
-" Works for |:substitute|, |:smagic|, |:snomagic|. |hl-Substitute|
-set inccommand=nosplit
-
 " center on next match
 noremap n nzz
 noremap N Nzz
 
-set gdefault   " use global substitution
-set ignorecase " Ignore case when searching...
-set smartcase  " ...unless we type a capital
 " search in project files with selected text
 vnoremap <silent> <Leader>f :<c-u>call <SID>run_interact("Rg")<CR>
 nnoremap <silent> <Leader>f :Rg<CR>
@@ -282,33 +160,7 @@ nmap <leader>/ <Plug>(FerretAck)
 vmap <leader>/ y:Ack <c-r>"
 nmap <leader>r <Plug>(FerretAcks)
 
-let g:FerretExecutable='rg'
-let g:FerretExecutableArguments = {
-  \   'rg': '
-            \ --vimgrep
-            \ --no-heading
-            \ --smart-case
-            \ --sort path
-            \ --no-ignore
-            \ --hidden
-            \ --glob=!.git
-            \ --glob=!target
-            \ --glob=!node_modules
-            \ --glob=!build
-            \ --glob=!.clj-kondo
-            \ --glob=!.cpcache
-            \'
-  \ }
-
 " Files navigation {{{1
-
-" 'path'
-set path=
-set path+=.  | " .  current file
-set path+=** | " ** children subdirectories 'starstar'
-
-let g:loaded_netrwPlugin = 1
-let g:dirvish_mode=':sort ,^.*[\/],'
 
 " unload current buffer
 nnoremap <leader>x :bd!<cr>
@@ -318,14 +170,7 @@ nnoremap <leader>X :%bd!<cr>
 " jump to any word in buffer
 map <silent> <leader>' <cmd>HopChar1<cr>
 
-" Completion {{{1
-set complete-=t | " i don't use tags
-set shortmess+=c  | " turn off completion messages
-
 " Git {{{1
-
-" If this many milliseconds nothing is typed the swap file will be written to disk speedsup gitgutter
-set updatetime=100
 
 let g:gitgutter_map_keys = 0
 nmap <Leader>gd :Gdiffsplit<CR>
@@ -341,8 +186,6 @@ xmap ih <Plug>(GitGutterTextObjectInnerVisual)
 omap ah <Plug>(GitGutterTextObjectOuterPending)
 xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 nmap yoh :GitGutterSignsToggle<CR>
-
-set diffopt+=indent-heuristic,internal,algorithm:histogram
 
 nmap <Leader>dw :call <SID>toggle_diff_whitespace()<CR>
 function! s:toggle_diff_whitespace() abort
@@ -547,9 +390,10 @@ function! s:sexp_mappings() abort
 
 endfunction
 
+let g:sexp_filetypes = 'clojure,scheme,lisp,fennel'
 augroup more_sexp_mappings
   autocmd!
-  execute 'autocmd FileType' get(g:, 'sexp_filetypes', 'lisp,scheme,clojure') 'call s:sexp_mappings()'
+  execute 'autocmd FileType' get(g:, 'sexp_filetypes') 'call s:sexp_mappings()'
 augroup END
 
 " Scheme {{{1
