@@ -62,21 +62,6 @@
   {:noremap true
    :silent true})
 
-(nvim.set_keymap
-  :n :<leader>wn
-  (.. ":lua require('telescope.builtin').find_files{"
-      "  previewer = false,"
-      "  find_command = {"
-      "    'fd',"
-      "    '--exclude', '.stversions',"
-      "    '--exclude', '.stfoldre',"
-      "  },"
-      "  cwd = '" nvim.g.wiki_root"',"
-      "  prompt_prefix = 'Wiki> '"
-      "}<CR>")
-  {:noremap true
-   :silent true})
-
 
 (compe.setup
   {:enabled true
@@ -287,3 +272,42 @@
 (set vim.g.ale_rust_cargo_use_clippy 1)
 (set vim.g.ale_rust_cargo_check_all_targets 1)
 (set vim.g.ale_sh_shfmt_options "-i=2 -sr")
+
+
+(set vim.g.wiki_root "~/Notes")
+(set vim.g.wiki_filetypes ["md"])
+(set vim.g.wiki_link_extension ".md")
+(set vim.g.wiki_link_target_type "md")
+(set vim.g.wiki_journal
+     {:name "diary"
+      :frequency "daily"
+      :date_format {:daily "%Y-%m-%d"
+                    :monthly "%Y_m%m"
+                    :weekly "%Y_w%V"}})
+
+
+(set vim.g.wiki_mappings_global
+     {"<plug>(wiki-journal)" "<leader>w_disable"
+      "<plug>(wiki-open)" "<leader>we"})
+
+(set vim.g.wiki_mappings_local
+     {"<plug>(wiki-journal-copy-tonext)" "<leader>w_disable"
+      "<plug>(wiki-link-next)" "<leader>w_disable"
+      "<plug>(wiki-link-return)" "<leader>w_disable"
+      "<plug>(wiki-link-toggle)" "<leader>w_disable"
+      "<plug>(wiki-page-toc)" "<leader>w_disable"})
+
+(nvim.set_keymap
+  :n :<leader>wn
+  (.. ":lua require('telescope.builtin').find_files{"
+      "  previewer = false,"
+      "  find_command = {"
+      "    'fd',"
+      "    '--exclude', '.stversions',"
+      "    '--exclude', '.stfoldre',"
+      "  },"
+      "  cwd = '" vim.g.wiki_root "',"
+      "  prompt_prefix = 'Wiki> '"
+      "}<CR>")
+  {:noremap true
+   :silent true})

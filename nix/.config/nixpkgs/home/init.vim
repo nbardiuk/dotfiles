@@ -291,33 +291,6 @@ augroup nix_bindings
   autocmd FileType nix nnoremap <buffer> <leader>lf :ALEFix<CR>
 augroup END
 
-" Wiki {{{1
-let g:wiki_root = '~/Notes'
-let g:wiki_filetypes = ['md']
-let g:wiki_link_extension = '.md'
-let g:wiki_link_target_type = 'md'
-let g:wiki_journal =
-      \{
-      \ 'name': 'diary',
-      \ 'frequency': 'daily',
-      \ 'date_format': {
-      \   'daily' : '%Y-%m-%d',
-      \   'weekly' : '%Y_w%V',
-      \   'monthly' : '%Y_m%m',
-      \ },
-      \}
-
-let g:wiki_mappings_global={}
-let g:wiki_mappings_local={}
-let g:wiki_mappings_global['<plug>(wiki-journal)']='<leader>w_disable'
-let g:wiki_mappings_local['<plug>(wiki-link-toggle)']='<leader>w_disable'
-let g:wiki_mappings_local['<plug>(wiki-journal-copy-tonext)']='<leader>w_disable'
-let g:wiki_mappings_local['<plug>(wiki-page-toc)']='<leader>w_disable'
-let g:wiki_mappings_local['<plug>(wiki-link-next)']='<leader>w_disable'
-let g:wiki_mappings_local['<plug>(wiki-link-return)']='<leader>w_disable'
-
-let g:wiki_mappings_global['<plug>(wiki-open)']='<leader>we'
-
 " Date Time snippets {{{1
 let time_format='%H:%M:%S'
 let date_format='%Y-%m-%d'
