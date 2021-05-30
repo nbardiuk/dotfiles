@@ -51,10 +51,6 @@ let g:projectionist_heuristics = {}
 nnoremap <leader>aa :A<CR>
 
 " Ale {{{1
-let g:ale_fixers = { }
-let g:ale_fixers['*'] = ['remove_trailing_lines', 'trim_whitespace']
-let g:ale_linters = { }
-
 " open lint error details
 nnoremap L :ALEDetail<CR>
 " toggle linting
@@ -211,26 +207,18 @@ augroup json_bindings
   autocmd!
   autocmd FileType json nnoremap <buffer> <leader>lf :ALEFix<CR>
 augroup END
-let g:ale_fixers.json = ['jq']
-let g:ale_json_jq_options = '--monochrome-output --indent 2'
 
 " XML {{{1
 augroup xml_bindings
   autocmd!
   autocmd FileType xml nnoremap <buffer> <leader>lf :ALEFix<CR>
 augroup END
-let g:ale_fixers.xml = ['xmllint']
-let g:ale_linters.xml = ['xmllint']
-let g:ale_xml_xmllint_options = '--format --nonet --recover -'
 
 " SQL {{{1
 augroup sql_bindings
   autocmd!
   autocmd FileType sql nnoremap <buffer> <leader>lf :ALEFix<CR>
 augroup END
-let g:ale_fixers.sql = ['pgformatter']
-let g:ale_linters.sql = ['sqlint']
-let g:ale_sql_pgformatter_options = '--spaces 4 --comma-break'
 
 " JavaScript/Typescript {{{1
 function! s:typescript_mappings() abort
@@ -246,19 +234,9 @@ augroup typescirpt_bindings
   autocmd FileType typescript,javascript,typescriptreact,javascriptreact call s:typescript_mappings()
 augroup END
 
-let g:ale_linters.javascript = ['eslint']
-let g:ale_linters.typescript = ['tsserver', 'tslint']
-let g:ale_fixers.javascript = ['eslint', 'prettier']
-let g:ale_fixers.typescript = ['prettier']
-let g:ale_fixers.typescriptreact = ['prettier']
-
 lua require'lspconfig'.tsserver.setup{}
 
 " CSS/SASS {{{1
-let g:ale_linters.scss = ['stylelint']
-let g:ale_linters.css = ['stylelint']
-let g:ale_fixers.scss = ['prettier', 'stylelint']
-let g:ale_fixers.css = ['prettier', 'stylelint']
 augroup css_bindings
   autocmd!
   autocmd FileType css,scss nnoremap <buffer> <leader>lf :ALEFix<CR>
@@ -279,11 +257,6 @@ augroup END
 
 lua require'lspconfig'.rls.setup{}
 
-let g:ale_fixers.rust = ['rustfmt']
-let g:ale_linters.rust = ['cargo']
-let g:ale_rust_cargo_use_clippy = 1
-let g:ale_rust_cargo_check_all_targets = 1
-
 " Python {{{1
 lua require'lspconfig'.pyls.setup{}
 function! s:python_mappings() abort
@@ -302,8 +275,6 @@ augroup END
 " Haskell {{{1
 lua require'lspconfig'.ghcide.setup{}
 
-let g:ale_fixers.haskell = ['hindent']
-
 function! s:haskell_mappings() abort
   nnoremap <buffer> <leader>lf  :ALEFix<CR>
   nnoremap <buffer> K           :lua vim.lsp.buf.hover()<CR>
@@ -315,9 +286,6 @@ augroup haskell_bindings
 augroup END
 
 " Nix {{{1
-let g:ale_linters.nix = ['nix']
-let g:ale_fixers.nix = ['nixpkgs-fmt']
-
 augroup nix_bindings
   autocmd!
   autocmd FileType nix nnoremap <buffer> <leader>lf :ALEFix<CR>
@@ -485,9 +453,6 @@ endfunction
 
 execute ale#fix#registry#Add('cljfmt', 'Cljfmt', ['clojure'], 'cljfmt for clj')
 
-let g:ale_linters.clojure = ['clj-kondo']
-let g:ale_fixers.clojure = ['cljfmt']
-
 " use clojure syntax for indentation
 let g:clojure_fuzzy_indent = v:true
 
@@ -527,15 +492,9 @@ augroup sh_bindings
   autocmd!
   autocmd FileType sh nnoremap <buffer> <leader>lf :ALEFix<CR>
 augroup END
-let g:ale_linters.sh = ['shellcheck']
-let g:ale_fixers.sh = ['shfmt']
-let g:ale_sh_shfmt_options = '-i=2 -sr'
 
 " C {{{1
 lua require'lspconfig'.ccls.setup{}
-
-let g:ale_fixers.c = ['clang-format', 'clangtidy']
-let g:ale_linters.c = ['clang']
 
 function! s:c_mappings() abort
   vnoremap <buffer> =           :lua vim.lsp.buf.range_formatting()<CR>

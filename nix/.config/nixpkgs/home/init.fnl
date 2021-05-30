@@ -250,3 +250,40 @@
 (set vim.opt.updatetime 100)
 
 (vim.opt.diffopt:append "indent-heuristic,internal,algorithm:histogram")
+
+(set vim.g.ale_fixers
+     {:* ["remove_trailing_lines" "trim_whitespace"]
+      :c ["clang-format" "clangtidy"]
+      :clojure ["cljfmt"]
+      :haskell ["hindent"]
+      :json ["jq"]
+      :nix ["nixpkgs-fmt"]
+      :rust ["rustfmt"]
+      :css ["prettier" "stylelint"]
+      :scss ["prettier" "stylelint"]
+      :sh ["shfmt"]
+      :sql ["pgformatter"]
+      :javascript ["eslint" "prettier"]
+      :typescript ["prettier"]
+      :typescriptreact ["prettier"]
+      :xml ["xmllint"]})
+
+(set vim.g.ale_linters
+     {:c ["clang"]
+      :clojure ["clj-kondo"]
+      :css ["stylelint"]
+      :scss ["stylelint"]
+      :nix ["nix"]
+      :rust ["cargo"]
+      :sh ["shellcheck"]
+      :sql ["sqlint"]
+      :javascript ["eslint"]
+      :typescript ["tsserver" "tslint"]
+      :xml ["xmllint"]})
+
+(set vim.g.ale_json_jq_options "--monochrome-output --indent 2")
+(set vim.g.ale_xml_xmllint_options "--format --nonet --recover -")
+(set vim.g.ale_sql_pgformatter_options "--spaces 4 --comma-break")
+(set vim.g.ale_rust_cargo_use_clippy 1)
+(set vim.g.ale_rust_cargo_check_all_targets 1)
+(set vim.g.ale_sh_shfmt_options "-i=2 -sr")
