@@ -1,5 +1,16 @@
 { pkgs, config, ... }:
 let
+   conjure = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
+    meta.homepage = "https://github.com/Olical/conjure";
+    pname = "conjure";
+    version = "31820e3";
+    src = pkgs.fetchFromGitHub {
+      owner = "Olical";
+      repo = pname;
+      rev = version;
+      sha256 = "sha256:1p35blgnd99kggwyiag6drx3v6zqx50ypxnfvvij102ws50144fk";
+    };
+  };
   wiki-vim = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/lervag/wiki.vim";
     pname = "wiki-vim";
