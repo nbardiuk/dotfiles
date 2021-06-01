@@ -238,53 +238,6 @@
 
 (vim.opt.diffopt:append "indent-heuristic,internal,algorithm:histogram")
 
-(set vim.g.ale_fixers
-     {:* ["remove_trailing_lines" "trim_whitespace"]
-      :c ["clang-format" "clangtidy"]
-      :clojure ["cljfmt"]
-      :haskell ["hindent"]
-      :json ["jq"]
-      :nix ["nixpkgs-fmt"]
-      :rust ["rustfmt"]
-      :css ["prettier" "stylelint"]
-      :scss ["prettier" "stylelint"]
-      :sh ["shfmt"]
-      :sql ["pgformatter"]
-      :javascript ["eslint" "prettier"]
-      :typescript ["prettier"]
-      :typescriptreact ["prettier"]
-      :hcl ["terraform"]
-      :terraform ["terraform"]
-      :xml ["xmllint"]})
-
-(set vim.g.ale_linters
-     {:c ["clang"]
-      :clojure ["clj-kondo"]
-      :css ["stylelint"]
-      :scss ["stylelint"]
-      :nix ["nix"]
-      :rust ["cargo"]
-      :sh ["shellcheck"]
-      :sql ["sqlint"]
-      :javascript ["eslint"]
-      :typescript ["tsserver" "tslint"]
-      :yaml ["yamllint"]
-      :terraform ["terraform"]
-      :xml ["xmllint"]})
-
-(set vim.g.ale_json_jq_options "--monochrome-output --indent 2")
-(set vim.g.ale_xml_xmllint_options "--format --nonet --recover -")
-(set vim.g.ale_sql_pgformatter_options "--spaces 4 --comma-break")
-(set vim.g.ale_rust_cargo_use_clippy 1)
-(set vim.g.ale_rust_cargo_check_all_targets 1)
-(set vim.g.ale_sh_shfmt_options "-i=2 -sr")
-(set vim.g.ale_yaml_yamllint_options
-     (.."-d \"{extends: default,"
-            "  rules: {"
-            "    line-length: {max: 120},"
-            "    document-start: {present: false}}}\""))
-
-
 (set vim.g.wiki_root "~/Notes")
 (set vim.g.wiki_filetypes ["md"])
 (set vim.g.wiki_link_extension ".md")
@@ -323,6 +276,8 @@
   {:noremap true
    :silent true})
 
+(set vim.g.ale_linters {:* []})
+(set vim.g.ale_fixers {:* ["remove_trailing_lines" "trim_whitespace"] })
 
 ; Configure diagnostics
 (tset vim.lsp.handlers :textDocument/publishDiagnostics
@@ -332,35 +287,56 @@
                      :signs false
                      :update_in_insert false}))
 
-(lspconfig.tsserver.setup {})
-(lspconfig.rls.setup {})
-(lspconfig.pyls.setup {})
-(lspconfig.ghcide.setup {})
-(lspconfig.ccls.setup {})
-
 (ft json "json"
    (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+(set vim.g.ale_json_jq_options "--monochrome-output --indent 2")
+(tset vim.g.ale_fixers :json ["jq"])
 
 (ft yaml "yaml"
    (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+(set vim.g.ale_yaml_yamllint_options
+     (.. "-d \"{"
+         "  extends: default,"
+         "  rules: {"
+         "    line-length: {max: 120},"
+         "    document-start: {present: false}}}\""))
+(tset vim.g.ale_linters :yaml ["yamllint"])
 
 (ft terraform "terraform,hcl"
    (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+(tset vim.g.ale_fixers :hcl ["terraform"])
+(tset vim.g.ale_fixers :terraform ["terraform"])
+(tset vim.g.ale_linters :terraform ["terraform"])
 
 (ft xml "xml"
    (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+(set vim.g.ale_xml_xmllint_options "--format --nonet --recover -")
+(tset vim.g.ale_fixers :xml ["xmllint"])
+(tset vim.g.ale_linters :xml ["xmllint"])
 
 (ft sql "sql"
    (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+(set vim.g.ale_sql_pgformatter_options "--spaces 4 --comma-break")
+(tset vim.g.ale_fixers :sql ["pgformatter"])
+(tset vim.g.ale_linters :sql ["sqlint"])
 
 (ft css "css,scss"
    (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+(tset vim.g.ale_fixers :css ["prettier" "stylelint"])
+(tset vim.g.ale_fixers :scss ["prettier" "stylelint"])
+(tset vim.g.ale_linters :css ["stylelint"])
+(tset vim.g.ale_linters :scss ["stylelint"])
 
 (ft nix "nix"
    (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+(tset vim.g.ale_fixers :nix ["nixpkgs-fmt"])
+(tset vim.g.ale_linters :nix ["nix"])
 
 (ft shell "sh"
    (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+(set vim.g.ale_sh_shfmt_options "-i=2 -sr")
+(tset vim.g.ale_fixers :sh ["shfmt"])
+(tset vim.g.ale_linters :sh ["shellcheck"])
 
 (ft python "python"
    (nvim.buf_set_keymap 0 :n :<leader>lf ":lua vim.lsp.buf.formatting()<CR>" {:noremap true :silent true})
@@ -368,6 +344,7 @@
    (nvim.buf_set_keymap 0 :n :<leader>lr ":lua vim.lsp.buf.rename()<CR>" {:noremap true :silent true})
    (nvim.buf_set_keymap 0 :n "}" ":lua vim.lsp.buf.references()<CR>" {:noremap true :silent true})
    (nvim.buf_set_keymap 0 :n "K" ":lua vim.lsp.buf.hover()<CR>" {:noremap true :silent true}))
+(lspconfig.pyls.setup {})
 
 (ft viml "vim"
    (set vim.opt_local.foldmethod "marker")
@@ -384,6 +361,12 @@
    (nvim.buf_set_keymap 0 :n :<leader>lt ":lua vim.lsp.buf.type_definition()<CR>" {:noremap true :silent true})
    (nvim.buf_set_keymap 0 :n "}" ":lua vim.lsp.buf.references()<CR>" {:noremap true :silent true})
    (nvim.buf_set_keymap 0 :n "K" ":lua vim.lsp.buf.hover()<CR>" {:noremap true :silent true}))
+(lspconfig.tsserver.setup {})
+(tset vim.g.ale_fixers :javascript ["eslint" "prettier"])
+(tset vim.g.ale_fixers :typescriptreact ["prettier"])
+(tset vim.g.ale_fixers :typescript ["prettier"])
+(tset vim.g.ale_linters :javascript ["eslint"])
+(tset vim.g.ale_linters :typescript ["tsserver" "tslint"])
 
 (ft rust "rust"
    (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true})
@@ -391,11 +374,18 @@
    (nvim.buf_set_keymap 0 :n :<leader>lr ":lua vim.lsp.buf.rename()<CR>" {:noremap true :silent true})
    (nvim.buf_set_keymap 0 :n "}" ":lua vim.lsp.buf.references()<CR>" {:noremap true :silent true})
    (nvim.buf_set_keymap 0 :n "K" ":lua vim.lsp.buf.hover()<CR>" {:noremap true :silent true}))
+(lspconfig.rls.setup {})
+(set vim.g.ale_rust_cargo_use_clippy 1)
+(set vim.g.ale_rust_cargo_check_all_targets 1)
+(tset vim.g.ale_fixers :rust ["rustfmt"])
+(tset vim.g.ale_linters :rust ["cargo"])
 
 (ft haskell "haskell"
    (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true})
    (nvim.buf_set_keymap 0 :n :gd ":lua vim.lsp.buf.definition()<CR>" {:noremap true :silent true})
    (nvim.buf_set_keymap 0 :n "K" ":lua vim.lsp.buf.hover()<CR>" {:noremap true :silent true}))
+(lspconfig.ghcide.setup {})
+(tset vim.g.ale_fixers :haskell ["hindent"])
 
 (ft c "c"
    (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true})
@@ -408,3 +398,10 @@
    (set vim.opt_local.softtabstop 2)
    (set vim.opt_local.shiftwidth 2)
    (set vim.opt_local.expandtab true))
+(lspconfig.ccls.setup {})
+(tset vim.g.ale_fixers :c ["clang-format" "clangtidy"])
+(tset vim.g.ale_linters :c ["clang"])
+
+;; Clojure
+(tset vim.g.ale_fixers :clojure ["cljfmt"])
+(tset vim.g.ale_linters :clojure ["clj-kondo"])
