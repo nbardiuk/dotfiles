@@ -11,6 +11,17 @@ let
       sha256 = "sha256:1p35blgnd99kggwyiag6drx3v6zqx50ypxnfvvij102ws50144fk";
     };
   };
+  astronauta = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
+    meta.homepage = "https://github.com/tjdevries/astronauta.nvim";
+    pname = "astronauta";
+    version = "e69d7bd";
+    src = pkgs.fetchFromGitHub {
+      owner = "tjdevries";
+      repo = "astronauta.nvim";
+      rev = version;
+      sha256 = "sha256:0dig863sdv1srhlwrn40g372if5hganhm1bh8qn3y39571gchqax";
+    };
+  };
   wiki-vim = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/lervag/wiki.vim";
     pname = "wiki-vim";
@@ -99,6 +110,7 @@ in
     plugins = with pkgs.vimPlugins; [
       ale
       aniseed # fennel neovim configuration
+      astronauta
       colorizer
       compe-conjure
       conjure
@@ -144,8 +156,10 @@ in
     ];
   };
 
-  xdg.configFile."nvim/fnl/init.fnl".source = config.lib.file.mkOutOfStoreSymlink ./init.fnl;
-  xdg.configFile."nvim/fnl/macros.fnl".source = config.lib.file.mkOutOfStoreSymlink ./macros.fnl;
+  xdg.configFile = with config.lib.file; {
+      "nvim/fnl/init.fnl".source = mkOutOfStoreSymlink ./init.fnl;
+      "nvim/fnl/macros.fnl".source = mkOutOfStoreSymlink ./macros.fnl;
+  };
 
   home.packages = with pkgs; [
     cachix     # to fetch nightly neovim

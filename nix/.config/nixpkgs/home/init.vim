@@ -391,26 +391,3 @@ augroup curl_bindings
   autocmd FileType rest nnoremap <buffer> <leader>cs :call <SID>toggle_split_body()<CR>
   autocmd FileType rest nnoremap <buffer> <leader>cd :call <SID>toggle_debug()<CR>
 augroup END
-
-" Slime {{{1
-
-let g:slime_target = 'tmux'
-let g:slime_paste_file = tempname()
-let g:slime_default_config = {}
-let g:slime_default_config.socket_name = 'default'
-let g:slime_default_config.target_pane = ':.2'
-
-let g:slime_no_mappings = 1
-xmap <leader>s  <Plug>SlimeRegionSend
-nmap <leader>s  <Plug>SlimeMotionSend
-nmap <leader>ss <Plug>SlimeLineSend
-nmap <leader>sc <Plug>SlimeConfig
-
-xmap <leader>sy "sy
-nmap <leader>sp :SlimeSend1 <C-R>s<CR>
-
-" Bang {{{1
-nmap <silent> <leader>tj :silent !firefox https://jira.inbcu.com/browse/<cfile><CR>
-nmap <silent> <leader>tc :silent !firefox https://clojuredocs.org/search\?q=<cword><CR>
-nmap <silent> <leader>ts :silent !firefox https://duckduckgo.com/\?q=<cword><CR>
-nmap <silent> <leader>tp :silent !firefox https://postgresql.org/search/\?q=<cword><CR>

@@ -401,3 +401,19 @@
 ;; Clojure
 (tset vim.g.ale_fixers :clojure ["cljfmt"])
 (tset vim.g.ale_linters :clojure ["clj-kondo"])
+
+;; Slime
+(set vim.g.slime_target :tmux)
+(set vim.g.slime_dont_ask_default 1)
+(set vim.g.slime_default_config {:socket_name :default
+                                 :target_pane "{right-of}"})
+
+(set vim.g.slime_no_mappings 1)
+(vim.schedule
+  (fn []
+    (vim.keymap.xmap ["<leader>s" "<Plug>SlimeRegionSend"])
+    (vim.keymap.nmap ["<leader>s" "<Plug>SlimeMotionSend"])
+    (vim.keymap.nmap ["<leader>ss" "<Plug>SlimeLineSend"])
+    (vim.keymap.nmap ["<leader>sc" "<Plug>SlimeConfig"])
+    (vim.keymap.xmap ["<leader>sy" "\"sy"])
+    (vim.keymap.nmap ["<leader>sp" ":SlimeSend1 <C-R>s<CR>"])))
