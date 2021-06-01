@@ -124,7 +124,6 @@ in
       vim-commentary
       vim-cool # manages search highlight
       vim-crease
-      vim-dirvish # simple directory viewer
       vim-eunuch
       vim-fugitive
       vim-gol
@@ -140,6 +139,7 @@ in
       vim-slime
       vim-surround
       vim-unimpaired
+      vim-vinegar
       wiki-vim
     ];
   };

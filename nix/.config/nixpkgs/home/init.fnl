@@ -229,10 +229,6 @@
       "**" ; children subdirectories 'starstar'
       ])
 
-(set vim.g.loaded_netrw 1)
-(set vim.g.loaded_netrwPlugin 1)
-(set vim.g.dirvish_mode ":sort ,^.*[\\/],")
-
 ; If this many milliseconds nothing is typed the swap file will be written to disk speedsup gitgutter
 (set vim.opt.updatetime 100)
 
