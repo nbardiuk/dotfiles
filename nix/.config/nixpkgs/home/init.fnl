@@ -2,7 +2,8 @@
   {autoload {telescope telescope
              compe compe
              nvim aniseed.nvim
-             lspconfig lspconfig}})
+             lspconfig lspconfig}
+   require-macros [macros]})
 
 (set vim.g.mapleader " ")
 (set vim.g.maplocalleader "\t")
@@ -336,3 +337,74 @@
 (lspconfig.pyls.setup {})
 (lspconfig.ghcide.setup {})
 (lspconfig.ccls.setup {})
+
+(ft json "json"
+   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+
+(ft yaml "yaml"
+   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+
+(ft terraform "terraform,hcl"
+   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+
+(ft xml "xml"
+   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+
+(ft sql "sql"
+   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+
+(ft css "css,scss"
+   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+
+(ft nix "nix"
+   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+
+(ft shell "sh"
+   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+
+(ft python "python"
+   (nvim.buf_set_keymap 0 :n :<leader>lf ":lua vim.lsp.buf.formatting()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n :gd ":lua vim.lsp.buf.definition()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n :<leader>lr ":lua vim.lsp.buf.rename()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n "}" ":lua vim.lsp.buf.references()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n "K" ":lua vim.lsp.buf.hover()<CR>" {:noremap true :silent true}))
+
+(ft viml "vim"
+   (set vim.opt_local.foldmethod "marker")
+   (set vim.opt_local.foldlevel 0)
+   (set vim.opt_local.tabstop 2)
+   (set vim.opt_local.softtabstop 2)
+   (set vim.opt_local.shiftwidth 2)
+   (set vim.opt_local.expandtab true))
+
+(ft typescript "typescript,javascript,typescriptreact,javascriptreact"
+   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n :gd ":lua vim.lsp.buf.definition()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n :<leader>lr ":lua vim.lsp.buf.rename()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n :<leader>lt ":lua vim.lsp.buf.type_definition()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n "}" ":lua vim.lsp.buf.references()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n "K" ":lua vim.lsp.buf.hover()<CR>" {:noremap true :silent true}))
+
+(ft rust "rust"
+   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n :gd ":lua vim.lsp.buf.definition()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n :<leader>lr ":lua vim.lsp.buf.rename()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n "}" ":lua vim.lsp.buf.references()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n "K" ":lua vim.lsp.buf.hover()<CR>" {:noremap true :silent true}))
+
+(ft haskell "haskell"
+   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n :gd ":lua vim.lsp.buf.definition()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n "K" ":lua vim.lsp.buf.hover()<CR>" {:noremap true :silent true}))
+
+(ft c "c"
+   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :v "=" ":lua vim.lsp.buf.range_formatting()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n :gd ":lua vim.lsp.buf.definition()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n :<leader>lr ":lua vim.lsp.buf.rename()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n "}" ":lua vim.lsp.buf.references()<CR>" {:noremap true :silent true})
+   (nvim.buf_set_keymap 0 :n "K" ":lua vim.lsp.buf.hover()<CR>" {:noremap true :silent true})
+   (set vim.opt_local.tabstop 2)
+   (set vim.opt_local.softtabstop 2)
+   (set vim.opt_local.shiftwidth 2)
+   (set vim.opt_local.expandtab true))

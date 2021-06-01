@@ -19,13 +19,6 @@ function! s:run_interact(command) abort
   call feedkeys(substitute(@r, "\n$", '', ''))
 endfunction
 
-" Help {{{1
-
-" Fat finger escape |map-modes|
-noremap <F1> <ESC>
-noremap! <F1> <ESC>
-
-
 " Conjure {{{1
 let g:conjure#eval#result_register = 'e'
 let g:conjure#log#botright = v:true
@@ -98,13 +91,6 @@ augroup autosave
 augroup END
 
 " VimL {{{1
-augroup viml_settings
-  autocmd!
-  autocmd FileType vim setlocal foldmethod=marker
-  autocmd FileType vim setlocal foldlevel=0
-  autocmd FileType vim setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-augroup END
-
 " Edit my vim config
 nnoremap <silent> <leader>ve :vsplit ~/.config/nixpkgs/home/init.vim<cr>
 
@@ -188,101 +174,6 @@ cabbrev W w
 
 " create a scratch file with specified suffix in a name
 command! -nargs=? Scratch exe 'edit '.tempname().'-'.<q-args>
-
-" Json {{{1
-augroup json_bindings
-  autocmd!
-  autocmd FileType json nnoremap <buffer> <leader>lf :ALEFix<CR>
-augroup END
-
-" Yaml {{{1
-augroup yaml_bindings
-  autocmd!
-  autocmd FileType yaml nnoremap <buffer> <leader>lf :ALEFix<CR>
-augroup END
-
-" Terraform {{{1
-augroup tf_bindings
-  autocmd!
-  autocmd FileType terraform nnoremap <buffer> <leader>lf :ALEFix<CR>
-  autocmd FileType hcl nnoremap <buffer> <leader>lf :ALEFix<CR>
-augroup END
-
-" XML {{{1
-augroup xml_bindings
-  autocmd!
-  autocmd FileType xml nnoremap <buffer> <leader>lf :ALEFix<CR>
-augroup END
-
-" SQL {{{1
-augroup sql_bindings
-  autocmd!
-  autocmd FileType sql nnoremap <buffer> <leader>lf :ALEFix<CR>
-augroup END
-
-" JavaScript/Typescript {{{1
-function! s:typescript_mappings() abort
-  nnoremap <buffer> <leader>lf  :ALEFix<CR>
-  nnoremap <buffer> gd          :lua vim.lsp.buf.definition()<CR>
-  nnoremap <buffer> <leader>lr  :lua vim.lsp.buf.rename()<CR>
-  nnoremap <buffer> <leader>lt  :lua vim.lsp.buf.type_definition()<CR>
-  nnoremap <buffer> }           :lua vim.lsp.buf.references()<CR>
-  nnoremap <buffer> K           :lua vim.lsp.buf.hover()<CR>
-endfunction
-augroup typescirpt_bindings
-  autocmd!
-  autocmd FileType typescript,javascript,typescriptreact,javascriptreact call s:typescript_mappings()
-augroup END
-
-" CSS/SASS {{{1
-augroup css_bindings
-  autocmd!
-  autocmd FileType css,scss nnoremap <buffer> <leader>lf :ALEFix<CR>
-augroup END
-
-" Rust {{{1
-function! s:rust_mappings() abort
-  nnoremap <buffer> <leader>lf  :ALEFix<CR>
-  nnoremap <buffer> gd          :lua vim.lsp.buf.definition()<CR>
-  nnoremap <buffer> <leader>lr  :lua vim.lsp.buf.rename()<CR>
-  nnoremap <buffer> }           :lua vim.lsp.buf.references()<CR>
-  nnoremap <buffer> K           :lua vim.lsp.buf.hover()<CR>
-endfunction
-augroup rust_bindings
-  autocmd!
-  autocmd FileType rust call s:rust_mappings()
-augroup END
-
-" Python {{{1
-function! s:python_mappings() abort
-  nnoremap <buffer> <leader>lf  :lua vim.lsp.buf.formatting()<CR>
-  nnoremap <buffer> gd          :lua vim.lsp.buf.definition()<CR>
-  nnoremap <buffer> <leader>lr  :lua vim.lsp.buf.rename()<CR>
-  nnoremap <buffer> }           :lua vim.lsp.buf.references()<CR>
-  nnoremap <buffer> K           :lua vim.lsp.buf.hover()<CR>
-endfunction
-
-augroup python_bindings
-  autocmd!
-  autocmd FileType python call s:python_mappings()
-augroup END
-
-" Haskell {{{1
-function! s:haskell_mappings() abort
-  nnoremap <buffer> <leader>lf  :ALEFix<CR>
-  nnoremap <buffer> K           :lua vim.lsp.buf.hover()<CR>
-  nnoremap <buffer> gd          :lua vim.lsp.buf.definition()<CR>
-endfunction
-augroup haskell_bindings
-  autocmd!
-  autocmd FileType haskell call s:haskell_mappings()
-augroup END
-
-" Nix {{{1
-augroup nix_bindings
-  autocmd!
-  autocmd FileType nix nnoremap <buffer> <leader>lf :ALEFix<CR>
-augroup END
 
 " Date Time snippets {{{1
 let time_format='%H:%M:%S'
@@ -453,26 +344,6 @@ let g:polyglot_disabled = ['markdown'] | " use dedicated plugin
 let g:vim_markdown_folding_style_pythonic = 1
 let g:vim_markdown_override_foldtext = 0
 
-" Shell {{{1
-augroup sh_bindings
-  autocmd!
-  autocmd FileType sh nnoremap <buffer> <leader>lf :ALEFix<CR>
-augroup END
-
-" C {{{1
-function! s:c_mappings() abort
-  vnoremap <buffer> =           :lua vim.lsp.buf.range_formatting()<CR>
-  nnoremap <buffer> <leader>lf  :ALEFix<CR>
-  nnoremap <buffer> K           :lua vim.lsp.buf.hover()<CR>
-  nnoremap <buffer> gd          :lua vim.lsp.buf.definition()<CR>
-  nnoremap <buffer> <leader>lr  :lua vim.lsp.buf.rename()<CR>
-  nnoremap <buffer> }           :lua vim.lsp.buf.references()<CR>
-endfunction
-augroup c_bindings
-  autocmd!
-  autocmd FileType c call s:c_mappings()
-  autocmd FileType c setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-augroup END
 
 " Curl {{{1
 let g:vrc_curl_opts = {

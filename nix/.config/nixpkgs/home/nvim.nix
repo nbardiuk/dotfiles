@@ -145,6 +145,7 @@ in
   };
 
   xdg.configFile."nvim/fnl/init.fnl".source = config.lib.file.mkOutOfStoreSymlink ./init.fnl;
+  xdg.configFile."nvim/fnl/macros.fnl".source = config.lib.file.mkOutOfStoreSymlink ./macros.fnl;
 
   home.packages = with pkgs; [
     cachix     # to fetch nightly neovim
