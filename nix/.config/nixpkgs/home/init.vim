@@ -19,22 +19,9 @@ function! s:run_interact(command) abort
   call feedkeys(substitute(@r, "\n$", '', ''))
 endfunction
 
-" Conjure {{{1
-let g:conjure#eval#result_register = 'e'
-let g:conjure#log#botright = v:true
-
-" list of filetypes to load conjure
-let g:conjure#filetypes = ['clojure', 'fennel']
-
 " Projectionist {{{1
 let g:projectionist_heuristics = {}
 nnoremap <leader>aa :A<CR>
-
-" Ale {{{1
-" open lint error details
-nnoremap L :ALEDetail<CR>
-" toggle linting
-nnoremap yol :ALEToggleBuffer<CR>
 
 " Terminal {{{1
 if has('nvim')
@@ -50,29 +37,6 @@ if has('nvim')
 
 endif
 
-
-" Spelling {{{1
-" turn on spell for misspells navigation
-nnoremap <silent> ]s :<C-U>execute ':setlocal spell'\| normal! ]s<CR>
-nnoremap <silent> ]S :<C-U>execute ':setlocal spell'\| normal! ]S<CR>
-nnoremap <silent> [s :<C-U>execute ':setlocal spell'\| normal! [s<CR>
-nnoremap <silent> [S :<C-U>execute ':setlocal spell'\| normal! [S<CR>
-
-
-" {{{1 Panes
-augroup panes
-  autocmd!
-  " automatically rebalance windows on vim resize
-  autocmd VimResized * :wincmd =
-augroup END
-
-" focus on new split
-nnoremap <C-w>s <C-w>s<C-w>w
-nnoremap <C-w>v <C-w>v<C-w>w
-
-" Folding {{{1
-" toggle current fold
-nnoremap <BS> za
 
 " Swap Undo {{{1
 augroup autosave
@@ -90,15 +54,6 @@ augroup autosave
         \ | endif
 augroup END
 
-" VimL {{{1
-" Edit my vim config
-nnoremap <silent> <leader>ve :vsplit ~/.config/nixpkgs/home/init.vim<cr>
-
-" Source my vim config
-nnoremap <silent> <leader>vs :so ~/.config/nixpkgs/home/init.vim<cr>
-
-" eXecute selection as vim command
-nnoremap <silent> <leader>vx "vyy:@v<cr>
 
 " Search and Substitute {{{1
 
@@ -121,14 +76,6 @@ nmap <leader>jP :call setreg('e', json_encode(@+))\| normal "eP<CR>
 " yank unescaped java/javascript string
 xmap <leader>jy :<C-U>execute 'normal! gv"ey'\| :call setreg('+', json_decode(@e))<CR>
 
-
-let g:FerretMap=0
-nmap <leader>* <Plug>(FerretAckWord)
-vmap <leader>* y:Ack <c-r>"<cr>
-nmap <leader>/ <Plug>(FerretAck)
-vmap <leader>/ y:Ack <c-r>"
-nmap <leader>r <Plug>(FerretAcks)
-
 " Files navigation {{{1
 
 " unload current buffer
@@ -139,31 +86,6 @@ nnoremap <leader>X :%bd!<cr>
 " jump to any word in buffer
 map <silent> <leader>' <cmd>HopChar1<cr>
 
-" Git {{{1
-
-let g:gitgutter_map_keys = 0
-nmap <Leader>gd :Gdiffsplit<CR>
-nmap <Leader>gs :Git<CR>
-nmap <Leader>gl :Gclog<CR>
-nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
-nmap <Leader>hs <Plug>(GitGutterStageHunk)
-nmap <Leader>hu <Plug>(GitGutterUndoHunk)
-nmap [h <Plug>(GitGutterPrevHunk)
-nmap ]h <Plug>(GitGutterNextHunk)
-omap ih <Plug>(GitGutterTextObjectInnerPending)
-xmap ih <Plug>(GitGutterTextObjectInnerVisual)
-omap ah <Plug>(GitGutterTextObjectOuterPending)
-xmap ah <Plug>(GitGutterTextObjectOuterVisual)
-nmap yoh :GitGutterSignsToggle<CR>
-
-nmap <Leader>dw :call <SID>toggle_diff_whitespace()<CR>
-function! s:toggle_diff_whitespace() abort
-  if &diffopt =~? 'iwhite'
-    setlocal diffopt-=iwhite
-  else
-    setlocal diffopt+=iwhite
-  endif
-endfunction
 
 " BAG {{{1
 " switch word case
@@ -250,8 +172,6 @@ augroup END
 
 " Clojure {{{1
 
-let g:lispdocs_mappings = 0
-
 function! s:clj_ignore(type) abort
   " navigate to beginning of a text object
   silent normal! `[
@@ -310,9 +230,6 @@ endfunction
 
 execute ale#fix#registry#Add('cljfmt', 'Cljfmt', ['clojure'], 'cljfmt for clj')
 
-" use clojure syntax for indentation
-let g:clojure_fuzzy_indent = v:true
-
 let extra_macros = ['Given', 'When', 'Then', 'And', 'let-system']
 let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let'] | " Default
 for macro in extra_macros
@@ -338,56 +255,3 @@ let g:projectionist_heuristics['project.clj|deps.edn'] =
 let g:conjure#client#clojure#nrepl#test#current_form_names = ['deftest', 'def-integration-test']
 let g:conjure#client#clojure#nrepl#test#runner = 'kaocha'
 
-" Markdown {{{1
-let g:markdown_syntax_conceal=0
-let g:polyglot_disabled = ['markdown'] | " use dedicated plugin
-let g:vim_markdown_folding_style_pythonic = 1
-let g:vim_markdown_override_foldtext = 0
-
-
-" Curl {{{1
-let g:vrc_curl_opts = {
-  \ '--silent': '',
-  \ '--show-error': '',
-  \ '--connect-timeout' : 10,
-  \ '--location': '',
-  \ '--include': '',
-  \ '--max-time': 60,
-\}
-
-let g:vrc_auto_format_response_patterns = {
-  \ 'json': 'jq',
-  \ 'xml': 'grep "\S" | xmllint --format --nonet --recover -',
-\}
-
-function! s:toggle_split_body() abort
-  if exists('b:vrc_split_request_body') && b:vrc_split_request_body
-    let b:vrc_split_request_body = 0
-  else
-    let b:vrc_split_request_body = 1
-  endif
-  echom 'let b:vrc_split_request_body = ' . b:vrc_split_request_body
-endfunction
-
-function! s:toggle_debug() abort
-  if exists('b:vrc_debug') && b:vrc_debug
-    let b:vrc_debug = 0
-  else
-    let b:vrc_debug = 1
-  endif
-  echom 'let b:vrc_debug = ' . b:vrc_debug
-endfunction
-
-function! s:request() abort
-  let b:vrc_output_buffer_name = escape(getline('.'), '"')
-              \. ' [' . expand('%:t') . ' @ ' . strftime('%H:%M:%S') . ']'
-  call VrcQuery()
-endfunction
-
-let g:vrc_set_default_mapping = 0
-augroup curl_bindings
-  autocmd!
-  autocmd FileType rest nnoremap <buffer> <leader>cc :call <SID>request()<CR>
-  autocmd FileType rest nnoremap <buffer> <leader>cs :call <SID>toggle_split_body()<CR>
-  autocmd FileType rest nnoremap <buffer> <leader>cd :call <SID>toggle_debug()<CR>
-augroup END

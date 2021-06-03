@@ -1,9 +1,22 @@
 (module init
   {autoload {telescope telescope
+             tel telescope.builtin
              compe compe
              nvim aniseed.nvim
+             core aniseed.core
              lspconfig lspconfig}
    require-macros [macros]})
+
+(defn- k [m ...]
+  (let [args [...]]
+    (vim.schedule #((. vim.keymap m) args))))
+
+(defn- b [m ...]
+  (let [args (core.merge [...] {:buffer true :silent true})]
+    (vim.schedule #((. vim.keymap m) args))))
+
+(def- ale-linters {})
+(def- ale-fixers {:* ["remove_trailing_lines" "trim_whitespace"] })
 
 (set vim.g.mapleader " ")
 (set vim.g.maplocalleader "\t")
@@ -12,57 +25,22 @@
   {:defaults {:prompt_position :top
               :sorting_strategy :ascending}})
 
-(nvim.set_keymap
-  :n :<leader>k
-  (.. ":lua require('telescope.builtin').help_tags{"
-      "  previewer = false,"
-      "  prompt_prefix = 'Help> ',"
-      "}<cr>")
-  {:noremap true
-   :silent true})
+(k :nnoremap :<leader>k #(tel.help_tags {:previewer false}))
+(k :nnoremap :<leader><leader> #(tel.commands {:previewer false}))
+(k :nnoremap :<leader>la tel.lsp_code_actions)
+(k :nnoremap :<leader>n #(tel.find_files {:previewer false
+                                          :find_command [:fd :--no-ignore :--hidden
+                                                         :--exclude :.git
+                                                         :--exclude :target
+                                                         :--exclude :node_modules
+                                                         :--exclude :build
+                                                         :--exclude :.clj-kondo
+                                                         :--exclude :.cpcache
+                                                         :--exclude :.venv]}))
+(k :nnoremap :<leader>e #(tel.buffers {:previewer false
+                                       :sort_lastused true
+                                       :ignore_current_buffer true}))
 
-(nvim.set_keymap
-  :n :<leader><leader>
-  (.. ":lua require('telescope.builtin').commands{"
-      "  previewer = false,"
-      "  prompt_prefix = 'Commands> ',"
-      "}<cr>")
-  {:noremap true
-   :silent true})
-
-(nvim.set_keymap :n :<leader>la ":lua require('telescope.builtin').lsp_code_actions()<cr>" {:noremap true :silent true})
-
-(nvim.set_keymap
-  :n :<leader>n
-  (.. ":lua require('telescope.builtin').find_files{"
-      "  previewer = false,"
-      "  find_command = {"
-      "    'fd',"
-      "    '--no-ignore',"
-      "    '--hidden',"
-      "    '--exclude', '.git',"
-      "    '--exclude', 'target',"
-      "    '--exclude', 'node_modules',"
-      "    '--exclude', 'build',"
-      "    '--exclude', '.clj-kondo',"
-      "    '--exclude', '.cpcache',"
-      "    '--exclude', '.venv'"
-      "  },"
-      "  prompt_prefix = 'Files> '"
-      "}<CR>")
-  {:noremap true
-   :silent true})
-
-(nvim.set_keymap
-  :n :<leader>e
-  (.. ":lua require('telescope.builtin').buffers{"
-      "  previewer = false,"
-      "  sort_lastused = true,"
-      "  ignore_current_buffer = true,"
-      "  prompt_prefix = 'Buf> '"
-      "}<CR>")
-  {:noremap true
-   :silent true})
 
 
 (compe.setup
@@ -114,11 +92,16 @@
 (set vim.opt.relativenumber false) ; not even relative
 (set vim.opt.colorcolumn [100])    ; visual vertical line
 
-(set vim.g.loaded_python_provider 0) ; disable python 2 support
 
+;; Spelling
 (set vim.opt.spelllang :en_us)     ; spell check
 (set vim.opt.spell false)          ; disabled by default
 (vim.opt.spellsuggest:append "10") ; limit spell suggestions list
+(k :nnoremap "]s" ":<C-U>execute ':setlocal spell'| normal! ]s<CR>")
+(k :nnoremap "]S" ":<C-U>execute ':setlocal spell'| normal! ]S<CR>")
+(k :nnoremap "[s" ":<C-U>execute ':setlocal spell'| normal! [s<CR>")
+(k :nnoremap "[S" ":<C-U>execute ':setlocal spell'| normal! [S<CR>")
+
 
 (set vim.opt.wildmode "list:longest,full") ; commands completion
 (set vim.opt.wildignorecase true)          ; case is ignored when completing file names and directories
@@ -129,10 +112,16 @@
 
 (set vim.opt.shell "/usr/bin/env zsh")
 
+
+;; Panes
+(au autoresize :VimResized "*" ((. nvim.ex "wincmd =")))
 (set vim.opt.winwidth 80)     ; minimal width of active window
 (set vim.opt.winminwidth 10)  ; minimal width of inactive window
 (set vim.opt.winheight 50)    ; minimal height of active window
 (set vim.opt.winminheight 10) ; minimal height of inactive window
+; focus on new split
+(k :nnoremap :<C-w>s :<C-w>s<C-w>w)
+(k :nnoremap :<C-w>v :<C-w>v<C-w>w)
 
 
 (set vim.opt.wrap true)      ; soft wrap lines
@@ -179,11 +168,13 @@
 (set vim.opt.title true)       ; update window title
 (set vim.opt.titlestring "%f") ; file name in title
 
+;; Folding
 (set vim.opt.foldmethod :syntax)
 (set vim.opt.foldenable true)    ; enable folding
 (set vim.opt.foldlevelstart 999) ; all folds are open
 (set vim.opt.fillchars "fold:‧")
 (set vim.g.crease_foldtext {:default "%{repeat(\"  \", v:foldlevel - 1)}%t %= %l lines %f%f"})
+(k :nnoremap :<BS> :za) ; toggle current fold
 
 (set vim.opt.swapfile false)
 (set vim.opt.backup false)
@@ -204,6 +195,8 @@
 ; Works for |:substitute|, |:smagic|, |:snomagic|. |hl-Substitute|
 (set vim.opt.inccommand :nosplit)
 
+
+;; Search
 (set vim.opt.gdefault true)   ; use global substitution
 (set vim.opt.ignorecase true) ; Ignore case when searching...
 (set vim.opt.smartcase true)  ; ...unless we type a capital
@@ -222,18 +215,45 @@
               " --glob=!build"
               " --glob=!.clj-kondo"
               " --glob=!.cpcache")})
-
+(set vim.g.FerretMap false)
+(k :nmap :<leader>* "<Plug>(FerretAckWord)")
+(k :vnoremap :<leader>* "y:Ack <c-r>\"<cr>")
+(k :nmap :<leader>/ "<Plug>(FerretAck)")
+(k :vnoremap :<leader>/ "y:Ack <c-r>\"")
+(k :nmap :<leader>r "<Plug>(FerretAcks)")
 
 (set vim.opt.path
      [ "." ; current file
       "**" ; children subdirectories 'starstar'
       ])
 
+
+;; Git
 ; If this many milliseconds nothing is typed the swap file will be written to disk speedsup gitgutter
 (set vim.opt.updatetime 100)
-
 (vim.opt.diffopt:append "indent-heuristic,internal,algorithm:histogram")
 
+(set vim.g.gitgutter_map_keys false)
+(k :nnoremap :<leader>gd ":Gdiffsplit<CR>")
+(k :nnoremap :<leader>gs ":Git<CR>")
+(k :nnoremap :<leader>gl ":Gclog<CR>")
+(k :nmap :<leader>hp "<Plug>(GitGutterPreviewHunk)")
+(k :nmap :<leader>hs "<Plug>(GitGutterStageHunk)")
+(k :nmap :<leader>hu "<Plug>(GitGutterUndoHunk)")
+(k :nmap "[h" "<Plug>(GitGutterPrevHunk)")
+(k :nmap "]h" "<Plug>(GitGutterNextHunk)")
+(k :omap :ih "<Plug>(GitGutterTextObjectInnerPending)")
+(k :xmap :ih "<Plug>(GitGutterTextObjectInnerVisual)")
+(k :omap :ah "<Plug>(GitGutterTextObjectOuterPending)")
+(k :xmap :ah "<Plug>(GitGutterTextObjectOuterVisual)")
+(k :nnoremap :yoh ":GitGutterSignsToggle<CR>")
+(k :nnoremap :<leader>dw
+   #(if (core.some #(= "iwhite" $1) (vim.opt.diffopt:get))
+      (do (vim.opt.diffopt:remove "iwhite") (core.println "noiwhite"))
+      (do (vim.opt.diffopt:append "iwhite") (core.println "iwhite"))))
+
+
+;; Wiki
 (set vim.g.wiki_root "~/Notes")
 (set vim.g.wiki_filetypes ["md"])
 (set vim.g.wiki_link_extension ".md")
@@ -244,7 +264,6 @@
       :date_format {:daily "%Y-%m-%d"
                     :monthly "%Y_m%m"
                     :weekly "%Y_w%V"}})
-
 
 (set vim.g.wiki_mappings_global
      {"<plug>(wiki-journal)" "<leader>w_disable"
@@ -257,25 +276,16 @@
       "<plug>(wiki-link-toggle)" "<leader>w_disable"
       "<plug>(wiki-page-toc)" "<leader>w_disable"})
 
-(nvim.set_keymap
-  :n :<leader>wn
-  (.. ":lua require('telescope.builtin').find_files{"
-      "  previewer = false,"
-      "  find_command = {"
-      "    'fd',"
-      "    '--exclude', '.stversions',"
-      "    '--exclude', '.stfoldre',"
-      "  },"
-      "  cwd = '" vim.g.wiki_root "',"
-      "  prompt_prefix = 'Wiki> '"
-      "}<CR>")
-  {:noremap true
-   :silent true})
+(k :nnoremap :<leader>wn #(tel.find_files {:previewer false
+                                           :find_command [:fd
+                                                          :--exclude :.stversions
+                                                          :--exclude :.stfoldre]
+                                           :cwd vim.g.wiki_root}))
 
-(set vim.g.ale_linters {:* []})
-(set vim.g.ale_fixers {:* ["remove_trailing_lines" "trim_whitespace"] })
 
-; Configure diagnostics
+
+
+;; LSP
 (tset vim.lsp.handlers :textDocument/publishDiagnostics
       (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
                     {:underline false
@@ -283,137 +293,215 @@
                      :signs false
                      :update_in_insert false}))
 
-(ft json "json"
-   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
-(set vim.g.ale_json_jq_options "--monochrome-output --indent 2")
-(tset vim.g.ale_fixers :json ["jq"])
 
-(ft yaml "yaml"
-   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+;; Conjure
+(set vim.g.conjure#eval#result_register :e)
+(set vim.g.conjure#log#botright true)
+(set vim.g.conjure#filetypes [:clojure :fennel])
+
+
+;; JSON
+(au json :FileType "json"
+    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
+(set vim.g.ale_json_jq_options "--monochrome-output --indent 2")
+(set ale-fixers.json ["jq"])
+
+
+;; Yaml
+(au yaml :FileType "yaml"
+    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
 (set vim.g.ale_yaml_yamllint_options
      (.. "-d \"{"
          "  extends: default,"
          "  rules: {"
          "    line-length: {max: 120},"
          "    document-start: {present: false}}}\""))
-(tset vim.g.ale_linters :yaml ["yamllint"])
+(set ale-linters.yaml ["yamllint"])
 
-(ft terraform "terraform,hcl"
-   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
-(tset vim.g.ale_fixers :hcl ["terraform"])
-(tset vim.g.ale_fixers :terraform ["terraform"])
-(tset vim.g.ale_linters :terraform ["terraform"])
 
-(ft xml "xml"
-   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+;; Terraform
+(au terraform :FileType "terraform,hcl"
+    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
+(set ale-fixers.hcl ["terraform"])
+(set ale-fixers.terraform ["terraform"])
+(set ale-linters.terraform ["terraform"])
+
+
+;; XML
+(au xml :FileType "xml"
+    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
 (set vim.g.ale_xml_xmllint_options "--format --nonet --recover -")
-(tset vim.g.ale_fixers :xml ["xmllint"])
-(tset vim.g.ale_linters :xml ["xmllint"])
+(set ale-fixers.xml ["xmllint"])
+(set ale-linters.xml ["xmllint"])
 
-(ft sql "sql"
-   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+
+;; SQL
+(au sql :FileType "sql"
+    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
 (set vim.g.ale_sql_pgformatter_options "--spaces 4 --comma-break")
-(tset vim.g.ale_fixers :sql ["pgformatter"])
-(tset vim.g.ale_linters :sql ["sqlint"])
+(set ale-fixers.sql ["pgformatter"])
+(set ale-linters.sql ["sqlint"])
 
-(ft css "css,scss"
-   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
-(tset vim.g.ale_fixers :css ["prettier" "stylelint"])
-(tset vim.g.ale_fixers :scss ["prettier" "stylelint"])
-(tset vim.g.ale_linters :css ["stylelint"])
-(tset vim.g.ale_linters :scss ["stylelint"])
 
-(ft nix "nix"
-   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
-(tset vim.g.ale_fixers :nix ["nixpkgs-fmt"])
-(tset vim.g.ale_linters :nix ["nix"])
+;; CSS
+(au css :FileType "css,scss"
+    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
+(set ale-fixers.css ["prettier" "stylelint"])
+(set ale-fixers.scss ["prettier" "stylelint"])
+(set ale-linters.css ["stylelint"])
+(set ale-linters.scss ["stylelint"])
 
-(ft shell "sh"
-   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true}))
+
+;; Nix
+(au nix :FileType "nix"
+    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
+(set ale-fixers.nix ["nixpkgs-fmt"])
+(set ale-linters.nix ["nix"])
+
+
+;; Shell
+(au shell :FileType "sh"
+    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
 (set vim.g.ale_sh_shfmt_options "-i=2 -sr")
-(tset vim.g.ale_fixers :sh ["shfmt"])
-(tset vim.g.ale_linters :sh ["shellcheck"])
+(set ale-fixers.sh ["shfmt"])
+(set ale-linters.sh ["shellcheck"])
 
-(ft python "python"
-   (nvim.buf_set_keymap 0 :n :<leader>lf ":lua vim.lsp.buf.formatting()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n :gd ":lua vim.lsp.buf.definition()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n :<leader>lr ":lua vim.lsp.buf.rename()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n "}" ":lua vim.lsp.buf.references()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n "K" ":lua vim.lsp.buf.hover()<CR>" {:noremap true :silent true}))
+
+;; Python
+(au python :FileType "python"
+    (b :nnoremap :<leader>lf vim.lsp.buf.formatting)
+    (b :nnoremap :gd vim.lsp.buf.definition)
+    (b :nnoremap :<leader>lr vim.lsp.buf.rename)
+    (b :nnoremap "}" vim.lsp.buf.references)
+    (b :nnoremap :K vim.lsp.buf.hover))
 (lspconfig.pyls.setup {})
 
-(ft viml "vim"
-   (set vim.opt_local.foldmethod "marker")
-   (set vim.opt_local.foldlevel 0)
-   (set vim.opt_local.tabstop 2)
-   (set vim.opt_local.softtabstop 2)
-   (set vim.opt_local.shiftwidth 2)
-   (set vim.opt_local.expandtab true))
 
-(ft typescript "typescript,javascript,typescriptreact,javascriptreact"
-   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n :gd ":lua vim.lsp.buf.definition()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n :<leader>lr ":lua vim.lsp.buf.rename()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n :<leader>lt ":lua vim.lsp.buf.type_definition()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n "}" ":lua vim.lsp.buf.references()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n "K" ":lua vim.lsp.buf.hover()<CR>" {:noremap true :silent true}))
+;; Vim
+(au viml :FileType "vim"
+    (set vim.opt_local.foldmethod "marker")
+    (set vim.opt_local.foldlevel 0)
+    (set vim.opt_local.tabstop 2)
+    (set vim.opt_local.softtabstop 2)
+    (set vim.opt_local.shiftwidth 2)
+    (set vim.opt_local.expandtab true))
+
+
+;; JavaScript/TypeScript
+(au typescript :FileType "typescript,javascript,typescriptreact,javascriptreact"
+    (b :nnoremap :<leader>lf ":ALEFix<CR>")
+    (b :nnoremap :gd vim.lsp.buf.definition)
+    (b :nnoremap :<leader>lr vim.lsp.buf.rename)
+    (b :nnoremap :<leader>lt vim.lsp.buf.type.definition)
+    (b :nnoremap "}" vim.lsp.buf.references)
+    (b :nnoremap :K vim.lsp.buf.hover))
 (lspconfig.tsserver.setup {})
-(tset vim.g.ale_fixers :javascript ["eslint" "prettier"])
-(tset vim.g.ale_fixers :typescriptreact ["prettier"])
-(tset vim.g.ale_fixers :typescript ["prettier"])
-(tset vim.g.ale_linters :javascript ["eslint"])
-(tset vim.g.ale_linters :typescript ["tsserver" "tslint"])
+(set ale-fixers.javascript ["eslint" "prettier"])
+(set ale-fixers.typescriptreact ["prettier"])
+(set ale-fixers.typescript ["prettier"])
+(set ale-linters.javascript ["eslint"])
+(set ale-linters.typescript ["tsserver" "tslint"])
 
-(ft rust "rust"
-   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n :gd ":lua vim.lsp.buf.definition()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n :<leader>lr ":lua vim.lsp.buf.rename()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n "}" ":lua vim.lsp.buf.references()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n "K" ":lua vim.lsp.buf.hover()<CR>" {:noremap true :silent true}))
+
+;; Rust
+(au rust :FileType "rust"
+    (b :nnoremap :<leader>lf ":ALEFix<CR>")
+    (b :nnoremap :gd vim.lsp.buf.definition)
+    (b :nnoremap :<leader>lr vim.lsp.buf.rename)
+    (b :nnoremap "}" vim.lsp.buf.references)
+    (b :nnoremap :K vim.lsp.buf.hover))
 (lspconfig.rls.setup {})
-(set vim.g.ale_rust_cargo_use_clippy 1)
-(set vim.g.ale_rust_cargo_check_all_targets 1)
-(tset vim.g.ale_fixers :rust ["rustfmt"])
-(tset vim.g.ale_linters :rust ["cargo"])
+(set vim.g.ale_rust_cargo_use_clippy true)
+(set vim.g.ale_rust_cargo_check_all_targets true)
+(set ale-fixers.rust ["rustfmt"])
+(set ale-linters.rust ["cargo"])
 
-(ft haskell "haskell"
-   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n :gd ":lua vim.lsp.buf.definition()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n "K" ":lua vim.lsp.buf.hover()<CR>" {:noremap true :silent true}))
+
+;; Haskell
+(au haskell :FileType "haskell"
+    (b :nnoremap :<leader>lf ":ALEFix<CR>")
+    (b :nnoremap :gd vim.lsp.buf.definition)
+    (b :nnoremap :K vim.lsp.buf.hover))
 (lspconfig.ghcide.setup {})
-(tset vim.g.ale_fixers :haskell ["hindent"])
+(set ale-fixers.haskell ["hindent"])
 
-(ft c "c"
-   (nvim.buf_set_keymap 0 :n :<leader>lf ":ALEFix<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :v "=" ":lua vim.lsp.buf.range_formatting()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n :gd ":lua vim.lsp.buf.definition()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n :<leader>lr ":lua vim.lsp.buf.rename()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n "}" ":lua vim.lsp.buf.references()<CR>" {:noremap true :silent true})
-   (nvim.buf_set_keymap 0 :n "K" ":lua vim.lsp.buf.hover()<CR>" {:noremap true :silent true})
-   (set vim.opt_local.tabstop 2)
-   (set vim.opt_local.softtabstop 2)
-   (set vim.opt_local.shiftwidth 2)
-   (set vim.opt_local.expandtab true))
+
+;; C
+(au c :FileType "c"
+    (b :nnoremap :<leader>lf ":ALEFix<CR>")
+    (b :vnoremap "=" vim.lsp.buf.range_formatting)
+    (b :nnoremap :gd vim.lsp.buf.definition)
+    (b :nnoremap :<leader>lr vim.lsp.buf.rename)
+    (b :nnoremap "}" vim.lsp.buf.references)
+    (b :nnoremap :K vim.lsp.buf.hover)
+    (set vim.opt_local.tabstop 2)
+    (set vim.opt_local.softtabstop 2)
+    (set vim.opt_local.shiftwidth 2)
+    (set vim.opt_local.expandtab true))
 (lspconfig.ccls.setup {})
-(tset vim.g.ale_fixers :c ["clang-format" "clangtidy"])
-(tset vim.g.ale_linters :c ["clang"])
+(set ale-fixers.c ["clang-format" "clangtidy"])
+(set ale-linters.c ["clang"])
+
 
 ;; Clojure
-(tset vim.g.ale_fixers :clojure ["cljfmt"])
-(tset vim.g.ale_linters :clojure ["clj-kondo"])
+(set ale-fixers.clojure ["cljfmt"])
+(set ale-linters.ojure ["clj-kondo"])
+(set vim.g.lispdocs_mappings false)
+(set vim.g.clojure_fuzzy_indent true) ; use clojure syntax for indentation
+
 
 ;; Slime
 (set vim.g.slime_target :tmux)
-(set vim.g.slime_dont_ask_default 1)
+(set vim.g.slime_dont_ask_default true)
 (set vim.g.slime_default_config {:socket_name :default
                                  :target_pane "{right-of}"})
+(set vim.g.slime_no_mappings true)
+(k :xmap :<leader>s "<Plug>SlimeRegionSend")
+(k :nmap :<leader>s "<Plug>SlimeMotionSend")
+(k :nmap :<leader>ss "<Plug>SlimeLineSend")
+(k :nmap :<leader>sc "<Plug>SlimeConfig")
+(k :xnoremap :<leader>sy "\"sy")
+(k :nnoremap :<leader>sp ":SlimeSend1 <C-R>s<CR>")
 
-(set vim.g.slime_no_mappings 1)
-(vim.schedule
-  (fn []
-    (vim.keymap.xmap ["<leader>s" "<Plug>SlimeRegionSend"])
-    (vim.keymap.nmap ["<leader>s" "<Plug>SlimeMotionSend"])
-    (vim.keymap.nmap ["<leader>ss" "<Plug>SlimeLineSend"])
-    (vim.keymap.nmap ["<leader>sc" "<Plug>SlimeConfig"])
-    (vim.keymap.xmap ["<leader>sy" "\"sy"])
-    (vim.keymap.nmap ["<leader>sp" ":SlimeSend1 <C-R>s<CR>"])))
+
+;; Curl
+(set vim.g.vrc_curl_opts
+     {:--connect-timeout 10
+      :--include ""
+      :--location ""
+      :--max-time 60
+      :--show-error ""
+      :--silent ""})
+(set vim.g.vrc_auto_format_response_patterns
+     {:json "jq"
+      :xml (.. "grep \"\\S\" | xmllint " vim.g.ale_xml_xmllint_options)})
+
+(au rest :FileType "rest"
+    (b :nnoremap :<leader>cd
+       #(do
+          (set vim.b.vrc_debug (not vim.b.vrc_debug))
+          (set vim.b.vrc_show_command vim.b.vrc_debug)
+          (core.println (if vim.b.vrc_debug "debug" "nodebug"))))
+    (b :nnoremap :<leader>cs
+       #(do
+          (set vim.b.vrc_split_request_body (not vim.b.vrc_split_request_body))
+          (core.println (if vim.b.vrc_split_request_body "split" "nosplit"))))
+    (b :nnoremap :<leader>cc
+       #(do
+          (set vim.b.vrc_output_buffer_name
+               (.. "[" (nvim.fn.expand "%:t") "@" (nvim.fn.strftime "%H:%M:%S") "]"
+                   (string.gsub (nvim.get_current_line) "\""  "\\\"")))
+          (nvim.fn.VrcQuery))))
+
+
+;; Markdown
+(set vim.g.markdown_syntax_conceal false)
+(set vim.g.vim_markdown_folding_style_pythonic true)
+(set vim.g.vim_markdown_override_foldtext false)
+
+
+;; ALE
+(set vim.g.ale_linters ale-linters)
+(set vim.g.ale_fixers ale-fixers)
+(k :nnoremap :L ":ALEDetail<CR>")
+(k :nnoremap :yol ":ALEToggleBuffer<CR>")
