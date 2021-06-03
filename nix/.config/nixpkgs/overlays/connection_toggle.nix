@@ -6,7 +6,7 @@ let
 in
 {
   connection_toggle = (writeBabashka
-    "connection_toggle.clj"
+    "connection-toggle.clj"
     (builtins.readFile ./connection-toggle.clj)
   ).overrideAttrs (old: rec {
     buildInputs = [ final.rofi final.networkmanager ];
