@@ -27,10 +27,6 @@
     python37Packages.pip
     python37Packages.virtualenv
 
-    ranger                    # cli file manager
-    w3m                       # cli browser, shows images
-    mediainfo # media details preview
-
     exa                       # fancy ls with tree
     tokei
     wget
