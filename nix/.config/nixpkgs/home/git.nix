@@ -1,11 +1,12 @@
 { config, pkgs, ... }:
 let
   commit = "git/commit";
+  hooks = "git/hooks";
 in {
   programs.git = {
     enable = true;
     userName = "Nazarii Bardiuk";
-    userEmail = "";
+    userEmail = "nazarii@bardiuk.com";
     signing = {
       signByDefault = true;
       key = "1D8729AEF5622C0F7EA209C1C9C1904D44CDCDA1";
@@ -28,6 +29,7 @@ in {
     ];
     extraConfig = {
       checkout.defaultRemote = "origin";
+      core.hooksPath = "${config.xdg.configHome}/${hooks}";
       code.editor = "nvim";
       commit.template = "${config.xdg.configHome}/${commit}";
       diff.algorithm = "histogram";
@@ -56,6 +58,11 @@ in {
     ];
   };
 
+  xdg.configFile."${hooks}/pre-commit" = {
+      text = builtins.readFile ./pre-commit.clj;
+      executable = true;
+  };
+
   xdg.configFile.${commit}.text = ''
     feat: 
 
@@ -75,5 +82,6 @@ in {
     git-secret
     git-crypt
     gnupg
+    babashka # for pre-commit
   ];
 }
