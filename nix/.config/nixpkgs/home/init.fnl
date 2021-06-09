@@ -392,7 +392,7 @@
     (b :nnoremap :<leader>lf ":ALEFix<CR>")
     (b :nnoremap :gd vim.lsp.buf.definition)
     (b :nnoremap :<leader>lr vim.lsp.buf.rename)
-    (b :nnoremap :<leader>lt vim.lsp.buf.type.definition)
+    (b :nnoremap :<leader>lt vim.lsp.buf.type_definition)
     (b :nnoremap "}" vim.lsp.buf.references)
     (b :nnoremap :K vim.lsp.buf.hover))
 (lspconfig.tsserver.setup {})
