@@ -222,7 +222,7 @@ function! Cljfmt(buffer) abort
     \     . ' --indents ~/.config/cljfmt/indentation.edn'
     \     . ' --remove-surrounding-whitespace'
     \     . ' --remove-trailing-whitespace'
-    \     . ' --no-remove-consecutive-blank-lines'
+    \     . ' --remove-consecutive-blank-lines'
     \     . ' --insert-missing-whitespace',
     \   'read_temporary_file': 1,
     \}
