@@ -10,8 +10,9 @@
 
   networking.hostName = "bardiuk-ee";
 
-  programs.man.enable = true;
+  documentation.enable = true;
 
+  users.nix.configureBuildUsers = true;
   services.nix-daemon.enable = false;
   nix.package = pkgs.nix;
 
@@ -43,56 +44,68 @@
   };
 
   services.yabai.enable = true;
-  services.yabai.package = pkgs.yabai;
-  services.yabai.enableScriptingAddition = false;
+  services.yabai.enableScriptingAddition = true;
   services.yabai.config.layout = "bsp";
+  services.yabai.package = pkgs.yabai.overrideAttrs (o: rec {
+    version = "3.3.10";
+    src = builtins.fetchTarball {
+      url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
+      sha256 = "025ww9kjpy72in3mbn23pwzf3fvw0r11ijn1h5pjqvsdlak91h9i";
+    };
+
+    installPhase = ''
+      mkdir -p $out/bin
+      mkdir -p $out/share/man/man1/
+      cp ./archive/bin/yabai $out/bin/yabai
+      cp ./archive/doc/yabai.1 $out/share/man/man1/yabai.1
+    '';
+  });
 
   services.skhd.enable = true;
   services.skhd.skhdConfig = ''
     # enter fullscreen mode for the focused container
-    alt - f : yabai -m window --toggle zoom-fullscreen
+    cmd + alt - f : yabai -m window --toggle zoom-fullscreen
 
     # change focus between tiling / floating windows
-    shift + alt - space : yabai -m window --toggle float
+    cmd + shift + alt - space : yabai -m window --toggle float
 
     # change layout of desktop
-    alt - w : yabai -m space --layout monocle
-    alt - e : yabai -m space --layout bsp
-
+    cmd + alt - w : yabai -m space --layout stack
+    cmd + alt - e : yabai -m space --layout bsp
 
     # change focus
-    alt - h : yabai -m window --focus west
-    alt - j : yabai -m window --focus south
-    alt - k : yabai -m window --focus north
-    alt - l : yabai -m window --focus east
+    cmd + alt - h : yabai -m window --focus west
+    cmd + alt - j : yabai -m window --focus south
+    cmd + alt - k : yabai -m window --focus north
+    cmd + alt - l : yabai -m window --focus east
 
     # move focused window
-    shift + alt - h : yabai -m window --warp west
-    shift + alt - j : yabai -m window --warp south
-    shift + alt - k : yabai -m window --warp north
-    shift + alt - l : yabai -m window --warp east
+    cmd + shift + alt - h : yabai -m window --warp west
+    cmd + shift + alt - j : yabai -m window --warp south
+    cmd + shift + alt - k : yabai -m window --warp north
+    cmd + shift + alt - l : yabai -m window --warp east
 
-    alt - 1 : yabai -m space --focus 1
-    alt - 2 : yabai -m space --focus 2
-    alt - 3 : yabai -m space --focus 3
-    alt - 4 : yabai -m space --focus 4
-    alt - 5 : yabai -m space --focus 5
-    alt - 6 : yabai -m space --focus 6
-    alt - 7 : yabai -m space --focus 7
-    alt - 8 : yabai -m space --focus 8
-    alt - 9 : yabai -m space --focus 9
-    alt - 0 : yabai -m space --focus 10
+    cmd + alt - 1 : yabai -m space --focus 1
+    cmd + alt - 2 : yabai -m space --focus 2
+    cmd + alt - 3 : yabai -m space --focus 3
+    cmd + alt - 4 : yabai -m space --focus 4
+    cmd + alt - 5 : yabai -m space --focus 5
+    cmd + alt - 6 : yabai -m space --focus 6
+    cmd + alt - 7 : yabai -m space --focus 7
+    cmd + alt - 8 : yabai -m space --focus 8
+    cmd + alt - 9 : yabai -m space --focus 9
+    cmd + alt - 0 : yabai -m space --focus 10
 
     # move focused container to workspace
-    shift + alt - 1 : yabai -m window --space  1; yabai -m space --focus 1
-    shift + alt - 2 : yabai -m window --space  2; yabai -m space --focus 2
-    shift + alt - 3 : yabai -m window --space  3; yabai -m space --focus 3
-    shift + alt - 4 : yabai -m window --space  4; yabai -m space --focus 4
-    shift + alt - 5 : yabai -m window --space  5; yabai -m space --focus 5
-    shift + alt - 6 : yabai -m window --space  6; yabai -m space --focus 6
-    shift + alt - 7 : yabai -m window --space  7; yabai -m space --focus 7
-    shift + alt - 8 : yabai -m window --space  8; yabai -m space --focus 8
-    shift + alt - 9 : yabai -m window --space  9; yabai -m space --focus 9
-    shift + alt - 0 : yabai -m window --space  10; yabai -m space --focus 10
+    cmd + shift + alt - 1 : yabai -m window --space  1; yabai -m space --focus 1
+    cmd + shift + alt - 2 : yabai -m window --space  2; yabai -m space --focus 2
+    cmd + shift + alt - 3 : yabai -m window --space  3; yabai -m space --focus 3
+    cmd + shift + alt - 4 : yabai -m window --space  4; yabai -m space --focus 4
+    cmd + shift + alt - 5 : yabai -m window --space  5; yabai -m space --focus 5
+    cmd + shift + alt - 6 : yabai -m window --space  6; yabai -m space --focus 6
+    cmd + shift + alt - 7 : yabai -m window --space  7; yabai -m space --focus 7
+    cmd + shift + alt - 8 : yabai -m window --space  8; yabai -m space --focus 8
+    cmd + shift + alt - 9 : yabai -m window --space  9; yabai -m space --focus 9
+    cmd + shift + alt - 0 : yabai -m window --space  10; yabai -m space --focus 10
   '';
 }
