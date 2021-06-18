@@ -1,13 +1,13 @@
 final: previous:
 let
   pname = "cljfmt";
-  version = "2021-04-30";
+  version = "0.8.0";
 
   src = previous.fetchFromGitHub {
     owner = "weavejester";
     repo = pname;
-    rev = "8296f42d9840ab6adb6489dca1f3004154f2c2f3";
-    sha256 = "19zi8k95ivgz516866w73yllycihpkb3hnbzaqlfbv4xqn6gi47b";
+    rev = "3eccdf1";
+    sha256 = "1fyjfjzfg6yv2ijghqddasn987m2bi9zd1dfxdxwiixxaczidv1x";
   };
 
   # like clojure-lsp hacks jars separately from native image
@@ -27,13 +27,16 @@ let
       substituteInPlace project.clj \
         --replace ":native-image" ":local-repo \"$out\" :native-image"
 
+      substituteInPlace project.clj \
+        --replace ":hooks [leiningen.cljsbuild]" ""
+
       export LEIN_HOME="$TMP"
     '';
 
     buildPhase = ''
       runHook preBuild
 
-      lein with-profile +dev do deps, uberjar
+      lein deps
 
       runHook postBuild
     '';
@@ -50,7 +53,7 @@ let
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256:1xa8g5gl16cip0bj3bjvak133254wj1fdhd05rh6qa84w48anqsm";
+    outputHash = "1h3mqn6n6f5avzdz4p9r2c883s4y7pnz9040gl95kr0mz4n7l9g7";
   };
 
   cljfmt = previous.stdenv.mkDerivation rec {
@@ -71,6 +74,9 @@ let
 
       substituteInPlace project.clj \
         --replace "\"--verbose\"" "\"--verbose\" \"-H:-CheckToolchain\""
+
+      substituteInPlace project.clj \
+        --replace ":hooks [leiningen.cljsbuild]" ""
 
       export LEIN_HOME="$TMP"
       export LEIN_OFFLINE=true
