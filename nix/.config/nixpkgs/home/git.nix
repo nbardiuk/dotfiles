@@ -59,7 +59,7 @@ in {
   };
 
   xdg.configFile."${hooks}/pre-commit" = {
-      text = builtins.readFile ./pre-commit.clj;
+      source = ./pre-commit.clj;
       executable = true;
   };
 
