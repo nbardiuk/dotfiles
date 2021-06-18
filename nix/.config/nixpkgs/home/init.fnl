@@ -3,7 +3,9 @@
              tel telescope.builtin
              compe compe
              nvim aniseed.nvim
+             nu aniseed.nvim.util
              core aniseed.core
+             lispdocs lispdocs
              lspconfig lspconfig}
    require-macros [macros]})
 
@@ -201,6 +203,18 @@
 (set vim.opt.ignorecase true) ; Ignore case when searching...
 (set vim.opt.smartcase true)  ; ...unless we type a capital
 
+;; center on next match
+(k :nnoremap :n :nzz)
+(k :nnoremap :N :Nzz)
+
+;; search in current buffer with selected text
+(k :vnoremap :/ "y/\\V<c-r>\"<cr>")
+(k :nnoremap :/ "/\\v")
+
+;; search in project files
+(k :nnoremap :<leader>f ":Rg<cr>")
+
+(set vim.g.FerretMaxResults 1000)
 (set vim.g.FerretExecutable "rg")
 (set vim.g.FerretExecutableArguments
      {:rg (.. "--vimgrep"
@@ -443,11 +457,81 @@
 (set ale-linters.c ["clang"])
 
 
+;; Sexp
+(set vim.g.sexp_filetypes "clojure,scheme,lisp,fennel")
+(au sexp :FileType "clojure,scheme,lisp,fennel"
+    (b :nmap :doe "<Plug>(sexp_raise_element)")
+    (b :nmap :dof "<Plug>(sexp_raise_list)")
+
+    ;; emulate text object for pair of elements
+    ;; i.e. key/value binding/expr test/expr
+
+    ;; pair forward
+    (b :xmap :ip "<Plug>(sexp_inner_element)<Plug>(sexp_move_to_next_element_tail)")
+    (b :omap :ip ":<C-U>normal vip<CR>")
+
+    ;; pair backward
+    (b :xmap :iP "<Plug>(sexp_inner_element)o<Plug>(sexp_move_to_prev_element_head)")
+    (b :omap :iP ":<C-U>normal viP<CR>")
+
+    ;; swap pair
+    (b :nmap :>p "vip>eo<Esc>")
+    (b :nmap :<p "vip<eo<Esc>")
+
+    (b :xmap :>e "<Plug>(sexp_swap_element_forward)")
+    (b :xmap :<e "<Plug>(sexp_swap_element_backward)")
+    (b :xmap :>f "<Plug>(sexp_swap_list_forward)")
+    (b :xmap :<f "<Plug>(sexp_swap_list_backward)"))
+
+
 ;; Clojure
-(set ale-fixers.clojure ["cljfmt"])
-(set ale-linters.ojure ["clj-kondo"])
+
+(defn clj-ignore []
+  ; navigate to beginnign of a text object
+  (nu.normal "`[")
+  ; prepend reader macro
+  (nu.normal "i#_"))
+(nu.fn-bridge :Clj_ignore :init :clj-ignore)
+
+(defn do-clj-ignore [form]
+  (set vim.opt.operatorfunc :Clj_ignore)
+  (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
+
+(au clojure :FileType "clojure"
+    (b :nnoremap :<leader>lf ":ALEFix<CR>")
+    (b :nnoremap :<leader>K lispdocs.split)
+    (b :nmap :K "<localleader>K")
+    (b :nmap :gd "<localleader>gd")
+
+    (b :nnoremap :<leader>cc #(do-clj-ignore "aF"))
+    (b :xnoremap :<leader>c do-clj-ignore)
+
+    (set vim.opt_local.tabstop 2)
+    (set vim.opt_local.softtabstop 2)
+    (set vim.opt_local.shiftwidth 2)
+    (set vim.opt_local.expandtab true)
+
+    ;; converts package names into file names; useful for "gf"
+    (set vim.opt_local.includeexpr "substitute(substitute(v:fname,'\\.','/','g'),'-','_','g')")
+    (set vim.opt_local.suffixesadd ".clj"))
+(set ale-fixers.clojure [:Cljfmt])
+(set ale-linters.clojure [:clj-kondo])
 (set vim.g.lispdocs_mappings false)
 (set vim.g.clojure_fuzzy_indent true) ; use clojure syntax for indentation
+(set vim.g.clojure_fuzzy_indent_patterns ["^with" "^def" "^let" "^Given" "^When" "^Then" "^And"])
+(set vim.g.conjure#client#clojure#nrepl#test#current_form_names [:deftest :def-integration-test])
+(set vim.g.conjure#client#clojure#nrepl#test#runner :kaocha)
+
+(defn cljfmt []
+  {:read_temporary_file 1
+   :command (.. "cljfmt fix %t"
+                " --indents ~/.config/cljfmt/indentation.edn"
+                " --remove-surrounding-whitespace"
+                " --remove-trailing-whitespace"
+                " --remove-consecutive-blank-lines"
+                " --insert-missing-whitespace")})
+(nu.fn-bridge :Cljfmt :init :cljfmt)
+
 
 
 ;; Slime
@@ -501,7 +585,22 @@
 
 
 ;; ALE
+(set vim.g.ale_linters_explicit 1)
 (set vim.g.ale_linters ale-linters)
 (set vim.g.ale_fixers ale-fixers)
 (k :nnoremap :L ":ALEDetail<CR>")
 (k :nnoremap :yol ":ALEToggleBuffer<CR>")
+
+
+;; Projectionist
+(k :nnoremap :<leader>aa ":A<CR>")
+(set vim.g.projectionist_heuristics
+     {"project.clj|deps.edn" {"dev/*.clj" {:type "source"}
+                              "src/*.clj" {:alternate "test/{}_test.clj"
+                                           :type "source"}
+                              "test/*_test.clj" {:alternate "src/{}.clj" :type "test"}}})
+
+
+;; Terminal
+(k :tnoremap :<Esc> "<C-\\><C-n>") ; use Esc to exit terminal mode
+(k :tnoremap :<C-v><Esc> "<Esc>") ; press Esc in terminal mode
