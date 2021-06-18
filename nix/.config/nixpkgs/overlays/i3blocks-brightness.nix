@@ -1,6 +1,7 @@
-{ writeShellScriptBin }:
-
-writeShellScriptBin "brightness" ''
+final: previous:
+with final;
+{
+  i3blocks-brightness = writeShellScriptBin "brightness" ''
     level=$(light | cut -d . -f 1)
     echo $level%
 
@@ -9,4 +10,5 @@ writeShellScriptBin "brightness" ''
         4) light -A 5 ;;  # scroll up
         5) light -U 5 ;;  # scroll down
     esac
-  ''
+  '';
+}
