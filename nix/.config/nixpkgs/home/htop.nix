@@ -19,14 +19,14 @@
       hide_threads = true;
       hide_userland_threads = true;
       show_program_path = false;
-    } // (leftMeters {
-      CPU = modes.Graph;
-      Memory = modes.Graph;
-    }) // (rightMeters {
-      Tasks = modes.Text;
-      AllCPUs2 = modes.Bar;
-      Memory = modes.Bar;
-      Swap = modes.Bar;
-    });
+    } // (leftMeters [
+      (graph "CPU")
+      (graph "Memory")
+    ]) // (rightMeters [
+      (text "Tasks")
+      (bar "AllCPUs2")
+      (bar "Memory")
+      (bar "Swap")
+    ]);
   };
 }
