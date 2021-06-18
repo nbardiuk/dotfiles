@@ -38,7 +38,7 @@ in
     };
 
     shellAliases = rec {
-      l = "exa --long --header --time-style=long-iso";
+      l = "exa --long --git --header --time-style=long-iso";
       ll = l;
       ls = l;
       la = l + " -all";
