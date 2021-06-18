@@ -2,6 +2,6 @@
 {
   programs.bat = {
     enable = true;
-    config.theme = "ansi-light";
+    config.theme = "base16-256";
   };
 }
