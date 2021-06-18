@@ -34,8 +34,8 @@ with lib;
       "super + alt + Return"                = "alacritty";
       "super + alt + d"                     = "rofi -show combi";
       "super + alt + Tab"                   = "rofi -show combi -combi-modi window";
-      "super + alt + b"                     = "${pkgs.open_book}/bin/open-book.clj";
-      "super + alt + c"                     = "${pkgs.connection_toggle}/bin/connection-toggle.clj";
+      "super + alt + b"                     = "${pkgs.open_book}/bin/open-book";
+      "super + alt + c"                     = "${pkgs.connection_toggle}/bin/connection-toggle";
     };
   };
 }

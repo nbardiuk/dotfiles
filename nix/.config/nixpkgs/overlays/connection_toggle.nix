@@ -1,14 +1,8 @@
 final: previous:
-let
-  writeBabashka = name: final.writers.makeScriptWriter
-    { interpreter = "${final.pkgs.babashka}/bin/bb"; }
-    "/bin/${name}";
-in
+with final;
 {
-  connection_toggle = (writeBabashka
-    "connection-toggle.clj"
-    (builtins.readFile ./connection-toggle.clj)
-  ).overrideAttrs (old: rec {
-    buildInputs = [ final.rofi final.networkmanager ];
-  });
+  connection_toggle = writeBb "connection-toggle" {
+    content = ./connection-toggle.clj;
+    deps = [ rofi networkmanager ];
+  };
 }
