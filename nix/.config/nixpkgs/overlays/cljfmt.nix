@@ -1,9 +1,10 @@
 final: previous:
+with final;
 let
   pname = "cljfmt";
   version = "0.8.0";
 
-  src = previous.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "weavejester";
     repo = pname;
     rev = "3eccdf1";
@@ -12,12 +13,12 @@ let
 
   # like clojure-lsp hacks jars separately from native image
   # https://github.com/NixOS/nixpkgs/commit/2c3ad4ef9c5715fd5b74b4a664b54f5ab8ac7a2c
-  deps = previous.stdenv.mkDerivation rec {
+  deps = stdenv.mkDerivation rec {
     name = "${pname}-${version}-deps";
 
     inherit src;
 
-    nativeBuildInputs = with final.pkgs; [
+    nativeBuildInputs = with pkgs; [
       (leiningen.override { jdk = jdk11; })
     ];
 
@@ -56,12 +57,12 @@ let
     outputHash = "1h3mqn6n6f5avzdz4p9r2c883s4y7pnz9040gl95kr0mz4n7l9g7";
   };
 
-  cljfmt = previous.stdenv.mkDerivation rec {
+  cljfmt = stdenv.mkDerivation rec {
     name = "${pname}-${version}-binary";
 
     inherit src;
 
-    nativeBuildInputs = with final.pkgs; [
+    nativeBuildInputs = with pkgs; [
       graalvm11-ce
       (leiningen.override { jdk = jdk11; })
     ];
@@ -98,7 +99,7 @@ let
       runHook postInstall
     '';
 
-    meta = with previous.lib; with final.pkgs; {
+    meta = with lib; with pkgs; {
       description = "Code formatter for Clojure";
       homepage = "https://github.com/weavejester/cljfmt";
       license = licenses.mit;
