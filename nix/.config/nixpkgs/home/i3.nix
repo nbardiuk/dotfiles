@@ -136,13 +136,11 @@ in
     i3blocks                  # i3 status line
     i3blocks-brightness       # i3 status line block for brightness
     i3blocks-contrib.bandwidth2
-    i3blocks-contrib.battery
     i3blocks-contrib.battery2
     i3blocks-contrib.cpu_usage
     i3blocks-contrib.disk
     i3blocks-contrib.kbdd_layout
     i3blocks-contrib.memory
-    i3blocks-contrib.openvpn
     i3blocks-contrib.temperature
     i3blocks-contrib.usb
     i3blocks-contrib.volume
