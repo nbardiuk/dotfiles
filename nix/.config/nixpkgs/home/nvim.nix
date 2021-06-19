@@ -174,7 +174,7 @@ in
     libxml2                   # for xmllint
     pgformatter               # sql formatter
     sqlint                    # sql linter
-    python37Packages.python-language-server
+    python38Packages.python-language-server
     ccls
     clang-tools
     cljfmt

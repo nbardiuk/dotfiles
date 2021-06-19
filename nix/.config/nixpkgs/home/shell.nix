@@ -22,10 +22,10 @@
     lsof
     ncdu
     watch
-    python3
-    python37Packages.autopep8
-    python37Packages.pip
-    python37Packages.virtualenv
+    python38Full
+    python38Packages.autopep8
+    python38Packages.pip
+    python38Packages.virtualenv
 
     exa                       # fancy ls with tree
     tokei
