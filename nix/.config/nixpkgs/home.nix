@@ -22,10 +22,11 @@
   # How unread and relevant news should be presented
   # when running home-manager build and home-manager switch.
   news.display = "silent";
+  fonts.fontconfig.enable = true;
 
   programs.home-manager = {
     enable = true;
-    path = "https://github.com/rycee/home-manager/archive/release-20.03.tar.gz";
+    path = "https://github.com/nix-community/home-manager/archive/master.tar.gz";
   };
 
   programs.command-not-found.enable = true;
@@ -36,7 +37,7 @@
   xdg.enable = true;
 
   programs.mpv.enable = true;
-  programs.mpv.scripts = with pkgs.mpvScripts; [mpris];
+  programs.mpv.scripts = with pkgs.mpvScripts; [ mpris ];
 
   # The set of packages to appear in the user environment.
   home.packages = with pkgs; [
