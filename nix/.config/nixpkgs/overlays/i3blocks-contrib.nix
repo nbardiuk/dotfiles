@@ -5,19 +5,19 @@ with perlPackages;
 
 let
 
-  version = "21708edc3d12c1f37285e3e9363f6541be723599";
+  version = "0d1cbe0";
 
   src = fetchFromGitHub {
     owner = "vivien";
     repo = "i3blocks-contrib";
     rev = version;
-    sha256 = "0rj2q481mkbj3cawg7lsd6x0x0ii9jxnr327f8n3b2kvrdfyvzy6";
+    sha256 = "1n0b6sfz4p3hxvdy7spw7d3ggzkll3zds6v8v70xi5bf2jmwzy9s";
   };
 
-  output="$out/libexec/i3blocks";
+  output = "$out/libexec/i3blocks";
 
   # function to install script block, patched with requirements
-  scriptBlock = name: required:
+  scriptBlock = name: { bin ? [ ], perlDeps ? [ ] }:
     stdenv.mkDerivation {
       inherit name;
       inherit version;
@@ -35,18 +35,10 @@ let
         cp ${name} ${output}
         sed -i 's|#!/usr/bin/perl|#!/usr/bin/env perl |' ${output}/${name}
         wrapProgram ${output}/${name} \
-         --prefix PATH : "${makeBinPath required.bin}" \
-         --set PERL5LIB "${makePerlPath required.perlDeps}"
+         --prefix PATH : "${makeBinPath bin}" \
+         --set PERL5LIB "${makePerlPath perlDeps}"
       '';
     };
-
-  # function to build script block requirements,
-  # useful to avoid passing empty attributes
-  required = args: ({
-    bin = [];
-    perlDeps = [];
-  } // args);
-
 
   # function to install block that requires building
   makeBlock = name:
@@ -59,7 +51,7 @@ let
 
       postPatch = ''
         sed -i "s/-Werror//g" Makefile
-        '';
+      '';
 
       installPhase = ''
         mkdir -p ${output}
@@ -67,31 +59,16 @@ let
       '';
     };
 in
-
 {
-  i3blocks-contrib = rec {
-    bandwidth         = scriptBlock "bandwidth"         ( required {});
-    bandwidth2        = makeBlock "bandwidth2";
-    bandwidth3        = scriptBlock "bandwidth3"        ( required {});
-    battery           = scriptBlock "battery"           ( required {bin = [acpi];});
-    battery2          = scriptBlock "battery2"          ( required {bin = [acpi python3];});
-    batterybar        = scriptBlock "batterybar"        ( required {bin = [acpi];});
-    calendar          = scriptBlock "calendar"          ( required {bin = [xdotool yad];});
-    cpu_usage         = scriptBlock "cpu_usage"         ( required {bin = [perl sysstat]; });
-    disk              = scriptBlock "disk"              ( required {});
-    disk-io           = scriptBlock "disk-io"           ( required {bin = [sysstat]; });
-    docker            = scriptBlock "docker"            ( required {bin = [docker]; });
-    essid             = scriptBlock "essid"             ( required {});
-    kbdd_layout       = scriptBlock "kbdd_layout"       ( required {bin = [kbdd]; });
-    memory            = scriptBlock "memory"            ( required {});
-    openvpn           = scriptBlock "openvpn"           ( required {});
-    temperature       = scriptBlock "temperature"       ( required {bin = [perl lm_sensors]; });
-    time              = scriptBlock "time"              ( required {bin = [perl];});
-    usb               = scriptBlock "usb"               ( required {bin = [python3];});
-    volume            = scriptBlock "volume"            ( required {});
-    volume-pulseaudio = scriptBlock "volume-pulseaudio" ( required {bin = [alsaUtils pulseaudio];});
-    wifi              = scriptBlock "wifi"              ( required {});
-    wlan-dbm          = scriptBlock "wlan-dbm"          ( required {bin = [iw]; });
-    ytdl-mpv          = scriptBlock "ytdl-mpv"          ( required {bin = [mpv xclip youtube-dl perl]; perlDeps = [ DataValidateURI DataValidateDomain NetDomainTLD DataValidateIP NetAddrIP ]; });
+  i3blocks-contrib = {
+    bandwidth2 = makeBlock "bandwidth2";
+    battery2 = scriptBlock "battery2" { bin = [ acpi python3 ]; };
+    cpu_usage = scriptBlock "cpu_usage" { bin = [ perl sysstat ]; };
+    disk = scriptBlock "disk" { };
+    kbdd_layout = scriptBlock "kbdd_layout" { bin = [ kbdd ]; };
+    memory = scriptBlock "memory" { };
+    temperature = scriptBlock "temperature" { bin = [ perl lm_sensors ]; };
+    usb = scriptBlock "usb" { bin = [ python3 ]; };
+    volume = scriptBlock "volume" { };
   };
 }
