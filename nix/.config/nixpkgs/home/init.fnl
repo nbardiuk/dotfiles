@@ -214,6 +214,8 @@
 ;; search in project files
 (k :nnoremap :<leader>f ":Rg<cr>")
 
+(set vim.g.FerretNvim false) ; FIXME https://github.com/wincent/ferret/issues/78
+(set vim.g.FerretJob false)  ; FIXME ^
 (set vim.g.FerretMaxResults 1000)
 (set vim.g.FerretExecutable "rg")
 (set vim.g.FerretExecutableArguments
