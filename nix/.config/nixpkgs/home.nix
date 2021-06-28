@@ -11,6 +11,7 @@
     ./home/guile.nix
     ./home/java.nix
     ./home/keyboard.nix
+    ./home/k9s.nix
     ./home/obs.nix
     ./home/psql.nix
     ./home/shell.nix
