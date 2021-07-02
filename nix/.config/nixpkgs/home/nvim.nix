@@ -142,6 +142,7 @@ in
       vim-indent-object
       vim-markdown
       vim-matchup
+      vim-nix
       vim-projectionist
       vim-repeat
       vim-rest-console
@@ -150,6 +151,7 @@ in
       vim-sexp-mappings-for-regular-people
       vim-slime
       vim-surround
+      vim-terraform
       vim-unimpaired
       vim-vinegar
       wiki-vim
