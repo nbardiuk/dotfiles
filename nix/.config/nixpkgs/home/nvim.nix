@@ -1,14 +1,14 @@
 { pkgs, config, ... }:
 let
-   conjure = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
+  conjure = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
     meta.homepage = "https://github.com/Olical/conjure";
     pname = "conjure";
-    version = "31820e3";
+    version = "b55e4906a10db0f6917058aec6616075c4d06994";
     src = pkgs.fetchFromGitHub {
       owner = "Olical";
       repo = pname;
       rev = version;
-      sha256 = "sha256:1p35blgnd99kggwyiag6drx3v6zqx50ypxnfvvij102ws50144fk";
+      sha256 = "0agmfahppcaxxn3kwfg9wx9ncdz51qixqh52xw6rddhpda5h7gfm";
     };
   };
   astronauta = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
@@ -25,12 +25,12 @@ let
   wiki-vim = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/lervag/wiki.vim";
     pname = "wiki-vim";
-    version = "2021-05-19";
+    version = "2021-07-01";
     src = pkgs.fetchFromGitHub {
       owner = "lervag";
       repo = "wiki.vim";
-      rev = "caaaea0";
-      sha256 = "0l0x5nn3br7g93j1z9d6cgg0svl4vgdwmd4j4ya563hmkvn4a1s3";
+      rev = "8337f5abad3bd7d83e6d3514f79924420b24b56c";
+      sha256 = "1h2hqj7x0s9j56lkpyarsqsjwn0hrqrv49sl36wy72w2m58x955d";
     };
   };
   vim-rest-console = pkgs.vimUtils.buildVimPluginFrom2Nix {
@@ -47,12 +47,12 @@ let
   mycolors = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/nbardiuk/vim-colors";
     pname = "vim-colors";
-    version = "2021-04-14";
+    version = "2021-07-03";
     src = pkgs.fetchFromGitHub {
       owner = "nbardiuk";
       repo = "vim-colors";
-      rev = "930e022";
-      sha256 = "12z1rlwcgmsdp8zhsf5qqbr5hfdyccylqssg76svj86d5a92fswd";
+      rev = "b0fb631";
+      sha256 = "18hbc1f30fdlg0rnr6hzz17qlkxblijlb7xilsvjfi1al68fyvz4";
     };
   };
   vim-gol = pkgs.vimUtils.buildVimPluginFrom2Nix {
