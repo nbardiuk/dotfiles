@@ -92,7 +92,7 @@ let
   neovim-nightly = (import <nixpkgs> {
     overlays = [
       (import (builtins.fetchTarball {
-        url = https://github.com/nix-community/neovim-nightly-overlay/archive/48d4df5.tar.gz;
+        url = https://github.com/nix-community/neovim-nightly-overlay/archive/b3f5bef48810fffef35808f7cdcff0c0eb7af0e7.tar.gz;
       }))
     ];
   }).neovim-nightly;
