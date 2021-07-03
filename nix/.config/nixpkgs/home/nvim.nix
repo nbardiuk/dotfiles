@@ -124,6 +124,8 @@ in
       mycolors
       nvim-compe
       nvim-lspconfig
+      nvim-treesitter
+      playground # treesitter playground
       plenary-nvim # for telescope
       popup-nvim # for telescope
       rhubarb # github provider for fugitive

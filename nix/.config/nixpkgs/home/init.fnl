@@ -6,8 +6,17 @@
              nu aniseed.nvim.util
              core aniseed.core
              lispdocs lispdocs
-             lspconfig lspconfig}
+             lspconfig lspconfig
+             tree-conf nvim-treesitter.configs}
    require-macros [macros]})
+
+(tree-conf.setup
+  {:ensure_intalled :maintained
+   :indent {:enable true}
+   :highlight {:enable true
+               :custom_captures {"symbol" :Constant ; fix clojure keyword
+                                 "punctuation.bracket" :Delimeter ; clojure brackets
+                                 }}})
 
 (defn- k [m ...]
   (let [args [...]]
@@ -171,7 +180,8 @@
 (set vim.opt.titlestring "%f") ; file name in title
 
 ;; Folding
-(set vim.opt.foldmethod :syntax)
+(set vim.opt.foldmethod :expr)
+(set vim.opt.foldexpr "nvim_treesitter#foldexpr()")
 (set vim.opt.foldenable true)    ; enable folding
 (set vim.opt.foldlevelstart 999) ; all folds are open
 (set vim.opt.fillchars "fold:‧")
