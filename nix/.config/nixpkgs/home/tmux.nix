@@ -20,7 +20,7 @@
 
     extraConfig = ''
       # Add truecolor support
-      set -ga terminal-overrides ",xterm-256color:Tc"
+      set -sa terminal-overrides ",alacritty:RGB"
 
       set -g default-command zsh
 
