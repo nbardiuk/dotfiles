@@ -33,7 +33,7 @@
 (set vim.g.maplocalleader "\t")
 
 (telescope.setup
-  {:defaults {:prompt_position :top
+  {:defaults {:layout_config {:prompt_position :top}
               :sorting_strategy :ascending}})
 
 (k :nnoremap :<leader>k #(tel.help_tags {:previewer false}))
