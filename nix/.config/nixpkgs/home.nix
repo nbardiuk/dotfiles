@@ -15,6 +15,7 @@
     ./home/obs.nix
     ./home/psql.nix
     ./home/shell.nix
+    ./home/sqlite.nix
     ./home/syncthing.nix
     ./home/termite.nix
     ./home/zathura.nix
