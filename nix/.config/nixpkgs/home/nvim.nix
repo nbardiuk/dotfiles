@@ -88,18 +88,9 @@ let
       sha256 = "1yg0p58ajd9xf00sr1y9sjy3nxim8af96svrcsy4yn7xbwk24xgm";
     };
   };
-  # workaround for overlay cycle https://github.com/nix-community/neovim-nightly-overlay/issues/111
-  neovim-nightly = (import <nixpkgs> {
-    overlays = [
-      (import (builtins.fetchTarball {
-        url = https://github.com/nix-community/neovim-nightly-overlay/archive/b3f5bef48810fffef35808f7cdcff0c0eb7af0e7.tar.gz;
-      }))
-    ];
-  }).neovim-nightly;
 in
 {
   programs.neovim = {
-    package = neovim-nightly;
     enable = true;
     viAlias = true;
     vimAlias = true;
