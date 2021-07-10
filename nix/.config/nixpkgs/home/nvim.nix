@@ -1,5 +1,16 @@
 { pkgs, config, ... }:
 let
+  ferret = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
+    meta.homepage = "https://github.com/wincent/ferret";
+    pname = "ferret";
+    version = "14d8839";
+    src = pkgs.fetchFromGitHub {
+      owner = "wincent";
+      repo = pname;
+      rev = version;
+      sha256 = "1hnn3x37iphbaam3h5kz0l6y09v2xr79p1nkhs10m939vxavg62k";
+    };
+  };
   conjure = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
     meta.homepage = "https://github.com/Olical/conjure";
     pname = "conjure";
