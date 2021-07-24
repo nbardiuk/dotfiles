@@ -180,7 +180,7 @@ in
     libxml2                   # for xmllint
     pgformatter               # sql formatter
     sqlint                    # sql linter
-    python38Packages.python-language-server
+    python38Packages.python-lsp-server
     ccls
     clang-tools
     cljfmt

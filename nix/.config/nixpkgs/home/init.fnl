@@ -398,7 +398,7 @@
     (b :nnoremap :<leader>lr vim.lsp.buf.rename)
     (b :nnoremap "}" vim.lsp.buf.references)
     (b :nnoremap :K vim.lsp.buf.hover))
-(lspconfig.pyls.setup {})
+(lspconfig.pylsp.setup {})
 
 
 ;; Vim
