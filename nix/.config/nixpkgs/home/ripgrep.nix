@@ -5,14 +5,8 @@ in
 {
   xdg.configFile.${rc}.text = ''
     --smart-case
-    --no-ignore
     --hidden
     --glob=!.git
-    --glob=!target
-    --glob=!node_modules
-    --glob=!build
-    --glob=!.clj-kondo
-    --glob=!.cpcache
   '';
 
   home.sessionVariables = {

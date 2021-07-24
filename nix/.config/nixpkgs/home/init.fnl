@@ -40,14 +40,7 @@
 (k :nnoremap :<leader><leader> #(tel.commands {:previewer false}))
 (k :nnoremap :<leader>la tel.lsp_code_actions)
 (k :nnoremap :<leader>n #(tel.find_files {:previewer false
-                                          :find_command [:fd :--no-ignore :--hidden
-                                                         :--exclude :.git
-                                                         :--exclude :target
-                                                         :--exclude :node_modules
-                                                         :--exclude :build
-                                                         :--exclude :.clj-kondo
-                                                         :--exclude :.cpcache
-                                                         :--exclude :.venv]}))
+                                          :find_command [:fd :--hidden :--exclude :.git]}))
 (k :nnoremap :<leader>e #(tel.buffers {:previewer false
                                        :sort_lastused true
                                        :ignore_current_buffer true}))
@@ -227,18 +220,12 @@
 (set vim.g.FerretMaxResults 1000)
 (set vim.g.FerretExecutable "rg")
 (set vim.g.FerretExecutableArguments
-     {:rg (.. "--vimgrep"
+     {:rg (.. " --vimgrep"
               " --no-heading"
               " --smart-case"
               " --sort path"
-              " --no-ignore"
               " --hidden"
-              " --glob=!.git"
-              " --glob=!target"
-              " --glob=!node_modules"
-              " --glob=!build"
-              " --glob=!.clj-kondo"
-              " --glob=!.cpcache")})
+              " --glob=!.git")})
 (set vim.g.FerretMap false)
 (k :nmap :<leader>* "<Plug>(FerretAckWord)")
 (k :vnoremap :<leader>* "y:Ack <c-r>\"<cr>")

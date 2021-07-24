@@ -1,14 +1,8 @@
 { lib, pkgs, ... }:
 let
   fd-flags = lib.concatStringsSep " " [
-    "--no-ignore"
     "--hidden"
     "--exclude '.git'"
-    "--exclude 'target'"
-    "--exclude 'node_modules'"
-    "--exclude 'build'"
-    "--exclude '.clj-kondo'"
-    "--exclude '.cpcache'"
   ];
 in
 {
