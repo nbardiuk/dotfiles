@@ -14,12 +14,12 @@ let
   conjure = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
     meta.homepage = "https://github.com/Olical/conjure";
     pname = "conjure";
-    version = "b55e4906a10db0f6917058aec6616075c4d06994";
+    version = "8dedf17";
     src = pkgs.fetchFromGitHub {
       owner = "Olical";
       repo = pname;
       rev = version;
-      sha256 = "0agmfahppcaxxn3kwfg9wx9ncdz51qixqh52xw6rddhpda5h7gfm";
+      sha256 = "0061x13jznqqvpci1f6x9r0qrn2bakvvp2ai1nbrb1ynvbgkh3mf";
     };
   };
   astronauta = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
