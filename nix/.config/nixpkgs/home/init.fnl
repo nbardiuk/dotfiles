@@ -605,4 +605,5 @@
     (set vim.opt_local.statusline "%{b:term_title}")
     (set vim.opt_local.bufhidden "hide"))
 (au terminal-leave :TermLeave "*"
-    (vim.cmd (.. "file term:" (nvim.eval "b:terminal_job_pid") ":" (nvim.eval "b:term_title"))))
+    (when (and vim.b.terminal_job_pid vim.b.term_title)
+      (vim.cmd (.. "file term:" vim.b.terminal_job_pid ":" vim.b.term_title))))
