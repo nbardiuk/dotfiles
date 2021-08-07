@@ -55,15 +55,15 @@ let
       sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj";
     };
   };
-  mycolors = pkgs.vimUtils.buildVimPluginFrom2Nix {
+  vim-colors = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
     meta.homepage = "https://github.com/nbardiuk/vim-colors";
     pname = "vim-colors";
-    version = "2021-07-03";
+    version = "f8432d5";
     src = pkgs.fetchFromGitHub {
       owner = "nbardiuk";
       repo = "vim-colors";
-      rev = "b0fb631";
-      sha256 = "18hbc1f30fdlg0rnr6hzz17qlkxblijlb7xilsvjfi1al68fyvz4";
+      rev = version;
+      sha256 = "12vsr3fdq7ri13bikw7djq8a87jfvn34dgbsrzmwa58ml7mwdk2h";
     };
   };
   vim-gol = pkgs.vimUtils.buildVimPluginFrom2Nix {
@@ -123,7 +123,6 @@ in
       gitgutter
       hop-nvim
       lispdocs-nvim # clojure docs for conjure
-      mycolors
       nvim-compe
       nvim-lspconfig
       nvim-treesitter
@@ -137,6 +136,7 @@ in
       telescope-nvim
       tmux-navigator
       vim-abolish
+      vim-colors
       vim-commentary
       vim-cool # manages search highlight
       vim-crease
