@@ -97,30 +97,3 @@ augroup scheme_bindings
   autocmd FileType scheme call s:scheme_mappings()
 augroup END
 
-" Clojure {{{1
-
-function! s:clj_ignore(type) abort
-  " navigate to beginning of a text object
-  silent normal! `[
-
-  " prepend reader macro
-  silent normal! i#_
-endfunction
-
-function! s:switch_conjure_state() abort
-  call fzf#run(fzf#wrap('conjure_state', {
-          \ 'options': '--prompt "repl > "',
-          \ 'source': 'find -name .nrepl-port | xargs dirname',
-          \ 'sink': {v -> execute("ConjureClientState '" . join(reverse(split(v[1:], "/"))[:2], ".") . "'")},
-          \ }))
-endfunction
-
-function! s:clojure_mappings() abort
-  nmap  <buffer> <localleader>cc :call <SID>switch_conjure_state()<CR>
-  nmap  <buffer> <leader>cu :let s=@/<CR>l?\v(#_)+<CR>dgn:let @/=s<CR>
-endfunction
-
-augroup clojure_bindings
-  autocmd!
-  autocmd FileType clojure call s:clojure_mappings()
-augroup END

@@ -502,6 +502,7 @@
 
     (b :nnoremap :<leader>cc #(do-clj-ignore "aF"))
     (b :xnoremap :<leader>c do-clj-ignore)
+    (b :nnoremap :<leader>cu ":let s=@/<CR>l?\\v(#_)+<CR>dgn:let @/=s<CR>")
 
     (set vim.opt_local.tabstop 2)
     (set vim.opt_local.softtabstop 2)
