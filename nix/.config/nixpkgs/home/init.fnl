@@ -43,7 +43,7 @@
                                           :find_command [:fd :--hidden :--exclude :.git]}))
 (k :nnoremap :<leader>e #(tel.buffers {:previewer false
                                        :sort_lastused true
-                                       :ignore_current_buffer true}))
+                                       :ignore_current_buffer false}))
 
 
 
@@ -604,3 +604,5 @@
 (au terminal-open :TermOpen "*"
     (set vim.opt_local.statusline "%{b:term_title}")
     (set vim.opt_local.bufhidden "hide"))
+(au terminal-leave :TermLeave "*"
+    (vim.cmd (.. "file term:" (nvim.eval "b:terminal_job_pid") ":" (nvim.eval "b:term_title"))))
