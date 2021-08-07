@@ -601,3 +601,6 @@
 ;; Terminal
 (k :tnoremap :<Esc> "<C-\\><C-n>") ; use Esc to exit terminal mode
 (k :tnoremap :<C-v><Esc> "<Esc>") ; press Esc in terminal mode
+(au terminal-open :TermOpen "*"
+    (set vim.opt_local.statusline "%{b:term_title}")
+    (set vim.opt_local.bufhidden "hide"))
