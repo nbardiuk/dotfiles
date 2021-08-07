@@ -39,7 +39,12 @@ in
           [lambdaisland/kaocha ${kaocha}]
         ]
        :repl-options {:nrepl-middleware [${middleware}]
-                      :prompt (fn [ns] (format "%s %s\nλ " (clojure.string/join "/" (take-last 2 (clojure.string/split (System/getenv "PWD") #"/"))) ns))
+                      :prompt (fn [ns]
+                        (let [dir-context (->> (clojure.string/split (System/getenv "PWD") #"/")
+                                               (take-last 2)
+                                               (clojure.string/join "/"))
+                              terminal-title (format "\033]0;repl %s\007" dir-context)]
+                          (format "%s%s %s\nλ " terminal-title dir-context ns)))
                      }
        :injections [(require 'hashp.core)]
       }
