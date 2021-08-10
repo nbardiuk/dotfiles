@@ -113,6 +113,7 @@ in
       targets-vim
       telescope-nvim
       tmux-navigator
+      undotree
       vim-abolish
       vim-colors
       vim-commentary
