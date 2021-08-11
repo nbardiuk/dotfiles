@@ -34,19 +34,8 @@ augroup autosave
 augroup END
 
 
-" Search and Substitute {{{1
-
 " search in project files with selected text
 vnoremap <silent> <Leader>f :<c-u>call <SID>run_interact("Rg")<CR>
-
-" paste escaped java/javascript string
-nmap <leader>jp :call setreg('e', json_encode(@+))\| normal "ep<CR>
-xmap <leader>jp :<C-U>call setreg('e', json_encode(@+))\| normal gv"ep<CR>
-nmap <leader>jP :call setreg('e', json_encode(@+))\| normal "eP<CR>
-" yank unescaped java/javascript string
-xmap <leader>jy :<C-U>execute 'normal! gv"ey'\| :call setreg('+', json_decode(@e))<CR>
-
-" Files navigation {{{1
 
 " unload current buffer
 nnoremap <leader>x :bd!<cr>
@@ -56,19 +45,9 @@ nnoremap <leader>X :%bd!<cr>
 " jump to any word in buffer
 map <silent> <leader>' <cmd>HopChar1<cr>
 
-
 " BAG {{{1
-" always type wrong letter
-cabbrev W w
-
 " create a scratch file with specified suffix in a name
 command! -nargs=? Scratch exe 'edit '.tempname().'-'.<q-args>
-
-" Date Time snippets {{{1
-let time_format='%H:%M:%S'
-let date_format='%Y-%m-%d'
-nnoremap <leader>dt a<C-R>=strftime(time_format)<CR><Esc>
-nnoremap <leader>dd a<C-R>=strftime(date_format)<CR><Esc>
 
 " Scheme {{{1
 
@@ -96,4 +75,3 @@ augroup scheme_bindings
   autocmd!
   autocmd FileType scheme call s:scheme_mappings()
 augroup END
-
