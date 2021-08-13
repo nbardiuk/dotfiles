@@ -25,6 +25,10 @@
         fgColor: *foreground
         bgColor: *background
         logoColor: *blue
+      prompt:
+        fgColor: *foreground
+        bgColor: *background
+        suggestColor: *orange
       info:
         fgColor: *magenta
         sectionColor: *foreground
