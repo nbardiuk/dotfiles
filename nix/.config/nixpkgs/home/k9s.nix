@@ -5,7 +5,7 @@
     k9s
   ];
 
-  home.file."/.k9s/skin.yml".text = ''
+  xdg.configFile."k9s/skin.yml".text = ''
     # K9s Solarized Light Skin Contributed by [@leg100](louisgarman@gmail.com)
     foreground: &foreground "#657b83"
     background: &background "#fdf6e3"
