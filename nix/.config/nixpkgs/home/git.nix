@@ -83,5 +83,6 @@ in {
     git-crypt
     gnupg
     babashka # for pre-commit
+    mu-repo
   ];
 }
