@@ -378,6 +378,10 @@
 (set ale-linters.sh ["shellcheck"])
 
 
+;; Docker
+(set ale-linters.dockerfile ["hadolint"])
+
+
 ;; Python
 (au python :FileType "python"
     (b :nnoremap :<leader>lf vim.lsp.buf.formatting)

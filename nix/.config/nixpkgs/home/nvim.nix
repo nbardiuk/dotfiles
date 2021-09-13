@@ -163,5 +163,6 @@ in
     ccls
     clang-tools
     cljfmt
+    hadolint                  # dockerfile linter
   ];
 }
