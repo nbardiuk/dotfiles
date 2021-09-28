@@ -19,6 +19,7 @@
     ./home/syncthing.nix
     ./home/termite.nix
     ./home/zathura.nix
+    ./home/emacs.nix
   ];
 
   # How unread and relevant news should be presented
