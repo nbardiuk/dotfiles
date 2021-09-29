@@ -94,7 +94,7 @@
   :after evil
   :config (evil-global-set-key 'normal (kbd "-") 'dired-jump))
 
-;; Completion commands
+;; Completion menu
 (use-package vertico
   :init (vertico-mode)
   (setq vertico-resize t)
@@ -104,20 +104,52 @@
 (use-package savehist
   :init (savehist-mode))
 
-;; Consult
+;; Completion commands
 (use-package consult
   :after evil
   :config
   (recentf-mode) ; enable tracking of recent files
-  (evil-global-set-key 'normal (kbd "SPC e") 'consult-buffer))
+  (evil-global-set-key 'normal (kbd "SPC e") 'consult-buffer)
+  (evil-global-set-key 'normal (kbd "SPC f") 'consult-ripgrep))
 
 ;; Completion annotations
 (use-package marginalia
   :init (marginalia-mode))
 
-;; Less strict filtering
+;; Less strict filtering of completions
 (use-package orderless
   :custom (completion-styles '(orderless)))
+
+;; Completions actions
+(use-package embark
+  :bind
+  (("C-." . embark-act)         ;; pick some comfortable binding
+   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+  :init
+
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  :config
+
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+(use-package embark-consult
+  :after (embark consult)
+  :demand t ; only necessary if you have the hook below
+  ;; if you want to have consult previews as you move around an
+  ;; auto-updating embark collect buffer
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
+;; Replace in search results
+(use-package wgrep)
 
 ;; Git
 (use-package magit
