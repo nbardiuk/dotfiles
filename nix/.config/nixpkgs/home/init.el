@@ -9,6 +9,12 @@
   (setq use-package-always-ensure t
         use-package-expand-minimally t))
 
+;; Remove custom-set configuration
+(use-package cus-edit
+  :ensure nil
+  :config
+  (setq custom-file (concat user-emacs-directory "trash.el")))
+
 ;; Show matching parentheses
 (use-package paren
   :ensure nil
@@ -82,19 +88,58 @@
   :after evil
   :config (evil-global-set-key 'normal (kbd "-") 'dired-jump))
 
+;; Completion commands
+(use-package vertico
+  :init (vertico-mode)
+  (setq vertico-resize t)
+  (setq vertico-cycle t))
+
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist
+  :init (savehist-mode))
+
+;; Consult
+(use-package consult
+  :after evil
+  :config
+  (recentf-mode) ; enable tracking of recent files
+  (evil-global-set-key 'normal (kbd "SPC e") 'consult-buffer))
+
+;; Completion annotations
+(use-package marginalia
+  :init (marginalia-mode))
+
+;; Less strict filtering
+(use-package orderless
+  :custom (completion-styles '(orderless)))
+
 ;; Git
 (use-package magit
-  :bind ("C-x g" . magit-status)
-  :config (add-hook 'with-editor-mode-hook #'evil-insert-state))
+  :after evil
+  :config
+  (add-hook 'with-editor-mode-hook #'evil-insert-state)
+  (evil-global-set-key 'normal (kbd "SPC g s") 'magit-status)
+  (evil-global-set-key 'normal (kbd "SPC g l") 'magit-log-all))
 
 (use-package diff-hl
   :after magit
   :config
   (global-diff-hl-mode)
   (diff-hl-margin-mode)
-  (diff-hl-show-hunk-mouse-mode)
+  (diff-hl-show-hunk-mouse-mode) ; make margin clickable
+  (diff-hl-flydiff-mode) ; show diffs without saving
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  (evil-global-set-key 'normal (kbd "SPC h u") 'diff-hl-revert-hunk)
+  (evil-global-set-key 'normal (kbd "SPC h d") 'diff-hl-show-hunk))
+
+;; Project
+(use-package projectile
+  :init (projectile-mode +1)
+  :config
+  (setq projectile-sort-order 'access-time)
+  (setq projectile-project-search-path '("~/src/" "~/dev/"))
+  (evil-global-set-key 'normal (kbd "SPC p") 'projectile-command-map))
 
 ;; Linting
 (use-package flycheck
@@ -109,17 +154,3 @@
   :commands (markdown-mode gfm-mode)
   :mode (("\\.md\\'" . gfm-mode)
          ("\\.markdown\\'" . gfm-mode)))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(diff-hl evil-surround flycheck modus-themes use-package monotropic-theme markdown-mode magit evil-commentary evil-collection cider aggressive-indent)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
