@@ -59,8 +59,11 @@
 
 (use-package files
   :ensure nil
-  :config (setq create-lockfiles nil
-		make-backup-files nil))
+  :config
+  (setq create-lockfiles nil
+	make-backup-files nil)
+  (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))))
 
 ;; Slowdown mouse scroll
 (use-package mwheel
@@ -68,16 +71,20 @@
   :config (setq mouse-wheel-scroll-amount '(2 ((shift) . 1))
                 mouse-wheel-progressive-speed nil))
 
+;; Undo
+(use-package undo-fu)
+
 ;; Vi
 (use-package evil
   :init (setq evil-want-C-u-scroll t
-	      evil-want-keybinding nil)
+	      evil-want-keybinding nil
+	      evil-undo-system 'undo-fu)
   :hook (after-init . evil-mode))
 
 (use-package evil-collection
+  :diminish evil-collection-unimpaired-mode
   :after evil
   :config
-  (setq evil-collection-company-use-tng nil)
   (evil-collection-init))
 
 (use-package evil-commentary
@@ -109,8 +116,14 @@
   :after evil
   :config
   (recentf-mode) ; enable tracking of recent files
+  (setq consult-project-root-function #'projectile-project-root)
   (evil-global-set-key 'normal (kbd "SPC e") 'consult-buffer)
   (evil-global-set-key 'normal (kbd "SPC f") 'consult-ripgrep))
+
+(use-package consult-flycheck
+  :after evil
+  :config
+  (evil-global-set-key 'normal (kbd "SPC l e") 'consult-flycheck))
 
 ;; Completion annotations
 (use-package marginalia
@@ -155,7 +168,6 @@
 (use-package magit
   :after evil
   :config
-  (add-hook 'with-editor-mode-hook #'evil-insert-state)
   (evil-global-set-key 'normal (kbd "SPC g s") 'magit-status)
   (evil-global-set-key 'normal (kbd "SPC g l") 'magit-log-all))
 
@@ -173,6 +185,7 @@
 
 ;; Project
 (use-package projectile
+  :diminish projectile-mode
   :init (projectile-mode +1)
   :config
   (setq projectile-sort-order 'access-time)
@@ -195,6 +208,7 @@
 
 ;; Linting
 (use-package flycheck
+  :diminish flycheck-mode
   :init (global-flycheck-mode))
 
 ;; Clojure
@@ -206,3 +220,10 @@
   :commands (markdown-mode gfm-mode)
   :mode (("\\.md\\'" . gfm-mode)
          ("\\.markdown\\'" . gfm-mode)))
+
+;; Nix
+(use-package nix-mode
+  :mode ("\\.nix\\'" "\\.nix.in\\'"))
+(use-package nix-drv-mode
+  :ensure nix-mode
+  :mode "\\.drv\\'")
