@@ -72,7 +72,9 @@
 
 (use-package evil-collection
   :after evil
-  :config (evil-collection-init))
+  :config
+  (setq evil-collection-company-use-tng nil)
+  (evil-collection-init))
 
 (use-package evil-commentary
   :after evil
@@ -140,6 +142,20 @@
   (setq projectile-sort-order 'access-time)
   (setq projectile-project-search-path '("~/src/" "~/dev/"))
   (evil-global-set-key 'normal (kbd "SPC p") 'projectile-command-map))
+
+;; Autocomplete
+(use-package company
+  :diminish company-mode
+  :hook (prog-mode . company-mode)
+  :config
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0.1
+        company-selection-wrap-around t
+        company-tooltip-align-annotations t
+        company-frontends '(company-pseudo-tooltip-frontend ; show tooltip even for single candidate
+                            company-echo-metadata-frontend))
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous))
 
 ;; Linting
 (use-package flycheck
