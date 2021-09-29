@@ -15,6 +15,10 @@
   :config
   (setq custom-file (concat user-emacs-directory "trash.el")))
 
+;; hide minor modes
+(use-package diminish
+  :demand t)
+
 ;; Show matching parentheses
 (use-package paren
   :ensure nil
