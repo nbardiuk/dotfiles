@@ -30,6 +30,15 @@
   :ensure nil
   :hook (prog-mode . electric-pair-mode))
 
+;; Navigate trees of parens
+(use-package symex
+  :after evil
+  :config
+  (symex-initialize)
+  (evil-global-set-key 'normal (kbd "SPC s") 'symex-mode-interface)
+  :custom
+  (symex-modal-backend 'evil))
+
 ;; Auto-indent while typing
 (use-package aggressive-indent
   :config (global-aggressive-indent-mode +1))
@@ -40,7 +49,8 @@
   (setq inhibit-startup-screen t)
   (tool-bar-mode -1)
   (menu-bar-mode -1)
-  (scroll-bar-mode -1))
+  (scroll-bar-mode -1)
+  (blink-cursor-mode -1))
 
 ;; Theme
 (use-package modus-themes
@@ -48,6 +58,12 @@
   :config
   (setq custom-safe-themes t) ; a workaround to disable prompt at startup
   (modus-themes-load-operandi))
+
+;; Modeline
+(use-package smart-mode-line
+  :config
+  (setq sml/theme 'light)
+  (add-hook 'after-init-hook 'sml/setup))
 
 ;; Font
 (use-package frame
@@ -123,7 +139,8 @@
   (recentf-mode) ; enable tracking of recent files
   (setq consult-project-root-function #'projectile-project-root)
   (evil-global-set-key 'normal (kbd "SPC e") 'consult-buffer)
-  (evil-global-set-key 'normal (kbd "SPC f") 'consult-ripgrep))
+  (evil-global-set-key 'normal (kbd "SPC f") 'consult-ripgrep)
+  (evil-global-set-key 'normal (kbd "SPC k") 'consult-apropos))
 
 (use-package consult-flycheck
   :after evil
