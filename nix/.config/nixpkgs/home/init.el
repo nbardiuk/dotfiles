@@ -95,11 +95,16 @@
 (use-package evil-surround
   :config (global-evil-surround-mode 1))
 
+(use-package evil-indent-plus
+  :config (evil-indent-plus-default-bindings))
+
 ;; Dired
 (use-package dired
   :ensure nil
   :after evil
-  :config (evil-global-set-key 'normal (kbd "-") 'dired-jump))
+  :config
+  (evil-global-set-key 'normal (kbd "-") 'dired-jump)
+  (setq dired-listing-switches "-l --group-directories-first --no-group --human-readable --almost-all"))
 
 ;; Completion menu
 (use-package vertico
@@ -175,9 +180,9 @@
   :after magit
   :config
   (global-diff-hl-mode)
-  (diff-hl-margin-mode)
-  (diff-hl-show-hunk-mouse-mode) ; make margin clickable
+  (diff-hl-show-hunk-mouse-mode) ; make highlight clickable
   (diff-hl-flydiff-mode) ; show diffs without saving
+  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
   (evil-global-set-key 'normal (kbd "SPC h u") 'diff-hl-revert-hunk)
@@ -211,6 +216,9 @@
   :diminish flycheck-mode
   :init (global-flycheck-mode))
 
+;; Formatting
+(use-package format-all)
+
 ;; Clojure
 (use-package clojure-mode)
 (use-package cider)
@@ -227,3 +235,7 @@
 (use-package nix-drv-mode
   :ensure nix-mode
   :mode "\\.drv\\'")
+
+;; Yaml
+(use-package yaml-mode
+  :mode ("\\.yml\\'" "\\.yaml\\'"))
