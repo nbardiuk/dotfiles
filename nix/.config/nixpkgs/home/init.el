@@ -220,7 +220,13 @@
 (use-package format-all)
 
 ;; Clojure
-(use-package clojure-mode)
+(use-package clojure-mode
+  :config
+  (define-clojure-indent
+    (Given 1)
+    (When 1)
+    (Then 1)
+    (And 1)))
 (use-package cider)
 
 ;; Markdown
