@@ -36,7 +36,7 @@
   :after evil
   :config
   (setq symex--user-evil-keyspec
-	'(("j" . symex-go-up)
+        '(("j" . symex-go-up)
           ("k" . symex-go-down)
           ("C-j" . symex-climb-branch)
           ("C-k" . symex-descend-branch)
@@ -50,6 +50,13 @@
 ;; Auto-indent while typing
 (use-package aggressive-indent
   :config (global-aggressive-indent-mode +1))
+
+;; Indent
+(use-package emacs
+  :ensure nil
+  :config
+  (setq-default indent-tabs-mode nil)
+  (setq tab-width 2))
 
 ;; Unclutter UI
 (use-package emacs
@@ -85,8 +92,8 @@
   :ensure nil
   :config
   (setq create-lockfiles nil
-	make-backup-files nil
-	auto-save-default nil)
+        make-backup-files nil
+        auto-save-default nil)
   (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
   (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))))
 
@@ -114,8 +121,8 @@
   :ensure nil
   :config
   (setq scroll-margin 0
-	scroll-conservatively 100000
-	scroll-preserve-screen-position 1))
+        scroll-conservatively 100000
+        scroll-preserve-screen-position 1))
 
 
 ;; Undo
@@ -124,8 +131,8 @@
 ;; Vi
 (use-package evil
   :init (setq evil-want-C-u-scroll t
-	      evil-want-keybinding nil
-	      evil-undo-system 'undo-fu)
+              evil-want-keybinding nil
+              evil-undo-system 'undo-fu)
   :hook (after-init . evil-mode))
 
 (use-package evil-collection
@@ -157,9 +164,10 @@
 
 ;; Shell
 ;; fix PATH
-(use-package exec-path-from-shell
+(use-package emacs
+  :ensure nil
   :config
-  (exec-path-from-shell-initialize))
+  (setq exec-path (cons "~/.nix-profile/bin" exec-path)))
 
 ;; Completion menu
 (use-package vertico
@@ -177,8 +185,10 @@
   :config
   (recentf-mode) ; enable tracking of recent files
   (setq consult-project-root-function #'projectile-project-root)
+  (setq consult-find-args "find .")
   (evil-global-set-key 'normal (kbd "SPC e") 'consult-buffer)
   (evil-global-set-key 'normal (kbd "SPC f") 'consult-ripgrep)
+  (evil-global-set-key 'normal (kbd "SPC n") 'consult-find)
   (evil-global-set-key 'normal (kbd "SPC k") 'consult-apropos))
 
 (use-package consult-flycheck
