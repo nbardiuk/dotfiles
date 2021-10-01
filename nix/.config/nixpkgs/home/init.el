@@ -311,3 +311,20 @@
 ;; Yaml
 (use-package yaml-mode
   :mode ("\\.yml\\'" "\\.yaml\\'"))
+
+;; Time
+(use-package time
+  :ensure nil
+  :custom
+  (display-time-24hr-format t)
+  (display-time-world-time-format " %H:%M  %d %b  %Z")
+  (display-time-world-list '(("America/Los_Angeles" "US Pacific")
+                             ("America/Denver"      "US Mountain")
+                             ("America/Chicago"     "US Center")
+                             ("America/New_York"    "US East")
+                             ("UTC"                 "UTC")
+                             ("Europe/Lisbon"       "EU West")
+                             ("Europe/Paris"        "EU Center")
+                             ("Europe/Bucharest"    "EU East")
+                             ("Asia/Calcutta"       "India")
+                             ("Asia/Tokyo"          "Japan"))))
