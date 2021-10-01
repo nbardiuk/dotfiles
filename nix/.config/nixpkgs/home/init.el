@@ -32,7 +32,7 @@
 
 ;; Navigate trees of parens
 (use-package symex
-  :diminish symex-mode
+  :diminish (symex-mode symex-editing-mode)
   :after evil
   :config
   (setq symex--user-evil-keyspec
@@ -49,6 +49,7 @@
 
 ;; Auto-indent while typing
 (use-package aggressive-indent
+  :diminish aggressive-indent-mode
   :config (global-aggressive-indent-mode +1))
 
 ;; Indent
