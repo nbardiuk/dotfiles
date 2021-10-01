@@ -342,3 +342,9 @@
                              ("Europe/Bucharest"    "EU East")
                              ("Asia/Calcutta"       "India")
                              ("Asia/Tokyo"          "Japan"))))
+
+;; DPT
+(use-package dbt-mode
+  :straight (:type git :host github :repo "CyberShadow/dbt-mode")
+  ;; Customize `sql-product' to set the flavor of the SQL syntax.
+  :custom (sql-product 'postgres))
