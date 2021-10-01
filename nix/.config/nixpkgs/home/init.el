@@ -1,17 +1,29 @@
+;; TODO move to early init 
+(setq package-enable-at-startup nil)
+
+;; Setup straight
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
 ;; Setup use-package
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(package-initialize)
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+(straight-use-package 'use-package)
 (eval-and-compile
-  (setq use-package-always-ensure t
+  (setq straight-use-package-by-default t
         use-package-expand-minimally t))
 
 ;; Remove custom-set configuration
 (use-package cus-edit
-  :ensure nil
+  :straight nil
   :config
   (setq custom-file (concat user-emacs-directory "trash.el")))
 
@@ -21,13 +33,13 @@
 
 ;; Show matching parentheses
 (use-package paren
-  :ensure nil
+  :straight nil
   :init (setq show-paren-delay 0)
   :config (show-paren-mode +1))
 
 ;; Auto-close matching parens and quotes
 (use-package elec-pair
-  :ensure nil
+  :straight nil
   :hook (prog-mode . electric-pair-mode))
 
 ;; Navigate trees of parens
@@ -54,7 +66,7 @@
 
 ;; Indent
 (use-package emacs
-  :ensure nil
+  :straight nil
   :config
   (setq-default indent-tabs-mode nil)
   (setq tab-width 2))
@@ -83,14 +95,14 @@
 
 ;; Font
 (use-package frame
-  :ensure nil
+  :straight nil
   :config (set-face-attribute 'default nil
 			      :weight 'normal
 			      :height 135
 			      :family "Iosevka"))
 
 (use-package files
-  :ensure nil
+  :straight nil
   :config
   (setq create-lockfiles nil
         make-backup-files nil
@@ -112,14 +124,14 @@
 
 ;; Slowdown mouse scroll
 (use-package mwheel
-  :ensure nil
+  :straight nil
   :config (setq mouse-wheel-scroll-amount '(2 ((shift) . 1))
                 mouse-wheel-progressive-speed nil))
 
 
 ;; nice scrolling
 (use-package emacs
-  :ensure nil
+  :straight nil
   :config
   (setq scroll-margin 0
         scroll-conservatively 100000
@@ -155,7 +167,7 @@
 
 ;; Dired
 (use-package dired
-  :ensure nil
+  :straight nil
   :after evil
   :config
   (evil-global-set-key 'normal (kbd "-") 'dired-jump)
@@ -166,7 +178,7 @@
 ;; Shell
 ;; fix PATH
 (use-package emacs
-  :ensure nil
+  :straight nil
   :config
   (setq exec-path (cons "~/.nix-profile/bin" exec-path)))
 
@@ -306,7 +318,8 @@
 (use-package nix-mode
   :mode ("\\.nix\\'" "\\.nix.in\\'"))
 (use-package nix-drv-mode
-  :ensure nix-mode
+  :straight nil
+  :after nix-mode
   :mode "\\.drv\\'")
 
 ;; Yaml
@@ -315,7 +328,7 @@
 
 ;; Time
 (use-package time
-  :ensure nil
+  :straight nil
   :custom
   (display-time-24hr-format t)
   (display-time-world-time-format " %H:%M  %d %b  %Z")
