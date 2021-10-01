@@ -32,8 +32,16 @@
 
 ;; Navigate trees of parens
 (use-package symex
+  :diminish symex-mode
   :after evil
   :config
+  (setq symex--user-evil-keyspec
+	'(("j" . symex-go-up)
+          ("k" . symex-go-down)
+          ("C-j" . symex-climb-branch)
+          ("C-k" . symex-descend-branch)
+          ("M-j" . symex-goto-highest)
+          ("M-k" . symex-goto-lowest)))
   (symex-initialize)
   (evil-global-set-key 'normal (kbd "SPC s") 'symex-mode-interface)
   :custom
@@ -77,15 +85,38 @@
   :ensure nil
   :config
   (setq create-lockfiles nil
-	make-backup-files nil)
+	make-backup-files nil
+	auto-save-default nil)
   (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
   (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))))
+
+(use-package super-save
+  :diminish super-save-mode
+  :config
+  (setq super-save-auto-save-when-idle t)
+  (add-to-list 'super-save-hook-triggers 'evil-normal-state-entry-hook) ; autosave when back to normal mode
+  (super-save-mode +1))
+
+;; Remember cursor position in buffer
+(use-package saveplace
+  :config
+  (save-place-mode +1))
 
 ;; Slowdown mouse scroll
 (use-package mwheel
   :ensure nil
   :config (setq mouse-wheel-scroll-amount '(2 ((shift) . 1))
                 mouse-wheel-progressive-speed nil))
+
+
+;; nice scrolling
+(use-package emacs
+  :ensure nil
+  :config
+  (setq scroll-margin 0
+	scroll-conservatively 100000
+	scroll-preserve-screen-position 1))
+
 
 ;; Undo
 (use-package undo-fu)
@@ -120,7 +151,15 @@
   :after evil
   :config
   (evil-global-set-key 'normal (kbd "-") 'dired-jump)
-  (setq dired-listing-switches "-l --group-directories-first --no-group --human-readable --almost-all"))
+  (setq dired-listing-switches "-l --group-directories-first --no-group --human-readable --almost-all")
+  (setq dired-recursive-deletes 'always)
+  (setq dired-recursive-copies 'always))
+
+;; Shell
+;; fix PATH
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize))
 
 ;; Completion menu
 (use-package vertico
