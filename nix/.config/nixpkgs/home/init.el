@@ -433,3 +433,10 @@
 
 ;; Fennel
 (use-package fennel-mode)
+
+;; Line numbers
+(use-package display-line-numbers
+  :straight nil
+  :config
+  (evil-global-set-key 'normal (kbd "SPC t n") 'display-line-numbers-mode)
+  (evil-global-set-key 'normal (kbd "SPC t N") 'global-display-line-numbers-mode))
