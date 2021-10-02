@@ -85,6 +85,8 @@
   :init (modus-themes-load-themes)
   :config
   (setq custom-safe-themes t) ; a workaround to disable prompt at startup
+  (setq modus-themes-diffs 'desaturated)
+  (setq modus-themes-syntax '(faint))
   (modus-themes-load-operandi))
 
 ;; Modeline
