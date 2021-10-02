@@ -355,3 +355,14 @@
   :config
   (evil-global-set-key 'normal (kbd "SPC '") 'avy-goto-char-timer)
   (setq avy-timeout-seconds 0.5))
+
+;; Semantic selection
+(use-package expand-region
+  :after evil
+  :config
+  (evil-global-set-key 'visual (kbd "-") 'er/contract-region)
+  (evil-global-set-key 'visual (kbd "+") 'er/expand-region)
+  (evil-global-set-key 'normal (kbd "+") (lambda ()
+                                           (interactive)
+                                           (evil-visual-char)
+                                           (er/expand-region 1))))
