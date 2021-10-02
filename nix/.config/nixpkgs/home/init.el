@@ -386,3 +386,6 @@
 (use-package makefile-executor
   :config
   (add-hook 'makefile-mode-hook 'makefile-executor-mode))
+
+;; Thesaurus
+(use-package powerthesaurus)
