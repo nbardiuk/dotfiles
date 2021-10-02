@@ -212,7 +212,7 @@
 (use-package consult-flycheck
   :after evil
   :config
-  (evil-global-set-key 'normal (kbd "SPC l e") 'consult-flycheck))
+  (evil-global-set-key 'normal (kbd "SPC a e") 'consult-flycheck))
 
 ;; Completion annotations
 (use-package marginalia
@@ -309,6 +309,7 @@
 
 ;; Clojure
 (use-package clojure-mode
+  ;; :hook ((clojure-mode . lsp))
   :config
   (define-clojure-indent
     (Given 1)
@@ -389,3 +390,45 @@
 
 ;; Thesaurus
 (use-package powerthesaurus)
+
+;; Which key
+(use-package which-key
+  :diminish which-key-mode
+  :config
+  (which-key-mode +1)
+  (setq which-key-idle-delay 0.2)
+  (setq which-key-idle-secondary-delay 0.2))
+
+;; LSP
+(use-package lsp-mode
+  :hook ((lsp-mode . lsp-enable-which-key-integration)
+         ;; disable automatic server installation
+         (lsp-mode . (lambda ()
+                       (mapc (lambda (client)
+                               (setf (lsp-client-download-server-fn client) nil))
+                             (ht-values lsp-clients)))))
+  :commands lsp
+  :config
+  (evil-global-set-key 'normal (kbd "SPC l") lsp-command-map)
+  (setq lsp-enable-symbol-highlighting nil))
+
+;; Javascrip
+(use-package js2-mode
+  :hook ((js-mode . lsp))
+  :commands js2-minor-mode
+  :init (add-hook 'js-mode-hook 'js2-minor-mode))
+
+(use-package typescript-mode
+  :hook ((typescript-mode . lsp))
+  :config
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
+  (setq typescript-indent-level 2))
+
+(use-package json-mode
+  :config
+  (setq json-reformat:indent-width 2))
+
+;; Python
+(use-package python-mode
+  :straight nil
+  :hook ((python-mode . lsp)))
