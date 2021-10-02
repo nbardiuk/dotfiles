@@ -140,6 +140,11 @@
 
 ;; Undo
 (use-package undo-fu)
+(use-package undo-fu-session
+  :config
+  (setq undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
+  (global-undo-fu-session-mode))
+
 
 ;; Vi
 (use-package evil
