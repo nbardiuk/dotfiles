@@ -267,6 +267,10 @@
   (evil-global-set-key 'normal (kbd "SPC h u") 'diff-hl-revert-hunk)
   (evil-global-set-key 'normal (kbd "SPC h d") 'diff-hl-show-hunk))
 
+(use-package browse-at-remote
+  :config
+  (setq browse-at-remote-add-line-number-if-no-region-selected nil))
+
 ;; Project
 (use-package projectile
   :diminish projectile-mode
