@@ -176,10 +176,10 @@
   (setq dired-recursive-copies 'always))
 
 ;; Shell
-;; fix PATH
 (use-package emacs
   :straight nil
   :config
+  (setq shell-file-name "~/.nix-profile/bin/zsh")
   (setq exec-path (cons "~/.nix-profile/bin" exec-path)))
 
 ;; Completion menu
