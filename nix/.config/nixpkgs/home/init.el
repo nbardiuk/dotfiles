@@ -348,3 +348,10 @@
   :straight (:type git :host github :repo "CyberShadow/dbt-mode")
   ;; Customize `sql-product' to set the flavor of the SQL syntax.
   :custom (sql-product 'postgres))
+
+;; Char jump
+(use-package avy
+  :after evil
+  :config
+  (evil-global-set-key 'normal (kbd "SPC '") 'avy-goto-char-timer)
+  (setq avy-timeout-seconds 0.5))
