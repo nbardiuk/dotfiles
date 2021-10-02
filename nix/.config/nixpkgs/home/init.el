@@ -381,3 +381,8 @@
   :custom (terraform-indent-level 2))
 (use-package hcl-mode
   :custom (hcl-indent-level 2))
+
+;; Makefiles
+(use-package makefile-executor
+  :config
+  (add-hook 'makefile-mode-hook 'makefile-executor-mode))
