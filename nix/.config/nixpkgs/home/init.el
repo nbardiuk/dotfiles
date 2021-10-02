@@ -430,3 +430,6 @@
 (use-package python-mode
   :straight nil
   :hook ((python-mode . lsp)))
+
+;; Fennel
+(use-package fennel-mode)
