@@ -370,3 +370,9 @@
                                            (interactive)
                                            (evil-visual-char)
                                            (er/expand-region 1))))
+
+;; Terraform
+(use-package terraform-mode
+  :custom (terraform-indent-level 2))
+(use-package hcl-mode
+  :custom (hcl-indent-level 2))
