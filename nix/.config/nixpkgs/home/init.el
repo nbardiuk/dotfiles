@@ -98,10 +98,14 @@
 ;; Font
 (use-package frame
   :straight nil
-  :config (set-face-attribute 'default nil
-			      :weight 'normal
-			      :height 135
-			      :family "Iosevka"))
+  :config
+  (set-face-attribute 'default nil :height 135 :family "Iosevka")
+  (set-face-attribute 'variable-pitch nil :height 150 :family "Source Sans Pro"))
+
+(use-package mixed-pitch
+  :hook
+  (gfm-mode . mixed-pitch-mode)
+  (org-mode . mixed-pitch-mode))
 
 (use-package files
   :straight nil
@@ -116,7 +120,7 @@
   :diminish super-save-mode
   :config
   (setq super-save-auto-save-when-idle t)
-  (add-to-list 'super-save-hook-triggers 'evil-normal-state-entry-hook) ; autosave when back to normal mode
+  (add-to-list 'super-save-hook-triggers 'evil-normal-state-entry-hook) ; auto-save when back to normal mode
   (super-save-mode +1))
 
 ;; Remember cursor position in buffer
@@ -338,7 +342,15 @@
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
   :mode (("\\.md\\'" . gfm-mode)
-         ("\\.markdown\\'" . gfm-mode)))
+         ("\\.markdown\\'" . gfm-mode))
+  :custom
+  (markdown-header-scaling t)
+  (markdown-fontify-code-blocks-natively t))
+
+;; Text
+(use-package text-mode
+  :straight nil
+  :config (add-hook 'text-mode-hook 'visual-line-mode))
 
 ;; Nix
 (use-package nix-mode
@@ -475,3 +487,12 @@
   :after flyspell
   :config
   (evil-global-set-key 'normal (kbd "z =") 'flyspell-correct-at-point))
+
+;; Org
+(use-package org
+  :straight nil
+  :config
+  (setq org-indent-indentation-per-level 1)
+  (setq org-adapt-indentation nil)
+  (setq org-hide-leading-stars t))
+
