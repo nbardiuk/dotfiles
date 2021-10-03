@@ -153,7 +153,14 @@
   :init (setq evil-want-C-u-scroll t
               evil-want-keybinding nil
               evil-undo-system 'undo-fu)
-  :hook (after-init . evil-mode))
+  :hook (after-init . evil-mode)
+  :config
+  (evil-global-set-key 'visual "/"
+                       (lambda ()
+                         (interactive)
+                         (let ((input (buffer-substring-no-properties (region-beginning) (region-end))))
+                           (evil-exit-visual-state)
+                           (evil-search input t t)))))
 
 (use-package evil-collection
   :diminish evil-collection-unimpaired-mode
@@ -207,9 +214,16 @@
   (setq consult-project-root-function #'projectile-project-root)
   (setq consult-find-args "find .")
   (evil-global-set-key 'normal (kbd "SPC e") 'consult-buffer)
-  (evil-global-set-key 'normal (kbd "SPC f") 'consult-ripgrep)
   (evil-global-set-key 'normal (kbd "SPC n") 'consult-find)
-  (evil-global-set-key 'normal (kbd "SPC k") 'consult-apropos))
+  (evil-global-set-key 'normal (kbd "SPC k") 'consult-apropos)
+  (evil-global-set-key 'normal (kbd "SPC f") 'consult-ripgrep)
+  (evil-global-set-key 'visual (kbd "SPC f")
+                       (lambda ()
+                         (interactive)
+                         (let ((input (buffer-substring-no-properties (region-beginning) (region-end))))
+                           (evil-exit-visual-state)
+                           (isearch-update-ring input t) ; allow to use n to search next
+                           (consult-ripgrep nil input)))))
 
 (use-package consult-flycheck
   :after evil
