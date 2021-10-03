@@ -315,7 +315,10 @@
     (When 1)
     (Then 1)
     (And 1)))
-(use-package cider)
+
+(use-package cider
+  :config
+  (setq cider-repl-display-help-banner nil) )
 
 ;; Markdown
 (use-package markdown-mode
