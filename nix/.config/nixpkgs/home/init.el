@@ -258,17 +258,18 @@
   (evil-global-set-key 'normal (kbd "SPC g s") 'magit-status)
   (evil-global-set-key 'normal (kbd "SPC g l") 'magit-log-all))
 
-(use-package diff-hl
-  :after magit
+(use-package git-gutter
+  :diminish git-gutter-mode
+  :custom
+  (git-gutter:modified-sign " ")
+  (git-gutter:added-sign " ")
+  (git-gutter:deleted-sign " ")
+  (git-gutter:visual-line t)
   :config
-  (global-diff-hl-mode)
-  (diff-hl-show-hunk-mouse-mode) ; make highlight clickable
-  (diff-hl-flydiff-mode) ; show diffs without saving
-  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
-  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-  (evil-global-set-key 'normal (kbd "SPC h u") 'diff-hl-revert-hunk)
-  (evil-global-set-key 'normal (kbd "SPC h d") 'diff-hl-show-hunk))
+  (global-git-gutter-mode +1)
+  (evil-global-set-key 'normal (kbd "SPC h u") 'git-gutter:revert-hunk)
+  (evil-global-set-key 'normal (kbd "SPC h s") 'git-gutter:stage-hunk)
+  (evil-global-set-key 'normal (kbd "SPC h d") 'git-gutter:popup-hunk))
 
 (use-package browse-at-remote
   :config
