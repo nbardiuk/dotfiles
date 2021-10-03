@@ -7,5 +7,11 @@
     emacs
     python38Packages.python-lsp-server
     nixpkgs-fmt
+    aspell
+    aspellDicts.uk
+    aspellDicts.en
+    aspellDicts.en-science
+    aspellDicts.en-computers
+    aspellDicts.pt_PT
   ];
 }

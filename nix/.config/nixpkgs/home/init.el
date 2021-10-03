@@ -458,3 +458,20 @@
   :config
   (evil-global-set-key 'normal (kbd "SPC t n") 'display-line-numbers-mode)
   (evil-global-set-key 'normal (kbd "SPC t N") 'global-display-line-numbers-mode))
+
+;; Spelling
+(use-package ispell
+  :straight nil
+  :custom
+  (ispell-program-name "aspell"))
+
+(use-package flyspell
+  :straight nil
+  :config
+  (add-hook 'text-mode-hook 'flyspell-mode)
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode))
+
+(use-package flyspell-correct
+  :after flyspell
+  :config
+  (evil-global-set-key 'normal (kbd "z =") 'flyspell-correct-at-point))
