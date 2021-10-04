@@ -317,6 +317,7 @@
         company-tooltip-align-annotations t
         company-frontends '(company-pseudo-tooltip-frontend ; show tooltip even for single candidate
                             company-echo-metadata-frontend))
+  (evil-global-set-key 'insert (kbd "C-n") 'company-complete)
   (define-key company-active-map (kbd "C-n") 'company-select-next)
   (define-key company-active-map (kbd "C-p") 'company-select-previous))
 
