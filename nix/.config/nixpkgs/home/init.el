@@ -200,6 +200,10 @@
   (setq shell-file-name "~/.nix-profile/bin/zsh")
   (setq exec-path (cons "~/.nix-profile/bin" exec-path)))
 
+(use-package direnv
+  :config
+  (direnv-mode))
+
 ;; Completion menu
 (use-package vertico
   :init (vertico-mode)
