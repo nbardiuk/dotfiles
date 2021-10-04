@@ -355,7 +355,8 @@
 ;; Text
 (use-package text-mode
   :straight nil
-  :config (add-hook 'text-mode-hook 'visual-line-mode))
+  :config (add-hook 'text-mode-hook 'visual-line-mode)
+  (evil-global-set-key 'normal (kbd "SPC t w") 'visual-line-mode))
 
 ;; Nix
 (use-package nix-mode
@@ -486,7 +487,8 @@
   :straight nil
   :config
   (add-hook 'text-mode-hook 'flyspell-mode)
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode))
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+  (evil-global-set-key 'normal (kbd "SPC t s") 'flyspell-mode))
 
 (use-package flyspell-correct
   :after flyspell
