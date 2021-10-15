@@ -87,6 +87,11 @@
   (setq custom-safe-themes t) ; a workaround to disable prompt at startup
   (setq modus-themes-diffs 'desaturated)
   (setq modus-themes-syntax '(faint))
+  (add-hook 'modus-themes-after-load-theme-hook
+            (lambda ()
+              (modus-themes-with-colors
+                (custom-set-faces
+                 `(term-color-black ((,class :background "gray80" :foreground "gray80")))))))
   (modus-themes-load-operandi))
 
 ;; Modeline
