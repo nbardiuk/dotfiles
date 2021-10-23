@@ -3,23 +3,23 @@ let
   astronauta = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
     meta.homepage = "https://github.com/tjdevries/astronauta.nvim";
     pname = "astronauta";
-    version = "e69d7bd";
+    version = "ea8cae1";
     src = pkgs.fetchFromGitHub {
       owner = "tjdevries";
       repo = "astronauta.nvim";
       rev = version;
-      sha256 = "sha256:0dig863sdv1srhlwrn40g372if5hganhm1bh8qn3y39571gchqax";
+      sha256 = "1p8kqww82ibyvjv099r1n2jhzlqmhlvy2dj1gqyp6jg6rzrx9xdq";
     };
   };
   wiki-vim = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/lervag/wiki.vim";
     pname = "wiki-vim";
-    version = "2021-08-06";
+    version = "2021-10-01";
     src = pkgs.fetchFromGitHub {
       owner = "lervag";
       repo = "wiki.vim";
-      rev = "f8fb5b0";
-      sha256 = "1md8xq8pmldp01nclcmdsw9hnqwyhh2qgplq8gsgg6ffz254lwkx";
+      rev = "2874332";
+      sha256 = "1krri3lg8wsbz21q4i1ipi7w7av35gfsk7v126pc2vr1szxs0x7b";
     };
   };
   vim-rest-console = pkgs.vimUtils.buildVimPluginFrom2Nix {
