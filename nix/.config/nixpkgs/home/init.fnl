@@ -1,6 +1,7 @@
 (module init
   {autoload {telescope telescope
              tel telescope.builtin
+             themes telescope.themes
              cmp cmp
              cmp_nvim_lsp cmp_nvim_lsp
              lspkind lspkind
@@ -36,16 +37,23 @@
 (set vim.g.maplocalleader "\t")
 
 (telescope.setup
-  {:defaults {:layout_config {:prompt_position :top}
-              :sorting_strategy :ascending}})
+  {:defaults (themes.get_ivy
+               {:layout_config {:height 10}
+                :preview false})
+   :extensions {:fzf {:fuzzy true
+                      :override_generic_sorter true
+                      :override_file_sorter true
+                      :case_mode :smart_case}
+                :project {:base_dirs ["~/src" "~/dev" "~/dotfiles" "~/Downloads"]}}})
+(telescope.load_extension :fzf)
+(telescope.load_extension :project)
 
-(k :nnoremap :<leader>k #(tel.help_tags {:previewer false}))
-(k :nnoremap :<leader><leader> #(tel.commands {:previewer false}))
+(k :nnoremap :<leader>p #(telescope.extensions.project.project {}))
+(k :nnoremap :<leader>k tel.help_tags)
+(k :nnoremap :<leader><leader> tel.commands)
 (k :nnoremap :<leader>la tel.lsp_code_actions)
-(k :nnoremap :<leader>n #(tel.find_files {:previewer false
-                                          :find_command [:fd :--hidden :--exclude :.git]}))
-(k :nnoremap :<leader>e #(tel.buffers {:previewer false
-                                       :sort_lastused true
+(k :nnoremap :<leader>n #(tel.find_files {:find_command [:fd :--hidden :--exclude :.git]}))
+(k :nnoremap :<leader>e #(tel.buffers {:sort_lastused true
                                        :ignore_current_buffer false}))
 
 (cmp.setup
@@ -156,25 +164,6 @@
 (set vim.opt.termguicolors true)
 (vim.cmd "colorscheme mycolors")
 
-(set vim.g.fzf_colors
-     {:bg ["bg" "Normal"]
-      :bg+ ["bg" "Normal"]
-      :border ["fg" "Ignore"]
-      :fg ["fg" "Normal"]
-      :fg+ ["fg" "Normal"]
-      :header ["fg" "Comment"]
-      :hl ["fg" "Comment"]
-      :hl+ ["fg" "Statement"]
-      :info ["fg" "PreProc"]
-      :marker ["fg" "Keyword"]
-      :pointer ["fg" "Exception"]
-      :prompt ["fg" "Conditional"]
-      :spinner ["fg" "Label"]})
-
-(set vim.env.FZF_DEFAULT_OPTS "--reverse")
-(set vim.g.fzf_layout {:window {:border "top" :height 1 :width 0.6}})
-(set vim.g.fzf_preview_window "")
-
 (set vim.opt.ruler false)      ; line and column number of the cursor position
 (set vim.opt.laststatus 2)     ; 2 - allways show status line
 (set vim.opt.showmode false)   ; dissable mode message
@@ -224,7 +213,8 @@
 (k :nnoremap :/ "/\\v")
 
 ;; search in project files
-(k :nnoremap :<leader>f ":Rg<cr>")
+(k :nnoremap :<leader>f tel.live_grep)
+(k :nnoremap :<leader>F tel.quickfix)
 
 (set vim.g.FerretMaxResults 1000)
 (set vim.g.FerretExecutable "rg")
@@ -296,8 +286,7 @@
       "<plug>(wiki-link-toggle)" "<leader>w_disable"
       "<plug>(wiki-page-toc)" "<leader>w_disable"})
 
-(k :nnoremap :<leader>wn #(tel.find_files {:previewer false
-                                           :find_command [:fd
+(k :nnoremap :<leader>wn #(tel.find_files {:find_command [:fd
                                                           :--exclude :.stversions
                                                           :--exclude :.stfoldre]
                                            :cwd vim.g.wiki_root}))

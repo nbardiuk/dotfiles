@@ -101,8 +101,6 @@ in
       colorizer
       conjure
       ferret
-      fzf-vim
-      fzfWrapper
       ghcid
       gitgutter
       hop-nvim
@@ -115,12 +113,13 @@ in
       nvim-treesitter
       playground # treesitter playground
       plenary-nvim # for telescope
-      popup-nvim # for telescope
       rhubarb # github provider for fugitive
       sql-nvim # for lispdocs-nvim
       tabular
       targets-vim
+      telescope-fzf-native-nvim
       telescope-nvim
+      telescope-project-nvim
       tmux-navigator
       undotree
       vim-abolish
