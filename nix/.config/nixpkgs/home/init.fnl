@@ -245,7 +245,7 @@
 
 (set vim.g.gitgutter_map_keys false)
 (k :nnoremap :<leader>gd ":Gdiffsplit<CR>")
-(k :nnoremap :<leader>gs ":Git<CR>")
+(k :nnoremap :<leader>gs ":Git<CR><C-w>o")
 (k :nnoremap :<leader>gl ":Gclog<CR>")
 (k :nmap :<leader>hp "<Plug>(GitGutterPreviewHunk)")
 (k :nmap :<leader>hs "<Plug>(GitGutterStageHunk)")
