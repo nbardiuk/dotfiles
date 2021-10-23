@@ -91,8 +91,14 @@ in
       ale
       aniseed # fennel neovim configuration
       astronauta
+      cmp-buffer # buffer text source for nvim-cmp
+      cmp-conjure # conjure source for nvim-cmp
+      cmp_luasnip # integrates luasnip with nvim-cmp
+      cmp-nvim-lsp # lsp source for nvim-cmp
+      cmp-nvim-lua # lua source for nvim-cmp
+      cmp-path # filesystem source for nvim-cmp
+      cmp-spell # spelling source for nvim-cmp
       colorizer
-      compe-conjure
       conjure
       ferret
       fzf-vim
@@ -101,7 +107,10 @@ in
       gitgutter
       hop-nvim
       lispdocs-nvim # clojure docs for conjure
-      nvim-compe
+      lspkind-nvim # decorate nvim-cmp
+      luasnip # snippets manager
+      nvim-cmp # completion mananger
+      nvim-local-fennel
       nvim-lspconfig
       nvim-treesitter
       playground # treesitter playground
@@ -164,5 +173,6 @@ in
     clang-tools
     cljfmt
     hadolint                  # dockerfile linter
+    nerdfonts
   ];
 }

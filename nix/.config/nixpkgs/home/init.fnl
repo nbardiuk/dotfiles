@@ -1,7 +1,10 @@
 (module init
   {autoload {telescope telescope
              tel telescope.builtin
-             compe compe
+             cmp cmp
+             cmp_nvim_lsp cmp_nvim_lsp
+             lspkind lspkind
+             luasnip luasnip
              nvim aniseed.nvim
              nu aniseed.nvim.util
              core aniseed.core
@@ -45,30 +48,36 @@
                                        :sort_lastused true
                                        :ignore_current_buffer false}))
 
+(cmp.setup
+  {:sources [{:name "nvim_lua"}
+             {:name "nvim_lsp"}
+             {:name "conjure"}
+             {:name "lausnip"}
+             {:name "path"}
+             {:name "buffer"
+              :keyword_length 5
+              :opts {:get_bufnrs #(vim.api.nvim_list_bufs)}}
+             {:name "spell"
+              :keyword_length 5}]
+   :formatting {:format (lspkind.cmp_format {:with_text true
+                                             :menu {:nvim_lua "[lua]"
+                                                    :nvim_lsp "[lsp]"
+                                                    :conjure "[conj]"
+                                                    :luasnip "[snip]"
+                                                    :path "[path]"
+                                                    :buffer "[buf]"
+                                                    :spell "[spell]"}})}
+   :snippet {:expand #(luasnip.lsp_expand (. $1 :body))}
+   :mapping {"<C-d>" (cmp.mapping.scroll_docs -4)
+             "<C-u>" (cmp.mapping.scroll_docs 4)
+             "<C-e>" (cmp.mapping.close)
+             "<C-y>" (cmp.mapping.confirm {:behaviour cmp.ConfirmBehavior.Insert
+                                           :select true})}})
 
+(def- cmp-capabilities
+  (cmp_nvim_lsp.update_capabilities (vim.lsp.protocol.make_client_capabilities)))
 
-(compe.setup
-  {:enabled true
-   :autocomplete false
-   :debug false
-   :min_length 1
-   :preselect :enable
-   :throttle_time 80
-   :source_timeout 200
-   :incomplete_delay 400
-   :max_abbr_width 100
-   :max_kind_width 100
-   :max_menu_width 100
-   :documentation true
-   :source {:path true
-            :buffer true
-            :nvim_lsp true
-            :omni true
-            :conjure true}})
-
-(nvim.ex.inoremap "<silent><expr> <C-N> compe#complete()")
-
-(set vim.opt.completeopt "menuone,noselect")
+(set vim.opt.completeopt "menu,menuone,noselect")
 (vim.opt.complete:remove :t)  ; i don't use tags
 (vim.opt.shortmess:append :c) ; turn off completion messages
 
@@ -389,7 +398,7 @@
     (b :nnoremap :<leader>lr vim.lsp.buf.rename)
     (b :nnoremap "}" vim.lsp.buf.references)
     (b :nnoremap :K vim.lsp.buf.hover))
-(lspconfig.pylsp.setup {})
+(lspconfig.pylsp.setup {:capabilities cmp-capabilities})
 
 
 ;; Vim
@@ -410,7 +419,7 @@
     (b :nnoremap :<leader>lt vim.lsp.buf.type_definition)
     (b :nnoremap "}" vim.lsp.buf.references)
     (b :nnoremap :K vim.lsp.buf.hover))
-(lspconfig.tsserver.setup {})
+(lspconfig.tsserver.setup {:capabilities cmp-capabilities})
 (set ale-fixers.javascript ["eslint" "prettier"])
 (set ale-fixers.typescriptreact ["prettier"])
 (set ale-fixers.typescript ["prettier"])
@@ -425,7 +434,7 @@
     (b :nnoremap :<leader>lr vim.lsp.buf.rename)
     (b :nnoremap "}" vim.lsp.buf.references)
     (b :nnoremap :K vim.lsp.buf.hover))
-(lspconfig.rls.setup {})
+(lspconfig.rls.setup {:capabilities cmp-capabilities})
 (set vim.g.ale_rust_cargo_use_clippy true)
 (set vim.g.ale_rust_cargo_check_all_targets true)
 (set ale-fixers.rust ["rustfmt"])
@@ -437,7 +446,7 @@
     (b :nnoremap :<leader>lf ":ALEFix<CR>")
     (b :nnoremap :gd vim.lsp.buf.definition)
     (b :nnoremap :K vim.lsp.buf.hover))
-(lspconfig.ghcide.setup {})
+(lspconfig.ghcide.setup {:capabilities cmp-capabilities})
 (set ale-fixers.haskell ["hindent"])
 
 
@@ -453,7 +462,7 @@
     (set vim.opt_local.softtabstop 2)
     (set vim.opt_local.shiftwidth 2)
     (set vim.opt_local.expandtab true))
-(lspconfig.ccls.setup {})
+(lspconfig.ccls.setup {:capabilities cmp-capabilities})
 (set ale-fixers.c ["clang-format" "clangtidy"])
 (set ale-linters.c ["clang"])
 
@@ -523,6 +532,7 @@
 (set vim.g.clojure_fuzzy_indent_patterns ["^with" "^def" "^let" "^Given" "^When" "^Then" "^And"])
 (set vim.g.conjure#client#clojure#nrepl#test#current_form_names [:deftest :def-integration-test])
 (set vim.g.conjure#client#clojure#nrepl#test#runner :kaocha)
+(lspconfig.clojure_lsp.setup {:capabilities cmp-capabilities})
 
 (defn cljfmt []
   {:read_temporary_file 1
