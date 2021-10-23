@@ -214,7 +214,7 @@
 
 ;; search in project files
 (k :nnoremap :<leader>f tel.live_grep)
-(k :nnoremap :<leader>F tel.quickfix)
+(k :nnoremap :<leader>q tel.quickfix)
 
 (set vim.g.FerretMaxResults 1000)
 (set vim.g.FerretExecutable "rg")
@@ -440,7 +440,7 @@
 
 
 ;; C
-(au c :FileType "c"
+(au c :FileType "c,cpp"
     (b :nnoremap :<leader>lf ":ALEFix<CR>")
     (b :vnoremap "=" vim.lsp.buf.range_formatting)
     (b :nnoremap :gd vim.lsp.buf.definition)
@@ -453,7 +453,9 @@
     (set vim.opt_local.expandtab true))
 (lspconfig.ccls.setup {:capabilities cmp-capabilities})
 (set ale-fixers.c ["clang-format" "clangtidy"])
+(set ale-fixers.cpp ["clang-format" "clangtidy"])
 (set ale-linters.c ["clang"])
+(set ale-linters.cpp ["clang"])
 
 
 ;; Sexp
