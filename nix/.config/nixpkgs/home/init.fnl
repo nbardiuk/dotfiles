@@ -11,7 +11,8 @@
              core aniseed.core
              lispdocs lispdocs
              lspconfig lspconfig
-             tree-conf nvim-treesitter.configs}
+             tree-conf nvim-treesitter.configs
+             hop hop}
    require-macros [macros]})
 
 (tree-conf.setup
@@ -236,6 +237,13 @@
      [ "." ; current file
       "**" ; children subdirectories 'starstar'
       ])
+
+
+;; Hop
+(hop.setup
+  {:teasing false
+   :jump_on_sole_occurrence true})
+(k :nnoremap "<leader>'" hop.hint_char1) ; to any char in buffer
 
 
 ;; Git

@@ -42,9 +42,6 @@ nnoremap <leader>x :bd!<cr>
 " unload all buffers
 nnoremap <leader>X :%bd!<cr>
 
-" jump to any word in buffer
-map <silent> <leader>' <cmd>HopChar1<cr>
-
 " BAG {{{1
 " create a scratch file with specified suffix in a name
 command! -nargs=? Scratch exe 'edit '.tempname().'-'.<q-args>
