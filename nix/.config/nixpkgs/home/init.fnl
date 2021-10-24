@@ -45,7 +45,7 @@
                       :override_generic_sorter true
                       :override_file_sorter true
                       :case_mode :smart_case}
-                :project {:base_dirs ["~/src" "~/dev" "~/dotfiles" "~/Downloads"]}}})
+                :project {:base_dirs ["~/code" "~/dotfiles" "~/Downloads"]}}})
 (telescope.load_extension :fzf)
 (telescope.load_extension :project)
 

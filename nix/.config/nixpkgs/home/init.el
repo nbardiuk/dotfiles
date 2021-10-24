@@ -303,7 +303,7 @@
   :init (projectile-mode +1)
   :config
   (setq projectile-sort-order 'access-time)
-  (setq projectile-project-search-path '("~/src/" "~/dev/"))
+  (setq projectile-project-search-path '("~/code/"))
   (evil-global-set-key 'normal (kbd "SPC p") 'projectile-command-map))
 
 ;; Autocomplete

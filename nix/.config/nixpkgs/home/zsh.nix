@@ -32,7 +32,7 @@ in
       ZSH_TMUX_UNICODE = true;
       GIT_AUTO_FETCH_INTERVAL = minutes 10;
       CDPATH = lib.concatStringsSep ":" [
-        "${config.home.homeDirectory}/dev"
+        "${config.home.homeDirectory}/code"
         "${config.home.homeDirectory}"
       ];
     };
