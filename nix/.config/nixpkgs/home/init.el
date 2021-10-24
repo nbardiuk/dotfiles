@@ -59,11 +59,6 @@
   :custom
   (symex-modal-backend 'evil))
 
-;; Auto-indent while typing
-(use-package aggressive-indent
-  :diminish aggressive-indent-mode
-  :config (global-aggressive-indent-mode +1))
-
 ;; Indent
 (use-package emacs
   :straight nil
@@ -104,8 +99,8 @@
 (use-package frame
   :straight nil
   :config
-  (set-face-attribute 'default nil :height 135 :family "Iosevka")
-  (set-face-attribute 'variable-pitch nil :height 150 :family "Source Sans Pro"))
+  (set-face-attribute 'default nil :height 120 :family "Iosevka")
+  (set-face-attribute 'variable-pitch nil :height 120 :family "Source Sans Pro"))
 
 (use-package mixed-pitch
   :hook
@@ -336,7 +331,7 @@
 
 ;; Clojure
 (use-package clojure-mode
-  ;; :hook ((clojure-mode . lsp))
+  :hook ((clojure-mode . lsp))
   :config
   (define-clojure-indent
     (Given 1)
@@ -440,12 +435,7 @@
 
 ;; LSP
 (use-package lsp-mode
-  :hook ((lsp-mode . lsp-enable-which-key-integration)
-         ;; disable automatic server installation
-         (lsp-mode . (lambda ()
-                       (mapc (lambda (client)
-                               (setf (lsp-client-download-server-fn client) nil))
-                             (ht-values lsp-clients)))))
+  :hook ((lsp-mode . lsp-enable-which-key-integration))
   :commands lsp
   :config
   (evil-global-set-key 'normal (kbd "SPC l") lsp-command-map)
