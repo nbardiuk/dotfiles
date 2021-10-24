@@ -15,8 +15,15 @@
       package = pkgs.arc-theme;
     };
   };
+
   qt = {
     enable = true;
     platformTheme = "gtk";
+  };
+
+  xsession.pointerCursor = {
+    name = "Vanilla-DMZ";
+    package = pkgs.vanilla-dmz;
+    size = 48;
   };
 }
