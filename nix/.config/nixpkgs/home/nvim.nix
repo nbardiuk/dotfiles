@@ -48,6 +48,8 @@ in
       vim-abolish
       vim-commentary
       vim-cool # manages search highlight
+      vim-dadbod
+      vim-dadbod-completion
       vim-eunuch
       vim-fugitive
       vim-indent-object
