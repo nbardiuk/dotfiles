@@ -26,7 +26,6 @@ in
       cmp-path # filesystem source for nvim-cmp
       cmp-spell # spelling source for nvim-cmp
       ferret
-      ghcid
       gitgutter
       hop-nvim
       lispdocs-nvim # clojure docs for conjure
@@ -68,8 +67,6 @@ in
       (plugin { url = "https://github.com/chrisbra/colorizer"; rev = "826d569"; sha256 = "069f8gqjihjzzv2qmpv3mid55vi52c6yyiijfarxpwmfchby9gc5"; })
       (plugin { url = "https://github.com/diepm/vim-rest-console"; rev = "7b407f4"; sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj"; })
       (plugin { url = "https://github.com/lervag/wiki.vim"; rev = "2874332"; sha256 = "1krri3lg8wsbz21q4i1ipi7w7av35gfsk7v126pc2vr1szxs0x7b"; })
-      (plugin { url = "https://github.com/nbardiuk/vim-colors"; rev = "f8432d5"; sha256 = "12vsr3fdq7ri13bikw7djq8a87jfvn34dgbsrzmwa58ml7mwdk2h"; })
-      (plugin { url = "https://github.com/nbardiuk/vim-gol"; rev = "ec5314c"; sha256 = "0bpm54857x6ls2kdjblf23lgskhychhcqvm5v39v62jr0il6pj4h"; })
       (plugin { url = "https://github.com/Olical/aniseed"; rev = "4bb3a4c"; sha256 = "0sd81pagrrwsig1fjm4ly866wcpq4xqpf810a8q1p2bygjs95chx"; })
       (plugin { url = "https://github.com/Olical/conjure"; rev = "a2831ac"; sha256 = "1r1lz397fga204i4a4g6zbaf457wmvb35kpd9m7n8476iay892j7"; })
       (plugin { url = "https://github.com/Olical/nvim-local-fennel"; rev = "3cf4b30"; sha256 = "10f57jp2c3v28kbznqhs42j8wg7ry7xblczb5w94kp066d7nzdlq"; })
