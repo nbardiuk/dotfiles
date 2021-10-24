@@ -1,5 +1,16 @@
 { pkgs, config, ... }:
 let
+  nvim-local-fennel = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
+    meta.homepage = "https://github.com/Olical/nvim-local-fennel";
+    pname = "nvim-local-fennel";
+    version = "973af39";
+    src = pkgs.fetchFromGitHub {
+      owner = "Olical";
+      repo = pname;
+      rev = version;
+      sha256 = "1hf4pig1md2vklz0zl7al5nwcrkr6wsx85kgq3jj43a05c1hy1yg";
+    };
+  };
   astronauta = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
     meta.homepage = "https://github.com/tjdevries/astronauta.nvim";
     pname = "astronauta";
@@ -125,7 +136,7 @@ in
       playground # treesitter playground
       plenary-nvim # for telescope
       rhubarb # github provider for fugitive
-      sql-nvim # for lispdocs-nvim
+      sqlite-lua # for lispdocs-nvim
       tabular
       targets-vim
       telescope-fzf-native-nvim

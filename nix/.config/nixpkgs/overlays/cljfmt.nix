@@ -54,7 +54,7 @@ let
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "1h3mqn6n6f5avzdz4p9r2c883s4y7pnz9040gl95kr0mz4n7l9g7";
+    outputHash = "0igics0qsqhxliw4856l1x5sxf3rap0qjfr3lwrp36vwi9igzlz5";
   };
 
   cljfmt = stdenv.mkDerivation rec {
