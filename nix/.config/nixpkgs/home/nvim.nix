@@ -3,15 +3,37 @@ let
   nvim-local-fennel = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
     meta.homepage = "https://github.com/Olical/nvim-local-fennel";
     pname = "nvim-local-fennel";
-    version = "973af39";
+    version = "3cf4b30";
     src = pkgs.fetchFromGitHub {
       owner = "Olical";
       repo = pname;
       rev = version;
-      sha256 = "1hf4pig1md2vklz0zl7al5nwcrkr6wsx85kgq3jj43a05c1hy1yg";
+      sha256 = "10f57jp2c3v28kbznqhs42j8wg7ry7xblczb5w94kp066d7nzdlq";
     };
   };
-  astronauta = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
+  aniseed = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
+    meta.homepage = "https://github.com/Olical/aniseed";
+    pname = "aniseed";
+    version = "4bb3a4c";
+    src = pkgs.fetchFromGitHub {
+      owner = "Olical";
+      repo = "aniseed";
+      rev = version;
+      sha256 = "0sd81pagrrwsig1fjm4ly866wcpq4xqpf810a8q1p2bygjs95chx";
+    };
+  };
+  conjure = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
+    meta.homepage = "https://github.com/Olical/conjure";
+    pname = "conjure";
+    version = "a2831ac";
+    src = pkgs.fetchFromGitHub {
+      owner = "Olical";
+      repo = "conjure";
+      rev = version;
+      sha256 = "1r1lz397fga204i4a4g6zbaf457wmvb35kpd9m7n8476iay892j7";
+    };
+  };
+ astronauta = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
     meta.homepage = "https://github.com/tjdevries/astronauta.nvim";
     pname = "astronauta";
     version = "ea8cae1";
