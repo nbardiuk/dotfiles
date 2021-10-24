@@ -20,7 +20,7 @@
    :indent {:enable true}
    :highlight {:enable true
                :custom_captures {"symbol" :Constant ; fix clojure keyword
-                                 "punctuation.bracket" :Delimeter ; clojure brackets
+                                 "punctuation.bracket" :Delimiter ; clojure brackets
                                  }}})
 
 (defn- k [m ...]
@@ -163,7 +163,39 @@
 
 (set vim.opt.background :light)
 (set vim.opt.termguicolors true)
-(vim.cmd "colorscheme mycolors")
+(do
+  (vim.cmd "colorscheme paper")
+
+  (let [to-clear [:Identifier
+                  :Function
+                  :Statement
+                  :Conditional
+                  :Repeat
+                  :Label
+                  :Operator
+                  :Keyword
+                  :Exception
+                  :PreProc
+                  :Include
+                  :Define
+                  :Macro
+                  :PreCondit
+                  :Type
+                  :StorageClass
+                  :Structure
+                  :Typedef
+                  :Special
+                  :Tag
+                  ]]
+    (each [_ highlight (pairs to-clear)]
+      (vim.cmd (.. "highlight clear " highlight))))
+
+  (let [to-link {:Comment :Directory
+                 :Constant :Regexp
+                 }]
+    (each [a b (pairs to-link)]
+      (vim.cmd (.. "highlight clear " a))
+      (vim.cmd (.. "highlight link " a " " b)))))
 
 (set vim.opt.ruler false)      ; line and column number of the cursor position
 (set vim.opt.laststatus 2)     ; 2 - allways show status line

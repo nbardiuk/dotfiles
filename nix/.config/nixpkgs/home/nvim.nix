@@ -44,6 +44,17 @@ let
       sha256 = "12vsr3fdq7ri13bikw7djq8a87jfvn34dgbsrzmwa58ml7mwdk2h";
     };
   };
+  vim-paper = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
+    meta.homepage = "https://github.com/YorickPeterse/vim-paper";
+    pname = "vim-paper";
+    version = "93e06e7";
+    src = pkgs.fetchFromGitHub {
+      owner = "YorickPeterse";
+      repo = "vim-paper";
+      rev = version;
+      sha256 = "1slq5j50s1v46ysq4w81lsr6cw48wkv8hlfyrpmf7cqjqahd4i10";
+    };
+  };
   vim-gol = pkgs.vimUtils.buildVimPluginFrom2Nix {
     meta.homepage = "https://github.com/nbardiuk/vim-gol";
     pname = "vim-gol";
@@ -134,6 +145,7 @@ in
       vim-markdown
       vim-matchup
       vim-nix
+      vim-paper
       vim-projectionist
       vim-repeat
       vim-rest-console

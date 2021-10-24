@@ -81,12 +81,12 @@
       bind-key C-h run-shell "tmux setw main-pane-height $(($(tmux display -p '#{window_height}') * 66 / 100)); tmux select-layout main-horizontal"
       bind-key C-t select-layout tiled
 
-      #### COLOUR (Solarized light)
-      set -g status-bg "#f4f4f4" #white
-      set -g status-fg blue
+      #### COLOUR
+      set -g status-bg "#D8D5C7" # same as vim status bar
+      set -g status-fg black
       set -g display-panes-active-colour blue
-      set -g display-panes-colour brightred #orange
-      set-window-option -g clock-mode-colour green #green
+      set -g display-panes-colour brightred
+      set-window-option -g clock-mode-colour green
       set-window-option -g window-status-bell-style fg=white,bg=red
     '';
 

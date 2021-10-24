@@ -1,5 +1,43 @@
 { ... }:
 let
+  paper = {
+    # https://github.com/YorickPeterse/vim-paper#terminal-colors
+
+    colors = {
+      primary = {
+        background = "0xF2EEDE";
+        foreground = "0x000000";
+      };
+
+      cursor = {
+        text = "0xD8D5C7";
+        cursor = "0x000000";
+      };
+
+      normal = {
+        black = "0x000000";
+        red = "0xCC3E28";
+        green = "0x216609";
+        yellow = "0xB58900";
+        blue = "0x1E6FCC";
+        magenta = "0x5C21A5";
+        cyan = "0x158c86";
+        white = "0xAAAAAA";
+      };
+
+      bright = {
+        black = "0x555555";
+        red = "0xCC3E28";
+        green = "0x216609";
+        yellow = "0xB58900";
+        blue = "0x1E6FCC";
+        magenta = "0x5C21A5";
+        cyan = "0x158c86";
+        white = "0xAAAAAA";
+      };
+    };
+  };
+
   base16-grayscale-light-my = {
     colors = {
       primary = {
@@ -39,7 +77,7 @@ let
 in
 {
   programs.alacritty.enable = true;
-  programs.alacritty.settings = base16-grayscale-light-my // {
+  programs.alacritty.settings = paper // {
 
     shell.program = "zsh";
 
