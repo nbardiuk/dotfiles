@@ -683,6 +683,17 @@
   (vim.cmd (.. "edit " (vim.fn.tempname) "_" suffix)))
 (vim.cmd "command! -nargs=? Scratch lua require('init').scratch(<q-args>)")
 
+;; Auto write and read file
+(au autosave "FocusLost,BufLeave,CursorHold" "*" (vim.cmd "silent! update"))
+(au autoread "FocusGained,BufEnter,CursorHold" "*" (vim.cmd "silent! checktime"))
+(au jump-to-last-postion :BufReadPost "*"
+    ; https://github.com/vim/vim/blob/eaf35241197fc6b9ee9af993095bf5e6f35c8f1a/runtime/defaults.vim#L108-L117
+    (let [[line col] (vim.api.nvim_buf_get_mark 0 "\"")
+          line-count (vim.api.nvim_buf_line_count 0)]
+      (when (and (<= 1 line line-count)
+                 (not= (vim.opt.ft:get) :commit))
+        (vim.api.nvim_win_set_cursor 0 [line col]))))
+
 
 ;; last expression should be a definition, otherwise module is not exported
 (def t true)
