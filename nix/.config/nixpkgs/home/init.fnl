@@ -595,6 +595,24 @@
 (k :xnoremap :<leader>sy "\"sy")
 (k :nnoremap :<leader>sp ":SlimeSend1 <C-R>s<CR>")
 
+;; Scheme
+(defn scm-ignore []
+  (nu.normal "`[") ; navigate to beginnign of a text object
+  (nu.normal "i#;") ; prepend sexp comment
+)
+(nu.fn-bridge :Scm_ignore :init :scm-ignore)
+
+(defn do-scm-ignore [form]
+  (set vim.opt.operatorfunc :Scm_ignore)
+  (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
+
+(au scheme :FileType "scheme"
+    (b :xnoremap :<leader>c do-scm-ignore)
+    (b :nnoremap :<leader>cc #(do-scm-ignore "aF"))
+    (b :nmap :<leader>cu ":let s=@/<CR>l?\v(#;)+<CR>dgn:let @/=s<CR>")
+    (b :nmap :<leader>pp "<Plug>SlimeMotionSend<Plug>(sexp_outer_top_list)``")
+    (b :nnoremap :K ":SlimeSend1 (pp <C-R><C-W>)<CR>")
+    (b :nmap :<leader>lf "ggvG=``"))
 
 ;; Curl
 (set vim.g.vrc_curl_opts
