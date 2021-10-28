@@ -15,7 +15,7 @@ in
     withNodeJs = false;
     withPython3 = true;
     withRuby = false;
-    extraConfig = (builtins.readFile ./init.vim);
+    extraConfig = "let g:aniseed#env = v:true";
     plugins = with pkgs.vimPlugins; [
       ale
       cmp-buffer # buffer text source for nvim-cmp
