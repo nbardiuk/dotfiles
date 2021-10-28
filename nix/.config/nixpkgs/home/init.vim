@@ -37,10 +37,6 @@ augroup END
 " search in project files with selected text
 vnoremap <silent> <Leader>f :<c-u>call <SID>run_interact("Rg")<CR>
 
-" unload current buffer
-nnoremap <leader>x :bd!<cr>
-" unload all buffers
-nnoremap <leader>X :%bd!<cr>
 
 " Scheme {{{1
 

@@ -148,6 +148,9 @@
 (k :nnoremap :<C-w>s :<C-w>s<C-w>w)
 (k :nnoremap :<C-w>v :<C-w>v<C-w>w)
 
+(k :nnoremap :<leader>x ":bd!<cr>") ; close current buffer
+(k :nnoremap :<leader>X ":%bd!<cr>") ; close all buffers
+
 
 (set vim.opt.wrap true)      ; soft wrap lines
 (set vim.opt.linebreak true) ; break lines at convenient points
