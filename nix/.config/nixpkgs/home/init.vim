@@ -42,10 +42,6 @@ nnoremap <leader>x :bd!<cr>
 " unload all buffers
 nnoremap <leader>X :%bd!<cr>
 
-" BAG {{{1
-" create a scratch file with specified suffix in a name
-command! -nargs=? Scratch exe 'edit '.tempname().'-'.<q-args>
-
 " Scheme {{{1
 
 function! s:scm_ignore(type) abort

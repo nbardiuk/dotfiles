@@ -655,3 +655,9 @@
 (au terminal-leave :TermLeave "*"
     (when (and vim.b.terminal_job_pid vim.b.term_title)
       (vim.cmd (.. "file term:" vim.b.terminal_job_pid ":" vim.b.term_title))))
+
+;; Scratch
+(defn scratch [suffix]
+  (vim.cmd (.. "edit " (vim.fn.tempname) "_" suffix)))
+(vim.cmd "command! -nargs=? Scratch lua require('init').scratch(<q-args>)")
+
