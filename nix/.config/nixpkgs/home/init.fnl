@@ -6,7 +6,6 @@
              cmp_nvim_lsp cmp_nvim_lsp
              lspkind lspkind
              luasnip luasnip
-             nvim aniseed.nvim
              nu aniseed.nvim.util
              core aniseed.core
              lispdocs lispdocs
@@ -19,8 +18,8 @@
   {:ensure_intalled :maintained
    :indent {:enable true}
    :highlight {:enable true
-               :custom_captures {"symbol" :Constant ; fix clojure keyword
-                                 "punctuation.bracket" :Delimiter ; clojure brackets
+               :custom_captures {:symbol :Constant ; fix clojure keyword
+                                 :punctuation.bracket :Delimiter ; clojure brackets
                                  }}})
 
 (defn- k [m ...]
@@ -32,7 +31,7 @@
     (vim.schedule #((. vim.keymap m) args))))
 
 (def- ale-linters {})
-(def- ale-fixers {:* ["remove_trailing_lines" "trim_whitespace"] })
+(def- ale-fixers {:* [:remove_trailing_lines :trim_whitespace] })
 
 (set vim.g.mapleader " ")
 (set vim.g.maplocalleader "\t")
@@ -53,26 +52,28 @@
 (k :nnoremap :<leader>p #(telescope.extensions.project.project {}))
 (k :nnoremap :<leader>k tel.help_tags)
 (k :nnoremap :<leader><leader> tel.commands)
-(k :nnoremap :<leader>la tel.lsp_code_actions)
+(k :noremap :<leader>la tel.lsp_code_actions)
 (k :nnoremap :<leader>n #(tel.find_files {:find_command [:fd :--hidden :--exclude :.git]}))
 (k :nnoremap :<leader>e #(tel.buffers {:sort_lastused true
                                        :ignore_current_buffer false}))
 
 (cmp.setup
-  {:sources [{:name "nvim_lua"}
-             {:name "nvim_lsp"}
-             {:name "conjure"}
-             {:name "lausnip"}
-             {:name "path"}
-             {:name "buffer"
+  {:sources [{:name :nvim_lua}
+             {:name :nvim_lsp}
+             {:name :conjure}
+             {:name :vim-dadbod-completion}
+             {:name :lausnip}
+             {:name :path}
+             {:name :buffer
               :keyword_length 5
               :opts {:get_bufnrs #(vim.api.nvim_list_bufs)}}
-             {:name "spell"
+             {:name :spell
               :keyword_length 5}]
    :formatting {:format (lspkind.cmp_format {:with_text true
                                              :menu {:nvim_lua "[lua]"
                                                     :nvim_lsp "[lsp]"
                                                     :conjure "[conj]"
+                                                    :vim-dadbod-completion "[db]"
                                                     :luasnip "[snip]"
                                                     :path "[path]"
                                                     :buffer "[buf]"
@@ -102,7 +103,7 @@
 (set vim.opt.mouse :a)                 ; enable mouse in all modes
 (set vim.opt.mousemodel :popup_setpos) ; make mouse behave like in GUI app
 
-(set vim.opt.clipboard :unnamedplus) ; set default copy buffer the same as clipboard
+(set vim.opt.clipboard :unnamedplus) ; set default copy register the same as clipboard
 (au yank :TextYankPost "*" (vim.highlight.on_yank {:higroup :Visual}))
 
 (set vim.opt.virtualedit :block) ; allow virtual editing only in Visual Block mode.
@@ -138,7 +139,7 @@
 
 
 ;; Panes
-(au autoresize :VimResized "*" ((. nvim.ex "wincmd =")))
+(au autoresize :VimResized "*" (vim.cmd "wincmd ="))
 (set vim.opt.winwidth 80)     ; minimal width of active window
 (set vim.opt.winminwidth 10)  ; minimal width of inactive window
 (set vim.opt.winheight 50)    ; minimal height of active window
@@ -214,6 +215,7 @@
 (set vim.g.crease_foldtext {:default "%{repeat(\"  \", v:foldlevel - 1)}%t %= %l lines %f%f"})
 (k :nnoremap :<BS> :za) ; toggle current fold
 
+;; Swap Undo
 (set vim.opt.swapfile false)
 (set vim.opt.backup false)
 (set vim.opt.writebackup false)
@@ -301,8 +303,8 @@
 (k :nnoremap :yoh ":GitGutterSignsToggle<CR>")
 (k :nnoremap :<leader>dw
    #(if (core.some #(= "iwhite" $1) (vim.opt.diffopt:get))
-      (do (vim.opt.diffopt:remove "iwhite") (core.println "noiwhite"))
-      (do (vim.opt.diffopt:append "iwhite") (core.println "iwhite"))))
+      (do (vim.opt.diffopt:remove "iwhite") (vim.notify "noiwhite"))
+      (do (vim.opt.diffopt:append "iwhite") (vim.notify "iwhite"))))
 
 
 ;; Wiki
@@ -528,12 +530,10 @@
 
 
 ;; Clojure
-
 (defn clj-ignore []
-  ; navigate to beginnign of a text object
-  (nu.normal "`[")
-  ; prepend reader macro
-  (nu.normal "i#_"))
+  (nu.normal "`[") ; navigate to beginnign of a text object
+  (nu.normal "i#_") ; prepend reader macro
+)
 (nu.fn-bridge :Clj_ignore :init :clj-ignore)
 
 (defn do-clj-ignore [form]
@@ -610,17 +610,18 @@
        #(do
           (set vim.b.vrc_debug (not vim.b.vrc_debug))
           (set vim.b.vrc_show_command vim.b.vrc_debug)
-          (core.println (if vim.b.vrc_debug "debug" "nodebug"))))
+          (vim.notify (if vim.b.vrc_debug "debug" "nodebug"))))
     (b :nnoremap :<leader>cs
        #(do
           (set vim.b.vrc_split_request_body (not vim.b.vrc_split_request_body))
-          (core.println (if vim.b.vrc_split_request_body "split" "nosplit"))))
+          (vim.notify (if vim.b.vrc_split_request_body "split" "nosplit"))))
     (b :nnoremap :<leader>cc
        #(do
           (set vim.b.vrc_output_buffer_name
-               (.. "[" (nvim.fn.expand "%:t") "@" (nvim.fn.strftime "%H:%M:%S") "]"
-                   (string.gsub (nvim.get_current_line) "\""  "\\\"")))
-          (nvim.fn.VrcQuery))))
+               (.. "[" (vim.fn.expand "%:t") "@" (vim.fn.strftime "%H:%M:%S") "]"
+                   (string.gsub (vim.api.nvim_get_current_line) "\""  "\\\"")))
+          (vim.fn.VrcQuery))))
+
 
 
 ;; Markdown
@@ -661,3 +662,6 @@
   (vim.cmd (.. "edit " (vim.fn.tempname) "_" suffix)))
 (vim.cmd "command! -nargs=? Scratch lua require('init').scratch(<q-args>)")
 
+
+;; last expression should be a definition, otherwise module is not exported
+(def t true)
