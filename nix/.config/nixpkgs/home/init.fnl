@@ -103,6 +103,7 @@
 (set vim.opt.mousemodel :popup_setpos) ; make mouse behave like in GUI app
 
 (set vim.opt.clipboard :unnamedplus) ; set default copy buffer the same as clipboard
+(au yank :TextYankPost "*" (vim.highlight.on_yank {:higroup :Visual}))
 
 (set vim.opt.virtualedit :block) ; allow virtual editing only in Visual Block mode.
 
