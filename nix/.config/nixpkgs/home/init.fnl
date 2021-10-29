@@ -31,19 +31,27 @@
                                  :punctuation.bracket :Delimiter ; clojure brackets
                                  }}})
 
-(defn- k [m ...]
-  (let [args [...]]
-    (vim.schedule #((. vim.keymap m) args))))
+(set vim.g.mapleader " ")
+(set vim.g.maplocalleader "\t")
 
-(defn- b [m ...]
-  (let [args (core.merge [...] {:buffer true :silent true})]
-    (vim.schedule #((. vim.keymap m) args))))
+(vim.cmd "runtime plugin/astronauta.vim") ; defines vim.keymap.*
+(defn- keymap [m args]
+  (let [special {:buffer true :silent true}]
+    (for [i (length args) 1 -1]
+      (when (. special (. args i))
+        (tset args (table.remove args i) true))))
+  ((. vim.keymap m) args))
+(defn- nmap [...] (keymap :nmap [...]))
+(defn- nnoremap [...] (keymap :nnoremap [...]))
+(defn- noremap [...] (keymap :noremap [...]))
+(defn- omap [...] (keymap :omap [...]))
+(defn- tnoremap [...] (keymap :tnoremap [...]))
+(defn- vnoremap [...] (keymap :vnoremap [...]))
+(defn- xmap [...] (keymap :xmap [...]))
+(defn- xnoremap [...] (keymap :xnoremap [...]))
 
 (def- ale-linters {})
 (def- ale-fixers {:* [:remove_trailing_lines :trim_whitespace] })
-
-(set vim.g.mapleader " ")
-(set vim.g.maplocalleader "\t")
 
 (telescope.setup
   {:defaults (themes.get_ivy
@@ -58,13 +66,13 @@
 (telescope.load_extension :fzf)
 (telescope.load_extension :project)
 
-(k :nnoremap :<leader>p #(telescope.extensions.project.project {}))
-(k :nnoremap :<leader>k tel.help_tags)
-(k :nnoremap :<leader><leader> tel.commands)
-(k :noremap :<leader>la tel.lsp_code_actions)
-(k :nnoremap :<leader>n #(tel.find_files {:find_command [:fd :--hidden :--exclude :.git]}))
-(k :nnoremap :<leader>e #(tel.buffers {:sort_lastused true
-                                       :ignore_current_buffer false}))
+(nnoremap :<leader>p #(telescope.extensions.project.project {}))
+(nnoremap :<leader>k tel.help_tags)
+(nnoremap :<leader><leader> tel.commands)
+(noremap :<leader>la tel.lsp_code_actions)
+(nnoremap :<leader>n #(tel.find_files {:find_command [:fd :--hidden :--exclude :.git]}))
+(nnoremap :<leader>e #(tel.buffers {:sort_lastused true
+                                    :ignore_current_buffer false}))
 
 (cmp.setup
   {:sources [{:name :nvim_lua}
@@ -98,7 +106,7 @@
   (cmp_nvim_lsp.update_capabilities (vim.lsp.protocol.make_client_capabilities)))
 
 (set vim.opt.completeopt "menu,menuone,noselect")
-(vim.opt.complete:remove :t)  ; i don't use tags
+(vim.opt.complete:remove :t)  ; I don't use tags
 (vim.opt.shortmess:append :c) ; turn off completion messages
 
 (vim.opt.shortmess:append :I) ; don't give the intro message
@@ -131,10 +139,10 @@
 (set vim.opt.spelllang :en_us)     ; spell check
 (set vim.opt.spell false)          ; disabled by default
 (vim.opt.spellsuggest:append "10") ; limit spell suggestions list
-(k :nnoremap "]s" ":<C-U>execute ':setlocal spell'| normal! ]s<CR>")
-(k :nnoremap "]S" ":<C-U>execute ':setlocal spell'| normal! ]S<CR>")
-(k :nnoremap "[s" ":<C-U>execute ':setlocal spell'| normal! [s<CR>")
-(k :nnoremap "[S" ":<C-U>execute ':setlocal spell'| normal! [S<CR>")
+(nnoremap :silent "]s" ":<C-U>execute ':setlocal spell'| normal! ]s<CR>")
+(nnoremap :silent "]S" ":<C-U>execute ':setlocal spell'| normal! ]S<CR>")
+(nnoremap :silent "[s" ":<C-U>execute ':setlocal spell'| normal! [s<CR>")
+(nnoremap :silent "[S" ":<C-U>execute ':setlocal spell'| normal! [S<CR>")
 
 
 (set vim.opt.wildmode "list:longest,full") ; commands completion
@@ -154,11 +162,11 @@
 (set vim.opt.winheight 50)    ; minimal height of active window
 (set vim.opt.winminheight 10) ; minimal height of inactive window
 ; focus on new split
-(k :nnoremap :<C-w>s :<C-w>s<C-w>w)
-(k :nnoremap :<C-w>v :<C-w>v<C-w>w)
+(nnoremap :<C-w>s :<C-w>s<C-w>w)
+(nnoremap :<C-w>v :<C-w>v<C-w>w)
 
-(k :nnoremap :<leader>x ":bd!<cr>") ; close current buffer
-(k :nnoremap :<leader>X ":%bd!<cr>") ; close all buffers
+(nnoremap :<leader>x ":bd!<cr>") ; close current buffer
+(nnoremap :<leader>X ":%bd!<cr>") ; close all buffers
 
 
 (set vim.opt.wrap true)      ; soft wrap lines
@@ -202,15 +210,14 @@
                   :Special
                   :Tag
                   ]]
-    (each [_ highlight (pairs to-clear)]
-      (vim.cmd (.. "highlight clear " highlight))))
+    (each [_ group (pairs to-clear)]
+      (vim.cmd (.. "highlight clear " group))))
 
   (let [to-link {:Comment :Directory
-                 :Constant :Regexp
-                 }]
-    (each [a b (pairs to-link)]
-      (vim.cmd (.. "highlight clear " a))
-      (vim.cmd (.. "highlight link " a " " b)))))
+                 :Constant :Regexp}]
+    (each [src dest (pairs to-link)]
+      (vim.cmd (.. "highlight clear " src))
+      (vim.cmd (.. "highlight link " src " " dest)))))
 
 (set vim.opt.ruler false)      ; line and column number of the cursor position
 (set vim.opt.laststatus 2)     ; 2 - allways show status line
@@ -225,7 +232,7 @@
 (set vim.opt.foldlevelstart 999) ; all folds are open
 (set vim.opt.fillchars "fold:‧")
 (set vim.g.crease_foldtext {:default "%{repeat(\"  \", v:foldlevel - 1)}%t %= %l lines %f%f"})
-(k :nnoremap :<BS> :za) ; toggle current fold
+(nnoremap :<BS> :za) ; toggle current fold
 
 ;; Swap Undo
 (set vim.opt.swapfile false)
@@ -254,16 +261,16 @@
 (set vim.opt.smartcase true)  ; ...unless we type a capital
 
 ;; center on next match
-(k :nnoremap :n :nzz)
-(k :nnoremap :N :Nzz)
+(nnoremap :n :nzz)
+(nnoremap :N :Nzz)
 
 ;; search in current buffer with selected text
-(k :vnoremap :/ "y/\\V<c-r>\"<cr>")
-(k :nnoremap :/ "/\\v")
+(vnoremap :/ "y/\\V<c-r>\"<cr>")
+(nnoremap :/ "/\\v")
 
 ;; search in project files
-(k :nnoremap :<leader>f tel.live_grep)
-(k :nnoremap :<leader>q tel.quickfix)
+(nnoremap :<leader>f tel.live_grep)
+(nnoremap :<leader>q tel.quickfix)
 
 (set vim.g.FerretMaxResults 1000)
 (set vim.g.FerretExecutable "rg")
@@ -275,11 +282,11 @@
               " --hidden"
               " --glob=!.git")})
 (set vim.g.FerretMap false)
-(k :nmap :<leader>* "<Plug>(FerretAckWord)")
-(k :vnoremap :<leader>* "y:Ack <c-r>\"<cr>")
-(k :nmap :<leader>/ "<Plug>(FerretAck)")
-(k :vnoremap :<leader>/ "y:Ack <c-r>\"")
-(k :nmap :<leader>r "<Plug>(FerretAcks)")
+(nmap :<leader>* "<Plug>(FerretAckWord)")
+(vnoremap :<leader>* "y:Ack <c-r>\"<cr>")
+(nmap :<leader>/ "<Plug>(FerretAck)")
+(vnoremap :<leader>/ "y:Ack <c-r>\"")
+(nmap :<leader>r "<Plug>(FerretAcks)")
 
 (set vim.opt.path
      [ "." ; current file
@@ -291,7 +298,7 @@
 (hop.setup
   {:teasing false
    :jump_on_sole_occurrence true})
-(k :nnoremap "<leader>'" hop.hint_char1) ; to any char in buffer
+(nnoremap "<leader>'" hop.hint_char1) ; to any char in buffer
 
 
 ;; Git
@@ -300,20 +307,20 @@
 (vim.opt.diffopt:append "indent-heuristic,internal,algorithm:histogram")
 
 (set vim.g.gitgutter_map_keys false)
-(k :nnoremap :<leader>gd ":Gdiffsplit<CR>")
-(k :nnoremap :<leader>gs ":Git<CR><C-w>o")
-(k :nnoremap :<leader>gl ":Gclog<CR>")
-(k :nmap :<leader>hp "<Plug>(GitGutterPreviewHunk)")
-(k :nmap :<leader>hs "<Plug>(GitGutterStageHunk)")
-(k :nmap :<leader>hu "<Plug>(GitGutterUndoHunk)")
-(k :nmap "[h" "<Plug>(GitGutterPrevHunk)")
-(k :nmap "]h" "<Plug>(GitGutterNextHunk)")
-(k :omap :ih "<Plug>(GitGutterTextObjectInnerPending)")
-(k :xmap :ih "<Plug>(GitGutterTextObjectInnerVisual)")
-(k :omap :ah "<Plug>(GitGutterTextObjectOuterPending)")
-(k :xmap :ah "<Plug>(GitGutterTextObjectOuterVisual)")
-(k :nnoremap :yoh ":GitGutterSignsToggle<CR>")
-(k :nnoremap :<leader>dw
+(nnoremap :silent :<leader>gd ":Gdiffsplit<CR>")
+(nnoremap :silent :<leader>gs ":Git<CR><C-w>o")
+(nnoremap :silent :<leader>gl ":Gclog<CR>")
+(nmap :<leader>hp "<Plug>(GitGutterPreviewHunk)")
+(nmap :<leader>hs "<Plug>(GitGutterStageHunk)")
+(nmap :<leader>hu "<Plug>(GitGutterUndoHunk)")
+(nmap "[h" "<Plug>(GitGutterPrevHunk)")
+(nmap "]h" "<Plug>(GitGutterNextHunk)")
+(omap :ih "<Plug>(GitGutterTextObjectInnerPending)")
+(xmap :ih "<Plug>(GitGutterTextObjectInnerVisual)")
+(omap :ah "<Plug>(GitGutterTextObjectOuterPending)")
+(xmap :ah "<Plug>(GitGutterTextObjectOuterVisual)")
+(nnoremap :yoh ":GitGutterSignsToggle<CR>")
+(nnoremap :<leader>dw
    #(if (core.some #(= "iwhite" $1) (vim.opt.diffopt:get))
       (do (vim.opt.diffopt:remove "iwhite") (vim.notify "noiwhite"))
       (do (vim.opt.diffopt:append "iwhite") (vim.notify "iwhite"))))
@@ -342,10 +349,10 @@
       "<plug>(wiki-link-toggle)" "<leader>w_disable"
       "<plug>(wiki-page-toc)" "<leader>w_disable"})
 
-(k :nnoremap :<leader>wn #(tel.find_files {:find_command [:fd
-                                                          :--exclude :.stversions
-                                                          :--exclude :.stfoldre]
-                                           :cwd vim.g.wiki_root}))
+(nnoremap :<leader>wn #(tel.find_files {:find_command [:fd
+                                                       :--exclude :.stversions
+                                                       :--exclude :.stfoldre]
+                                        :cwd vim.g.wiki_root}))
 
 
 
@@ -367,14 +374,14 @@
 
 ;; JSON
 (au json :FileType "json"
-    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
+    (nnoremap :buffer :<leader>lf ":ALEFix<CR>"))
 (set vim.g.ale_json_jq_options "--monochrome-output --indent 2")
 (set ale-fixers.json ["jq"])
 
 
 ;; Yaml
 (au yaml :FileType "yaml"
-    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
+    (nnoremap :buffer :<leader>lf ":ALEFix<CR>"))
 (set vim.g.ale_yaml_yamllint_options
      (.. "-d \"{"
          "  extends: default,"
@@ -386,7 +393,7 @@
 
 ;; Terraform
 (au terraform :FileType "terraform,hcl"
-    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
+    (nnoremap :buffer :<leader>lf ":ALEFix<CR>"))
 (set ale-fixers.hcl ["terraform"])
 (set ale-fixers.terraform ["terraform"])
 (set ale-linters.terraform ["terraform"])
@@ -394,7 +401,7 @@
 
 ;; XML
 (au xml :FileType "xml"
-    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
+    (nnoremap :buffer :<leader>lf ":ALEFix<CR>"))
 (set vim.g.ale_xml_xmllint_options "--format --nonet --recover -")
 (set ale-fixers.xml ["xmllint"])
 (set ale-linters.xml ["xmllint"])
@@ -402,7 +409,7 @@
 
 ;; SQL
 (au sql :FileType "sql"
-    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
+    (nnoremap :buffer :<leader>lf ":ALEFix<CR>"))
 (set vim.g.ale_sql_pgformatter_options "--spaces 4 --comma-break")
 (set ale-fixers.sql ["pgformatter"])
 (set ale-linters.sql ["sqlint"])
@@ -410,7 +417,7 @@
 
 ;; CSS
 (au css :FileType "css,scss"
-    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
+    (nnoremap :buffer :<leader>lf ":ALEFix<CR>"))
 (set ale-fixers.css ["prettier" "stylelint"])
 (set ale-fixers.scss ["prettier" "stylelint"])
 (set ale-linters.css ["stylelint"])
@@ -419,14 +426,14 @@
 
 ;; Nix
 (au nix :FileType "nix"
-    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
+    (nnoremap :buffer :<leader>lf ":ALEFix<CR>"))
 (set ale-fixers.nix ["nixpkgs-fmt"])
 (set ale-linters.nix ["nix"])
 
 
 ;; Shell
 (au shell :FileType "sh"
-    (b :nnoremap :<leader>lf ":ALEFix<CR>"))
+    (nnoremap :buffer :<leader>lf ":ALEFix<CR>"))
 (set vim.g.ale_sh_shfmt_options "-i=2 -sr")
 (set ale-fixers.sh ["shfmt"])
 (set ale-linters.sh ["shellcheck"])
@@ -438,11 +445,11 @@
 
 ;; Python
 (au python :FileType "python"
-    (b :nnoremap :<leader>lf vim.lsp.buf.formatting)
-    (b :nnoremap :gd vim.lsp.buf.definition)
-    (b :nnoremap :<leader>lr vim.lsp.buf.rename)
-    (b :nnoremap "}" vim.lsp.buf.references)
-    (b :nnoremap :K vim.lsp.buf.hover))
+    (nnoremap :buffer :<leader>lf vim.lsp.buf.formatting)
+    (nnoremap :buffer :gd vim.lsp.buf.definition)
+    (nnoremap :buffer :<leader>lr vim.lsp.buf.rename)
+    (nnoremap :buffer "}" vim.lsp.buf.references)
+    (nnoremap :buffer :K vim.lsp.buf.hover))
 (lspconfig.pylsp.setup {:capabilities cmp-capabilities})
 
 
@@ -458,12 +465,12 @@
 
 ;; JavaScript/TypeScript
 (au typescript :FileType "typescript,javascript,typescriptreact,javascriptreact"
-    (b :nnoremap :<leader>lf ":ALEFix<CR>")
-    (b :nnoremap :gd vim.lsp.buf.definition)
-    (b :nnoremap :<leader>lr vim.lsp.buf.rename)
-    (b :nnoremap :<leader>lt vim.lsp.buf.type_definition)
-    (b :nnoremap "}" vim.lsp.buf.references)
-    (b :nnoremap :K vim.lsp.buf.hover))
+    (nnoremap :buffer :<leader>lf ":ALEFix<CR>")
+    (nnoremap :buffer :gd vim.lsp.buf.definition)
+    (nnoremap :buffer :<leader>lr vim.lsp.buf.rename)
+    (nnoremap :buffer :<leader>lt vim.lsp.buf.type_definition)
+    (nnoremap :buffer "}" vim.lsp.buf.references)
+    (nnoremap :buffer :K vim.lsp.buf.hover))
 (lspconfig.tsserver.setup {:capabilities cmp-capabilities})
 (set ale-fixers.javascript ["eslint" "prettier"])
 (set ale-fixers.typescriptreact ["prettier"])
@@ -474,11 +481,11 @@
 
 ;; Rust
 (au rust :FileType "rust"
-    (b :nnoremap :<leader>lf ":ALEFix<CR>")
-    (b :nnoremap :gd vim.lsp.buf.definition)
-    (b :nnoremap :<leader>lr vim.lsp.buf.rename)
-    (b :nnoremap "}" vim.lsp.buf.references)
-    (b :nnoremap :K vim.lsp.buf.hover))
+    (nnoremap :buffer :<leader>lf ":ALEFix<CR>")
+    (nnoremap :buffer :gd vim.lsp.buf.definition)
+    (nnoremap :buffer :<leader>lr vim.lsp.buf.rename)
+    (nnoremap :buffer "}" vim.lsp.buf.references)
+    (nnoremap :buffer :K vim.lsp.buf.hover))
 (lspconfig.rls.setup {:capabilities cmp-capabilities})
 (set vim.g.ale_rust_cargo_use_clippy true)
 (set vim.g.ale_rust_cargo_check_all_targets true)
@@ -488,21 +495,21 @@
 
 ;; Haskell
 (au haskell :FileType "haskell"
-    (b :nnoremap :<leader>lf ":ALEFix<CR>")
-    (b :nnoremap :gd vim.lsp.buf.definition)
-    (b :nnoremap :K vim.lsp.buf.hover))
+    (nnoremap :buffer :<leader>lf ":ALEFix<CR>")
+    (nnoremap :buffer :gd vim.lsp.buf.definition)
+    (nnoremap :buffer :K vim.lsp.buf.hover))
 (lspconfig.ghcide.setup {:capabilities cmp-capabilities})
 (set ale-fixers.haskell ["hindent"])
 
 
 ;; C
 (au c :FileType "c,cpp"
-    (b :nnoremap :<leader>lf ":ALEFix<CR>")
-    (b :vnoremap "=" vim.lsp.buf.range_formatting)
-    (b :nnoremap :gd vim.lsp.buf.definition)
-    (b :nnoremap :<leader>lr vim.lsp.buf.rename)
-    (b :nnoremap "}" vim.lsp.buf.references)
-    (b :nnoremap :K vim.lsp.buf.hover)
+    (nnoremap :buffer :<leader>lf ":ALEFix<CR>")
+    (vnoremap :buffer "=" vim.lsp.buf.range_formatting)
+    (nnoremap :buffer :gd vim.lsp.buf.definition)
+    (nnoremap :buffer :<leader>lr vim.lsp.buf.rename)
+    (nnoremap :buffer "}" vim.lsp.buf.references)
+    (nnoremap :buffer :K vim.lsp.buf.hover)
     (set vim.opt_local.tabstop 2)
     (set vim.opt_local.softtabstop 2)
     (set vim.opt_local.shiftwidth 2)
@@ -517,28 +524,28 @@
 ;; Sexp
 (set vim.g.sexp_filetypes "clojure,scheme,lisp,fennel")
 (au sexp :FileType "clojure,scheme,lisp,fennel"
-    (b :nmap :doe "<Plug>(sexp_raise_element)")
-    (b :nmap :dof "<Plug>(sexp_raise_list)")
+    (nmap :buffer :doe "<Plug>(sexp_raise_element)")
+    (nmap :buffer :dof "<Plug>(sexp_raise_list)")
 
     ;; emulate text object for pair of elements
     ;; i.e. key/value binding/expr test/expr
 
     ;; pair forward
-    (b :xmap :ip "<Plug>(sexp_inner_element)<Plug>(sexp_move_to_next_element_tail)")
-    (b :omap :ip ":<C-U>normal vip<CR>")
+    (xmap :buffer :ip "<Plug>(sexp_inner_element)<Plug>(sexp_move_to_next_element_tail)")
+    (omap :buffer :ip ":<C-U>normal vip<CR>")
 
     ;; pair backward
-    (b :xmap :iP "<Plug>(sexp_inner_element)o<Plug>(sexp_move_to_prev_element_head)")
-    (b :omap :iP ":<C-U>normal viP<CR>")
+    (xmap :buffer :iP "<Plug>(sexp_inner_element)o<Plug>(sexp_move_to_prev_element_head)")
+    (omap :buffer :iP ":<C-U>normal viP<CR>")
 
     ;; swap pair
-    (b :nmap :>p "vip>eo<Esc>")
-    (b :nmap :<p "vip<eo<Esc>")
+    (nmap :buffer :>p "vip>eo<Esc>")
+    (nmap :buffer :<p "vip<eo<Esc>")
 
-    (b :xmap :>e "<Plug>(sexp_swap_element_forward)")
-    (b :xmap :<e "<Plug>(sexp_swap_element_backward)")
-    (b :xmap :>f "<Plug>(sexp_swap_list_forward)")
-    (b :xmap :<f "<Plug>(sexp_swap_list_backward)"))
+    (xmap :buffer :>e "<Plug>(sexp_swap_element_forward)")
+    (xmap :buffer :<e "<Plug>(sexp_swap_element_backward)")
+    (xmap :buffer :>f "<Plug>(sexp_swap_list_forward)")
+    (xmap :buffer :<f "<Plug>(sexp_swap_list_backward)"))
 
 
 ;; Clojure
@@ -546,21 +553,22 @@
   (nu.normal "`[") ; navigate to beginnign of a text object
   (nu.normal "i#_") ; prepend reader macro
 )
-(nu.fn-bridge :Clj_ignore :init :clj-ignore)
+(nu.fn-bridge :Clj_ignore *module-name* :clj-ignore)
 
 (defn do-clj-ignore [form]
   (set vim.opt.operatorfunc :Clj_ignore)
   (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
 
 (au clojure :FileType "clojure"
-    (b :nnoremap :<leader>lf ":ALEFix<CR>")
-    (b :nnoremap :<leader>K lispdocs.split)
-    (b :nmap :K "<localleader>K")
-    (b :nmap :gd "<localleader>gd")
+    (nnoremap :buffer :<leader>lf vim.lsp.buf.formatting)
+    (nnoremap :buffer :<leader>K lispdocs.split)
+    (nnoremap :buffer :K vim.lsp.buf.hover)
+    (nnoremap :buffer :<leader>lr vim.lsp.buf.rename)
+    (nnoremap :buffer :gd vim.lsp.buf.definition)
 
-    (b :nnoremap :<leader>cc #(do-clj-ignore "aF"))
-    (b :xnoremap :<leader>c do-clj-ignore)
-    (b :nnoremap :<leader>cu ":let s=@/<CR>l?\\v(#_)+<CR>dgn:let @/=s<CR>")
+    (nnoremap :buffer :<leader>cc #(do-clj-ignore "aF"))
+    (xnoremap :buffer :<leader>c do-clj-ignore)
+    (nnoremap :buffer :<leader>cu ":let s=@/<CR>l?\\v(#_)+<CR>dgn:let @/=s<CR>")
 
     (set vim.opt_local.tabstop 2)
     (set vim.opt_local.softtabstop 2)
@@ -587,7 +595,7 @@
                 " --remove-trailing-whitespace"
                 " --remove-consecutive-blank-lines"
                 " --insert-missing-whitespace")})
-(nu.fn-bridge :Cljfmt :init :cljfmt)
+(nu.fn-bridge :Cljfmt *module-name* :cljfmt)
 
 
 
@@ -597,31 +605,31 @@
 (set vim.g.slime_default_config {:socket_name :default
                                  :target_pane "{right-of}"})
 (set vim.g.slime_no_mappings true)
-(k :xmap :<leader>s "<Plug>SlimeRegionSend")
-(k :nmap :<leader>s "<Plug>SlimeMotionSend")
-(k :nmap :<leader>ss "<Plug>SlimeLineSend")
-(k :nmap :<leader>sc "<Plug>SlimeConfig")
-(k :xnoremap :<leader>sy "\"sy")
-(k :nnoremap :<leader>sp ":SlimeSend1 <C-R>s<CR>")
+(xmap :<leader>s "<Plug>SlimeRegionSend")
+(nmap :<leader>s "<Plug>SlimeMotionSend")
+(nmap :<leader>ss "<Plug>SlimeLineSend")
+(nmap :<leader>sc "<Plug>SlimeConfig")
+(xnoremap :<leader>sy "\"sy")
+(nnoremap :<leader>sp ":SlimeSend1 <C-R>s<CR>")
 
 ;; Scheme
 (defn scm-ignore []
   (nu.normal "`[") ; navigate to beginnign of a text object
   (nu.normal "i#;") ; prepend sexp comment
 )
-(nu.fn-bridge :Scm_ignore :init :scm-ignore)
+(nu.fn-bridge :Scm_ignore *module-name* :scm-ignore)
 
 (defn do-scm-ignore [form]
   (set vim.opt.operatorfunc :Scm_ignore)
   (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
 
 (au scheme :FileType "scheme"
-    (b :xnoremap :<leader>c do-scm-ignore)
-    (b :nnoremap :<leader>cc #(do-scm-ignore "aF"))
-    (b :nmap :<leader>cu ":let s=@/<CR>l?\v(#;)+<CR>dgn:let @/=s<CR>")
-    (b :nmap :<leader>pp "<Plug>SlimeMotionSend<Plug>(sexp_outer_top_list)``")
-    (b :nnoremap :K ":SlimeSend1 (pp <C-R><C-W>)<CR>")
-    (b :nmap :<leader>lf "ggvG=``"))
+    (xnoremap :buffer :<leader>c do-scm-ignore)
+    (nnoremap :buffer :<leader>cc #(do-scm-ignore "aF"))
+    (nmap :buffer :<leader>cu ":let s=@/<CR>l?\v(#;)+<CR>dgn:let @/=s<CR>")
+    (nmap :buffer :<leader>pp "<Plug>SlimeMotionSend<Plug>(sexp_outer_top_list)``")
+    (nnoremap :buffer :K ":SlimeSend1 (pp <C-R><C-W>)<CR>")
+    (nmap :buffer :<leader>lf "ggvG=``"))
 
 ;; Curl
 (set vim.g.vrc_curl_opts
@@ -636,21 +644,21 @@
       :xml (.. "grep \"\\S\" | xmllint " vim.g.ale_xml_xmllint_options)})
 
 (au rest :FileType "rest"
-    (b :nnoremap :<leader>cd
-       #(do
-          (set vim.b.vrc_debug (not vim.b.vrc_debug))
-          (set vim.b.vrc_show_command vim.b.vrc_debug)
-          (vim.notify (if vim.b.vrc_debug "debug" "nodebug"))))
-    (b :nnoremap :<leader>cs
-       #(do
-          (set vim.b.vrc_split_request_body (not vim.b.vrc_split_request_body))
-          (vim.notify (if vim.b.vrc_split_request_body "split" "nosplit"))))
-    (b :nnoremap :<leader>cc
-       #(do
-          (set vim.b.vrc_output_buffer_name
-               (.. "[" (vim.fn.expand "%:t") "@" (vim.fn.strftime "%H:%M:%S") "]"
-                   (string.gsub (vim.api.nvim_get_current_line) "\""  "\\\"")))
-          (vim.fn.VrcQuery))))
+    (nnoremap :buffer :<leader>cd
+              #(do
+                 (set vim.b.vrc_debug (not vim.b.vrc_debug))
+                 (set vim.b.vrc_show_command vim.b.vrc_debug)
+                 (vim.notify (if vim.b.vrc_debug "debug" "nodebug"))))
+    (nnoremap :buffer :<leader>cs
+              #(do
+                 (set vim.b.vrc_split_request_body (not vim.b.vrc_split_request_body))
+                 (vim.notify (if vim.b.vrc_split_request_body "split" "nosplit"))))
+    (nnoremap :buffer :<leader>cc
+              #(do
+                 (set vim.b.vrc_output_buffer_name
+                      (.. "[" (vim.fn.expand "%:t") "@" (vim.fn.strftime "%H:%M:%S") "]"
+                          (string.gsub (vim.api.nvim_get_current_line) "\""  "\\\"")))
+                 (vim.fn.VrcQuery))))
 
 
 
@@ -664,12 +672,12 @@
 (set vim.g.ale_linters_explicit 1)
 (set vim.g.ale_linters ale-linters)
 (set vim.g.ale_fixers ale-fixers)
-(k :nnoremap :L ":ALEDetail<CR>")
-(k :nnoremap :yol ":ALEToggleBuffer<CR>")
+(nnoremap :silent :L ":ALEDetail<CR>")
+(nnoremap :yol ":ALEToggleBuffer<CR>")
 
 
 ;; Projectionist
-(k :nnoremap :<leader>aa ":A<CR>")
+(nnoremap :<leader>aa ":A<CR>")
 (set vim.g.projectionist_heuristics
      {"project.clj|deps.edn" {"dev/*.clj" {:type "source"}
                               "src/*.clj" {:alternate "test/{}_test.clj"
@@ -678,8 +686,8 @@
 
 
 ;; Terminal
-(k :tnoremap :<Esc> "<C-\\><C-n>") ; use Esc to exit terminal mode
-(k :tnoremap :<C-v><Esc> "<Esc>") ; press Esc in terminal mode
+(tnoremap :<Esc> "<C-\\><C-n>") ; use Esc to exit terminal mode
+(tnoremap :<C-v><Esc> "<Esc>") ; press Esc in terminal mode
 (au terminal-open :TermOpen "*"
     (set vim.opt_local.statusline "%{b:term_title}")
     (set vim.opt_local.bufhidden "hide"))
@@ -690,7 +698,7 @@
 ;; Scratch
 (defn scratch [suffix]
   (vim.cmd (.. "edit " (vim.fn.tempname) "_" suffix)))
-(vim.cmd "command! -nargs=? Scratch lua require('init').scratch(<q-args>)")
+(vim.cmd "command! -nargs=? Scratch lua require('" *module-name* "').scratch(<q-args>)")
 
 ;; Auto write and read file
 (au autosave "FocusLost,BufLeave,CursorHold" "*" (vim.cmd "silent! update"))
@@ -702,7 +710,3 @@
       (when (and (<= 1 line line-count)
                  (not= (vim.opt.ft:get) :commit))
         (vim.api.nvim_win_set_cursor 0 [line col]))))
-
-
-;; last expression should be a definition, otherwise module is not exported
-(def t true)
