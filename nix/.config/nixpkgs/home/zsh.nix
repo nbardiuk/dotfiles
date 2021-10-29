@@ -25,7 +25,7 @@ in
     sessionVariables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
-      MANPAGER = "nvim +set\\ filetype=man -";
+      MANPAGER = "nvim +Man!";
       SUDO_EDITOR = "nvim";
       ZSH_TMUX_AUTOSTART = true;
       ZSH_TMUX_CONFIG = "${config.home.homeDirectory}/.config/tmux/tmux.conf";
