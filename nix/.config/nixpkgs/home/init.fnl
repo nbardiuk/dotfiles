@@ -105,7 +105,7 @@
 (def- cmp-capabilities
   (cmp_nvim_lsp.update_capabilities (vim.lsp.protocol.make_client_capabilities)))
 
-(set vim.opt.completeopt "menu,menuone,noselect")
+(set vim.opt.completeopt [:menu :menuone :noselect])
 (vim.opt.complete:remove :t)  ; I don't use tags
 (vim.opt.shortmess:append :c) ; turn off completion messages
 
@@ -145,7 +145,7 @@
 (nnoremap :silent "[S" ":<C-U>execute ':setlocal spell'| normal! [S<CR>")
 
 
-(set vim.opt.wildmode "list:longest,full") ; commands completion
+(set vim.opt.wildmode ["list:longest" :full]) ; commands completion
 (set vim.opt.wildignorecase true)          ; case is ignored when completing file names and directories
 
 (set vim.opt.list true)
@@ -304,7 +304,7 @@
 ;; Git
 ; If this many milliseconds nothing is typed the swap file will be written to disk speedsup gitgutter
 (set vim.opt.updatetime 100)
-(vim.opt.diffopt:append "indent-heuristic,internal,algorithm:histogram")
+(vim.opt.diffopt:append [:indent-heuristic :internal "algorithm:histogram"])
 
 (set vim.g.gitgutter_map_keys false)
 (nnoremap :silent :<leader>gd ":Gdiffsplit<CR>")
