@@ -80,7 +80,6 @@ in
 
   xdg.configFile = with config.lib.file; {
     "nvim/fnl/init.fnl".source = mkOutOfStoreSymlink ./init.fnl;
-    "nvim/fnl/macros.fnl".source = mkOutOfStoreSymlink ./macros.fnl;
   };
 
   home.packages = with pkgs; [

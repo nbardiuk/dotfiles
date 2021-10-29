@@ -11,8 +11,17 @@
              lispdocs lispdocs
              lspconfig lspconfig
              tree-conf nvim-treesitter.configs
-             hop hop}
-   require-macros [macros]})
+             hop hop}})
+
+(macro au [group event pattern ...]
+  `(do
+     (defn ,group [] ,...)
+     (vim.schedule
+       #(vim.cmd
+          (.. "augroup " ,(tostring group) "
+              autocmd!
+              autocmd " ,(tostring event) " " ,(tostring pattern) " lua require('" *module-name* "')['" ,(tostring group) "']()
+              augroup END")))))
 
 (tree-conf.setup
   {:ensure_intalled :maintained
