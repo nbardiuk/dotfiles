@@ -697,7 +697,7 @@
 ;; Scratch
 (defn scratch [suffix]
   (vim.cmd (.. "edit " (vim.fn.tempname) "_" suffix)))
-(vim.cmd "command! -nargs=? Scratch lua require('" *module-name* "').scratch(<q-args>)")
+(vim.cmd (.. "command! -nargs=? Scratch lua require('" *module-name* "').scratch(<q-args>)"))
 
 ;; Auto write and read file
 (au autosave "FocusLost,BufLeave,CursorHold" "*" (vim.cmd "silent! update"))
