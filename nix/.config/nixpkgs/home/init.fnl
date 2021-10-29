@@ -214,7 +214,8 @@
       (vim.cmd (.. "highlight clear " group))))
 
   (let [to-link {:Comment :Directory
-                 :Constant :Regexp}]
+                 :Constant :Regexp
+                 :Whitespace :VertSplit}]
     (each [src dest (pairs to-link)]
       (vim.cmd (.. "highlight clear " src))
       (vim.cmd (.. "highlight link " src " " dest)))))
