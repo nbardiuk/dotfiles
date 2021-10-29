@@ -7,7 +7,6 @@
              lspkind lspkind
              luasnip luasnip
              nu aniseed.nvim.util
-             core aniseed.core
              lispdocs lispdocs
              lspconfig lspconfig
              tree-conf nvim-treesitter.configs
@@ -322,7 +321,7 @@
 (xmap :ah "<Plug>(GitGutterTextObjectOuterVisual)")
 (nnoremap :yoh ":GitGutterSignsToggle<CR>")
 (nnoremap :<leader>dw
-   #(if (core.some #(= "iwhite" $1) (vim.opt.diffopt:get))
+   #(if (vim.tbl_contains (vim.opt.diffopt:get) "iwhite")
       (do (vim.opt.diffopt:remove "iwhite") (vim.notify "noiwhite"))
       (do (vim.opt.diffopt:append "iwhite") (vim.notify "iwhite"))))
 
