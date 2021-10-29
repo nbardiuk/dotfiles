@@ -549,14 +549,13 @@
 
 
 ;; Clojure
-(defn clj-ignore []
+(defn clj_ignore []
   (nu.normal "`[") ; navigate to beginnign of a text object
   (nu.normal "i#_") ; prepend reader macro
 )
-(nu.fn-bridge :Clj_ignore *module-name* :clj-ignore)
 
 (defn do-clj-ignore [form]
-  (set vim.opt.operatorfunc :Clj_ignore)
+  (set vim.opt.operatorfunc (.. "v:lua.require'" *module-name* "'.clj_ignore"))
   (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
 
 (au clojure :FileType "clojure"
@@ -613,14 +612,13 @@
 (nnoremap :<leader>sp ":SlimeSend1 <C-R>s<CR>")
 
 ;; Scheme
-(defn scm-ignore []
+(defn scm_ignore []
   (nu.normal "`[") ; navigate to beginnign of a text object
   (nu.normal "i#;") ; prepend sexp comment
 )
-(nu.fn-bridge :Scm_ignore *module-name* :scm-ignore)
 
 (defn do-scm-ignore [form]
-  (set vim.opt.operatorfunc :Scm_ignore)
+  (set vim.opt.operatorfunc (.. "v:lua.require'" *module-name* "'.scm_ignore"))
   (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
 
 (au scheme :FileType "scheme"
