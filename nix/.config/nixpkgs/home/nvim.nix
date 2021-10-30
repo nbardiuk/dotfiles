@@ -15,7 +15,7 @@ in
     withNodeJs = false;
     withPython3 = true;
     withRuby = false;
-    extraConfig = "let g:aniseed#env = v:true";
+    extraConfig = "let g:aniseed#env = {'module': 'dotfiles.init'}";
     plugins = with pkgs.vimPlugins; [
       ale
       cmp-buffer # buffer text source for nvim-cmp
@@ -79,7 +79,7 @@ in
   };
 
   xdg.configFile = with config.lib.file; {
-    "nvim/fnl/init.fnl".source = mkOutOfStoreSymlink ./init.fnl;
+    "nvim/fnl/dotfiles/init.fnl".source = mkOutOfStoreSymlink ./init.fnl;
   };
 
   home.packages = with pkgs; [

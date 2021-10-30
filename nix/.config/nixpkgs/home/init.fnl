@@ -1,4 +1,4 @@
-(module init
+(module dotfiles.init
   {autoload {telescope telescope
              tel telescope.builtin
              themes telescope.themes
