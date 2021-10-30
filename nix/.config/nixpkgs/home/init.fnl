@@ -3,6 +3,7 @@
              tel telescope.builtin
              themes telescope.themes
              cmp cmp
+             pqf pqf
              cmp_nvim_lsp cmp_nvim_lsp
              lspkind lspkind
              luasnip luasnip
@@ -687,6 +688,7 @@
 (set vim.g.ale_fixers ale-fixers)
 (nnoremap :L "<Cmd>ALEDetail<CR>")
 (nnoremap :yol "<Cmd>ALEToggleBuffer<CR>")
+(pqf.setup {}) ; better errors in list
 
 
 ;; Projectionist
