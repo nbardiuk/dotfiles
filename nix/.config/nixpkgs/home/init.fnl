@@ -548,6 +548,21 @@
     (xmap :buffer :<f "<Plug>(sexp_swap_list_backward)"))
 
 
+;; Fennel
+(defn fennel_lint [buffer lines]
+  (if (string.match (or (. lines 1) "") "error")
+    [{:lnum (string.match (. lines 1) "[0-9]+$")
+      :text (. lines 2)
+      :detail (table.concat lines "\n")}]
+    []))
+(nu.fn-bridge :FennelLint *module-name* :fennel_lint)
+(vim.fn.ale#linter#Define :fennel {:name :fennel
+                                   :executable :fennel
+                                   :command "%e --compile %s 2>&1"
+                                   :callback "FennelLint"})
+(set ale-linters.fennel [:fennel])
+
+
 ;; Clojure
 (defn clj_ignore []
   (nu.normal "`[") ; navigate to beginnign of a text object

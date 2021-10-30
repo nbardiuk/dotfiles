@@ -101,5 +101,6 @@ in
     cljfmt
     hadolint # dockerfile linter
     nerdfonts # for icons
+    fennel
   ];
 }
