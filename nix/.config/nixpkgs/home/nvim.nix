@@ -103,5 +103,6 @@ in
     hadolint # dockerfile linter
     nerdfonts # for icons
     fennel
+    pandoc # for markdown conversion
   ];
 }
