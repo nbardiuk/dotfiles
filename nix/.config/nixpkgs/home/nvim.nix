@@ -1,6 +1,6 @@
 { pkgs, config, lib, ... }:
 let
-  plugin = { url, rev, sha256 ? "0000000000000000000000000000000000000000000000000000" }:
+  plugin = { url, rev, sha256 }:
     pkgs.vimUtils.buildVimPluginFrom2Nix {
       pname = with lib; (last (splitString "/" url));
       version = rev;
@@ -12,6 +12,7 @@ in
     enable = true;
     viAlias = true;
     vimAlias = true;
+    vimdiffAlias = true;
     withNodeJs = false;
     withPython3 = true;
     withRuby = false;
