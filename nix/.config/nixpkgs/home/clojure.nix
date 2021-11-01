@@ -4,6 +4,7 @@ let
   cider-nrepl = ''"0.26.0"'';
   hashp = ''"0.1.1"'';
   kaocha = ''"1.0.861"'';
+  humane-test-output = ''"0.11.0"'';
   middleware = lib.concatStringsSep "," [
     "cider.nrepl/wrap-classpath"
     "cider.nrepl/wrap-clojuredocs"
@@ -28,6 +29,7 @@ in
     (leiningen.override { jdk = jdk11; })
     (clojure.override { jdk = jdk11; })
     rep
+    babashka
   ];
 
   home.file."/.lein/profiles.clj".text = ''
@@ -37,6 +39,7 @@ in
           [cider/cider-nrepl ${cider-nrepl}]
           [hashp ${hashp}]
           [lambdaisland/kaocha ${kaocha}]
+          [pjstadig/humane-test-output ${humane-test-output}]
         ]
        :repl-options {:nrepl-middleware [${middleware}]
                       :prompt (fn [ns]
@@ -46,7 +49,9 @@ in
                               terminal-title (format "\033]0;repl %s\007" dir-context)]
                           (format "%s%s %s\nλ " terminal-title dir-context ns)))
                      }
-       :injections [(require 'hashp.core)]
+        :injections [(require 'hashp.core)
+                     (require 'pjstadig.humane-test-output)
+                     (pjstadig.humane-test-output/activate!)]
       }
     }
   '';
@@ -57,7 +62,9 @@ in
         {:extra-deps { nrepl/nrepl {:mvn/version ${nrepl}}
                        cider/cider-nrepl {:mvn/version ${cider-nrepl}}
                        lambdaisland/kaocha {:mvn/version ${kaocha}}
-                       hashp/hashp {:mvn/version ${hashp}}}
+                       hashp/hashp {:mvn/version ${hashp}}
+                       pjstadig/humane-test-output {:mvn/version ${humane-test-output}}
+                     }
          :main-opts ["-m" "nrepl.cmdline" "--middleware" "[${middleware}]"]
         }
       }
@@ -72,5 +79,19 @@ in
       And [[:inner 0]]
       let-system [[:inner 0]]
     }
+  '';
+
+  xdg.configFile.".lsp/config.edn".text = ''
+    {:cljfmt
+     {:remove-surrounding-whitespace true
+      :remove-trailing-whitespace true
+      :remove-consecutive-blank-lines true
+      :insert-missing-whitespace true
+      :indents
+      {Given [[:inner 0]]
+       When [[:inner 0]]
+       Then [[:inner 0]]
+       And [[:inner 0]]
+       let-system [[:inner 0]]}}}
   '';
 }

@@ -86,8 +86,8 @@ in
   home.packages = with pkgs; [
     cachix # to fetch nightly neovim
     nixpkgs-fmt # nix formatter
-    joker # clojure linter
     clj-kondo # clojure linter
+    clojure-lsp
     shellcheck # shell scripts linter
     shfmt # shell scripts formatter
     vim-vint # vim linter
