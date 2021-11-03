@@ -30,7 +30,6 @@ in
       gitgutter
       hop-nvim
       lispdocs-nvim # clojure docs for conjure
-      lspkind-nvim # decorate nvim-cmp
       luasnip # snippets manager
       nvim-cmp # completion mananger
       nvim-lspconfig
@@ -73,6 +72,7 @@ in
       (plugin { url = "https://github.com/Olical/aniseed"; rev = "4bb3a4c"; sha256 = "0sd81pagrrwsig1fjm4ly866wcpq4xqpf810a8q1p2bygjs95chx"; })
       (plugin { url = "https://github.com/Olical/conjure"; rev = "a2831ac"; sha256 = "1r1lz397fga204i4a4g6zbaf457wmvb35kpd9m7n8476iay892j7"; })
       (plugin { url = "https://github.com/Olical/nvim-local-fennel"; rev = "3cf4b30"; sha256 = "10f57jp2c3v28kbznqhs42j8wg7ry7xblczb5w94kp066d7nzdlq"; })
+      (plugin { url = "https://github.com/onsails/lspkind-nvim"; rev = "1557ce5"; sha256 = "0qrfrwd7mz311hjmpkjfjg1d2dkar675vflizpj0p09b5dp8zkbv"; })
       (plugin { url = "https://github.com/scr1pt0r/crease.vim"; rev = "b2e5b43"; sha256 = "1yg0p58ajd9xf00sr1y9sjy3nxim8af96svrcsy4yn7xbwk24xgm"; })
       (plugin { url = "https://github.com/tjdevries/astronauta.nvim"; rev = "ea8cae1"; sha256 = "1p8kqww82ibyvjv099r1n2jhzlqmhlvy2dj1gqyp6jg6rzrx9xdq"; })
       (plugin { url = "https://gitlab.com/yorickpeterse/nvim-pqf"; rev = "d053a33"; sha256 = "1rq5lzl5cj7iz5i87fvkai7c87yqy43c58886710fgkc9zmlgmpf"; })
@@ -102,7 +102,6 @@ in
     clang-tools
     cljfmt
     hadolint # dockerfile linter
-    nerdfonts # for icons
     fennel
     pandoc # for markdown conversion
   ];

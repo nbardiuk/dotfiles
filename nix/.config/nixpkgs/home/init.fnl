@@ -86,15 +86,18 @@
               :opts {:get_bufnrs #(vim.api.nvim_list_bufs)}}
              {:name :spell
               :keyword_length 5}]
-   :formatting {:format (lspkind.cmp_format {:with_text true
-                                             :menu {:nvim_lua "[lua]"
-                                                    :nvim_lsp "[lsp]"
-                                                    :conjure "[conj]"
-                                                    :vim-dadbod-completion "[db]"
-                                                    :luasnip "[snip]"
-                                                    :path "[path]"
-                                                    :buffer "[buf]"
-                                                    :spell "[spell]"}})}
+   :formatting {:format
+                (lspkind.cmp_format
+                  {:with_text true
+                   :symbol_map (collect [k (pairs lspkind.presets.default)] (values k ""))
+                   :menu {:nvim_lua "[lua]"
+                          :nvim_lsp "[lsp]"
+                          :conjure "[conj]"
+                          :vim-dadbod-completion "[db]"
+                          :luasnip "[snip]"
+                          :path "[path]"
+                          :buffer "[buf]"
+                          :spell "[spell]"}})}
    :snippet {:expand #(luasnip.lsp_expand (. $1 :body))}
    :mapping {"<C-d>" (cmp.mapping.scroll_docs -4)
              "<C-u>" (cmp.mapping.scroll_docs 4)
