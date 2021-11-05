@@ -190,7 +190,7 @@
 (set vim.opt.background :light)
 (set vim.opt.termguicolors true)
 (do
-  (vim.cmd "colorscheme paper")
+  (vim.cmd "colorscheme grey")
 
   (let [to-clear [:Identifier
                   :Function
@@ -211,8 +211,7 @@
                   :Structure
                   :Typedef
                   :Special
-                  :Tag
-                  ]]
+                  :Tag]]
     (each [_ group (pairs to-clear)]
       (vim.cmd (.. "highlight clear " group))))
 

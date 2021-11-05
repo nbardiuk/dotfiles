@@ -82,7 +82,7 @@
       bind-key C-t select-layout tiled
 
       #### COLOUR
-      set -g status-bg "#D8D5C7" # same as vim status bar
+      set -g status-bg "#DDDDDD" # same as vim status bar
       set -g status-fg black
       set -g display-panes-active-colour blue
       set -g display-panes-colour brightred

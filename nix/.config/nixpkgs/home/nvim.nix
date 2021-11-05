@@ -75,8 +75,8 @@ in
       (plugin { url = "https://github.com/onsails/lspkind-nvim"; rev = "1557ce5"; sha256 = "0qrfrwd7mz311hjmpkjfjg1d2dkar675vflizpj0p09b5dp8zkbv"; })
       (plugin { url = "https://github.com/scr1pt0r/crease.vim"; rev = "b2e5b43"; sha256 = "1yg0p58ajd9xf00sr1y9sjy3nxim8af96svrcsy4yn7xbwk24xgm"; })
       (plugin { url = "https://github.com/tjdevries/astronauta.nvim"; rev = "ea8cae1"; sha256 = "1p8kqww82ibyvjv099r1n2jhzlqmhlvy2dj1gqyp6jg6rzrx9xdq"; })
+      (plugin { url = "https://gitlab.com/yorickpeterse/nvim-grey"; rev = "29baaa1"; sha256 = "0dkx7yv1q0p43r1w8mpzjcygpfcqqgpk9d5nz27b81707c7k17kb"; })
       (plugin { url = "https://gitlab.com/yorickpeterse/nvim-pqf"; rev = "d053a33"; sha256 = "1rq5lzl5cj7iz5i87fvkai7c87yqy43c58886710fgkc9zmlgmpf"; })
-      (plugin { url = "https://gitlab.com/yorickpeterse/vim-paper"; rev = "93e06e7"; sha256 = "1slq5j50s1v46ysq4w81lsr6cw48wkv8hlfyrpmf7cqjqahd4i10"; })
     ];
   };
 

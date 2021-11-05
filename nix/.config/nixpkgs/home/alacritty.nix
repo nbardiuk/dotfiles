@@ -1,5 +1,42 @@
 { ... }:
 let
+  grey = {
+    # https://gitlab.com/yorickpeterse/nvim-grey#terminal-colors
+
+    colors = {
+      primary = {
+        background = "0xF2F2F2";
+        foreground = "0x000000";
+      };
+
+      cursor = {
+        text = "0xDDDDDD";
+        cursor = "0x000000";
+      };
+
+      normal = {
+        black = "0x000000";
+        red = "0xCC3E28";
+        green = "0x216609";
+        yellow = "0xBF8F00";
+        blue = "0x1E6FCC";
+        magenta = "0x5C21A5";
+        cyan = "0x158c86";
+        white = "0xFFFFFF";
+      };
+
+      bright = {
+        black = "0x555555";
+        red = "0xCC3E28";
+        green = "0x216609";
+        yellow = "0xBF8F00";
+        blue = "0x1E6FCC";
+        magenta = "0x5C21A5";
+        cyan = "0x158c86";
+        white = "0xAAAAAA";
+      };
+    };
+  };
   paper = {
     # https://github.com/YorickPeterse/vim-paper#terminal-colors
 
@@ -77,7 +114,7 @@ let
 in
 {
   programs.alacritty.enable = true;
-  programs.alacritty.settings = paper // {
+  programs.alacritty.settings = grey // {
 
     shell.program = "zsh";
 
