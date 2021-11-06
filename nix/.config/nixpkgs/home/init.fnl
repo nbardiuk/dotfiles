@@ -703,7 +703,6 @@
 (set vim.g.ale_fixers ale-fixers)
 (nnoremap :L "<Cmd>ALEDetail<CR>")
 (nnoremap :yol "<Cmd>ALEToggleBuffer<CR>")
-(pqf.setup {}) ; better errors in list
 
 
 ;; Projectionist
