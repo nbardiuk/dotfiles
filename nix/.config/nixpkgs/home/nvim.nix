@@ -6,10 +6,14 @@ let
       version = rev;
       src = pkgs.fetchgit { inherit url rev sha256; };
     };
+  neovim-nightly = rev:
+    let url = "https://github.com/nix-community/neovim-nightly-overlay/archive/${rev}.tar.gz"; in
+    (import <nixpkgs> { overlays = [ (import (fetchTarball { url = url; })) ]; }).neovim-nightly;
 in
 {
   programs.neovim = {
     enable = true;
+    package = (neovim-nightly "0e5c33b");
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
