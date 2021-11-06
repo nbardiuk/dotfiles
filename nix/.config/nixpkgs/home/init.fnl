@@ -34,13 +34,18 @@
 (set vim.g.mapleader " ")
 (set vim.g.maplocalleader "\t")
 
+(defn- indexed->named [keys tbl]
+  (each [index key (ipairs tbl)]
+    (match (. keys key)
+      value (do
+              (table.remove tbl index)
+              (tset tbl key value))))
+  tbl)
 (vim.cmd "runtime plugin/astronauta.vim") ; defines vim.keymap.*
 (defn- keymap [m args]
-  (let [special {:buffer true :silent true}]
-    (for [i (length args) 1 -1]
-      (when (. special (. args i))
-        (tset args (table.remove args i) true))))
-  ((. vim.keymap m) args))
+  (->> args
+       (indexed->named {:buffer true :silent true})
+       ((. vim.keymap m))))
 (defn- nmap [...] (keymap :nmap [...]))
 (defn- nnoremap [...] (keymap :nnoremap [...]))
 (defn- noremap [...] (keymap :noremap [...]))
