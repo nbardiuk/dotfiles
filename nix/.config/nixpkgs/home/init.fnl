@@ -333,6 +333,11 @@
       (do (vim.opt.diffopt:remove "iwhite") (vim.notify "noiwhite"))
       (do (vim.opt.diffopt:append "iwhite") (vim.notify "iwhite"))))
 
+;; man git-log(1)
+;; %ah - author date, human style
+;; %d  - ref names, like the --decorate
+;; %s  - subject
+(set vim.g.fugitive_summary_format "%ah %d %s")
 
 ;; Wiki
 (set vim.g.wiki_root "~/Notes")
