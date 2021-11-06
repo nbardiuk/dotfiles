@@ -373,6 +373,7 @@
 (set vim.g.conjure#eval#result_register :e)
 (set vim.g.conjure#log#botright true)
 (set vim.g.conjure#filetypes [:clojure :fennel])
+(set vim.g.conjure#eval#gsubs {:do-comment ["^%(comment[%s%c]" "(do "]}) ; eval comment as do
 
 
 ;; JSON
