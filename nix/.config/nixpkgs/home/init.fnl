@@ -26,10 +26,7 @@
 (tree-conf.setup
   {:ensure_intalled :maintained
    :indent {:enable true}
-   :highlight {:enable true
-               :custom_captures {:symbol :Constant ; fix clojure keyword
-                                 :punctuation.bracket :Delimiter ; clojure brackets
-                                 }}})
+   :highlight {:enable true}})
 
 (set vim.g.mapleader " ")
 (set vim.g.maplocalleader "\t")
@@ -220,9 +217,11 @@
     (each [_ group (pairs to-clear)]
       (vim.cmd (.. "highlight clear " group))))
 
-  (let [to-link {:Comment :Directory
-                 :Constant :Regexp
-                 :Whitespace :VertSplit}]
+  (let [to-link {:Delimiter :NonText
+                 :Comment :Directory
+                 :Whitespace :VertSplit
+                 :TermCursorNC :Cursor
+                 :Boolean :Yellow}]
     (each [src dest (pairs to-link)]
       (vim.cmd (.. "highlight clear " src))
       (vim.cmd (.. "highlight link " src " " dest)))))
