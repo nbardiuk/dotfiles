@@ -563,7 +563,7 @@
 
 ;; Fennel
 (defn fennel_lint [buffer lines]
-  (if (string.match (or (. lines 1) "") "error")
+  (if (-?> lines (. 1) (string.match "error"))
     [{:lnum (string.match (. lines 1) "[0-9]+$")
       :text (. lines 2)
       :detail (table.concat lines "\n")}]
