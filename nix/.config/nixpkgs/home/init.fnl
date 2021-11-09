@@ -34,9 +34,9 @@
 (defn- indexed->named [keys tbl]
   (each [index key (ipairs tbl)]
     (match (. keys key)
-      value (do
-              (table.remove tbl index)
-              (tset tbl key value))))
+      value (doto tbl
+              (table.remove index)
+              (tset key value))))
   tbl)
 (vim.cmd "runtime plugin/astronauta.vim") ; defines vim.keymap.*
 (defn- keymap [m args]
