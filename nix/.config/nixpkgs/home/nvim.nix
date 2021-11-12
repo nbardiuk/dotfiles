@@ -56,7 +56,6 @@ in
       vim-eunuch
       vim-fugitive
       vim-indent-object
-      vim-markdown
       vim-matchup
       vim-nix
       vim-projectionist

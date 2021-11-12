@@ -693,8 +693,7 @@
 (au markdown :FileType "markdown"
     (vnoremap :buffer :<Leader>tj ":!pandoc -f gfm -t jira<CR>"))
 (set vim.g.markdown_syntax_conceal false)
-(set vim.g.vim_markdown_folding_style_pythonic true)
-(set vim.g.vim_markdown_override_foldtext false)
+(set vim.g.markdown_folding 1)
 
 
 ;; ALE
