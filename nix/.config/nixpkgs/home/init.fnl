@@ -423,8 +423,8 @@
    :float {:show_header false}
    :severity_sort true
    :signs true})
-(nnoremap :L #(let [(_ win) (vim.diagnostic.open_float nil {:scope :line})]
-                (when win (vim.api.nvim_win_set_config win {:border :single}))))
+(nnoremap :L #(vim.diagnostic.open_float nil {:scope :line :border :single}))
+(nnoremap :yol vim.diagnostic.reset)
 
 (tset vim.lsp.handlers "textDocument/hover"
       (vim.lsp.with vim.lsp.handlers.hover {:border :single}))
