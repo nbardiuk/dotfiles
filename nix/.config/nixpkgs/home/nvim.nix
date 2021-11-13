@@ -32,14 +32,12 @@ in
       ferret
       gitgutter
       hop-nvim
-      lispdocs-nvim # clojure docs for conjure
       luasnip # snippets manager
-      nvim-cmp # completion mananger
+      nvim-cmp # completion manager
       nvim-lspconfig
       playground # treesitter playground
       plenary-nvim # for telescope, and null-ls
       rhubarb # github provider for fugitive
-      sqlite-lua # for lispdocs-nvim
       tabular
       targets-vim
       telescope-fzf-native-nvim

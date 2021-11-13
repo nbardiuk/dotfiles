@@ -8,7 +8,6 @@
              lspkind lspkind
              luasnip luasnip
              nu aniseed.nvim.util
-             lispdocs lispdocs
              lspconfig lspconfig
              tree-conf nvim-treesitter.configs
              hop hop
@@ -540,7 +539,6 @@
   (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
 
 (au clojure :FileType "clojure"
-    (nnoremap :buffer :<Leader>K lispdocs.split)
     (nnoremap :buffer :K vim.lsp.buf.hover)
     (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
     (nnoremap :buffer :gd vim.lsp.buf.definition)
@@ -557,7 +555,6 @@
     ;; converts package names into file names; useful for "gf"
     (set vim.opt_local.includeexpr "substitute(substitute(v:fname,'\\.','/','g'),'-','_','g')")
     (set vim.opt_local.suffixesadd ".clj"))
-(set vim.g.lispdocs_mappings false)
 (set vim.g.clojure_fuzzy_indent true) ; use clojure syntax for indentation
 (set vim.g.clojure_fuzzy_indent_patterns ["^with" "^def" "^let" "^Given" "^When" "^Then" "^And"])
 (set vim.g.conjure#client#clojure#nrepl#test#current_form_names [:deftest :def-integration-test])
