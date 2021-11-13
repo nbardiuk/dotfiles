@@ -13,7 +13,7 @@ in
 {
   programs.neovim = {
     enable = true;
-    package = neovim-nightly "0e5c33b";
+    package = neovim-nightly "e581701";
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
