@@ -655,6 +655,12 @@
     (when (and vim.b.terminal_job_pid vim.b.term_title)
       (vim.cmd (.. "file term:" vim.b.terminal_job_pid ":" vim.b.term_title))))
 
+(defn term [path]
+  (let [path (if (= path "") "%:h" path)]
+    (-> [:vsplit (.. "lcd " path) :terminal] (table.concat "|") vim.cmd)
+    (vim.api.nvim_feedkeys :i :n false)))
+(vim.cmd (.. "command! -nargs=? Term lua require('" *module-name* "').term(<q-args>)"))
+
 ;; Scratch
 (defn scratch [suffix]
   (vim.cmd (.. "edit " (vim.fn.tempname) "_" suffix)))
