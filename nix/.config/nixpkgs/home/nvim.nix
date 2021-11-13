@@ -109,5 +109,6 @@ in
     nodePackages.fixjson # json formatter
     terraform-ls
     terraform
+    codespell
   ];
 }

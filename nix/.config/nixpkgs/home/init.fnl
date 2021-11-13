@@ -375,6 +375,7 @@
    [null-ls.builtins.diagnostics.statix
     null-ls.builtins.diagnostics.shellcheck
     null-ls.builtins.diagnostics.hadolint
+    null-ls.builtins.diagnostics.codespell
     (null-ls.builtins.diagnostics.yamllint.with
       {:extra_args ["--config-data" (.. "{ extends: default,"
                                           "rules: { line-length: {max: 120},"
