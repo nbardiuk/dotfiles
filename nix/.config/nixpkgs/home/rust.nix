@@ -13,9 +13,8 @@ in if !enable then {} else {
   home.packages = with pkgs; [
     gcc
     cargo
-    cargo-watch
-    clippy
-    rls
     rustfmt
+    rust-analyzer
+    rustc
   ];
 }

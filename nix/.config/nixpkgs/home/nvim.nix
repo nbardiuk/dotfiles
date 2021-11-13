@@ -38,7 +38,7 @@ in
       nvim-cmp # completion mananger
       nvim-lspconfig
       playground # treesitter playground
-      plenary-nvim # for telescope
+      plenary-nvim # for telescope, and null-ls
       rhubarb # github provider for fugitive
       sqlite-lua # for lispdocs-nvim
       tabular
@@ -67,6 +67,7 @@ in
       vim-surround
       vim-terraform
       vim-unimpaired
+      null-ls-nvim
       vim-vinegar
       (plugin { url = "https://github.com/chrisbra/colorizer"; rev = "826d569"; sha256 = "069f8gqjihjzzv2qmpv3mid55vi52c6yyiijfarxpwmfchby9gc5"; })
       (plugin { url = "https://github.com/diepm/vim-rest-console"; rev = "7b407f4"; sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj"; })
@@ -102,9 +103,9 @@ in
     python38Packages.python-lsp-server
     ccls
     clang-tools
-    cljfmt
     hadolint # dockerfile linter
     fennel
     pandoc # for markdown conversion
+    nodePackages.fixjson # json formatter
   ];
 }

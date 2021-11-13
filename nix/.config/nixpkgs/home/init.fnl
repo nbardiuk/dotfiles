@@ -11,7 +11,10 @@
              lispdocs lispdocs
              lspconfig lspconfig
              tree-conf nvim-treesitter.configs
-             hop hop}})
+             hop hop
+             null-ls null-ls
+             null-ls-methods null-ls.methods
+             null-ls-helpers null-ls.helpers}})
 
 (macro au [group event pattern ...]
   `(do
@@ -53,7 +56,6 @@
 (defn- xnoremap [...] (keymap :xnoremap [...]))
 
 (def- ale-linters {})
-(def- ale-fixers {:* [:remove_trailing_lines :trim_whitespace] })
 
 (telescope.setup
   {:defaults (themes.get_ivy
@@ -370,6 +372,46 @@
 
 
 ;; LSP
+(null-ls.config
+  {:sources
+   [null-ls.builtins.formatting.terraform_fmt
+    null-ls.builtins.formatting.fixjson
+    null-ls.builtins.formatting.prettier
+    (null-ls.builtins.formatting.trim_whitespace.with
+      {:filetypes ["yaml" "docker"]})
+    (null-ls.builtins.formatting.shfmt.with
+      {:extra_args ["-i" "2" "-sr"]})
+    (null-ls-helpers.make_builtin
+      {:factory null-ls-helpers.formatter_factory
+       :method null-ls-methods.internal.FORMATTING
+       :filetypes [:nix]
+       :generator_opts
+       {:command :nixpkgs-fmt
+        :to_stdin true}})
+    (null-ls-helpers.make_builtin
+      {:factory null-ls-helpers.formatter_factory
+       :method null-ls-methods.internal.FORMATTING
+       :filetypes [:sql]
+       :generator_opts
+       {:command :pg_format
+        :args ["--spaces" "4"
+               "--comma-break"
+               "-"]
+        :to_stdin true}})
+    (null-ls-helpers.make_builtin
+      {:factory null-ls-helpers.formatter_factory
+       :method null-ls-methods.internal.FORMATTING
+       :filetypes [:xml]
+       :generator_opts
+       {:command :xmllint
+        :args ["--format"
+               "--nonet"
+               "--recover"
+               "-"]
+        :to_stdin true}})]})
+(lspconfig.null-ls.setup {})
+(nnoremap :<Leader>lf vim.lsp.buf.formatting)
+
 (tset vim.lsp.handlers :textDocument/publishDiagnostics
       (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
                     {:underline false
@@ -385,16 +427,7 @@
 (set vim.g.conjure#eval#gsubs {:do-comment ["^%(comment[%s%c]" "(do "]}) ; eval comment as do
 
 
-;; JSON
-(au json :FileType "json"
-    (nnoremap :buffer :<Leader>lf "<Cmd>ALEFix<CR>"))
-(set vim.g.ale_json_jq_options "--monochrome-output --indent 2")
-(set ale-fixers.json ["jq"])
-
-
 ;; Yaml
-(au yaml :FileType "yaml"
-    (nnoremap :buffer :<Leader>lf "<Cmd>ALEFix<CR>"))
 (set vim.g.ale_yaml_yamllint_options
      (.. "-d \"{"
          "  extends: default,"
@@ -405,50 +438,27 @@
 
 
 ;; Terraform
-(au terraform :FileType "terraform,hcl"
-    (nnoremap :buffer :<Leader>lf "<Cmd>ALEFix<CR>"))
-(set ale-fixers.hcl ["terraform"])
-(set ale-fixers.terraform ["terraform"])
 (set ale-linters.terraform ["terraform"])
 
 
 ;; XML
-(au xml :FileType "xml"
-    (nnoremap :buffer :<Leader>lf "<Cmd>ALEFix<CR>"))
-(set vim.g.ale_xml_xmllint_options "--format --nonet --recover -")
-(set ale-fixers.xml ["xmllint"])
 (set ale-linters.xml ["xmllint"])
 
 
 ;; SQL
-(au sql :FileType "sql"
-    (nnoremap :buffer :<Leader>lf "<Cmd>ALEFix<CR>"))
-(set vim.g.ale_sql_pgformatter_options "--spaces 4 --comma-break")
-(set ale-fixers.sql ["pgformatter"])
 (set ale-linters.sql ["sqlint"])
 
 
 ;; CSS
-(au css :FileType "css,scss"
-    (nnoremap :buffer :<Leader>lf "<Cmd>ALEFix<CR>"))
-(set ale-fixers.css ["prettier" "stylelint"])
-(set ale-fixers.scss ["prettier" "stylelint"])
 (set ale-linters.css ["stylelint"])
 (set ale-linters.scss ["stylelint"])
 
 
 ;; Nix
-(au nix :FileType "nix"
-    (nnoremap :buffer :<Leader>lf "<Cmd>ALEFix<CR>"))
-(set ale-fixers.nix ["nixpkgs-fmt"])
 (set ale-linters.nix ["nix"])
 
 
 ;; Shell
-(au shell :FileType "sh"
-    (nnoremap :buffer :<Leader>lf "<Cmd>ALEFix<CR>"))
-(set vim.g.ale_sh_shfmt_options "-i=2 -sr")
-(set ale-fixers.sh ["shfmt"])
 (set ale-linters.sh ["shellcheck"])
 
 
@@ -458,7 +468,6 @@
 
 ;; Python
 (au python :FileType "python"
-    (nnoremap :buffer :<Leader>lf vim.lsp.buf.formatting)
     (nnoremap :buffer :gd vim.lsp.buf.definition)
     (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
     (nnoremap :buffer "}" vim.lsp.buf.references)
@@ -478,46 +487,35 @@
 
 ;; JavaScript/TypeScript
 (au typescript :FileType "typescript,javascript,typescriptreact,javascriptreact"
-    (nnoremap :buffer :<Leader>lf "<Cmd>ALEFix<CR>")
     (nnoremap :buffer :gd vim.lsp.buf.definition)
     (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
     (nnoremap :buffer :<Leader>lt vim.lsp.buf.type_definition)
     (nnoremap :buffer "}" vim.lsp.buf.references)
     (nnoremap :buffer :K vim.lsp.buf.hover))
-(lspconfig.tsserver.setup {:capabilities cmp-capabilities})
-(set ale-fixers.javascript ["eslint" "prettier"])
-(set ale-fixers.typescriptreact ["prettier"])
-(set ale-fixers.typescript ["prettier"])
+(lspconfig.tsserver.setup
+  {:capabilities cmp-capabilities
+   :on_attach 
+   (lambda [client] 
+     (tset client.resolved_capabilities :document_formatting false )
+     (tset client.resolved_capabilities :document_range_formatting false))})
 (set ale-linters.javascript ["eslint"])
 (set ale-linters.typescript ["tsserver" "tslint"])
 
 
 ;; Rust
 (au rust :FileType "rust"
-    (nnoremap :buffer :<Leader>lf "<Cmd>ALEFix<CR>")
     (nnoremap :buffer :gd vim.lsp.buf.definition)
     (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
     (nnoremap :buffer "}" vim.lsp.buf.references)
     (nnoremap :buffer :K vim.lsp.buf.hover))
-(lspconfig.rls.setup {:capabilities cmp-capabilities})
+(lspconfig.rust_analyzer.setup {:capabilities cmp-capabilities})
 (set vim.g.ale_rust_cargo_use_clippy true)
 (set vim.g.ale_rust_cargo_check_all_targets true)
-(set ale-fixers.rust ["rustfmt"])
 (set ale-linters.rust ["cargo"])
-
-
-;; Haskell
-(au haskell :FileType "haskell"
-    (nnoremap :buffer :<Leader>lf "<Cmd>ALEFix<CR>")
-    (nnoremap :buffer :gd vim.lsp.buf.definition)
-    (nnoremap :buffer :K vim.lsp.buf.hover))
-(lspconfig.ghcide.setup {:capabilities cmp-capabilities})
-(set ale-fixers.haskell ["hindent"])
 
 
 ;; C
 (au c :FileType "c,cpp"
-    (nnoremap :buffer :<Leader>lf "<Cmd>ALEFix<CR>")
     (vnoremap :buffer "=" vim.lsp.buf.range_formatting)
     (nnoremap :buffer :gd vim.lsp.buf.definition)
     (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
@@ -528,8 +526,6 @@
     (set vim.opt_local.shiftwidth 2)
     (set vim.opt_local.expandtab true))
 (lspconfig.ccls.setup {:capabilities cmp-capabilities})
-(set ale-fixers.c ["clang-format" "clangtidy"])
-(set ale-fixers.cpp ["clang-format" "clangtidy"])
 (set ale-linters.c ["clang"])
 (set ale-linters.cpp ["clang"])
 
@@ -587,7 +583,6 @@
   (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
 
 (au clojure :FileType "clojure"
-    (nnoremap :buffer :<Leader>lf vim.lsp.buf.formatting)
     (nnoremap :buffer :<Leader>K lispdocs.split)
     (nnoremap :buffer :K vim.lsp.buf.hover)
     (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
@@ -605,7 +600,6 @@
     ;; converts package names into file names; useful for "gf"
     (set vim.opt_local.includeexpr "substitute(substitute(v:fname,'\\.','/','g'),'-','_','g')")
     (set vim.opt_local.suffixesadd ".clj"))
-(set ale-fixers.clojure [:Cljfmt])
 (set ale-linters.clojure [:clj-kondo])
 (set vim.g.lispdocs_mappings false)
 (set vim.g.clojure_fuzzy_indent true) ; use clojure syntax for indentation
@@ -614,16 +608,6 @@
 (set vim.g.conjure#client#clojure#nrepl#test#runner :clojure)
 (set vim.g.conjure#client#clojure#nrepl#eval#raw_out true)
 (lspconfig.clojure_lsp.setup {:capabilities cmp-capabilities})
-
-(defn cljfmt []
-  {:read_temporary_file 1
-   :command (.. "cljfmt fix %t"
-                " --indents ~/.config/cljfmt/indentation.edn"
-                " --remove-surrounding-whitespace"
-                " --remove-trailing-whitespace"
-                " --remove-consecutive-blank-lines"
-                " --insert-missing-whitespace")})
-(nu.fn-bridge :Cljfmt *module-name* :cljfmt)
 
 
 
@@ -668,7 +652,7 @@
       :--silent ""})
 (set vim.g.vrc_auto_format_response_patterns
      {:json "jq"
-      :xml (.. "grep \"\\S\" | xmllint " vim.g.ale_xml_xmllint_options)})
+      :xml (.. "grep \"\\S\" | xmllint --format --nonet --recover -")})
 
 (au rest :FileType "rest"
     (nnoremap :buffer :<Leader>cd
@@ -699,7 +683,6 @@
 ;; ALE
 (set vim.g.ale_linters_explicit 1)
 (set vim.g.ale_linters ale-linters)
-(set vim.g.ale_fixers ale-fixers)
 (nnoremap :L "<Cmd>ALEDetail<CR>")
 (nnoremap :yol "<Cmd>ALEToggleBuffer<CR>")
 
