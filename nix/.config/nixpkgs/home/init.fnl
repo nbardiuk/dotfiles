@@ -166,9 +166,8 @@
 (set vim.opt.winminwidth 10)  ; minimal width of inactive window
 (set vim.opt.winheight 50)    ; minimal height of active window
 (set vim.opt.winminheight 10) ; minimal height of inactive window
-; focus on new split
-(nnoremap :<C-w>s :<C-w>s<C-w>w)
-(nnoremap :<C-w>v :<C-w>v<C-w>w)
+(set vim.opt.splitright true)
+(set vim.opt.splitbelow true)
 
 (nnoremap :<Leader>x "<Cmd>bd!<CR>") ; close current buffer
 (nnoremap :<Leader>X "<Cmd>%bd!<CR>") ; close all buffers
