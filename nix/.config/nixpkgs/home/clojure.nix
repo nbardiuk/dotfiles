@@ -92,6 +92,7 @@ in
        When [[:inner 0]]
        Then [[:inner 0]]
        And [[:inner 0]]
-       let-system [[:inner 0]]}}}
+       let-system [[:inner 0]]}}
+     :hover {:hide-file-location? true}}
   '';
 }

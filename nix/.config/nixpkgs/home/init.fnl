@@ -420,8 +420,17 @@
 (vim.diagnostic.config
   {:virtual_text false
    :underline true
+   :float {:show_header false}
+   :severity_sort true
    :signs true})
-(nnoremap :L #(vim.diagnostic.open_float nil {:scope :line}))
+(nnoremap :L #(let [(_ win) (vim.diagnostic.open_float nil {:scope :line})]
+                (when win (vim.api.nvim_win_set_config win {:border :single}))))
+
+(tset vim.lsp.handlers "textDocument/hover"
+      (vim.lsp.with vim.lsp.handlers.hover {:border :single}))
+(tset vim.lsp.handlers "textDocument/signatureHelp"
+      (vim.lsp.with vim.lsp.handlers.singature_help {:border :single}))
+
 
 ;; Conjure
 (set vim.g.conjure#eval#result_register :e)
