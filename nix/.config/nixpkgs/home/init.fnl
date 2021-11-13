@@ -372,7 +372,8 @@
 ;; LSP
 (null-ls.config
   {:sources
-   [null-ls.builtins.diagnostics.statix
+   [null-ls.builtins.code_actions.statix
+    null-ls.builtins.diagnostics.statix
     null-ls.builtins.diagnostics.shellcheck
     null-ls.builtins.diagnostics.hadolint
     null-ls.builtins.diagnostics.codespell
