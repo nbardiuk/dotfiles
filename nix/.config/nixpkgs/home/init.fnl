@@ -55,8 +55,6 @@
 (defn- xmap [...] (keymap :xmap [...]))
 (defn- xnoremap [...] (keymap :xnoremap [...]))
 
-(def- ale-linters {})
-
 (telescope.setup
   {:defaults (themes.get_ivy
                {:layout_config {:height 10}
@@ -374,11 +372,18 @@
 ;; LSP
 (null-ls.config
   {:sources
-   [null-ls.builtins.formatting.terraform_fmt
+   [null-ls.builtins.diagnostics.statix
+    null-ls.builtins.diagnostics.shellcheck
+    null-ls.builtins.diagnostics.hadolint
+    (null-ls.builtins.diagnostics.yamllint.with
+      {:extra_args ["--config-data" (.. "{ extends: default,"
+                                          "rules: { line-length: {max: 120},"
+                                                   "document-start: {present: false}}}")]})
+
     null-ls.builtins.formatting.fixjson
     null-ls.builtins.formatting.prettier
     (null-ls.builtins.formatting.trim_whitespace.with
-      {:filetypes ["yaml" "docker"]})
+      {:filetypes ["yaml" "docker" "fennel"]})
     (null-ls.builtins.formatting.shfmt.with
       {:extra_args ["-i" "2" "-sr"]})
     (null-ls-helpers.make_builtin
@@ -412,13 +417,11 @@
 (lspconfig.null-ls.setup {})
 (nnoremap :<Leader>lf vim.lsp.buf.formatting)
 
-(tset vim.lsp.handlers :textDocument/publishDiagnostics
-      (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
-                    {:underline false
-                     :virtual_text false
-                     :signs false
-                     :update_in_insert false}))
-
+(vim.diagnostic.config
+  {:virtual_text false
+   :underline true
+   :signs true})
+(nnoremap :L #(vim.diagnostic.open_float nil {:scope :line}))
 
 ;; Conjure
 (set vim.g.conjure#eval#result_register :e)
@@ -427,43 +430,10 @@
 (set vim.g.conjure#eval#gsubs {:do-comment ["^%(comment[%s%c]" "(do "]}) ; eval comment as do
 
 
-;; Yaml
-(set vim.g.ale_yaml_yamllint_options
-     (.. "-d \"{"
-         "  extends: default,"
-         "  rules: {"
-         "    line-length: {max: 120},"
-         "    document-start: {present: false}}}\""))
-(set ale-linters.yaml ["yamllint"])
-
-
 ;; Terraform
-(set ale-linters.terraform ["terraform"])
-
-
-;; XML
-(set ale-linters.xml ["xmllint"])
-
-
-;; SQL
-(set ale-linters.sql ["sqlint"])
-
-
-;; CSS
-(set ale-linters.css ["stylelint"])
-(set ale-linters.scss ["stylelint"])
-
-
-;; Nix
-(set ale-linters.nix ["nix"])
-
-
-;; Shell
-(set ale-linters.sh ["shellcheck"])
-
-
-;; Docker
-(set ale-linters.dockerfile ["hadolint"])
+(lspconfig.terraformls.setup
+  {:capabilities cmp-capabilities
+   :filetypes [:terraform :hcl]})
 
 
 ;; Python
@@ -494,13 +464,10 @@
     (nnoremap :buffer :K vim.lsp.buf.hover))
 (lspconfig.tsserver.setup
   {:capabilities cmp-capabilities
-   :on_attach 
-   (lambda [client] 
+   :on_attach
+   (lambda [client]
      (tset client.resolved_capabilities :document_formatting false )
      (tset client.resolved_capabilities :document_range_formatting false))})
-(set ale-linters.javascript ["eslint"])
-(set ale-linters.typescript ["tsserver" "tslint"])
-
 
 ;; Rust
 (au rust :FileType "rust"
@@ -509,9 +476,6 @@
     (nnoremap :buffer "}" vim.lsp.buf.references)
     (nnoremap :buffer :K vim.lsp.buf.hover))
 (lspconfig.rust_analyzer.setup {:capabilities cmp-capabilities})
-(set vim.g.ale_rust_cargo_use_clippy true)
-(set vim.g.ale_rust_cargo_check_all_targets true)
-(set ale-linters.rust ["cargo"])
 
 
 ;; C
@@ -526,8 +490,6 @@
     (set vim.opt_local.shiftwidth 2)
     (set vim.opt_local.expandtab true))
 (lspconfig.ccls.setup {:capabilities cmp-capabilities})
-(set ale-linters.c ["clang"])
-(set ale-linters.cpp ["clang"])
 
 
 ;; Sexp
@@ -555,21 +517,6 @@
     (xmap :buffer :<e "<Plug>(sexp_swap_element_backward)")
     (xmap :buffer :>f "<Plug>(sexp_swap_list_forward)")
     (xmap :buffer :<f "<Plug>(sexp_swap_list_backward)"))
-
-
-;; Fennel
-(defn fennel_lint [buffer lines]
-  (if (-?> lines (. 1) (string.match "error"))
-    [{:lnum (string.match (. lines 1) "[0-9]+$")
-      :text (. lines 2)
-      :detail (table.concat lines "\n")}]
-    []))
-(nu.fn-bridge :FennelLint *module-name* :fennel_lint)
-(vim.fn.ale#linter#Define :fennel {:name :fennel
-                                   :executable :fennel
-                                   :command "%e --compile %s 2>&1"
-                                   :callback "FennelLint"})
-(set ale-linters.fennel [:fennel])
 
 
 ;; Clojure
@@ -600,7 +547,6 @@
     ;; converts package names into file names; useful for "gf"
     (set vim.opt_local.includeexpr "substitute(substitute(v:fname,'\\.','/','g'),'-','_','g')")
     (set vim.opt_local.suffixesadd ".clj"))
-(set ale-linters.clojure [:clj-kondo])
 (set vim.g.lispdocs_mappings false)
 (set vim.g.clojure_fuzzy_indent true) ; use clojure syntax for indentation
 (set vim.g.clojure_fuzzy_indent_patterns ["^with" "^def" "^let" "^Given" "^When" "^Then" "^And"])
@@ -608,7 +554,6 @@
 (set vim.g.conjure#client#clojure#nrepl#test#runner :clojure)
 (set vim.g.conjure#client#clojure#nrepl#eval#raw_out true)
 (lspconfig.clojure_lsp.setup {:capabilities cmp-capabilities})
-
 
 
 ;; Slime
@@ -678,13 +623,6 @@
     (vnoremap :buffer :<Leader>tj ":!pandoc -f gfm -t jira<CR>"))
 (set vim.g.markdown_syntax_conceal false)
 (set vim.g.markdown_folding 1)
-
-
-;; ALE
-(set vim.g.ale_linters_explicit 1)
-(set vim.g.ale_linters ale-linters)
-(nnoremap :L "<Cmd>ALEDetail<CR>")
-(nnoremap :yol "<Cmd>ALEToggleBuffer<CR>")
 
 
 ;; Projectionist

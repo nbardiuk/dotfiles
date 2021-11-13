@@ -8,12 +8,12 @@ let
     };
   neovim-nightly = rev:
     let url = "https://github.com/nix-community/neovim-nightly-overlay/archive/${rev}.tar.gz"; in
-    (import <nixpkgs> { overlays = [ (import (fetchTarball { url = url; })) ]; }).neovim-nightly;
+    (import <nixpkgs> { overlays = [ (import (fetchTarball { inherit url; })) ]; }).neovim-nightly;
 in
 {
   programs.neovim = {
     enable = true;
-    package = (neovim-nightly "0e5c33b");
+    package = neovim-nightly "0e5c33b";
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
@@ -22,7 +22,6 @@ in
     withRuby = false;
     extraConfig = "let g:aniseed#env = {'module': 'dotfiles.init'}";
     plugins = with pkgs.vimPlugins; [
-      ale
       cmp-buffer # buffer text source for nvim-cmp
       cmp-conjure # conjure source for nvim-cmp
       cmp_luasnip # integrates luasnip with nvim-cmp
@@ -78,6 +77,7 @@ in
       (plugin { url = "https://github.com/Olical/nvim-local-fennel"; rev = "3cf4b30"; sha256 = "10f57jp2c3v28kbznqhs42j8wg7ry7xblczb5w94kp066d7nzdlq"; })
       (plugin { url = "https://github.com/onsails/lspkind-nvim"; rev = "1557ce5"; sha256 = "0qrfrwd7mz311hjmpkjfjg1d2dkar675vflizpj0p09b5dp8zkbv"; })
       (plugin { url = "https://github.com/scr1pt0r/crease.vim"; rev = "b2e5b43"; sha256 = "1yg0p58ajd9xf00sr1y9sjy3nxim8af96svrcsy4yn7xbwk24xgm"; })
+      (plugin { url = "https://github.com/jose-elias-alvarez/null-ls.nvim"; rev = "a3ded9b"; sha256 = "0xc909lw73fbmmfvzvqwkba2akyv0c2msdfk94gcvxlm3dk910ng"; })
       (plugin { url = "https://github.com/tjdevries/astronauta.nvim"; rev = "ea8cae1"; sha256 = "1p8kqww82ibyvjv099r1n2jhzlqmhlvy2dj1gqyp6jg6rzrx9xdq"; })
       (plugin { url = "https://gitlab.com/yorickpeterse/nvim-grey"; rev = "29baaa1"; sha256 = "0dkx7yv1q0p43r1w8mpzjcygpfcqqgpk9d5nz27b81707c7k17kb"; })
     ];
@@ -90,14 +90,13 @@ in
   home.packages = with pkgs; [
     cachix # to fetch nightly neovim
     nixpkgs-fmt # nix formatter
-    clj-kondo # clojure linter
     clojure-lsp
     shellcheck # shell scripts linter
     shfmt # shell scripts formatter
-    vim-vint # vim linter
     xsel # clipboard manager
     jq # json formatter
     libxml2 # for xmllint
+    yamllint # yaml linter
     pgformatter # sql formatter
     sqlint # sql linter
     python38Packages.python-lsp-server
@@ -106,6 +105,9 @@ in
     hadolint # dockerfile linter
     fennel
     pandoc # for markdown conversion
+    statix # nix linter
     nodePackages.fixjson # json formatter
+    terraform-ls
+    terraform
   ];
 }
