@@ -440,6 +440,10 @@
 
 
 ;; Terraform
+(au terraform :FileType "terraform,hcl"
+    (nnoremap :buffer :gd vim.lsp.buf.definition)
+    (nnoremap :buffer "}" vim.lsp.buf.references)
+    (nnoremap :buffer :K vim.lsp.buf.hover))
 (lspconfig.terraformls.setup
   {:capabilities cmp-capabilities
    :filetypes [:terraform :hcl]})
