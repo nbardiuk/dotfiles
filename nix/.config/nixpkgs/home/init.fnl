@@ -227,8 +227,8 @@
       (vim.cmd (.. "highlight link " src " " dest)))))
 
 (set vim.opt.ruler false)      ; line and column number of the cursor position
-(set vim.opt.laststatus 2)     ; 2 - allways show status line
-(set vim.opt.showmode false)   ; dissable mode message
+(set vim.opt.laststatus 2)     ; 2 - always show status line
+(set vim.opt.showmode false)   ; disable mode message
 (set vim.opt.title true)       ; update window title
 (set vim.opt.titlestring "%f") ; file name in title
 
