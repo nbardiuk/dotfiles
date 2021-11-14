@@ -67,15 +67,15 @@ in
       vim-vinegar
       (plugin { url = "https://github.com/chrisbra/colorizer"; rev = "826d569"; sha256 = "069f8gqjihjzzv2qmpv3mid55vi52c6yyiijfarxpwmfchby9gc5"; })
       (plugin { url = "https://github.com/diepm/vim-rest-console"; rev = "7b407f4"; sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj"; })
-      (plugin { url = "https://github.com/lervag/wiki.vim"; rev = "2874332"; sha256 = "1krri3lg8wsbz21q4i1ipi7w7av35gfsk7v126pc2vr1szxs0x7b"; })
-      (plugin { url = "https://github.com/nvim-treesitter/nvim-treesitter"; rev = "83efae5"; sha256 = "0yhik5s7xirmibwh311h2xdirrxdacwf2j6spi4l2n68ciwshczj"; })
+      (plugin { url = "https://github.com/jose-elias-alvarez/null-ls.nvim"; rev = "a3ded9b"; sha256 = "0xc909lw73fbmmfvzvqwkba2akyv0c2msdfk94gcvxlm3dk910ng"; })
+      (plugin { url = "https://github.com/lervag/wiki.vim"; rev = "ced1e07"; sha256 = "sha256-qJt5GPQewT7YXPzfBiM9QXr/YLdk6M1w3EvjFc/BNd4="; })
+      (plugin { url = "https://github.com/nvim-treesitter/nvim-treesitter"; rev = "a47df48"; sha256 = "sha256-AlysBP/Eopb2tkWoLZ7HNvfxVIKzSa6A8EehZQIxe3A="; })
       (plugin { url = "https://github.com/Olical/aniseed"; rev = "4bb3a4c"; sha256 = "0sd81pagrrwsig1fjm4ly866wcpq4xqpf810a8q1p2bygjs95chx"; })
       (plugin { url = "https://github.com/Olical/conjure"; rev = "a2831ac"; sha256 = "1r1lz397fga204i4a4g6zbaf457wmvb35kpd9m7n8476iay892j7"; })
       (plugin { url = "https://github.com/Olical/nvim-local-fennel"; rev = "3cf4b30"; sha256 = "10f57jp2c3v28kbznqhs42j8wg7ry7xblczb5w94kp066d7nzdlq"; })
       (plugin { url = "https://github.com/onsails/lspkind-nvim"; rev = "1557ce5"; sha256 = "0qrfrwd7mz311hjmpkjfjg1d2dkar675vflizpj0p09b5dp8zkbv"; })
       (plugin { url = "https://github.com/scr1pt0r/crease.vim"; rev = "b2e5b43"; sha256 = "1yg0p58ajd9xf00sr1y9sjy3nxim8af96svrcsy4yn7xbwk24xgm"; })
-      (plugin { url = "https://github.com/jose-elias-alvarez/null-ls.nvim"; rev = "a3ded9b"; sha256 = "0xc909lw73fbmmfvzvqwkba2akyv0c2msdfk94gcvxlm3dk910ng"; })
-      (plugin { url = "https://github.com/tjdevries/astronauta.nvim"; rev = "ea8cae1"; sha256 = "1p8kqww82ibyvjv099r1n2jhzlqmhlvy2dj1gqyp6jg6rzrx9xdq"; })
+      (plugin { url = "https://github.com/tjdevries/astronauta.nvim"; rev = "edc19d3"; sha256 = "sha256-WFjHi1wS/GOGaBBFoKuz2qXqyhsAKPMPy+kgzS2AJTU="; })
       (plugin { url = "https://gitlab.com/yorickpeterse/nvim-grey"; rev = "29baaa1"; sha256 = "0dkx7yv1q0p43r1w8mpzjcygpfcqqgpk9d5nz27b81707c7k17kb"; })
     ];
   };
