@@ -67,7 +67,7 @@ in
       vim-vinegar
       (plugin { url = "https://github.com/chrisbra/colorizer"; rev = "826d569"; sha256 = "069f8gqjihjzzv2qmpv3mid55vi52c6yyiijfarxpwmfchby9gc5"; })
       (plugin { url = "https://github.com/diepm/vim-rest-console"; rev = "7b407f4"; sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj"; })
-      (plugin { url = "https://github.com/jose-elias-alvarez/null-ls.nvim"; rev = "a3ded9b"; sha256 = "0xc909lw73fbmmfvzvqwkba2akyv0c2msdfk94gcvxlm3dk910ng"; })
+      (plugin { url = "https://github.com/jose-elias-alvarez/null-ls.nvim"; rev = "d597d65"; sha256 = "sha256-gTxlASnmZlXpzyW9QRADR52cM6Da+H17Y6MVrpSr++Q="; })
       (plugin { url = "https://github.com/lervag/wiki.vim"; rev = "ced1e07"; sha256 = "sha256-qJt5GPQewT7YXPzfBiM9QXr/YLdk6M1w3EvjFc/BNd4="; })
       (plugin { url = "https://github.com/nvim-treesitter/nvim-treesitter"; rev = "a47df48"; sha256 = "sha256-AlysBP/Eopb2tkWoLZ7HNvfxVIKzSa6A8EehZQIxe3A="; })
       (plugin { url = "https://github.com/Olical/aniseed"; rev = "9c8f2cd"; sha256 = "sha256-y1XcTvrcKOPhqZKAkHCOaGYNeRUbqCsKNHQJN2PU9sg="; })

@@ -84,7 +84,7 @@
              {:name :path}
              {:name :buffer
               :keyword_length 5
-              :opts {:get_bufnrs #(vim.api.nvim_list_bufs)}}
+              :options {:get_bufnrs #(vim.api.nvim_list_bufs)}}
              {:name :spell
               :keyword_length 5}]
    :formatting {:format
