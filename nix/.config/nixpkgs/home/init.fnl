@@ -368,7 +368,7 @@
 
 
 ;; LSP
-(null-ls.config
+(null-ls.setup
   {:sources
    [null-ls.builtins.code_actions.statix
     null-ls.builtins.diagnostics.statix
@@ -414,7 +414,6 @@
                "--recover"
                "-"]
         :to_stdin true}})]})
-(lspconfig.null-ls.setup {})
 (nnoremap :<Leader>lf vim.lsp.buf.formatting)
 
 (vim.diagnostic.config
