@@ -8,6 +8,7 @@
              lspkind lspkind
              luasnip luasnip
              nu aniseed.nvim.util
+             c aniseed.core
              lspconfig lspconfig
              tree-conf nvim-treesitter.configs
              hop hop
@@ -34,25 +35,30 @@
 (set vim.g.maplocalleader "\t")
 
 (defn- indexed->named [keys tbl]
-  (each [index key (ipairs tbl)]
-    (match (. keys key)
-      value (doto tbl
-              (table.remove index)
-              (tset key value))))
+  (for [index (length tbl) 1 -1]
+    (let [key (. tbl index)]
+      (match (. keys key)
+        value (doto tbl
+                    (table.remove index)
+                    (tset key value)))))
   tbl)
-(vim.cmd "runtime plugin/astronauta.vim") ; defines vim.keymap.*
+
 (defn- keymap [m args]
-  (->> args
-       (indexed->named {:buffer true :silent true})
-       ((. vim.keymap m))))
-(defn- nmap [...] (keymap :nmap [...]))
-(defn- nnoremap [...] (keymap :nnoremap [...]))
-(defn- noremap [...] (keymap :noremap [...]))
-(defn- omap [...] (keymap :omap [...]))
-(defn- tnoremap [...] (keymap :tnoremap [...]))
-(defn- vnoremap [...] (keymap :vnoremap [...]))
-(defn- xmap [...] (keymap :xmap [...]))
-(defn- xnoremap [...] (keymap :xnoremap [...]))
+  (let [options {:buffer true :silent true :remap true :noremap true}
+        args (indexed->named options args)
+        lhs (. args 1)
+        rhs (. args 2)
+        opts (c.select-keys args (c.keys options))]
+    (vim.keymap.set m lhs rhs opts)))
+
+(defn- nmap     [...] (keymap :n [:remap   ...]))
+(defn- nnoremap [...] (keymap :n [:noremap ...]))
+(defn- noremap  [...] (keymap :n [:noremap ...]))
+(defn- omap     [...] (keymap :o [:remap   ...]))
+(defn- tnoremap [...] (keymap :t [:noremap ...]))
+(defn- vnoremap [...] (keymap :v [:noremap ...]))
+(defn- xmap     [...] (keymap :x [:remap   ...]))
+(defn- xnoremap [...] (keymap :x [:noremap ...]))
 
 (telescope.setup
   {:defaults (themes.get_ivy
@@ -79,6 +85,7 @@
   {:sources [{:name :nvim_lua}
              {:name :nvim_lsp}
              {:name :conjure}
+             {:name :treesitter}
              {:name :vim-dadbod-completion}
              {:name :lausnip}
              {:name :path}
@@ -95,6 +102,7 @@
                           :nvim_lsp "[lsp]"
                           :conjure "[conj]"
                           :vim-dadbod-completion "[db]"
+                          :treesitter "[tree]"
                           :luasnip "[snip]"
                           :path "[path]"
                           :buffer "[buf]"
@@ -393,16 +401,10 @@
        :generator_opts
        {:command :nixpkgs-fmt
         :to_stdin true}})
-    (null-ls-helpers.make_builtin
-      {:factory null-ls-helpers.formatter_factory
-       :method null-ls-methods.internal.FORMATTING
-       :filetypes [:sql]
-       :generator_opts
-       {:command :pg_format
-        :args ["--spaces" "4"
-               "--comma-break"
-               "-"]
-        :to_stdin true}})
+    (null-ls.builtins.formatting.pg_format.with
+      {:extra_args ["--spaces" "4"
+                    "--comma-break"
+                    "-"]})
     (null-ls-helpers.make_builtin
       {:factory null-ls-helpers.formatter_factory
        :method null-ls-methods.internal.FORMATTING
