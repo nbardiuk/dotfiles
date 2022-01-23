@@ -29,7 +29,15 @@
 (tree-conf.setup
   {:ensure_intalled :maintained
    :indent {:enable true}
-   :highlight {:enable true}})
+   :highlight {:enable true}
+   :textobjects {:select {:enable true
+                          :lookahead true
+                          :keymaps {"aa" "@parameter.outer"
+                                    "ia" "@parameter.inner"
+                                    "as" "@statement.outer"}}
+                 :swap {:enable true
+                        :swap_next {">a" "@parameter.inner"}
+                        :swap_previous {"<lt>a" "@parameter.inner"}}}})
 
 (set vim.g.mapleader " ")
 (set vim.g.maplocalleader "\t")

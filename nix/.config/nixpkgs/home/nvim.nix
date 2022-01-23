@@ -36,6 +36,7 @@ in
       luasnip # snippets manager
       nvim-cmp # completion manager
       nvim-lspconfig
+      nvim-treesitter-textobjects
       playground # treesitter playground
       plenary-nvim # for telescope, and null-ls
       rhubarb # github provider for fugitive
