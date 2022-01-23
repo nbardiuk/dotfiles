@@ -392,6 +392,8 @@
     null-ls.builtins.formatting.prettier
     (null-ls.builtins.formatting.trim_whitespace.with
       {:filetypes ["yaml" "docker" "fennel"]})
+    (null_ls.builtins.formatting.clang_format.with
+      {:filetypes ["glsl"]})
     (null-ls.builtins.formatting.shfmt.with
       {:extra_args ["-i" "2" "-sr"]})
     (null-ls-helpers.make_builtin
@@ -636,6 +638,10 @@
 (set vim.g.markdown_syntax_conceal false)
 (set vim.g.markdown_folding 1)
 
+
+;; glsl
+(au glsl-detect "BufNewFile,BufRead" "*.glsl,*.vert,*.geom,*.frag"
+    (set vim.opt_local.filetype :glsl))
 
 ;; Projectionist
 (nnoremap :<Leader>aa "<Cmd>A<CR>")
