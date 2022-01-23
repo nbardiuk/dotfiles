@@ -55,7 +55,6 @@ in
       vim-fugitive
       vim-indent-object
       vim-matchup
-      vim-nix
       vim-projectionist
       vim-repeat
       vim-rsi
@@ -63,7 +62,6 @@ in
       vim-sexp-mappings-for-regular-people
       vim-slime
       vim-surround
-      vim-terraform
       vim-unimpaired
       vim-vinegar
       (plugin { url = "https://github.com/chrisbra/colorizer"; rev = "826d569"; sha256 = "069f8gqjihjzzv2qmpv3mid55vi52c6yyiijfarxpwmfchby9gc5"; })
