@@ -32,6 +32,7 @@
     wget
     unzip
     unrar
+    perl534Packages.vidir
 
     entr                      # file watcher
   ];
