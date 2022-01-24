@@ -473,16 +473,6 @@
 (lspconfig.pylsp.setup {:capabilities cmp-capabilities})
 
 
-;; Vim
-(au viml :FileType "vim"
-    (set vim.opt_local.foldmethod "marker")
-    (set vim.opt_local.foldlevel 0)
-    (set vim.opt_local.tabstop 2)
-    (set vim.opt_local.softtabstop 2)
-    (set vim.opt_local.shiftwidth 2)
-    (set vim.opt_local.expandtab true))
-
-
 ;; JavaScript/TypeScript
 (au typescript :FileType "typescript,javascript,typescriptreact,javascriptreact"
     (nnoremap :buffer :gd vim.lsp.buf.definition)
