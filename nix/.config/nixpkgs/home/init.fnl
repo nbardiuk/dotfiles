@@ -387,6 +387,8 @@
 (null-ls.setup
   {:sources
    [null-ls.builtins.code_actions.statix
+    (null_ls.builtins.diagnostics.vale.with
+      {:filetypes ["markdown" "gitcommit"]})
     null-ls.builtins.diagnostics.statix
     null-ls.builtins.diagnostics.shellcheck
     null-ls.builtins.diagnostics.hadolint
