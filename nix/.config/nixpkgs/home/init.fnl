@@ -674,16 +674,21 @@
     (when (and vim.b.terminal_job_pid vim.b.term_title)
       (vim.cmd (.. "file term:" vim.b.terminal_job_pid ":" vim.b.term_title))))
 
-(defn term [path]
-  (let [path (if (= path "") "%:h" path)]
-    (-> [:vsplit (.. "lcd " path) :terminal] (table.concat "|") vim.cmd)
-    (vim.api.nvim_feedkeys :i :n false)))
-(vim.cmd (.. "command! -nargs=? Term lua require('" *module-name* "').term(<q-args>)"))
+(vim.api.nvim_add_user_command
+  :Term
+  (fn [{:args path}]
+    (let [path (if (= path "") "%:h" path)]
+      (-> [:vsplit (.. "lcd " path) :terminal] (table.concat "|") vim.cmd)
+      (vim.api.nvim_feedkeys :i :n false)))
+  {:nargs "?"
+   :desc "Open terminal"})
 
 ;; Scratch
-(defn scratch [suffix]
-  (vim.cmd (.. "edit " (vim.fn.tempname) "_" suffix)))
-(vim.cmd (.. "command! -nargs=? Scratch lua require('" *module-name* "').scratch(<q-args>)"))
+(vim.api.nvim_add_user_command
+  :Scratch
+  (fn [{:args suffix}] (vim.cmd (.. "edit " (vim.fn.tempname) "_" suffix)))
+  {:nargs "?"
+   :desc "New temporary file"})
 
 ;; Auto write and read file
 (au autosave "FocusLost,BufLeave,CursorHold" "*" (vim.cmd "silent! update"))
