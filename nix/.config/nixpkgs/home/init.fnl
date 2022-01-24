@@ -345,6 +345,8 @@
    #(if (vim.tbl_contains (vim.opt.diffopt:get) "iwhite")
       (do (vim.opt.diffopt:remove "iwhite") (vim.notify "noiwhite"))
       (do (vim.opt.diffopt:append "iwhite") (vim.notify "iwhite"))))
+(au gitcommit :FileType "gitcommit"
+    (set vim.opt_local.spell true))
 
 ;; man git-log(1)
 ;; %ah - author date, human style
