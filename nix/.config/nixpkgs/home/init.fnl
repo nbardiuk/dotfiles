@@ -648,10 +648,15 @@
 ;; Projectionist
 (nnoremap :<Leader>aa "<Cmd>A<CR>")
 (set vim.g.projectionist_heuristics
-     {"project.clj|deps.edn" {"dev/*.clj" {:type "source"}
-                              "src/*.clj" {:alternate "test/{}_test.clj"
-                                           :type "source"}
-                              "test/*_test.clj" {:alternate "src/{}.clj" :type "test"}}})
+     {"project.clj|deps.edn" {"dev/*.clj"       {:type "source"}
+                              "src/*.clj"       {:alternate "test/{}_test.clj"
+                                                 :type "source"}
+                              "test/*_test.clj" {:alternate "src/{}.clj"
+                                                 :type "test"}}
+      "dbt_project.yml"      {"models/*.sql"    {:alternate "tests/{}.sql"
+                                                 :type "source"}
+                              "tests/*.sql"     {:alternate "models/{}.sql"
+                                                 :type "test"}}})
 
 
 ;; Terminal
