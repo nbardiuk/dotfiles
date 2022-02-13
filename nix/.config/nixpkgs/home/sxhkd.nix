@@ -36,6 +36,7 @@ with lib;
       "super + alt + Tab"                   = "rofi -show combi -combi-modi window";
       "super + alt + b"                     = "${pkgs.open_book}/bin/open-book";
       "super + alt + c"                     = "${pkgs.connection_toggle}/bin/connection-toggle";
+      "super + alt + k"                     = "${pkgs.keyboard_toggle}/bin/keyboard-toggle";
     };
   };
 }
