@@ -12,6 +12,8 @@ in {
       key = "1D8729AEF5622C0F7EA209C1C9C1904D44CDCDA1";
     };
     ignores = [
+      # python
+      ".venv/" ".env/"
       # idea
       ".idea/" ".idea_modules/" "*.iml" "*.ipr"
       # Vim
@@ -23,7 +25,7 @@ in {
       # Haskell
       "dist" "dist-*" "cabal-dev" "*.o" "*.hi" "*.chi" "*.chs.h" "*.dyn_o" "*.dyn_hi" ".hpc" ".hsenv" ".cabal-sandbox/" "cabal.sandbox.config" "*.prof" "*.aux" "*.hp" "*.eventlog" ".stack-work/" "cabal.project.local" "cabal.project.local~" ".HTF/" ".ghc.environment.*"
       # direnv
-      ".envrc"
+      ".envrc" ".direnv"
       # Clojure
       "pom.xml" "pom.xml.asc" "*.jar" "*.class" "/lib/" "/classes/" "/target/" "/checkouts/" ".lein-deps-sum" ".lein-repl-history" ".lein-plugins/" ".lein-failures" ".nrepl-port" ".cpcache/"
       # c/cpp
@@ -50,8 +52,8 @@ in {
       rebase.autoStash = true;
       rebase.stat = true;
       remote.defaultPush = "origin";
-      "diff \"clojure\"".xfuncname = "^\\(.*";
-      "diff \"secret\"".textconv = "gpg --no-tty --decrypt --quiet";
+      "diff \"clojure\"".xfuncname = "!^;.*\n^[^ \t].*$";
+      "diff \"clojure\"".wordRegex = "[#@:]?[^0-9][a-zA-Z0-9*+!-_'?<>=/.]+|[-]?[0-9a-fA-Frxb/MN]+|[\\0-9a-fA-F]+";
       "diff \"secret\"".cachetextconv = true;
     };
     attributes = [
