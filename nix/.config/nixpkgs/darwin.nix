@@ -8,12 +8,12 @@
 
   time.timeZone = "Europe/Lisbon";
 
-  networking.hostName = "bardiuk-ee";
+  networking.hostName = "bardiuk-mac";
 
   documentation.enable = true;
 
   users.nix.configureBuildUsers = true;
-  services.nix-daemon.enable = false;
+  services.nix-daemon.enable = true;
   nix.package = pkgs.nix;
 
   # Create /etc/bashrc that loads the nix-darwin environment.
@@ -47,17 +47,17 @@
   services.yabai.enableScriptingAddition = true;
   services.yabai.config.layout = "bsp";
   services.yabai.package = pkgs.yabai.overrideAttrs (o: rec {
-    version = "3.3.10";
+    version = "4.0.0";
     src = builtins.fetchTarball {
       url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-      sha256 = "025ww9kjpy72in3mbn23pwzf3fvw0r11ijn1h5pjqvsdlak91h9i";
+      sha256 = "1iwzan3mgayfkx7qbbij53hkxvr419b6kmypp7zmvph270yzy4r9";
     };
 
     installPhase = ''
       mkdir -p $out/bin
       mkdir -p $out/share/man/man1/
-      cp ./archive/bin/yabai $out/bin/yabai
-      cp ./archive/doc/yabai.1 $out/share/man/man1/yabai.1
+      cp ./bin/yabai $out/bin/yabai
+      cp ./doc/yabai.1 $out/share/man/man1/yabai.1
     '';
   });
 
