@@ -14,7 +14,8 @@
              hop hop
              null-ls null-ls
              null-ls-methods null-ls.methods
-             null-ls-helpers null-ls.helpers}})
+             null-ls-helpers null-ls.helpers
+             org orgmode}})
 
 (macro au [group event pattern ...]
   `(do
@@ -29,7 +30,9 @@
 (tree-conf.setup
   {:ensure_intalled :maintained
    :indent {:enable true}
-   :highlight {:enable true}
+   :highlight {:enable true
+               :disable [:org]
+               :additional_vim_regex_highlighting [:org]}
    :textobjects {:select {:enable true
                           :lookahead true
                           :keymaps {"aa" "@parameter.outer"
@@ -94,6 +97,7 @@
              {:name :nvim_lsp}
              {:name :conjure}
              {:name :treesitter}
+             {:name :orgmode}
              {:name :vim-dadbod-completion}
              {:name :lausnip}
              {:name :path}
@@ -111,6 +115,7 @@
                           :conjure "[conj]"
                           :vim-dadbod-completion "[db]"
                           :treesitter "[tree]"
+                          :orgmode "[org]"
                           :luasnip "[snip]"
                           :path "[path]"
                           :buffer "[buf]"
@@ -684,6 +689,10 @@
   (fn [{:args suffix}] (vim.cmd (.. "edit " (vim.fn.tempname) "_" suffix)))
   {:nargs "?"
    :desc "New temporary file"})
+
+;; Org
+(org.setup_ts_grammar) ;; Load custom tree-sitter grammar for org filetype
+(org.setup {})
 
 ;; Auto write and read file
 (au autosave "FocusLost,BufLeave,CursorHold" "*" (vim.cmd "silent! update"))

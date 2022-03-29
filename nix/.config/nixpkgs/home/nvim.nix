@@ -37,6 +37,7 @@ in
       nvim-cmp # completion manager
       nvim-lspconfig
       nvim-treesitter-textobjects
+      orgmode
       playground # treesitter playground
       plenary-nvim # for telescope, and null-ls
       rhubarb # github provider for fugitive
