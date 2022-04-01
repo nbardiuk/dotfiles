@@ -13,7 +13,7 @@ in
 {
   programs.neovim = {
     enable = true;
-    package = neovim-nightly "be68a63";
+    package = neovim-nightly "ab6514c";
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
@@ -70,9 +70,9 @@ in
       (plugin { url = "https://github.com/diepm/vim-rest-console"; rev = "7b407f4"; sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj"; })
       (plugin { url = "https://github.com/jose-elias-alvarez/null-ls.nvim"; rev = "0adceda"; sha256 = "sha256-BEl1+f9kS8jnQLuTUropyC2/5Gl1gvepx4XaXontn9k="; })
       (plugin { url = "https://github.com/lervag/wiki.vim"; rev = "d3bc1ee"; sha256 = "sha256-hdE4UatZ/ocK2ks8k6XY8Mry/uoE+6mK5hPzWMD1UKU="; })
-      (plugin { url = "https://github.com/nvim-treesitter/nvim-treesitter"; rev = "bb33aea"; sha256 = "sha256-UcuZZNJmWSVfeLAUJ3q+NObDS/rGkXbBCdXcdMBBYXg="; })
-      (plugin { url = "https://github.com/Olical/aniseed"; rev = "7968693"; sha256 = "sha256-BMwTcwGEEB/n9AXgN1j/KpD1/ECrLjhHxRNOk02KXkk="; })
-      (plugin { url = "https://github.com/Olical/conjure"; rev = "93a6685"; sha256 = "sha256-9j010dRHl8QBJ1oT9iQzeBvJx6mzRJbF8KPvwioPvKg="; })
+      (plugin { url = "https://github.com/nvim-treesitter/nvim-treesitter"; rev = "e2b2d23"; sha256 = "sha256-Mw9ru6geB1hFdeYdgQdCa/wq/fbcJJYC5CBrM9jm+0w="; })
+      (plugin { url = "https://github.com/Olical/aniseed"; rev = "68ad878"; sha256 = "sha256-mmuXSx8axCcuuT7bbaF5UybXA8Ro4qMJt0JPptzdWpo="; })
+      (plugin { url = "https://github.com/Olical/conjure"; rev = "0c85b2e"; sha256 = "sha256-7MFksurTmp72TgSTrQW0DI3FjGmZJbAGmzwiLNzv2JY="; })
       (plugin { url = "https://github.com/Olical/nvim-local-fennel"; rev = "5770299"; sha256 = "sha256-+dGoOXgp67tI8w0aVMcTrAgaLBh0a30csSZVWCz2xRg="; })
       (plugin { url = "https://github.com/onsails/lspkind-nvim"; rev = "f0d1552"; sha256 = "sha256-oAA4Q4FC+7fbBw8CwGrqP05PD+q5035vurYzMQLk03I="; })
       (plugin { url = "https://github.com/scr1pt0r/crease.vim"; rev = "b2e5b43"; sha256 = "1yg0p58ajd9xf00sr1y9sjy3nxim8af96svrcsy4yn7xbwk24xgm"; })
@@ -96,7 +96,7 @@ in
     yamllint # yaml linter
     pgformatter # sql formatter
     sqlint # sql linter
-    python38Packages.python-lsp-server
+    python39Packages.python-lsp-server
     ccls
     clang-tools
     hadolint # dockerfile linter

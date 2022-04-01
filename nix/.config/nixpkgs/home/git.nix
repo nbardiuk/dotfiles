@@ -27,7 +27,7 @@ in {
       # direnv
       ".envrc" ".direnv"
       # Clojure
-      "pom.xml" "pom.xml.asc" "*.jar" "*.class" "/lib/" "/classes/" "/target/" "/checkouts/" ".lein-deps-sum" ".lein-repl-history" ".lein-plugins/" ".lein-failures" ".nrepl-port" ".cpcache/"
+      "pom.xml" "pom.xml.asc" "*.jar" "*.class" "/classes/" "/target/" "/checkouts/" ".lein-deps-sum" ".lein-repl-history" ".lein-plugins/" ".lein-failures" ".nrepl-port" ".cpcache/"
       # c/cpp
       ".ccls-cache"
     ];

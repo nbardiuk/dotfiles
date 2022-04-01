@@ -22,12 +22,13 @@ let
     "cider.nrepl/wrap-undef"
     "cider.nrepl/wrap-xref"
   ];
+  same-jdk = pkgs.jdk;
 in
 {
   home.packages = with pkgs; [
-    jdk11
-    (leiningen.override { jdk = jdk11; })
-    (clojure.override { jdk = jdk11; })
+    same-jdk
+    (leiningen.override { jdk = same-jdk; })
+    (clojure.override { jdk = same-jdk; })
     rep
     babashka
   ];
@@ -71,28 +72,12 @@ in
     }
   '';
 
-  xdg.configFile."cljfmt/indentation.edn".text = ''
-    {
-      Given [[:inner 0]]
-      When [[:inner 0]]
-      Then [[:inner 0]]
-      And [[:inner 0]]
-      let-system [[:inner 0]]
-    }
-  '';
-
-  xdg.configFile.".lsp/config.edn".text = ''
+  xdg.configFile."clojure-lsp/config.edn".text = ''
     {:cljfmt
      {:remove-surrounding-whitespace true
       :remove-trailing-whitespace true
       :remove-consecutive-blank-lines true
-      :insert-missing-whitespace true
-      :indents
-      {Given [[:inner 0]]
-       When [[:inner 0]]
-       Then [[:inner 0]]
-       And [[:inner 0]]
-       let-system [[:inner 0]]}}
+      :insert-missing-whitespace true}
      :hover {:hide-file-location? true}}
   '';
 }

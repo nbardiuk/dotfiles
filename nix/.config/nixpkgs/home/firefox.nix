@@ -32,7 +32,7 @@
         "font.name.monospace.x-western" = "Iosevka";
         "general.warnOnAboutConfig" = false;
         "privacy.firstparty.isolate" = true;
-        "privacy.resistFingerprinting" = true;
+        "privacy.resistFingerprinting" = false; # until this is merged https://github.com/philc/vimium/pull/4000
         "signon.autofillForms" = false;
         "signon.rememberSignons" = false;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;

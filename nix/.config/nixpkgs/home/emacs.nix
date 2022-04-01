@@ -5,7 +5,7 @@
   };
   home.packages = with pkgs; [
     emacs
-    python38Packages.python-lsp-server
+    python39Packages.python-lsp-server
     nixpkgs-fmt
     aspell
     aspellDicts.uk

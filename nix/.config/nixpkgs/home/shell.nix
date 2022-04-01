@@ -22,10 +22,10 @@
     lsof
     ncdu
     watch
-    python38Full
-    python38Packages.autopep8
-    python38Packages.pip
-    python38Packages.virtualenv
+    python39Full
+    python39Packages.autopep8
+    python39Packages.pip
+    python39Packages.virtualenv
 
     exa                       # fancy ls with tree
     tokei
@@ -34,6 +34,6 @@
     unrar
     perl534Packages.vidir
 
-    entr                      # file watcher
+    watchexec
   ];
 }

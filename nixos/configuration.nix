@@ -23,23 +23,26 @@
   hardware.nvidia.prime.sync.enable = true;
   hardware.nvidia.prime.intelBusId = "PCI:0:2:0";
   hardware.nvidia.prime.nvidiaBusId = "PCI:1:0:0";
-  services.xserver.videoDrivers = [ "modsetting" "nvidia" ];
+  hardware.nvidia.modesetting.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
   services.xserver.dpi = 96;
 
   hardware.opengl.enable = true;
-  # hardware.opengl.driSupport32Bit = true; # enbales opengl for 32bit apps
-  # hardware.pulseaudio.support32Bit = true;
+  hardware.opengl.driSupport32Bit = true; # enables opengl for 32bit apps
+  hardware.pulseaudio.support32Bit = true;
+  programs.steam.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
   programs.dconf.enable = true; # fixes https://github.com/rycee/home-manager/pull/436#issuecomment-449755377
 
   networking.hostName = "bardiuk";
+  # networking.enableIPv6 = false;
   networking.networkmanager.enable = true;
   networking.networkmanager.insertNameservers = [ "1.1.1.1" "8.8.8.8" ];
   networking.resolvconf.dnsExtensionMechanism = false;
 
-  i18n.defaultLocale = "en_IE.UTF-8";
+  i18n.defaultLocale = "en_IE.UTF-8"; # English with correct date format
   time.timeZone = "Europe/Lisbon";
 
   environment.systemPackages = with pkgs; [
@@ -54,14 +57,15 @@
 
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplipWithPlugin ];
-  hardware.printers.ensurePrinters = [
-    {
-      name = "hpenvy5640";
-      deviceUri = "ipp://HPD639B4";
-      model = "drv:///hp/hpcups.drv/hp-envy_5640_series.ppd";
-      ppdOptions.PageSize = "A4";
-    }
-  ];
+  hardware.printers.ensurePrinters = [{
+    name = "hpenvy5640";
+    deviceUri = "ipp://HPD639B4";
+    model = "drv:///hp/hpcups.drv/hp-envy_5640_series.ppd";
+    ppdOptions.PageSize = "A4";
+  }];
+
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;
@@ -72,23 +76,32 @@
   services.blueman.enable = true; # for blueman applet https://github.com/rycee/home-manager/blob/6aa44d62ad6526177a8c1f1babe1646c06738614/modules/services/blueman-applet.nix#L15
 
   services.xserver.enable = true;
+
+  services.gnome.gnome-keyring.enable = true;
+
+  # Keyboard
   services.xserver.layout = "us,ua";
   services.xserver.xkbOptions = "grp:win_space_toggle"; # man xkeyboard-config
 
-  # Enable touchpad support.
+  # Touchpad
   services.xserver.libinput.enable = true;
-  services.xserver.libinput.touchpad.naturalScrolling = true;
-  services.xserver.libinput.touchpad.clickMethod = "clickfinger";
-  services.xserver.libinput.touchpad.scrollMethod = "twofinger";
-  services.xserver.libinput.touchpad.additionalOptions = ''
-    Option "TappingButtonMap" "lmr"
-  '';
+  services.xserver.libinput.touchpad = {
+    naturalScrolling = true;
+    clickMethod = "clickfinger";
+    scrollMethod = "twofinger";
+    additionalOptions = ''Option "TappingButtonMap" "lmr"'';
+  };
 
+  # Tablet
   services.xserver.wacom.enable = true;
 
   virtualisation.docker.enable = true;
-  virtualisation.virtualbox.host.enable = false;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
+
+  virtualisation.virtualbox.host = {
+    enable = false;
+    addNetworkInterface = false;
+    enableExtensionPack = false;
+  };
 
   # Enable DE
   services.xserver.displayManager.lightdm.greeters.mini = {
@@ -127,20 +140,30 @@
 
   services.sysstat.enable = true;
 
-  services.plex.enable = true;
+  services.plex.enable = false;
   services.plex.user = "nazarii";
   services.plex.group = "users";
   services.plex.openFirewall = true;
 
-  # https://github.com/keyboardio/Chrysalis/blob/master/static/udev/60-kaleidoscope.rules
-  services.udev.packages = lib.singleton (pkgs.writeTextFile {
-    name = "kaleidoscope-udev-rules";
-    destination = "/etc/udev/rules.d/60-kaleidoscope.rules";
-    text = ''
-      SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2300", SYMLINK+="model01", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", TAG+="uaccess", TAG+="seat"
-      SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2301", SYMLINK+="model01", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", TAG+="uaccess", TAG+="seat"
-      SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2302", SYMLINK+="Atreus2", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", TAG+="uaccess", TAG+="seat"
-      SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2303", SYMLINK+="Atreus2", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", TAG+="uaccess", TAG+="seat"
-    '';
-  });
+  services.udev.packages = with pkgs; [
+    (writeTextFile {
+      name = "kaleidoscope-udev-rules";
+      destination = "/etc/udev/rules.d/60-kaleidoscope.rules";
+      # https://github.com/keyboardio/Chrysalis/blob/master/static/udev/60-kaleidoscope.rules
+      text = ''
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2300", SYMLINK+="model01", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", TAG+="uaccess", TAG+="seat"
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2301", SYMLINK+="model01", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", TAG+="uaccess", TAG+="seat"
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2302", SYMLINK+="Atreus2", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", TAG+="uaccess", TAG+="seat"
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2303", SYMLINK+="Atreus2", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", TAG+="uaccess", TAG+="seat"
+      '';
+    })
+    (writeTextFile {
+      name = "logitech-wheel-udev-rules";
+      destination = "/etc/udev/rules.d/99-logitech-wheel.rules";
+      text = ''
+        # Logitech G29 Driving Force Racing Wheel
+        SUBSYSTEMS=="hid", KERNELS=="0003:046D:C24F.????", DRIVERS=="logitech", SYMLINK+="logitech_g29", RUN+="${bash}/bin/sh -c 'chmod 666 %S%p/../../../range; chmod 777 %S%p/../../../leds/ %S%p/../../../leds/*; chmod 666 %S%p/../../../leds/*/brightness'"
+      '';
+    })
+  ];
 }

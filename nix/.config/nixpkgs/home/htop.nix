@@ -27,6 +27,8 @@
       (bar "AllCPUs2")
       (bar "Memory")
       (bar "Swap")
+      (bar "DiskIO")
+      (bar "NetworkIO")
     ]);
   };
 }

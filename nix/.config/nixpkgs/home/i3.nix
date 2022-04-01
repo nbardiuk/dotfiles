@@ -144,7 +144,7 @@ in
     i3blocks-contrib.temperature
     i3blocks-contrib.usb
     i3blocks-contrib.volume
-    iosevka-bin               # monospace font
+    iosevka                   # monospace font
     maim                      # cli screenshot tool
     xorg.xrandr               # monitor settings CLI
     pavucontrol               # pulse audio control GUI

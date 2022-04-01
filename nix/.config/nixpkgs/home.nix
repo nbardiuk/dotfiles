@@ -45,13 +45,69 @@
   # The set of packages to appear in the user environment.
   home.packages = with pkgs; [
     chromium
-    dropbox
-    google-fonts              # collection of fonts
-    iosevka-bin               # monospace font
-    keepassxc                 # password manager
-    #libreoffice-fresh
-    tdesktop                  # chat app
+    google-fonts # collection of fonts
+    iosevka # monospace font
+    keepassxc # password manager
+    libreoffice-fresh
+    tdesktop # chat app
     transmission-gtk
-    vscode-with-extensions
+    # vscode-with-extensions
+
+    # chatterino2
+    # streamlink
+
+    # blender
+    # geeqie
+
+    # lmms
+    # ardour
+    # qtractor
+    # pianobooster
+    # musescore
+    # webtorrent_desktop
+
+    # sysstat
+    # flamegraph
+
+    slack
+    discord
+    element-desktop
+
+    zoom-us
+
+    screenkey
+    slop
+
+    # kdenlive
+    ffmpeg-full
+    frei0r
+
+    # josm
+    # googleearth
+
+
+    # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/programs/steam.nix
+    # steam
+    # steam.run
+
+    anki
+
+    gimp
+
+    chrysalis
+
+    plantuml
+    nodePackages.mermaid-cli
+
+    aws-vault
+    awscli2
+    ssm-session-manager-plugin
+    amazon-ecr-credential-helper
+    drawio
+
+    xsane
+
+    dbeaver
+    mysql80
   ];
 }
