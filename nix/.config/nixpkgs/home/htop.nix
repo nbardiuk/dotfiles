@@ -20,11 +20,8 @@
       hide_userland_threads = true;
       show_program_path = false;
     } // (leftMeters [
-      (graph "CPU")
-      (graph "Memory")
-    ]) // (rightMeters [
-      (text "Tasks")
       (bar "AllCPUs2")
+    ]) // (rightMeters [
       (bar "Memory")
       (bar "Swap")
       (bar "DiskIO")
