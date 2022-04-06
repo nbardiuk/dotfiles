@@ -548,6 +548,9 @@
   (set vim.opt.operatorfunc (.. "v:lua.require'" *module-name* "'.clj_ignore"))
   (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
 
+(defn- conjure-eval [form]
+  (vim.cmd (.. "ConjureEval " form)))
+
 (au clojure :FileType "clojure"
     (nnoremap :buffer :K vim.lsp.buf.hover)
     (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
@@ -557,8 +560,10 @@
     (xnoremap :buffer :<Leader>c do-clj-ignore)
     (nnoremap :buffer :<Leader>cu "<Cmd>let s=@/<CR>l?\\v(#_)+<CR>dgn:let @/=s<CR>")
 
-    (nnoremap :buffer :<LocalLeader>po "<Cmd>ConjureEval (require '[portal.api :as p])(p/open)<CR>")
-    (nnoremap :buffer :<LocalLeader>pt "<Cmd>ConjureEval (require '[portal.api :as p])(add-tap #'p/submit)<CR>")
+    ;; https://github.com/djblue/portal/blob/master/doc/editors/emacs.md
+    (nnoremap :buffer :<LocalLeader>po #(conjure-eval "(require 'portal.api)(portal.api/tap)(portal.api/open)"))
+    (nnoremap :buffer :<LocalLeader>pc #(conjure-eval "(require 'portal.api)(portal.api/close)"))
+    (nnoremap :buffer :<LocalLeader>pr #(conjure-eval "(require 'portal.api)(portal.api/clear)"))
 
     (set vim.opt_local.tabstop 2)
     (set vim.opt_local.softtabstop 2)
