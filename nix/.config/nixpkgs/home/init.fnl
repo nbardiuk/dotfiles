@@ -78,13 +78,9 @@
    :extensions {:fzf {:fuzzy true
                       :override_generic_sorter true
                       :override_file_sorter true
-                      :case_mode :smart_case}
-                :project {:base_dirs ["~/code" "~/dotfiles" "~/Downloads"]
-                          :hidden_files true}}})
+                      :case_mode :smart_case}}})
 (telescope.load_extension :fzf)
-(telescope.load_extension :project)
 
-(nnoremap :<Leader>p #(telescope.extensions.project.project {}))
 (nnoremap :<Leader>k tel.help_tags)
 (nnoremap :<Leader><Leader> tel.commands)
 (noremap :<Leader>la tel.lsp_code_actions)

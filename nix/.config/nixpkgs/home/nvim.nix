@@ -45,7 +45,6 @@ in
       targets-vim
       telescope-fzf-native-nvim
       telescope-nvim
-      telescope-project-nvim
       tmux-navigator
       undotree
       vim-abolish
