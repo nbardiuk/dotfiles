@@ -557,6 +557,9 @@
     (xnoremap :buffer :<Leader>c do-clj-ignore)
     (nnoremap :buffer :<Leader>cu "<Cmd>let s=@/<CR>l?\\v(#_)+<CR>dgn:let @/=s<CR>")
 
+    (nnoremap :buffer :<LocalLeader>po "<Cmd>ConjureEval (require '[portal.api :as p])(p/open)<CR>")
+    (nnoremap :buffer :<LocalLeader>pt "<Cmd>ConjureEval (require '[portal.api :as p])(add-tap #'p/submit)<CR>")
+
     (set vim.opt_local.tabstop 2)
     (set vim.opt_local.softtabstop 2)
     (set vim.opt_local.shiftwidth 2)
@@ -565,9 +568,6 @@
     ;; converts package names into file names; useful for "gf"
     (set vim.opt_local.includeexpr "substitute(substitute(v:fname,'\\.','/','g'),'-','_','g')")
     (set vim.opt_local.suffixesadd ".clj"))
-(set vim.g.clojure_fuzzy_indent true) ; use clojure syntax for indentation
-(set vim.g.clojure_fuzzy_indent_patterns ["^with" "^def" "^let" "^Given" "^When" "^Then" "^And"])
-(set vim.g.conjure#client#clojure#nrepl#test#current_form_names [:deftest :def-integration-test])
 (set vim.g.conjure#client#clojure#nrepl#test#runner :clojure)
 (set vim.g.conjure#client#clojure#nrepl#eval#raw_out true)
 (lspconfig.clojure_lsp.setup {:capabilities cmp-capabilities})

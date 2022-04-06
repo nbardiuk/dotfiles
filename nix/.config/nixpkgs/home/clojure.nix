@@ -1,27 +1,10 @@
 { lib, pkgs, ... }:
 let
-  nrepl = ''"0.8.3"'';
-  cider-nrepl = ''"0.26.0"'';
+  nrepl = ''"0.9.0"'';
+  cider-nrepl = ''"0.28.3"'';
   hashp = ''"0.1.1"'';
-  kaocha = ''"1.0.861"'';
   humane-test-output = ''"0.11.0"'';
-  middleware = lib.concatStringsSep "," [
-    "cider.nrepl/wrap-classpath"
-    "cider.nrepl/wrap-clojuredocs"
-    "cider.nrepl/wrap-complete"
-    "cider.nrepl/wrap-debug"
-    "cider.nrepl/wrap-format"
-    "cider.nrepl/wrap-info"
-    "cider.nrepl/wrap-macroexpand"
-    "cider.nrepl/wrap-ns"
-    "cider.nrepl/wrap-out"
-    "cider.nrepl/wrap-refresh"
-    "cider.nrepl/wrap-spec"
-    "cider.nrepl/wrap-test"
-    "cider.nrepl/wrap-trace"
-    "cider.nrepl/wrap-undef"
-    "cider.nrepl/wrap-xref"
-  ];
+  middleware = lib.concatStringsSep "," [ "cider.nrepl/cider-middleware" ];
   same-jdk = pkgs.jdk;
 in
 {
@@ -29,7 +12,6 @@ in
     same-jdk
     (leiningen.override { jdk = same-jdk; })
     (clojure.override { jdk = same-jdk; })
-    rep
     babashka
   ];
 
@@ -39,7 +21,6 @@ in
         [ [nrepl ${nrepl}]
           [cider/cider-nrepl ${cider-nrepl}]
           [hashp ${hashp}]
-          [lambdaisland/kaocha ${kaocha}]
           [pjstadig/humane-test-output ${humane-test-output}]
         ]
        :repl-options {:nrepl-middleware [${middleware}]
@@ -52,32 +33,28 @@ in
                      }
         :injections [(require 'hashp.core)
                      (require 'pjstadig.humane-test-output)
-                     (pjstadig.humane-test-output/activate!)]
-      }
-    }
+                     (pjstadig.humane-test-output/activate!)]}}
   '';
 
   xdg.configFile."clojure/deps.edn".text = ''
     {:aliases
-      {:rep
-        {:extra-deps { nrepl/nrepl {:mvn/version ${nrepl}}
-                       cider/cider-nrepl {:mvn/version ${cider-nrepl}}
-                       lambdaisland/kaocha {:mvn/version ${kaocha}}
-                       hashp/hashp {:mvn/version ${hashp}}
-                       pjstadig/humane-test-output {:mvn/version ${humane-test-output}}
-                     }
-         :main-opts ["-m" "nrepl.cmdline" "--middleware" "[${middleware}]"]
-        }
-      }
-    }
+      {:nrepl
+        {:extra-deps {nrepl/nrepl {:mvn/version ${nrepl}}
+                      cider/cider-nrepl {:mvn/version ${cider-nrepl}}
+                      hashp/hashp {:mvn/version ${hashp}}
+                      pjstadig/humane-test-output {:mvn/version ${humane-test-output}}}
+         :main-opts  ["-e" "(require,'hashp.core)"
+                      "-e" "(require,'pjstadig.humane-test-output)"
+                      "-e" "(pjstadig.humane-test-output/activate!)"
+                      "-m" "nrepl.cmdline" "--middleware" "[${middleware}]"]}}}
   '';
 
   xdg.configFile."clojure-lsp/config.edn".text = ''
     {:cljfmt
-     {:remove-surrounding-whitespace true
-      :remove-trailing-whitespace true
-      :remove-consecutive-blank-lines true
-      :insert-missing-whitespace true}
+     {:remove-surrounding-whitespace? true
+      :remove-trailing-whitespace? true
+      :remove-consecutive-blank-lines? true
+      :insert-missing-whitespace? true}
      :hover {:hide-file-location? true}}
   '';
 }
