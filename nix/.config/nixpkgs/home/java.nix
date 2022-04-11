@@ -1,11 +1,9 @@
 { pkgs, ...}:
 let
-  enable = false;
+  enable = true;
 in if !enable then {} else {
   home.packages = with pkgs; [
     jdk                       # java dev kit
-    jetbrains.idea-ultimate   # java ide
     maven                     # java build tool
-    gradle
   ];
 }

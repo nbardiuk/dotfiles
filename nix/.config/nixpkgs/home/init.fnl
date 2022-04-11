@@ -695,6 +695,16 @@
 (org.setup_ts_grammar) ;; Load custom tree-sitter grammar for org filetype
 (org.setup {})
 
+;; Java
+(au java :FileType "java"
+    (nnoremap :buffer :K vim.lsp.buf.hover)
+    (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
+    (nnoremap :buffer "}" vim.lsp.buf.references)
+    (nnoremap :buffer :gd vim.lsp.buf.definition))
+(lspconfig.java_language_server.setup
+  {:capabilities cmp-capabilities
+   :cmd ["/home/nazarii/.nix-profile/share/java/java-language-server/lang_server_linux.sh"]})
+
 ;; Auto write and read file
 (au autosave "FocusLost,BufLeave,CursorHold" "*" (vim.cmd "silent! update"))
 (au autoread "FocusGained,BufEnter,CursorHold" "*" (vim.cmd "silent! checktime"))

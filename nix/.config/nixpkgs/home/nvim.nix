@@ -106,5 +106,6 @@ in
     terraform-ls
     terraform
     codespell
+    java-language-server
   ];
 }
