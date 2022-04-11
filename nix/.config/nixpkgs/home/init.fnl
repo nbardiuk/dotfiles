@@ -104,7 +104,7 @@
               :keyword_length 5}]
    :formatting {:format
                 (lspkind.cmp_format
-                  {:with_text true
+                  {:mode :symbol_text
                    :symbol_map (collect [k (pairs lspkind.presets.default)] (values k ""))
                    :menu {:nvim_lua "[lua]"
                           :nvim_lsp "[lsp]"
@@ -675,7 +675,7 @@
     (when (and vim.b.terminal_job_pid vim.b.term_title)
       (vim.cmd (.. "file term:" vim.b.terminal_job_pid ":" vim.b.term_title))))
 
-(vim.api.nvim_add_user_command
+(vim.api.nvim_create_user_command
   :Term
   (fn [{:args path}]
     (let [path (if (= path "") "%:h" path)]
@@ -685,7 +685,7 @@
    :desc "Open terminal"})
 
 ;; Scratch
-(vim.api.nvim_add_user_command
+(vim.api.nvim_create_user_command
   :Scratch
   (fn [{:args suffix}] (vim.cmd (.. "edit " (vim.fn.tempname) "_" suffix)))
   {:nargs "?"

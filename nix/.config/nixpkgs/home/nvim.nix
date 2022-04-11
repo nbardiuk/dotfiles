@@ -13,7 +13,7 @@ in
 {
   programs.neovim = {
     enable = true;
-    package = neovim-nightly "ab6514c";
+    package = neovim-nightly "4358532";
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
@@ -67,15 +67,15 @@ in
       vim-vinegar
       (plugin { url = "https://github.com/chrisbra/colorizer"; rev = "826d569"; sha256 = "069f8gqjihjzzv2qmpv3mid55vi52c6yyiijfarxpwmfchby9gc5"; })
       (plugin { url = "https://github.com/diepm/vim-rest-console"; rev = "7b407f4"; sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj"; })
-      (plugin { url = "https://github.com/jose-elias-alvarez/null-ls.nvim"; rev = "0adceda"; sha256 = "sha256-BEl1+f9kS8jnQLuTUropyC2/5Gl1gvepx4XaXontn9k="; })
+      (plugin { url = "https://github.com/jose-elias-alvarez/null-ls.nvim"; rev = "82be4bf"; sha256 = "sha256-txR7LcvRNX3suwwhSVEC3kp56QYMQTBZhHA/PAnWubE="; })
       (plugin { url = "https://github.com/lervag/wiki.vim"; rev = "d3bc1ee"; sha256 = "sha256-hdE4UatZ/ocK2ks8k6XY8Mry/uoE+6mK5hPzWMD1UKU="; })
-      (plugin { url = "https://github.com/nvim-treesitter/nvim-treesitter"; rev = "e2b2d23"; sha256 = "sha256-Mw9ru6geB1hFdeYdgQdCa/wq/fbcJJYC5CBrM9jm+0w="; })
-      (plugin { url = "https://github.com/Olical/aniseed"; rev = "68ad878"; sha256 = "sha256-mmuXSx8axCcuuT7bbaF5UybXA8Ro4qMJt0JPptzdWpo="; })
-      (plugin { url = "https://github.com/Olical/conjure"; rev = "0c85b2e"; sha256 = "sha256-7MFksurTmp72TgSTrQW0DI3FjGmZJbAGmzwiLNzv2JY="; })
+      (plugin { url = "https://github.com/nvim-treesitter/nvim-treesitter"; rev = "93de9cc"; sha256 = "sha256-B4qWxTQ6mEchtGz+K12GlY3u5KlRThNUBpnQajAyu/0="; })
+      (plugin { url = "https://github.com/Olical/aniseed"; rev = "c55d487"; sha256 = "sha256-OoiRfts0Mhqu2G0+dsH1B8L6jrgcfd6x6IXjAj3x8Hk="; })
+      (plugin { url = "https://github.com/Olical/conjure"; rev = "422cadf"; sha256 = "sha256-sNFjOQL8e9ZD2zluGf6f86IBAzsvdOVHOy+YKCi5oRI="; })
       (plugin { url = "https://github.com/Olical/nvim-local-fennel"; rev = "5770299"; sha256 = "sha256-+dGoOXgp67tI8w0aVMcTrAgaLBh0a30csSZVWCz2xRg="; })
-      (plugin { url = "https://github.com/onsails/lspkind-nvim"; rev = "f0d1552"; sha256 = "sha256-oAA4Q4FC+7fbBw8CwGrqP05PD+q5035vurYzMQLk03I="; })
+      (plugin { url = "https://github.com/onsails/lspkind-nvim"; rev = "93e98a0"; sha256 = "sha256-0103K5lnzWCyuT/qwiBUo5PJ7lUX7fo+zNeEnQClI7A="; })
       (plugin { url = "https://github.com/scr1pt0r/crease.vim"; rev = "b2e5b43"; sha256 = "1yg0p58ajd9xf00sr1y9sjy3nxim8af96svrcsy4yn7xbwk24xgm"; })
-      (plugin { url = "https://gitlab.com/yorickpeterse/nvim-grey"; rev = "41fb14e8"; sha256 = "sha256-466vFz8fq+r1JesrxYR0WtO1ffX/DqkuG2Zc10OEdFk="; })
+      (plugin { url = "https://gitlab.com/yorickpeterse/nvim-grey"; rev = "cdfe7326"; sha256 = "sha256-hQUwhv8mHKF0xcA+wKIpUwIg+PWKdjdKxVkzC23+Sek="; })
     ];
   };
 
