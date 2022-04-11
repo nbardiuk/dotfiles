@@ -145,7 +145,6 @@ in
     i3blocks-contrib.usb
     i3blocks-contrib.volume
     iosevka                   # monospace font
-    maim                      # cli screenshot tool
     xorg.xrandr               # monitor settings CLI
     pavucontrol               # pulse audio control GUI
     pulseeffects-legacy       # pulse audio mixer and effects GUI
