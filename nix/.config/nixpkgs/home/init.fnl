@@ -17,15 +17,12 @@
              null-ls-helpers null-ls.helpers
              org orgmode}})
 
-(macro au [group event pattern ...]
-  `(do
-     (defn ,group [] ,...)
-     (vim.schedule
-       #(vim.cmd
-          (.. "augroup " ,(tostring group) "
-              autocmd!
-              autocmd " ,(tostring event) " " ,(tostring pattern) " lua require('" *module-name* "')['" ,(tostring group) "']()
-              augroup END")))))
+(macro au [group events patterns ...]
+  `(vim.api.nvim_create_autocmd
+     ,events
+     {:group (vim.api.nvim_create_augroup (tostring ,group) {:clear true})
+      :pattern ,patterns
+      :callback (fn [] ,... false)}))
 
 (tree-conf.setup
   {:ensure_intalled :maintained
@@ -142,7 +139,7 @@
 (set vim.opt.mousemodel :popup_setpos) ; make mouse behave like in GUI app
 
 (set vim.opt.clipboard :unnamedplus) ; set default copy register the same as clipboard
-(au yank :TextYankPost "*" (vim.highlight.on_yank {:higroup :Visual}))
+(au yank [:TextYankPost] [:*] (vim.highlight.on_yank {:higroup :Visual}))
 
 (set vim.opt.virtualedit :block) ; allow virtual editing only in Visual Block mode.
 
@@ -177,7 +174,7 @@
 
 
 ;; Panes
-(au autoresize :VimResized "*" (vim.cmd "wincmd ="))
+(au autoresize [:VimResized] [:*] (vim.cmd "wincmd ="))
 (set vim.opt.winwidth 80)     ; minimal width of active window
 (set vim.opt.winminwidth 10)  ; minimal width of inactive window
 (set vim.opt.winheight 50)    ; minimal height of active window
@@ -346,7 +343,7 @@
    #(if (vim.tbl_contains (vim.opt.diffopt:get) "iwhite")
       (do (vim.opt.diffopt:remove "iwhite") (vim.notify "noiwhite"))
       (do (vim.opt.diffopt:append "iwhite") (vim.notify "iwhite"))))
-(au gitcommit :FileType "gitcommit"
+(au gitcommit [:FileType] ["gitcommit"]
     (set vim.opt_local.spell true))
 
 ;; man git-log(1)
@@ -456,7 +453,7 @@
 
 
 ;; Terraform
-(au terraform :FileType "terraform,hcl"
+(au terraform [:FileType] [:terraform :hcl]
     (nnoremap :buffer :gd vim.lsp.buf.definition)
     (nnoremap :buffer "}" vim.lsp.buf.references)
     (nnoremap :buffer :K vim.lsp.buf.hover))
@@ -466,7 +463,7 @@
 
 
 ;; Python
-(au python :FileType "python"
+(au python [:FileType] [:python]
     (nnoremap :buffer :gd vim.lsp.buf.definition)
     (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
     (nnoremap :buffer "}" vim.lsp.buf.references)
@@ -475,7 +472,7 @@
 
 
 ;; JavaScript/TypeScript
-(au typescript :FileType "typescript,javascript,typescriptreact,javascriptreact"
+(au typescript [:FileType] [:typescript :javascript :typescriptreact :javascriptreact]
     (nnoremap :buffer :gd vim.lsp.buf.definition)
     (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
     (nnoremap :buffer :<Leader>lt vim.lsp.buf.type_definition)
@@ -489,7 +486,7 @@
      (tset client.resolved_capabilities :document_range_formatting false))})
 
 ;; Rust
-(au rust :FileType "rust"
+(au rust [:FileType] [:rust]
     (nnoremap :buffer :gd vim.lsp.buf.definition)
     (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
     (nnoremap :buffer "}" vim.lsp.buf.references)
@@ -498,7 +495,7 @@
 
 
 ;; C
-(au c :FileType "c,cpp"
+(au c [:FileType] [:c :cpp]
     (vnoremap :buffer "=" vim.lsp.buf.range_formatting)
     (nnoremap :buffer :gd vim.lsp.buf.definition)
     (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
@@ -513,7 +510,7 @@
 
 ;; Sexp
 (set vim.g.sexp_filetypes "clojure,scheme,lisp,fennel")
-(au sexp :FileType "clojure,scheme,lisp,fennel"
+(au sexp [:FileType] [:clojure :scheme :lisp :fennel]
     (nmap :buffer :doe "<Plug>(sexp_raise_element)")
     (nmap :buffer :dof "<Plug>(sexp_raise_list)")
 
@@ -551,7 +548,7 @@
 (defn- conjure-eval [form]
   (vim.cmd (.. "ConjureEval " form)))
 
-(au clojure :FileType "clojure"
+(au clojure [:FileType] [:clojure]
     (nnoremap :buffer :K vim.lsp.buf.hover)
     (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
     (nnoremap :buffer :gd vim.lsp.buf.definition)
@@ -601,7 +598,7 @@
   (set vim.opt.operatorfunc (.. "v:lua.require'" *module-name* "'.scm_ignore"))
   (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
 
-(au scheme :FileType "scheme"
+(au scheme [:FileType] [:scheme]
     (xnoremap :buffer :<Leader>c do-scm-ignore)
     (nnoremap :buffer :<Leader>cc #(do-scm-ignore "aF"))
     (nmap :buffer :<Leader>cu "<Cmd>let s=@/<CR>l?\v(#;)+<CR>dgn:let @/=s<CR>")
@@ -621,7 +618,7 @@
      {:json "jq"
       :xml (.. "grep \"\\S\" | xmllint --format --nonet --recover -")})
 
-(au rest :FileType "rest"
+(au rest [:FileType] [:rest]
     (nnoremap :buffer :<Leader>cd
               #(do
                  (set vim.b.vrc_debug (not vim.b.vrc_debug))
@@ -641,14 +638,14 @@
 
 
 ;; Markdown
-(au markdown :FileType "markdown"
+(au markdown [:FileType] [:markdown]
     (vnoremap :buffer :<Leader>tj ":!pandoc -f gfm -t jira<CR>"))
 (set vim.g.markdown_syntax_conceal false)
 (set vim.g.markdown_folding 1)
 
 
 ;; glsl
-(au glsl-detect "BufNewFile,BufRead" "*.glsl,*.vert,*.geom,*.frag"
+(au glsl-detect [:BufNewFile :BufRead] [:*.glsl :*.vert :*.geom :*.frag]
     (set vim.opt_local.filetype :glsl))
 
 ;; Projectionist
@@ -668,10 +665,10 @@
 ;; Terminal
 (tnoremap :<Esc> "<C-\\><C-n>") ; use Esc to exit terminal mode
 (tnoremap :<C-v><Esc> "<Esc>") ; press Esc in terminal mode
-(au terminal-open :TermOpen "*"
+(au terminal-open [:TermOpen] [:*]
     (set vim.opt_local.statusline "%{b:term_title}")
     (set vim.opt_local.bufhidden "hide"))
-(au terminal-leave :TermLeave "*"
+(au terminal-leave [:TermLeave] [:*]
     (when (and vim.b.terminal_job_pid vim.b.term_title)
       (vim.cmd (.. "file term:" vim.b.terminal_job_pid ":" vim.b.term_title))))
 
@@ -696,7 +693,7 @@
 (org.setup {})
 
 ;; Java
-(au java :FileType "java"
+(au java [:FileType] [:java]
     (nnoremap :buffer :K vim.lsp.buf.hover)
     (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
     (nnoremap :buffer "}" vim.lsp.buf.references)
@@ -706,9 +703,9 @@
    :cmd ["/home/nazarii/.nix-profile/share/java/java-language-server/lang_server_linux.sh"]})
 
 ;; Auto write and read file
-(au autosave "FocusLost,BufLeave,CursorHold" "*" (vim.cmd "silent! update"))
-(au autoread "FocusGained,BufEnter,CursorHold" "*" (vim.cmd "silent! checktime"))
-(au jump-to-last-postion :BufReadPost "*"
+(au autosave [:FocusLost :BufLeave :CursorHold] [:*] (vim.cmd "silent! update"))
+(au autoread [:FocusGained :BufEnter :CursorHold] [:*] (vim.cmd "silent! checktime"))
+(au jump-to-last-postion [:BufReadPost] [:*]
     ; https://github.com/vim/vim/blob/eaf35241197fc6b9ee9af993095bf5e6f35c8f1a/runtime/defaults.vim#L108-L117
     (let [[line col] (vim.api.nvim_buf_get_mark 0 "\"")
           line-count (vim.api.nvim_buf_line_count 0)]
