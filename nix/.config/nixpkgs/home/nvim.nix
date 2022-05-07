@@ -13,7 +13,7 @@ in
 {
   programs.neovim = {
     enable = true;
-    package = neovim-nightly "245a286";
+    package = neovim-nightly "8df1ab4";
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
@@ -30,6 +30,7 @@ in
       cmp-path # filesystem source for nvim-cmp
       cmp-spell # spelling source for nvim-cmp
       cmp-treesitter # tree sitter source for nvim-cmp
+      comment-nvim
       ferret
       gitgutter
       hop-nvim
@@ -48,7 +49,6 @@ in
       tmux-navigator
       undotree
       vim-abolish
-      vim-commentary
       vim-cool # manages search highlight
       vim-dadbod
       vim-dadbod-completion
@@ -67,11 +67,11 @@ in
       vim-vinegar
       (plugin { url = "https://github.com/chrisbra/colorizer"; rev = "826d569"; sha256 = "069f8gqjihjzzv2qmpv3mid55vi52c6yyiijfarxpwmfchby9gc5"; })
       (plugin { url = "https://github.com/diepm/vim-rest-console"; rev = "7b407f4"; sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj"; })
-      (plugin { url = "https://github.com/jose-elias-alvarez/null-ls.nvim"; rev = "82be4bf"; sha256 = "sha256-txR7LcvRNX3suwwhSVEC3kp56QYMQTBZhHA/PAnWubE="; })
+      (plugin { url = "https://github.com/jose-elias-alvarez/null-ls.nvim"; rev = "3dbded7"; sha256 = "sha256-LByPRrQXWM6gSjknIq8+blQ86Bzb0X/AJFRM0IkB5Ew="; })
       (plugin { url = "https://github.com/lervag/wiki.vim"; rev = "d3bc1ee"; sha256 = "sha256-hdE4UatZ/ocK2ks8k6XY8Mry/uoE+6mK5hPzWMD1UKU="; })
       (plugin { url = "https://github.com/nvim-treesitter/nvim-treesitter"; rev = "93de9cc"; sha256 = "sha256-B4qWxTQ6mEchtGz+K12GlY3u5KlRThNUBpnQajAyu/0="; })
-      (plugin { url = "https://github.com/Olical/aniseed"; rev = "c55d487"; sha256 = "sha256-OoiRfts0Mhqu2G0+dsH1B8L6jrgcfd6x6IXjAj3x8Hk="; })
-      (plugin { url = "https://github.com/Olical/conjure"; rev = "422cadf"; sha256 = "sha256-sNFjOQL8e9ZD2zluGf6f86IBAzsvdOVHOy+YKCi5oRI="; })
+      (plugin { url = "https://github.com/Olical/aniseed"; rev = "618c211"; sha256 = "sha256-uBxH8WdmONq50C8LAJLSxX3b+9FbQQjzfRZ4MXMQ4N8="; })
+      (plugin { url = "https://github.com/Olical/conjure"; rev = "251d8ef"; sha256 = "sha256-jV2EETS2rcTNjtCA26AsrGs/aVcloXAyp1ZFtQ4mF3w="; })
       (plugin { url = "https://github.com/Olical/nvim-local-fennel"; rev = "5770299"; sha256 = "sha256-+dGoOXgp67tI8w0aVMcTrAgaLBh0a30csSZVWCz2xRg="; })
       (plugin { url = "https://github.com/onsails/lspkind-nvim"; rev = "93e98a0"; sha256 = "sha256-0103K5lnzWCyuT/qwiBUo5PJ7lUX7fo+zNeEnQClI7A="; })
       (plugin { url = "https://github.com/scr1pt0r/crease.vim"; rev = "b2e5b43"; sha256 = "1yg0p58ajd9xf00sr1y9sjy3nxim8af96svrcsy4yn7xbwk24xgm"; })
@@ -107,5 +107,6 @@ in
     terraform
     codespell
     java-language-server
+    google-java-format
   ];
 }

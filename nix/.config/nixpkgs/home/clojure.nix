@@ -44,8 +44,8 @@ in
                       djblue/portal {:mvn/version ${portal}}
                       pjstadig/humane-test-output {:mvn/version ${humane-test-output}}}
          :main-opts  ["-e" "(require,'hashp.core)"
-                      "-e" "(require,'pjstadig.humane-test-output)"
-                      "-e" "(pjstadig.humane-test-output/activate!)"
+                      "-e" "(require,'pjstadig.humane-test-output)(pjstadig.humane-test-output/activate!)"
+                      "-e" "(require,'portal.api)(portal.api/tap)"
                       "-m" "nrepl.cmdline" "--middleware" "[${middleware}]"]}}}
   '';
 

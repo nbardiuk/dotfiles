@@ -2,6 +2,7 @@
   {autoload {telescope telescope
              tel telescope.builtin
              themes telescope.themes
+             Comment Comment
              cmp cmp
              pqf pqf
              cmp_nvim_lsp cmp_nvim_lsp
@@ -61,7 +62,6 @@
 
 (defn- nmap     [...] (keymap :n [:remap   ...]))
 (defn- nnoremap [...] (keymap :n [:noremap ...]))
-(defn- noremap  [...] (keymap :n [:noremap ...]))
 (defn- omap     [...] (keymap :o [:remap   ...]))
 (defn- tnoremap [...] (keymap :t [:noremap ...]))
 (defn- vnoremap [...] (keymap :v [:noremap ...]))
@@ -80,7 +80,6 @@
 
 (nnoremap :<Leader>k tel.help_tags)
 (nnoremap :<Leader><Leader> tel.commands)
-(noremap :<Leader>la tel.lsp_code_actions)
 (nnoremap :<Leader>n #(tel.find_files {:find_command [:fd :--hidden :--exclude :.git]}))
 (nnoremap :<Leader>e #(tel.buffers {:sort_lastused true
                                     :ignore_current_buffer false}))
@@ -114,11 +113,15 @@
                           :buffer "[buf]"
                           :spell "[spell]"}})}
    :snippet {:expand #(luasnip.lsp_expand (. $1 :body))}
-   :mapping {"<C-d>" (cmp.mapping.scroll_docs -4)
-             "<C-u>" (cmp.mapping.scroll_docs 4)
-             "<C-e>" (cmp.mapping.close)
-             "<C-y>" (cmp.mapping.confirm {:behaviour cmp.ConfirmBehavior.Insert
-                                           :select true})}})
+   :mapping {"<C-n>"   (cmp.mapping.select_next_item)
+             "<C-p>"   (cmp.mapping.select_prev_item)
+             "<Down>"  (cmp.mapping.select_next_item)
+             "<Up>"    (cmp.mapping.select_prev_item)
+             "<C-d>"   (cmp.mapping.scroll_docs -4)
+             "<C-u>"   (cmp.mapping.scroll_docs 4)
+             "<C-e>"   (cmp.mapping.close)
+             "<Space>" (cmp.mapping.confirm)
+             "<Tab>"   (cmp.mapping.complete_common_string)}})
 
 (def- cmp-capabilities
   (cmp_nvim_lsp.update_capabilities (vim.lsp.protocol.make_client_capabilities)))
@@ -313,6 +316,9 @@
       ])
 
 
+;; Comments
+(Comment.setup {})
+
 ;; Hop
 (hop.setup
   {:teasing false
@@ -375,10 +381,8 @@
       "<Plug>(wiki-link-toggle)" "<Leader>w_disable"
       "<Plug>(wiki-page-toc)" "<Leader>w_disable"})
 
-(nnoremap :<Leader>wn #(tel.find_files {:find_command [:fd
-                                                       :--exclude :.stversions
-                                                       :--exclude :.stfoldre]
-                                        :cwd vim.g.wiki_root}))
+(nnoremap :<Leader>wn #(tel.find_files {:cwd vim.g.wiki_root}))
+(nnoremap :<Leader>wf #(tel.live_grep {:cwd vim.g.wiki_root}))
 
 
 
@@ -400,6 +404,7 @@
 
     null-ls.builtins.formatting.fixjson
     null-ls.builtins.formatting.prettier
+    null-ls.builtins.formatting.google_java_format
     (null-ls.builtins.formatting.trim_whitespace.with
       {:filetypes ["yaml" "docker" "fennel"]})
     (null_ls.builtins.formatting.clang_format.with
@@ -428,7 +433,12 @@
                "--recover"
                "-"]
         :to_stdin true}})]})
-(nnoremap :<Leader>lf vim.lsp.buf.formatting)
+
+(defn- enabled-formatting? [client]
+  (let [disabled-formatters [:java_language_server :tsserver]]
+    (not (vim.tbl_contains disabled-formatters (. client :name)))))
+(nnoremap :<Leader>lf #(vim.lsp.buf.format {:filter #(vim.tbl_filter enabled-formatting? $1)}))
+(nnoremap :<Leader>la vim.lsp.buf.code_action)
 
 (vim.diagnostic.config
   {:virtual_text false
@@ -480,10 +490,11 @@
     (nnoremap :buffer :K vim.lsp.buf.hover))
 (lspconfig.tsserver.setup
   {:capabilities cmp-capabilities
-   :on_attach
-   (lambda [client]
-     (tset client.resolved_capabilities :document_formatting false )
-     (tset client.resolved_capabilities :document_range_formatting false))})
+   ;; https://github.com/typescript-language-server/typescript-language-server/issues/411#issuecomment-1065943942
+   :cmd [:typescript-language-server :--stdio :--tsserver-path
+         (let [[tsserver-bin] (vim.fn.systemlist "realpath `which tsserver`")
+               (tsserver-path) (string.gsub tsserver-bin "bin/tsserver" "lib")]
+           tsserver-path)]})
 
 ;; Rust
 (au rust :FileType :rust
@@ -624,6 +635,10 @@
                  (set vim.b.vrc_debug (not vim.b.vrc_debug))
                  (set vim.b.vrc_show_command vim.b.vrc_debug)
                  (vim.notify (if vim.b.vrc_debug "debug" "nodebug"))))
+    (nnoremap :buffer :<Leader>cb
+              #(do
+                 (set vim.b.vrc_allow_get_request_body (not vim.b.vrc_allow_get_request_body))
+                 (vim.notify (if vim.b.vrc_allow_get_request_body "allow body" "disallow body"))))
     (nnoremap :buffer :<Leader>cs
               #(do
                  (set vim.b.vrc_split_request_body (not vim.b.vrc_split_request_body))
@@ -651,15 +666,10 @@
 ;; Projectionist
 (nnoremap :<Leader>aa "<Cmd>A<CR>")
 (set vim.g.projectionist_heuristics
-     {"project.clj|deps.edn" {"dev/*.clj"       {:type "source"}
-                              "src/*.clj"       {:alternate "test/{}_test.clj"
-                                                 :type "source"}
-                              "test/*_test.clj" {:alternate "src/{}.clj"
-                                                 :type "test"}}
-      "dbt_project.yml"      {"models/*.sql"    {:alternate "tests/{}.sql"
-                                                 :type "source"}
-                              "tests/*.sql"     {:alternate "models/{}.sql"
-                                                 :type "test"}}})
+     {"project.clj|deps.edn" {"src/*.clj"           {:alternate "test/{}_test.clj"}
+                              "test/*_test.clj"     {:alternate "src/{}.clj"}}
+      "pom.xml"              {"src/main/*.java"     {:alternate "src/test/{}Test.java"}
+                              "src/test/*Test.java" {:alternate "src/main/{}.java"}}})
 
 
 ;; Terminal

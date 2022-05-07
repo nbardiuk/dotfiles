@@ -30,6 +30,8 @@ in {
       "pom.xml" "pom.xml.asc" "*.jar" "*.class" "/classes/" "/target/" "/checkouts/" ".lein-deps-sum" ".lein-repl-history" ".lein-plugins/" ".lein-failures" ".nrepl-port" ".cpcache/"
       # c/cpp
       ".ccls-cache"
+      # syncthing
+      ".stversions/" ".stfolder/"
     ];
     extraConfig = {
       checkout.defaultRemote = "origin";

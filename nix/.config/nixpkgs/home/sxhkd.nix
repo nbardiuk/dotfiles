@@ -34,9 +34,9 @@ with lib;
       "super + Return"               = "alacritty";
       "super + d"                    = "rofi -show combi";
       "super + Tab"                  = "rofi -show combi -combi-modi window";
-      "super + b"                    = "${pkgs.open_book}/bin/open-book";
-      "super + c"                    = "${pkgs.connection_toggle}/bin/connection-toggle";
-      "super + k"                    = "${pkgs.keyboard_toggle}/bin/keyboard-toggle";
+      "super + ctrl + b"             = "${pkgs.open_book}/bin/open-book";
+      "super + ctrl + c"             = "${pkgs.connection_toggle}/bin/connection-toggle";
+      "super + ctrl + k"             = "${pkgs.keyboard_toggle}/bin/keyboard-toggle";
     };
   };
 }
