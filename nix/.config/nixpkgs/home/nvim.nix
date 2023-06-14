@@ -13,32 +13,41 @@ in
 {
   programs.neovim = {
     enable = true;
-    package = neovim-nightly "8df1ab4";
+    package = neovim-nightly "3933bf7c2b1bd571d68b1e487c63402baac35710";
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
     withNodeJs = false;
-    withPython3 = true;
+    withPython3 = false;
     withRuby = false;
     extraConfig = "let g:aniseed#env = {'module': 'dotfiles.init'}";
     plugins = with pkgs.vimPlugins; [
       cmp-buffer # buffer text source for nvim-cmp
       cmp-conjure # conjure source for nvim-cmp
-      cmp_luasnip # integrates luasnip with nvim-cmp
       cmp-nvim-lsp # lsp source for nvim-cmp
-      cmp-nvim-lua # lua source for nvim-cmp
       cmp-path # filesystem source for nvim-cmp
       cmp-spell # spelling source for nvim-cmp
       cmp-treesitter # tree sitter source for nvim-cmp
+      cmp_luasnip # integrates luasnip with nvim-cmp
       comment-nvim
+      dressing-nvim # vim.select and vim.input
       ferret
+      fidget-nvim # lsp progress widget
       gitgutter
-      hop-nvim
+      lightspeed-nvim # quick jumps
+      lspkind-nvim
+      lualine-nvim
       luasnip # snippets manager
+      markdown-preview-nvim
+      null-ls-nvim # linters and formatters using lsp
+      nvim-autopairs
       nvim-cmp # completion manager
       nvim-lspconfig
+      nvim-surround
+      nvim-treesitter.withAllGrammars
+      nvim-treesitter-context
       nvim-treesitter-textobjects
-      orgmode
+      oil-nvim # dired inspired browser
       playground # treesitter playground
       plenary-nvim # for telescope, and null-ls
       rhubarb # github provider for fugitive
@@ -52,35 +61,63 @@ in
       vim-cool # manages search highlight
       vim-dadbod
       vim-dadbod-completion
+      vim-easy-align
       vim-eunuch
       vim-fugitive
       vim-indent-object
       vim-matchup
-      vim-projectionist
       vim-repeat
       vim-rsi
       vim-sexp
       vim-sexp-mappings-for-regular-people
       vim-slime
-      vim-surround
       vim-unimpaired
-      vim-vinegar
-      (plugin { url = "https://github.com/chrisbra/colorizer"; rev = "826d569"; sha256 = "069f8gqjihjzzv2qmpv3mid55vi52c6yyiijfarxpwmfchby9gc5"; })
-      (plugin { url = "https://github.com/diepm/vim-rest-console"; rev = "7b407f4"; sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj"; })
-      (plugin { url = "https://github.com/jose-elias-alvarez/null-ls.nvim"; rev = "3dbded7"; sha256 = "sha256-LByPRrQXWM6gSjknIq8+blQ86Bzb0X/AJFRM0IkB5Ew="; })
-      (plugin { url = "https://github.com/lervag/wiki.vim"; rev = "d3bc1ee"; sha256 = "sha256-hdE4UatZ/ocK2ks8k6XY8Mry/uoE+6mK5hPzWMD1UKU="; })
-      (plugin { url = "https://github.com/nvim-treesitter/nvim-treesitter"; rev = "93de9cc"; sha256 = "sha256-B4qWxTQ6mEchtGz+K12GlY3u5KlRThNUBpnQajAyu/0="; })
-      (plugin { url = "https://github.com/Olical/aniseed"; rev = "618c211"; sha256 = "sha256-uBxH8WdmONq50C8LAJLSxX3b+9FbQQjzfRZ4MXMQ4N8="; })
-      (plugin { url = "https://github.com/Olical/conjure"; rev = "251d8ef"; sha256 = "sha256-jV2EETS2rcTNjtCA26AsrGs/aVcloXAyp1ZFtQ4mF3w="; })
-      (plugin { url = "https://github.com/Olical/nvim-local-fennel"; rev = "5770299"; sha256 = "sha256-+dGoOXgp67tI8w0aVMcTrAgaLBh0a30csSZVWCz2xRg="; })
-      (plugin { url = "https://github.com/onsails/lspkind-nvim"; rev = "93e98a0"; sha256 = "sha256-0103K5lnzWCyuT/qwiBUo5PJ7lUX7fo+zNeEnQClI7A="; })
-      (plugin { url = "https://github.com/scr1pt0r/crease.vim"; rev = "b2e5b43"; sha256 = "1yg0p58ajd9xf00sr1y9sjy3nxim8af96svrcsy4yn7xbwk24xgm"; })
-      (plugin { url = "https://gitlab.com/yorickpeterse/nvim-grey"; rev = "cdfe7326"; sha256 = "sha256-hQUwhv8mHKF0xcA+wKIpUwIg+PWKdjdKxVkzC23+Sek="; })
+      (plugin {
+        url = "https://github.com/2KAbhishek/co-author.nvim";
+        rev = "b18ac50";
+        sha256 = "sha256-8JOc6Y/p/nwMiu4ZCPV/WmgGkwB1VN45Hu+NHnt9jRc=";
+      })
+      (plugin {
+        url = "https://github.com/chrisbra/colorizer";
+        rev = "715c913";
+        sha256 = "sha256-HnIDb6cQKCSuUoNXmw75z5sYxbj9Cv0xMVOWSCgU8jw=";
+      })
+      (plugin {
+        url = "https://github.com/diepm/vim-rest-console";
+        rev = "7b407f4";
+        sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj";
+      })
+      (plugin {
+        url = "https://github.com/lervag/wiki.vim";
+        rev = "6777c73";
+        sha256 = "sha256-v203eAizjW82fAYIsUFa6EJFELH0QsPKXelLnbYhoPI=";
+      })
+      (plugin {
+        url = "https://github.com/Olical/aniseed";
+        rev = "v3.33.0";
+        sha256 = "sha256-8AynKSSKK7R4Y8lGqzPSu6j4o6uuZikhq9fW4Degps0=";
+      })
+      (plugin {
+        url = "https://github.com/Olical/conjure";
+        rev = "v4.44.2";
+        sha256 = "sha256-6k8VrNdG0/d2EzoRWf6+LfcxJB23dO7ndlPEiDK1poc=";
+      })
+      (plugin {
+        url = "https://github.com/rgroli/other.nvim";
+        rev = "9afecea";
+        sha256 = "sha256-df/L8ZOdjkviE6WRRe7uon82hlUb+yYDdtiN3pJ5OBs=";
+      })
+      (plugin {
+        url = "https://github.com/yorickpeterse/nvim-grey";
+        rev = "70a5d2d";
+        sha256 = "sha256-tn1HH2YoxMFbUQxVKoBCgC9wBq9DpB5PMaKm3DLgH20=";
+      })
     ];
   };
 
   xdg.configFile = with config.lib.file; {
     "nvim/fnl/dotfiles/init.fnl".source = mkOutOfStoreSymlink ./init.fnl;
+    "nvim/queries".source = mkOutOfStoreSymlink ./nvim-queries;
   };
 
   home.packages = with pkgs; [
@@ -95,7 +132,7 @@ in
     yamllint # yaml linter
     pgformatter # sql formatter
     sqlint # sql linter
-    python39Packages.python-lsp-server
+    python310Packages.python-lsp-server
     ccls
     clang-tools
     hadolint # dockerfile linter
@@ -103,10 +140,8 @@ in
     pandoc # for markdown conversion
     statix # nix linter
     nodePackages.fixjson # json formatter
-    terraform-ls
-    terraform
     codespell
-    java-language-server
-    google-java-format
+    sqls
+    tree-sitter
   ];
 }

@@ -1,22 +1,37 @@
 (module dotfiles.init
-  {autoload {telescope telescope
-             tel telescope.builtin
-             themes telescope.themes
+  {autoload {autopairs nvim-autopairs
              Comment Comment
+             c aniseed.core
              cmp cmp
-             pqf pqf
              cmp_nvim_lsp cmp_nvim_lsp
+             dressing dressing
+             fidget fidget
+             lightspeed lightspeed
+             lspconfig lspconfig
+             lspconfigs lspconfig.configs
              lspkind lspkind
+             lualine lualine
              luasnip luasnip
              nu aniseed.nvim.util
-             c aniseed.core
-             lspconfig lspconfig
-             tree-conf nvim-treesitter.configs
-             hop hop
              null-ls null-ls
-             null-ls-methods null-ls.methods
              null-ls-helpers null-ls.helpers
-             org orgmode}})
+             null-ls-methods null-ls.methods
+             oil oil
+             surround nvim-surround
+             tel telescope.builtin
+             telescope telescope
+             themes telescope.themes
+             tree-context treesitter-context
+             tree-conf nvim-treesitter.configs
+             tree-parsers nvim-treesitter.parsers
+             ts_utils nvim-treesitter.ts_utils
+             other other-nvim}})
+
+
+(tree-context.setup
+  {:enable true
+   :separator "·"})
+
 
 (macro au [group event pattern ...]
   `(vim.api.nvim_create_autocmd
@@ -25,20 +40,24 @@
       :pattern ,pattern
       :callback (fn [] (do ,...) nil)}))
 
+; (vim.opt.runtimepath:append "~/.local/share/nvim/treesitter")
 (tree-conf.setup
-  {:ensure_intalled :maintained
+  {:auto_install false
+   ; :parser_install_dir "~/.local/share/nvim/treesitter"
    :indent {:enable true}
-   :highlight {:enable true
-               :disable [:org]
-               :additional_vim_regex_highlighting [:org]}
+   :highlight {:enable true}
    :textobjects {:select {:enable true
                           :lookahead true
                           :keymaps {"aa" "@parameter.outer"
                                     "ia" "@parameter.inner"
+                                    "ac" "@comment.outer"
                                     "as" "@statement.outer"}}
                  :swap {:enable true
                         :swap_next {">a" "@parameter.inner"}
-                        :swap_previous {"<lt>a" "@parameter.inner"}}}})
+                        :swap_previous {"<lt>a" "@parameter.inner"}}}
+
+   :matchup {:enable true}})
+
 
 (set vim.g.mapleader " ")
 (set vim.g.maplocalleader "\t")
@@ -68,9 +87,11 @@
 (defn- xmap     [...] (keymap :x [:remap   ...]))
 (defn- xnoremap [...] (keymap :x [:noremap ...]))
 
+(def- bottom-height 15)
+
 (telescope.setup
   {:defaults (themes.get_ivy
-               {:layout_config {:height 10}
+               {:layout_config {:height bottom-height}
                 :preview false})
    :extensions {:fzf {:fuzzy true
                       :override_generic_sorter true
@@ -78,18 +99,20 @@
                       :case_mode :smart_case}}})
 (telescope.load_extension :fzf)
 
+(nnoremap :<Leader>r tel.resume)
 (nnoremap :<Leader>k tel.help_tags)
 (nnoremap :<Leader><Leader> tel.commands)
 (nnoremap :<Leader>n #(tel.find_files {:find_command [:fd :--hidden :--exclude :.git]}))
 (nnoremap :<Leader>e #(tel.buffers {:sort_lastused true
                                     :ignore_current_buffer false}))
 
+(dressing.setup
+  {:select {:telescope (themes.get_ivy {:layout_config {:height bottom-height}})}})
+
 (cmp.setup
-  {:sources [{:name :nvim_lua}
-             {:name :nvim_lsp}
-             {:name :conjure}
+  {:sources [{:name :nvim_lsp}
+             ; {:name :conjure}
              {:name :treesitter}
-             {:name :orgmode}
              {:name :vim-dadbod-completion}
              {:name :lausnip}
              {:name :path}
@@ -102,29 +125,36 @@
                 (lspkind.cmp_format
                   {:mode :symbol_text
                    :symbol_map (collect [k (pairs lspkind.presets.default)] (values k ""))
-                   :menu {:nvim_lua "[lua]"
-                          :nvim_lsp "[lsp]"
+                   :menu {:nvim_lsp "[lsp]"
                           :conjure "[conj]"
                           :vim-dadbod-completion "[db]"
                           :treesitter "[tree]"
-                          :orgmode "[org]"
                           :luasnip "[snip]"
                           :path "[path]"
                           :buffer "[buf]"
                           :spell "[spell]"}})}
    :snippet {:expand #(luasnip.lsp_expand (. $1 :body))}
-   :mapping {"<C-n>"   (cmp.mapping.select_next_item)
-             "<C-p>"   (cmp.mapping.select_prev_item)
-             "<Down>"  (cmp.mapping.select_next_item)
-             "<Up>"    (cmp.mapping.select_prev_item)
+   :mapping {"<C-n>"   (cmp.mapping #(if
+                                       (cmp.visible)                (cmp.select_next_item)
+                                       (luasnip.expand_or_jumpable) (luasnip.expand_or_jump)
+                                       ($1)) [:i :s])
+             "<C-p>"   (cmp.mapping #(if
+                                       (cmp.visible)         (cmp.select_prev_item)
+                                       (luasnip.jumpable -1) (luasnip.jump -1)
+                                       ($1)) [:i :s])
              "<C-d>"   (cmp.mapping.scroll_docs -4)
              "<C-u>"   (cmp.mapping.scroll_docs 4)
              "<C-e>"   (cmp.mapping.close)
-             "<Space>" (cmp.mapping.confirm)
-             "<Tab>"   (cmp.mapping.complete_common_string)}})
+             "<Space>" (cmp.mapping.confirm)}})
 
-(def- cmp-capabilities
-  (cmp_nvim_lsp.update_capabilities (vim.lsp.protocol.make_client_capabilities)))
+(def- lsp-capabilities
+  (vim.tbl_deep_extend
+    :force
+    (vim.lsp.protocol.make_client_capabilities)
+    (cmp_nvim_lsp.default_capabilities)
+    {:workspace {:workspaceEdit {:documentChanges true}}}))
+
+(surround.setup {})
 
 (set vim.opt.completeopt [:menu :menuone :noselect])
 (vim.opt.complete:remove :t)  ; I don't use tags
@@ -134,7 +164,7 @@
 (vim.opt.shortmess:append :W) ; don't give 'written' when writing a file
 
 (set vim.opt.scrolloff 5)       ; minimal number of lines around cursor
-(set vim.opt.sidescrolloff 5)   ; minimal number of chars around cursor
+(set vim.opt.sidescrolloff 5)  ; minimal number of chars around cursor
 (set vim.opt.startofline false) ; keep cursor on the same offset when paging
 
 (set vim.opt.guicursor "a:blinkon0")   ; disable cursor blink in all modes
@@ -157,9 +187,9 @@
 
 
 ;; Spelling
-(set vim.opt.spelllang :en_us)     ; spell check
-(set vim.opt.spell false)          ; disabled by default
-(vim.opt.spellsuggest:append "10") ; limit spell suggestions list
+(set vim.opt.spelllang :en_us)
+(set vim.opt.spell false)
+(vim.opt.spellsuggest:append (.. "" bottom-height)) ; limit spell suggestions list
 (nnoremap :silent "]s" "<Cmd>execute ':setlocal spell'| normal! ]s<CR>")
 (nnoremap :silent "]S" "<Cmd>execute ':setlocal spell'| normal! ]S<CR>")
 (nnoremap :silent "[s" "<Cmd>execute ':setlocal spell'| normal! [s<CR>")
@@ -177,11 +207,11 @@
 
 
 ;; Panes
-(au autoresize :VimResized :* (vim.cmd "wincmd ="))
-(set vim.opt.winwidth 80)     ; minimal width of active window
-(set vim.opt.winminwidth 10)  ; minimal width of inactive window
-(set vim.opt.winheight 50)    ; minimal height of active window
-(set vim.opt.winminheight 10) ; minimal height of inactive window
+(au autoresize :VimResized :* (vim.cmd.wincmd "="))
+(set vim.opt.winwidth 80)    ; minimal width of active window
+(set vim.opt.winminwidth 8)  ; minimal width of inactive window
+(set vim.opt.winheight 24)   ; minimal height of active window
+(set vim.opt.winminheight 2) ; minimal height of inactive window
 (set vim.opt.splitright true)
 (set vim.opt.splitbelow true)
 
@@ -216,7 +246,6 @@
                   :Repeat
                   :Label
                   :Operator
-                  :Keyword
                   :Exception
                   :PreProc
                   :Include
@@ -236,24 +265,45 @@
                  :Comment :Directory
                  :Whitespace :VertSplit
                  :TermCursorNC :Cursor
-                 :Boolean :Yellow}]
+                 :Boolean :Yellow
+                 "@symbol" :Keyword
+                 "@lsp.type.namespace" "@namespace"
+                 "@lsp.type.type" "@type"
+                 "@lsp.type.class" "@type"
+                 "@lsp.type.enum" "@type"
+                 "@lsp.type.interface" "@type"
+                 "@lsp.type.struct" "@structure"
+                 "@lsp.type.parameter" "@parameter"
+                 "@lsp.type.variable" "@variable"
+                 "@lsp.type.property" "@property"
+                 "@lsp.type.enumMember" "@constant"
+                 "@lsp.type.function" "@function"
+                 "@lsp.type.method" "@method"
+                 "@lsp.type.macro" "@macro"
+                 "@lsp.type.decorator" "@function"
+                 :OilDir :Directory
+                 :OilLink :Yellow}]
     (each [src dest (pairs to-link)]
-      (vim.cmd (.. "highlight clear " src))
-      (vim.cmd (.. "highlight link " src " " dest)))))
+      (vim.api.nvim_set_hl 0 src {:link dest :default false}))))
+
 
 (set vim.opt.ruler false)      ; line and column number of the cursor position
-(set vim.opt.laststatus 2)     ; 2 - always show status line
+(set vim.opt.laststatus 3)     ; 3 - only one
 (set vim.opt.showmode false)   ; disable mode message
 (set vim.opt.title true)       ; update window title
 (set vim.opt.titlestring "%f") ; file name in title
+(set vim.opt.winbar "%f")      ; file name in buffer title
+
+(lualine.setup
+  {:options {:icons_enabled false
+             :globalstatus true}})
 
 ;; Folding
 (set vim.opt.foldmethod :expr)
-(set vim.opt.foldexpr "nvim_treesitter#foldexpr()")
+(set vim.opt.foldexpr "v:lua.vim.treesitter.foldexpr()")
 (set vim.opt.foldenable true)    ; enable folding
 (set vim.opt.foldlevelstart 999) ; all folds are open
 (set vim.opt.fillchars "fold:‧")
-(set vim.g.crease_foldtext {:default "%{repeat(\"  \", v:foldlevel - 1)}%t %= %l lines %f%f"})
 (nnoremap :<BS> :za) ; toggle current fold
 
 ;; Swap Undo
@@ -294,7 +344,8 @@
 (nnoremap :<Leader>f tel.live_grep)
 (nnoremap :<Leader>q tel.quickfix)
 
-(set vim.g.FerretMaxResults 1000)
+(set vim.g.FerretMaxResults 10000)
+(set vim.g.FerretQFHandler (.. "botright copen " bottom-height))
 (set vim.g.FerretExecutable "rg")
 (set vim.g.FerretExecutableArguments
      {:rg (.. " --vimgrep"
@@ -308,7 +359,7 @@
 (vnoremap :<Leader>* "y:Ack <C-r>\"<CR>")
 (nmap :<Leader>/ "<Plug>(FerretAck)")
 (vnoremap :<Leader>/ "y:Ack <C-r>\"")
-(nmap :<Leader>r "<Plug>(FerretAcks)")
+; (nmap :<Leader>r "<Plug>(FerretAcks)")
 
 (set vim.opt.path
      [ "." ; current file
@@ -319,17 +370,35 @@
 ;; Comments
 (Comment.setup {})
 
-;; Hop
-(hop.setup
-  {:teasing false
-   :jump_on_sole_occurrence true})
-(nnoremap "<Leader>'" hop.hint_char1) ; to any char in buffer
+(lightspeed.setup
+  {:ignore_case true})
 
+
+;; Files
+(oil.setup
+  {:columns [{1 :permissions :highlight :NonText}
+             {1 :size        :highlight :String}
+             {1 :ctime       :highlight :Number :format "%Y-%m-%d %H:%M"}]
+   :view_options {:show_hidden true}
+   :keymaps {"g?"    "actions.show_help"
+             "<CR>"  "actions.select"
+             "<C-s>" "actions.select_vsplit"
+             "<C-r>" "actions.refresh"
+             "<C-p>" "actions.preview"
+             "<C-c>" "actions.close"
+             "-"     "actions.parent"
+             "_"     "actions.open_cwd"
+             "g."    "actions.toggle_hidden"
+             "."     "actions.open_cmdline"
+             ","     "actions.open_cmdline_dir"
+             "gy"    "actions.copy_entry_path"}
+   :use_default_keymaps false})
+(nmap :- oil.open)
 
 ;; Git
 ; If this many milliseconds nothing is typed the swap file will be written to disk speedsup gitgutter
 (set vim.opt.updatetime 100)
-(vim.opt.diffopt:append [:indent-heuristic :internal "algorithm:histogram"])
+(vim.opt.diffopt:append [:indent-heuristic :internal "algorithm:histogram" "linematch:60"])
 
 (set vim.g.gitgutter_map_keys false)
 (nnoremap :silent :<Leader>gd "<Cmd>Gdiffsplit<CR>")
@@ -360,26 +429,14 @@
 
 ;; Wiki
 (set vim.g.wiki_root "~/Notes")
-(set vim.g.wiki_filetypes ["md"])
-(set vim.g.wiki_link_extension ".md")
-(set vim.g.wiki_link_target_type "md")
-(set vim.g.wiki_journal
-     {:name "diary"
-      :frequency "daily"
-      :date_format {:daily "%Y-%m-%d"
-                    :monthly "%Y_m%m"
-                    :weekly "%Y_w%V"}})
-
 (set vim.g.wiki_mappings_global
-     {"<Plug>(wiki-journal)" "<Leader>w_disable"
-      "<Plug>(wiki-open)" "<Leader>we"})
-
+     {"<Plug>(wiki-open)" "<Leader>we"})
 (set vim.g.wiki_mappings_local
-     {"<Plug>(wiki-journal-copy-tonext)" "<Leader>w_disable"
-      "<Plug>(wiki-link-next)" "<Leader>w_disable"
-      "<Plug>(wiki-link-return)" "<Leader>w_disable"
-      "<Plug>(wiki-link-toggle)" "<Leader>w_disable"
-      "<Plug>(wiki-page-toc)" "<Leader>w_disable"})
+     {"<Plug>(wiki-journal-copy-tonext)" ""
+      "<Plug>(wiki-link-next)" ""
+      "<Plug>(wiki-link-return)" ""
+      "<Plug>(wiki-link-toggle)" ""
+      "<Plug>(wiki-page-toc)" ""})
 
 (nnoremap :<Leader>wn #(tel.find_files {:cwd vim.g.wiki_root}))
 (nnoremap :<Leader>wf #(tel.live_grep {:cwd vim.g.wiki_root}))
@@ -401,44 +458,37 @@
       {:extra_args ["--config-data" (.. "{ extends: default,"
                                           "rules: { line-length: {max: 120},"
                                                    "document-start: {present: false}}}")]})
-
+    null-ls.builtins.formatting.zprint
     null-ls.builtins.formatting.fixjson
     null-ls.builtins.formatting.prettier
-    null-ls.builtins.formatting.google_java_format
+    null-ls.builtins.formatting.nixpkgs_fmt
+    null-ls.builtins.formatting.xmllint
     (null-ls.builtins.formatting.trim_whitespace.with
       {:filetypes ["yaml" "docker" "fennel"]})
     (null_ls.builtins.formatting.clang_format.with
       {:filetypes ["glsl"]})
     (null-ls.builtins.formatting.shfmt.with
       {:extra_args ["-i" "2" "-sr"]})
-    (null-ls-helpers.make_builtin
-      {:factory null-ls-helpers.formatter_factory
-       :method null-ls-methods.internal.FORMATTING
-       :filetypes [:nix]
-       :generator_opts
-       {:command :nixpkgs-fmt
-        :to_stdin true}})
     (null-ls.builtins.formatting.pg_format.with
-      {:extra_args ["--spaces" "4"
-                    "--comma-break"
-                    "-"]})
-    (null-ls-helpers.make_builtin
-      {:factory null-ls-helpers.formatter_factory
-       :method null-ls-methods.internal.FORMATTING
-       :filetypes [:xml]
-       :generator_opts
-       {:command :xmllint
-        :args ["--format"
-               "--nonet"
-               "--recover"
-               "-"]
-        :to_stdin true}})]})
+      {:extra_args ["--spaces" "2" ; indentation, default 4 spaces
+                    "--comma-break" ; in insert statement, add a newline after each comma
+                    "--function-case" "2" ; uppercase function name
+                    "--placeholder" "\\?[a-zA-Z]+\\?" ; regex for code that must not be changed `?IN?`
+                    "-"]})]})
 
 (defn- enabled-formatting? [client]
-  (let [disabled-formatters [:java_language_server :tsserver]]
+  (let [disabled-formatters [:tsserver :clojure_lsp]]
     (not (vim.tbl_contains disabled-formatters (. client :name)))))
-(nnoremap :<Leader>lf #(vim.lsp.buf.format {:filter #(vim.tbl_filter enabled-formatting? $1)}))
+
+(nnoremap :<Leader>lf #(vim.lsp.buf.format {:timeout_ms 5000 ; default 2000, zprint is slow
+                                            :filter enabled-formatting?}))
 (nnoremap :<Leader>la vim.lsp.buf.code_action)
+(defn- lsp-buffer-mappings []
+  (nnoremap :buffer :gd         vim.lsp.buf.definition)
+  (nnoremap :buffer :<Leader>lt vim.lsp.buf.type_definition)
+  (nnoremap :buffer "}"         vim.lsp.buf.references)
+  (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
+  (nnoremap :buffer :K          vim.lsp.buf.hover))
 
 (vim.diagnostic.config
   {:virtual_text false
@@ -447,49 +497,43 @@
    :severity_sort true
    :signs true})
 (nnoremap :L #(vim.diagnostic.open_float nil {:scope :line :border :single}))
-(nnoremap :yol vim.diagnostic.reset)
+(nnoremap :yol #(do
+                  (if (vim.diagnostic.is_disabled)
+                    (vim.diagnostic.enable)
+                    (vim.diagnostic.disable))
+                  (vim.notify (.. "diagnostic disabled? " (tostring (vim.diagnostic.is_disabled))))))
+(nnoremap "]d" vim.diagnostic.goto_next)
+(nnoremap "[d" vim.diagnostic.goto_prev)
 
 (tset vim.lsp.handlers "textDocument/hover"
       (vim.lsp.with vim.lsp.handlers.hover {:border :single}))
 (tset vim.lsp.handlers "textDocument/signatureHelp"
       (vim.lsp.with vim.lsp.handlers.singature_help {:border :single}))
 
+;; lsp progress widget
+(fidget.setup {})
 
 ;; Conjure
 (set vim.g.conjure#eval#result_register :e)
 (set vim.g.conjure#log#botright true)
-(set vim.g.conjure#filetypes [:clojure :fennel])
+(au conjure-log :BufNewFile "conjure-log-*"
+    (vim.diagnostic.disable 0))
+(set vim.g.conjure#filetypes [:clojure :fennel :python])
 (set vim.g.conjure#eval#gsubs {:do-comment ["^%(comment[%s%c]" "(do "]}) ; eval comment as do
-
-
-;; Terraform
-(au terraform :FileType [:terraform :hcl]
-    (nnoremap :buffer :gd vim.lsp.buf.definition)
-    (nnoremap :buffer "}" vim.lsp.buf.references)
-    (nnoremap :buffer :K vim.lsp.buf.hover))
-(lspconfig.terraformls.setup
-  {:capabilities cmp-capabilities
-   :filetypes [:terraform :hcl]})
+(set vim.g.conjure#mapping#doc_word :k)
 
 
 ;; Python
 (au python :FileType :python
-    (nnoremap :buffer :gd vim.lsp.buf.definition)
-    (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
-    (nnoremap :buffer "}" vim.lsp.buf.references)
-    (nnoremap :buffer :K vim.lsp.buf.hover))
-(lspconfig.pylsp.setup {:capabilities cmp-capabilities})
+    (lsp-buffer-mappings))
+(lspconfig.pylsp.setup {:capabilities lsp-capabilities})
 
 
 ;; JavaScript/TypeScript
 (au typescript :FileType [:typescript :javascript :typescriptreact :javascriptreact]
-    (nnoremap :buffer :gd vim.lsp.buf.definition)
-    (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
-    (nnoremap :buffer :<Leader>lt vim.lsp.buf.type_definition)
-    (nnoremap :buffer "}" vim.lsp.buf.references)
-    (nnoremap :buffer :K vim.lsp.buf.hover))
+    (lsp-buffer-mappings))
 (lspconfig.tsserver.setup
-  {:capabilities cmp-capabilities
+  {:capabilities lsp-capabilities
    ;; https://github.com/typescript-language-server/typescript-language-server/issues/411#issuecomment-1065943942
    :cmd [:typescript-language-server :--stdio :--tsserver-path
          (let [[tsserver-bin] (vim.fn.systemlist "realpath `which tsserver`")
@@ -498,33 +542,24 @@
 
 ;; Rust
 (au rust :FileType :rust
-    (nnoremap :buffer :gd vim.lsp.buf.definition)
-    (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
-    (nnoremap :buffer "}" vim.lsp.buf.references)
-    (nnoremap :buffer :K vim.lsp.buf.hover))
-(lspconfig.rust_analyzer.setup {:capabilities cmp-capabilities})
+    (lsp-buffer-mappings))
+(lspconfig.rust_analyzer.setup {:capabilities lsp-capabilities})
 
 
 ;; C
 (au c :FileType [:c :cpp]
-    (vnoremap :buffer "=" vim.lsp.buf.range_formatting)
-    (nnoremap :buffer :gd vim.lsp.buf.definition)
-    (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
-    (nnoremap :buffer "}" vim.lsp.buf.references)
-    (nnoremap :buffer :K vim.lsp.buf.hover)
+    (lsp-buffer-mappings)
+
     (set vim.opt_local.tabstop 2)
     (set vim.opt_local.softtabstop 2)
     (set vim.opt_local.shiftwidth 2)
     (set vim.opt_local.expandtab true))
-(lspconfig.ccls.setup {:capabilities cmp-capabilities})
+(lspconfig.ccls.setup {:capabilities lsp-capabilities})
 
 
 ;; Sexp
 (set vim.g.sexp_filetypes "clojure,scheme,lisp,fennel")
 (au sexp :FileType [:clojure :scheme :lisp :fennel]
-    (nmap :buffer :doe "<Plug>(sexp_raise_element)")
-    (nmap :buffer :dof "<Plug>(sexp_raise_list)")
-
     ;; emulate text object for pair of elements
     ;; i.e. key/value binding/expr test/expr
 
@@ -544,6 +579,11 @@
     (xmap :buffer :<e "<Plug>(sexp_swap_element_backward)")
     (xmap :buffer :>f "<Plug>(sexp_swap_list_forward)")
     (xmap :buffer :<f "<Plug>(sexp_swap_list_backward)"))
+(set vim.g.sexp_enable_insert_mode_mappings false) ; use autopairs instead
+
+(autopairs.setup
+  {:enable_check_bracket_line false ; always add closing bracket, event when next char is closing bracket
+   :disable_in_visualblock true})
 
 
 ;; Clojure
@@ -557,21 +597,26 @@
   (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
 
 (defn- conjure-eval [form]
-  (vim.cmd (.. "ConjureEval " form)))
+  (vim.cmd.ConjureEval form))
 
 (au clojure :FileType :clojure
-    (nnoremap :buffer :K vim.lsp.buf.hover)
-    (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
-    (nnoremap :buffer :gd vim.lsp.buf.definition)
+    (lsp-buffer-mappings)
 
-    (nnoremap :buffer :<Leader>cc #(do-clj-ignore "aF"))
-    (xnoremap :buffer :<Leader>c do-clj-ignore)
+    (xnoremap :buffer :<Leader>cc do-clj-ignore)
+    (nnoremap :buffer :<Leader>cc do-clj-ignore)
     (nnoremap :buffer :<Leader>cu "<Cmd>let s=@/<CR>l?\\v(#_)+<CR>dgn:let @/=s<CR>")
 
+    (nnoremap :buffer :<Leader>lm
+              #(vim.lsp.buf.execute_command {:command   :move-form
+                                             :arguments [(.. "file://" (vim.fn.expand "%:p"))
+                                                         (- (vim.fn.line ".") 1)
+                                                         (- (vim.fn.col ".") 1)
+                                                         (vim.fn.input "File: " (vim.fn.expand "%:p:h") "file")]}))
+
     ;; https://github.com/djblue/portal/blob/master/doc/editors/emacs.md
-    (nnoremap :buffer :<LocalLeader>po #(conjure-eval "(require 'portal.api)(portal.api/tap)(portal.api/open)"))
-    (nnoremap :buffer :<LocalLeader>pc #(conjure-eval "(require 'portal.api)(portal.api/close)"))
-    (nnoremap :buffer :<LocalLeader>pr #(conjure-eval "(require 'portal.api)(portal.api/clear)"))
+    (nnoremap :buffer :<LocalLeader>po #(conjure-eval "((requiring-resolve 'portal.api/open))"))
+    (nnoremap :buffer :<LocalLeader>pc #(conjure-eval "((requiring-resolve 'portal.api/close))"))
+    (nnoremap :buffer :<LocalLeader>pr #(conjure-eval "((requiring-resolve 'portal.api/clear))"))
 
     (set vim.opt_local.tabstop 2)
     (set vim.opt_local.softtabstop 2)
@@ -581,9 +626,19 @@
     ;; converts package names into file names; useful for "gf"
     (set vim.opt_local.includeexpr "substitute(substitute(v:fname,'\\.','/','g'),'-','_','g')")
     (set vim.opt_local.suffixesadd ".clj"))
+
 (set vim.g.conjure#client#clojure#nrepl#test#runner :clojure)
+;; (set vim.g.conjure#client#clojure#nrepl#test#runner :kaocha)
+;; see https://github.com/lambdaisland/kaocha/blob/main/doc/03_configuration.md
+;; (set vim.g.conjure#client#clojure#nrepl#test#call_suffix
+;;     "{:kaocha/color? false
+;;       :capture-output? true
+;;       :kaocha/fail-fast? false
+;;       :reporter kaocha.report/documentation
+;;       :tests [{:kaocha.testable/skip-add-classpath? true}]}")
 (set vim.g.conjure#client#clojure#nrepl#eval#raw_out true)
-(lspconfig.clojure_lsp.setup {:capabilities cmp-capabilities})
+
+(lspconfig.clojure_lsp.setup {:capabilities lsp-capabilities})
 
 
 ;; Slime
@@ -617,7 +672,7 @@
     (nnoremap :buffer :K "<Cmd>SlimeSend1 (pp <C-R><C-W>)<CR>")
     (nmap :buffer :<Leader>lf "ggvG=``"))
 
-;; Curl
+;; Curl / Vim Rest Client
 (set vim.g.vrc_curl_opts
      {:--connect-timeout 10
       :--include ""
@@ -663,25 +718,28 @@
 (au glsl-detect [:BufNewFile :BufRead] [:*.glsl :*.vert :*.geom :*.frag]
     (set vim.opt_local.filetype :glsl))
 
-;; Projectionist
-(nnoremap :<Leader>aa "<Cmd>A<CR>")
-(set vim.g.projectionist_heuristics
-     {"project.clj|deps.edn" {"src/*.clj"           {:alternate "test/{}_test.clj"}
-                              "test/*_test.clj"     {:alternate "src/{}.clj"}}
-      "pom.xml"              {"src/main/*.java"     {:alternate "src/test/{}Test.java"}
-                              "src/test/*Test.java" {:alternate "src/main/{}.java"}}})
+;; Alternative file
+(nnoremap :<Leader>aa "<Cmd>Other<CR>")
+(nnoremap :<Leader>av "<Cmd>OtherVSplit<CR>")
+(other.setup
+  {:mappings
+   [{:pattern "(.*)/src/(.*).clj"
+     :target "%1/test/%2_test.clj"}
+    {:pattern "(.*)/test/(.*)_test.clj"
+     :target "%1/src/%2.clj"}]})
 
 
 ;; Terminal
 (tnoremap :<Esc> "<C-\\><C-n>") ; use Esc to exit terminal mode
 (tnoremap :<C-v><Esc> "<Esc>") ; press Esc in terminal mode
 (au terminal-open :TermOpen :*
-    (set vim.opt_local.statusline "%{b:term_title}")
+    (set vim.opt_local.winbar "%{b:term_title}")
     (set vim.opt_local.bufhidden "hide"))
 (au terminal-leave :TermLeave :*
     (when (and vim.b.terminal_job_pid vim.b.term_title)
-      (vim.cmd (.. "file term:" vim.b.terminal_job_pid ":" vim.b.term_title))))
+      (vim.cmd.file (.. "term:" vim.b.terminal_job_pid ":" vim.b.term_title))))
 
+;; Open terminal in a split near current file or at specified path
 (vim.api.nvim_create_user_command
   :Term
   (fn [{:args path}]
@@ -691,26 +749,12 @@
   {:nargs "?"
    :desc "Open terminal"})
 
-;; Scratch
+;; Scratch - open file in temp folder with specified suffix
 (vim.api.nvim_create_user_command
   :Scratch
-  (fn [{:args suffix}] (vim.cmd (.. "edit " (vim.fn.tempname) "_" suffix)))
+  (fn [{:args suffix}] (vim.cmd.edit (.. (vim.fn.tempname) "_" suffix)))
   {:nargs "?"
    :desc "New temporary file"})
-
-;; Org
-(org.setup_ts_grammar) ;; Load custom tree-sitter grammar for org filetype
-(org.setup {})
-
-;; Java
-(au java :FileType :java
-    (nnoremap :buffer :K vim.lsp.buf.hover)
-    (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
-    (nnoremap :buffer "}" vim.lsp.buf.references)
-    (nnoremap :buffer :gd vim.lsp.buf.definition))
-(lspconfig.java_language_server.setup
-  {:capabilities cmp-capabilities
-   :cmd ["/home/nazarii/.nix-profile/share/java/java-language-server/lang_server_linux.sh"]})
 
 ;; Auto write and read file
 (au autosave [:FocusLost :BufLeave :CursorHold] [:*] (vim.cmd "silent! update"))
@@ -722,3 +766,7 @@
       (when (and (<= 1 line line-count)
                  (not= (vim.opt.ft:get) :commit))
         (vim.api.nvim_win_set_cursor 0 [line col]))))
+
+;; EasyAlign
+(nmap :ga "<Plug>(EasyAlign)")
+(xmap :ga "<Plug>(EasyAlign)")

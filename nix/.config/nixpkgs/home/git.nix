@@ -7,17 +7,13 @@ in {
     enable = true;
     userName = "Nazarii Bardiuk";
     userEmail = "nazarii@bardiuk.com";
-    signing = {
-      signByDefault = true;
-      key = "1D8729AEF5622C0F7EA209C1C9C1904D44CDCDA1";
-    };
     ignores = [
       # python
       ".venv/" ".env/"
       # idea
       ".idea/" ".idea_modules/" "*.iml" "*.ipr"
       # Vim
-      ".sw[a-p]" ".*.sw[a-p]" "Session.vim" ".netrwhist" "*~" "tags"
+      ".sw[a-p]" ".*.sw[a-p]" "Session.vim" ".netrwhist" "*~" "tags" ".lnvim.fnl" ".lnvim.lua"
       # sbt
       "dist/*" "target/" "lib_managed/" "src_managed/" "project/boot/" "project/plugins/project/" ".history" ".cache" ".lib/"
       # Gradle
@@ -40,7 +36,7 @@ in {
       commit.template = "${config.xdg.configHome}/${commit}";
       diff.algorithm = "histogram";
       diff.tool = "vdiff";
-      difftool.promt = true;
+      difftool.prompt = true;
       "difftool \"vdiff\"".cmd = "nvim -d $LOCAL $REMOTE";
       fetch.prune = true;
       fetch.pruneTags = true;
@@ -49,8 +45,9 @@ in {
       merge.stat = true;
       merge.tool = "vmerge";
       "mergetool \"vmerge\"".cmd = "nvim -d $LOCAL $REMOTE $MERGED -c 'wincmd w' -c 'wincmd J'";
-      mergetool.promt = true;
+      mergetool.prompt = true;
       pull.rebase = true;
+      push.autoSetupRemote = true; 
       rebase.autoStash = true;
       rebase.stat = true;
       remote.defaultPush = "origin";
@@ -84,11 +81,11 @@ in {
   '';
 
   home.packages = with pkgs; [
-    gitAndTools.hub
-    git-secret
-    git-crypt
-    gnupg
     babashka # for pre-commit
+    git-crypt
+    git-secret
+    gitAndTools.hub
     mu-repo
+    gitui
   ];
 }

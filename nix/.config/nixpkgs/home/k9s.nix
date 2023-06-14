@@ -2,7 +2,7 @@
 {
 
   home.packages = with pkgs; [
-    kubectl
+    # kubectl
     k9s
   ];
 
@@ -59,7 +59,7 @@
           modifyColor: *blue
           addColor: *green
           errorColor: *red
-          highlightcolor: *orange
+          highlightColor: *orange
           killColor: *comment
           completedColor: *comment
         title:

@@ -22,6 +22,7 @@
   };
 
   home.pointerCursor = {
+    x11 = { enable = true; };
     name = "Vanilla-DMZ";
     package = pkgs.vanilla-dmz;
     size = 48;

@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   imports = [
-    ./bat.nix
     ./direnv.nix
     ./fzf.nix
     ./ripgrep.nix
@@ -17,17 +16,17 @@
 
   home.packages = with pkgs; [
     atop
-    bandwhich                 # bandwidth monitor per process
+    bandwhich # bandwidth monitor per process
     gnumake
     lsof
     ncdu
     watch
-    python39Full
-    python39Packages.autopep8
-    python39Packages.pip
-    python39Packages.virtualenv
+    python310Full
+    python310Packages.autopep8
+    python310Packages.pip
+    python310Packages.virtualenv
 
-    exa                       # fancy ls with tree
+    exa # fancy ls with tree
     tokei
     wget
     unzip

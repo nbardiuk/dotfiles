@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  enable = true;
+  enable = false;
 in
 if !enable then { } else {
   home.packages = with pkgs; [

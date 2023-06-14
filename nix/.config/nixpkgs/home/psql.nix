@@ -2,7 +2,7 @@
 let
   enable = true;
 in
-if !enable then {} else {
+if !enable then { } else {
   home.packages = with pkgs; [
     postgresql
   ];
@@ -21,5 +21,8 @@ if !enable then {} else {
     \set FETCH_COUNT 100
 
     \timing
+
+    -- turn off the pager, paginate with tmux
+    \pset pager
   '';
 }

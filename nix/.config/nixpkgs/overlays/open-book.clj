@@ -9,6 +9,7 @@
                    "."
                    "./Books"
                    "./Pragmatic Bookshelf"
+                   "./Dropbox/piano"
                    :dir home)
                :out
                split-lines))
@@ -27,5 +28,5 @@
                  (when (zero? exit) (trim out))))
 
 (when selection
-  (sh "zathura" (pattern->book selection)
+  (sh "xdg-open" (pattern->book selection)
       :dir home))

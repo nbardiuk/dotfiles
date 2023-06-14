@@ -2,115 +2,72 @@
 let
   grey = {
     # https://gitlab.com/yorickpeterse/nvim-grey#terminal-colors
-
     colors = {
       primary = {
-        background = "0xF2F2F2";
-        foreground = "0x000000";
+        background = "#F2F2F2";
+        foreground = "#000000";
       };
 
       cursor = {
-        text = "0xDDDDDD";
-        cursor = "0x000000";
+        text = "#DDDDDD";
+        cursor = "#000000";
       };
 
       normal = {
-        black = "0x000000";
-        red = "0xCC3E28";
-        green = "0x216609";
-        yellow = "0xBF8F00";
-        blue = "0x1E6FCC";
-        magenta = "0x5C21A5";
-        cyan = "0x158c86";
-        white = "0xFFFFFF";
+        black = "#000000";
+        red = "#CC3E28";
+        green = "#216609";
+        yellow = "#BF8F00";
+        blue = "#1E6FCC";
+        magenta = "#5C21A5";
+        cyan = "#158c86";
+        white = "#FFFFFF";
       };
 
       bright = {
-        black = "0x555555";
-        red = "0xCC3E28";
-        green = "0x216609";
-        yellow = "0xBF8F00";
-        blue = "0x1E6FCC";
-        magenta = "0x5C21A5";
-        cyan = "0x158c86";
-        white = "0xAAAAAA";
+        black = "#555555";
+        red = "#CC3E28";
+        green = "#216609";
+        yellow = "#BF8F00";
+        blue = "#1E6FCC";
+        magenta = "#5C21A5";
+        cyan = "#158c86";
+        white = "#AAAAAA";
       };
     };
   };
+
   paper = {
-    # https://github.com/YorickPeterse/vim-paper#terminal-colors
-
     colors = {
       primary = {
-        background = "0xF2EEDE";
-        foreground = "0x000000";
-      };
-
-      cursor = {
-        text = "0xD8D5C7";
-        cursor = "0x000000";
+        background = "#F2EEDE";
+        foreground = "#000000";
       };
 
       normal = {
-        black = "0x000000";
-        red = "0xCC3E28";
-        green = "0x216609";
-        yellow = "0xB58900";
-        blue = "0x1E6FCC";
-        magenta = "0x5C21A5";
-        cyan = "0x158c86";
-        white = "0xAAAAAA";
+        black = "#000000";
+        red = "#CC3E28";
+        green = "#216609";
+        yellow = "#B58900";
+        blue = "#1E6FCC";
+        magenta = "#5C21A5";
+        cyan = "#158C86";
+        white = "#AAAAAA";
       };
 
       bright = {
-        black = "0x555555";
-        red = "0xCC3E28";
-        green = "0x216609";
-        yellow = "0xB58900";
-        blue = "0x1E6FCC";
-        magenta = "0x5C21A5";
-        cyan = "0x158c86";
-        white = "0xAAAAAA";
+        black = "#555555";
+        red = "#CC3E28";
+        green = "#216609";
+        yellow = "#B58900";
+        blue = "#1E6FCC";
+        magenta = "#5C21A5";
+        cyan = "#158C86";
+        white = "#AAAAAA";
       };
     };
   };
 
-  base16-grayscale-light-my = {
-    colors = {
-      primary = {
-        background = "0xffffff";
-        foreground = "0x000000";
-      };
-
-      cursor = {
-        text = "0xffffff";
-        cursor = "0x000000";
-      };
-
-      normal = {
-        black = "0xffffff";
-        red = "0x7c7c7c";
-        green = "0x8e8e8e";
-        yellow = "0xa0a0a0";
-        blue = "0x686868";
-        magenta = "0x747474";
-        cyan = "0x868686";
-        white = "0x000000";
-      };
-
-      bright = {
-        black = "0xababab";
-        red = "0x999999";
-        green = "0xe3e3e3";
-        yellow = "0xb9b9b9";
-        blue = "0x525252";
-        magenta = "0x252525";
-        cyan = "0x5e5e5e";
-        white = "0x101010";
-      };
-    };
-    draw_bold_text_with_bright_colors = false;
-  };
 in
 {
   programs.alacritty.enable = true;
@@ -130,7 +87,7 @@ in
     # Font configuration (changes require restart)
     font = {
       normal.family = "Iosevka";
-      size = 9;
+      size = 9.5;
     };
   };
 }

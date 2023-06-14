@@ -331,13 +331,7 @@
 
 ;; Clojure
 (use-package clojure-mode
-  :hook ((clojure-mode . lsp))
-  :config
-  (define-clojure-indent
-    (Given 1)
-    (When 1)
-    (Then 1)
-    (And 1)))
+  :hook ((clojure-mode . lsp)))
 
 (use-package cider
   :config
@@ -386,12 +380,6 @@
                              ("Europe/Bucharest"    "EU East")
                              ("Asia/Calcutta"       "India")
                              ("Asia/Tokyo"          "Japan"))))
-
-;; SQL
-(use-package dbt-mode
-  :straight (:type git :host github :repo "CyberShadow/dbt-mode")
-  ;; Customize `sql-product' to set the flavor of the SQL syntax.
-  :custom (sql-product 'postgres))
 
 ;; Char jump
 (use-package avy
@@ -497,4 +485,3 @@
   (setq org-indent-indentation-per-level 1)
   (setq org-adapt-indentation nil)
   (setq org-hide-leading-stars t))
-

@@ -17,12 +17,12 @@ in
         "git"
         "git-auto-fetch"
         "tmux"
-        "vi-mode"
       ];
       theme = "refined";
     };
 
     sessionVariables = {
+      USE_GKE_GCLOUD_AUTH_PLUGIN = true; # https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
       EDITOR = "nvim";
       VISUAL = "nvim";
       MANPAGER = "nvim +Man!";
@@ -52,7 +52,7 @@ in
     };
 
     initExtra = ''
-      eval $(keychain --quiet --agents gpg,ssh --eval id_ed25519 1D8729AEF5622C0F7EA209C1C9C1904D44CDCDA1)
+      eval $(keychain --quiet --agents ssh --eval id_ed25519)
       setopt HIST_IGNORE_ALL_DUPS
       setopt HIST_SAVE_NO_DUPS
       setopt HIST_REDUCE_BLANKS

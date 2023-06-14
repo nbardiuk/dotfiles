@@ -81,7 +81,7 @@
       bind-key C-h run-shell "tmux setw main-pane-height $(($(tmux display -p '#{window_height}') * 66 / 100)); tmux select-layout main-horizontal"
       bind-key C-t select-layout tiled
 
-      #### COLOUR
+      #### COLOUR see ./alacritty.nix for exact values of terminal colors
       set -g status-bg "#DDDDDD" # same as vim status bar
       set -g status-fg black
       set -g display-panes-active-colour blue

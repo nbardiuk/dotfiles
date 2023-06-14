@@ -14,10 +14,10 @@
     ./home/k9s.nix
     ./home/obs.nix
     ./home/psql.nix
+    ./home/mysql.nix
     ./home/shell.nix
     ./home/sqlite.nix
     ./home/syncthing.nix
-    ./home/termite.nix
     ./home/zathura.nix
     ./home/emacs.nix
   ];
@@ -42,12 +42,16 @@
   programs.mpv.enable = true;
   programs.mpv.scripts = with pkgs.mpvScripts; [ mpris ];
 
+  services.easyeffects.enable = false;
+
   # The set of packages to appear in the user environment.
   home.packages = with pkgs; [
     chromium
     google-fonts # collection of fonts
-    iosevka # monospace font
+    iosevka-bin # monospace font
     keepassxc # password manager
+    _1password
+    _1password-gui
     libreoffice-fresh
     tdesktop # chat app
     transmission-gtk
@@ -63,8 +67,28 @@
     # ardour
     # qtractor
     # pianobooster
-    # musescore
+    musescore
+    solfege
+
+    reaper # daw
+    audacity
+    ardour # daw
+
+    # https://www.linuxsampler.org
+    linuxsampler
+    qsampler
+
+
     # webtorrent_desktop
+
+    yoshimi # synth
+    surge-XT # synth
+    fluidsynth # synth
+    rosegarden # midi seq
+    hydrogen # drum machine
+
+    helvum # pipewire patchbay
+
 
     # sysstat
     # flamegraph
@@ -75,10 +99,12 @@
 
     zoom-us
 
+    protonvpn-gui
+
     screenkey
     slop
 
-    # kdenlive
+    kdenlive
     ffmpeg-full
     frei0r
 
@@ -93,6 +119,9 @@
     anki
 
     gimp
+    krita
+
+    calibre
 
     chrysalis
 
@@ -103,11 +132,34 @@
     awscli2
     ssm-session-manager-plugin
     amazon-ecr-credential-helper
+
+    (google-cloud-sdk.withExtraComponents [
+      google-cloud-sdk.components.cloud_sql_proxy
+      google-cloud-sdk.components.gke-gcloud-auth-plugin
+      google-cloud-sdk.components.kubectl
+    ])
+
+    watchman
+
     drawio
 
     xsane
 
     dbeaver
-    mysql80
+    beekeeper-studio
+
+    gnome.nautilus
+    flameshot
+
+    lazydocker
+
+    visidata
+
+
+    drata-agent
+
+    scrcpy # android control
   ];
+
+  home.stateVersion = "18.09";
 }

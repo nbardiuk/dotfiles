@@ -27,17 +27,19 @@
         "devtools.responsive.leftAlignViewport.enabled" = true;
         "devtools.toolbox.host" = "right";
         "devtools.webconsole.timestampMessages" = true;
-        "dom.webnotifications.enabled" = false;
+        "dom.webnotifications.enabled" = true;
         "extensions.pocket.enabled" = false;
         "font.name.monospace.x-western" = "Iosevka";
         "general.warnOnAboutConfig" = false;
         "privacy.firstparty.isolate" = true;
-        "privacy.resistFingerprinting" = false; # until this is merged https://github.com/philc/vimium/pull/4000
+        "privacy.resistFingerprinting" = true;
         "signon.autofillForms" = false;
         "signon.rememberSignons" = false;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         "toolkit.telemetry.reportingpolicy.firstRun" = false;
         "trailhead.firstrun.didSeeAboutWelcome" = true;
+        "dom.webmidi.enabled" = true;
+        "dom.webmidi.gated" = false; # otherwise webmidi requires an addon
       };
 
       userChrome = ''
