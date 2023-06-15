@@ -57,7 +57,7 @@ in
 {
   drata-agent = stdenv.mkDerivation {
     name = "drata-agent";
-    src = ~/Downloads/drata-agent-3.3.0.deb;
+    src = ./drata-agent-3.3.0.deb;
 
     buildInputs = [ dpkg ];
     unpackPhase = "true";
