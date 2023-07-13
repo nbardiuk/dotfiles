@@ -31,7 +31,9 @@
      ,event
      {:group (vim.api.nvim_create_augroup ,(tostring group) {:clear true})
       :pattern ,pattern
-      :callback (fn [] (do ,...) nil)}))
+      :callback (fn [] (do ,...) nil)
+      :nested true ;; autocmd-nested
+      }))
 
 ; (vim.opt.runtimepath:append "~/.local/share/nvim/treesitter")
 (tree-conf.setup
