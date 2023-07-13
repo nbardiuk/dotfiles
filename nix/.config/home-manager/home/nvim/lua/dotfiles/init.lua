@@ -395,11 +395,11 @@ vim.api.nvim_create_autocmd("FileType", {callback = _31_, group = vim.api.nvim_c
 vim.g.sexp_enable_insert_mode_mappings = false
 autopairs.setup({disable_in_visualblock = true, enable_check_bracket_line = false})
 local function clj_ignore()
-  vim.cmd("normal! `[")
-  return vim.cmd("normal! i#_")
+  vim.cmd("normal `[")
+  return vim.cmd("normal i#_")
 end
 local function do_clj_ignore(form)
-  vim.opt.operatorfunc = ("v:lua.require'" .. __fnl_global___2amodule_2dname_2a .. "'.clj_ignore")
+  vim.opt.operatorfunc = "v:lua.require'dotfiles'.clj_ignore"
   return vim.api.nvim_feedkeys(("g@" .. (form or "")), "m", false)
 end
 local function conjure_eval(form)
@@ -446,7 +446,7 @@ local function _37_()
   end
   return nil
 end
-vim.api.nvim_create_autocmd("FileType", {callback = _37_, group = vim.api.nvim_create_augroup("clojure", {clear = true}), pattern = "fennel"})
+vim.api.nvim_create_autocmd("FileType", {callback = _37_, group = vim.api.nvim_create_augroup("fennel", {clear = true}), pattern = "fennel"})
 lspconfig.fennel_ls.setup({capabilities = lsp_capabilities})
 vim.g.slime_target = "tmux"
 vim.g.slime_dont_ask_default = true
@@ -463,7 +463,7 @@ local function scm_ignore()
   return vim.cmd("normal i#;")
 end
 local function do_scm_ignore(form)
-  vim.opt.operatorfunc = ("v:lua.require'" .. __fnl_global___2amodule_2dname_2a .. "'.scm_ignore")
+  vim.opt.operatorfunc = "v:lua.require'dotfiles'.scm_ignore"
   return vim.api.nvim_feedkeys(("g@" .. (form or "")), "m", false)
 end
 local function _38_()
@@ -618,4 +618,5 @@ local function _62_()
 end
 vim.api.nvim_create_autocmd("BufReadPost", {callback = _62_, group = vim.api.nvim_create_augroup("jump-to-last-postion", {clear = true}), pattern = "*"})
 nmap("ga", "<Plug>(EasyAlign)")
-return xmap("ga", "<Plug>(EasyAlign)")
+xmap("ga", "<Plug>(EasyAlign)")
+return {clj_ignore = clj_ignore, scm_ignore = scm_ignore}

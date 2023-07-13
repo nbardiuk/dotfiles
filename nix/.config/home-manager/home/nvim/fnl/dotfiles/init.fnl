@@ -581,12 +581,12 @@
 
 ;; Clojure
 (fn clj_ignore []
-  (vim.cmd "normal! `[") ; navigate to beginnign of a text object
-  (vim.cmd "normal! i#_") ; prepend reader macro
+  (vim.cmd "normal `[") ; navigate to beginnign of a text object
+  (vim.cmd "normal i#_") ; prepend reader macro
 )
 
 (fn do-clj-ignore [form]
-  (set vim.opt.operatorfunc (.. "v:lua.require'" *module-name* "'.clj_ignore"))
+  (set vim.opt.operatorfunc (.. "v:lua.require'dotfiles'.clj_ignore"))
   (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
 
 (fn conjure-eval [form]
@@ -635,7 +635,7 @@
 
 
 ;; Fennel
-(au clojure :FileType :fennel
+(au fennel :FileType :fennel
     (lsp-buffer-mappings))
 (lspconfig.fennel_ls.setup
   {:capabilities lsp-capabilities})
@@ -661,7 +661,7 @@
 )
 
 (fn do-scm-ignore [form]
-  (set vim.opt.operatorfunc (.. "v:lua.require'" *module-name* "'.scm_ignore"))
+  (set vim.opt.operatorfunc (.. "v:lua.require'dotfiles'.scm_ignore"))
   (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
 
 (au scheme :FileType :scheme
@@ -770,3 +770,6 @@
 ;; EasyAlign
 (nmap :ga "<Plug>(EasyAlign)")
 (xmap :ga "<Plug>(EasyAlign)")
+
+{: clj_ignore
+ : scm_ignore}
