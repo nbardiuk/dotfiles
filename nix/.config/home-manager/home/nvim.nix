@@ -97,13 +97,13 @@ in
       })
       (plugin {
         url = "https://github.com/Olical/conjure";
-        rev = "v4.44.2";
-        sha256 = "sha256-6k8VrNdG0/d2EzoRWf6+LfcxJB23dO7ndlPEiDK1poc=";
+        rev = "v4.46.0";
+        sha256 = "sha256-700AhkKvc1X/Q/+YaLuDFlDzNKcd3kuXbMb9NIG7tMo=";
       })
       (plugin {
         url = "https://github.com/Olical/nfnl";
-        rev = "b91aff4";
-        sha256 = "sha256-Aozbfr0N8P+BD4qfsjFaQc7kmI8qIflLTewNEQR81+I=";
+        rev = "bce853c";
+        sha256 = "sha256-mtsZgXYXQdd08zGu/5bGvcOKrzf8POyFdagJxDhp+Lc=";
       })
       (plugin {
         url = "https://github.com/rgroli/other.nvim";
