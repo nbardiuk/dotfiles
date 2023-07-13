@@ -1,31 +1,30 @@
-(module dotfiles.init
-  {autoload {autopairs nvim-autopairs
-             Comment Comment
-             c aniseed.core
-             cmp cmp
-             cmp_nvim_lsp cmp_nvim_lsp
-             dressing dressing
-             fidget fidget
-             lightspeed lightspeed
-             lspconfig lspconfig
-             lspconfigs lspconfig.configs
-             lspkind lspkind
-             lualine lualine
-             luasnip luasnip
-             nu aniseed.nvim.util
-             null-ls null-ls
-             null-ls-helpers null-ls.helpers
-             null-ls-methods null-ls.methods
-             oil oil
-             surround nvim-surround
-             tel telescope.builtin
-             telescope telescope
-             themes telescope.themes
-             tree-context treesitter-context
-             tree-conf nvim-treesitter.configs
-             tree-parsers nvim-treesitter.parsers
-             ts_utils nvim-treesitter.ts_utils
-             other other-nvim}})
+(local autopairs (require :nvim-autopairs))
+(local Comment (require :Comment))
+(local c (require :aniseed.core))
+(local cmp (require :cmp))
+(local cmp_nvim_lsp (require :cmp_nvim_lsp))
+(local dressing (require :dressing))
+(local fidget (require :fidget))
+(local lightspeed (require :lightspeed))
+(local lspconfig (require :lspconfig))
+(local lspconfigs (require :lspconfig.configs))
+(local lspkind (require :lspkind))
+(local lualine (require :lualine))
+(local luasnip (require :luasnip))
+(local nu (require :aniseed.nvim.util))
+(local null-ls (require :null-ls))
+(local null-ls-helpers (require :null-ls.helpers))
+(local null-ls-methods (require :null-ls.methods))
+(local oil (require :oil))
+(local surround (require :nvim-surround))
+(local tel (require :telescope.builtin))
+(local telescope (require :telescope))
+(local themes (require :telescope.themes))
+(local tree-context (require :treesitter-context))
+(local tree-conf (require :nvim-treesitter.configs))
+(local tree-parsers (require :nvim-treesitter.parsers))
+(local ts_utils (require :nvim-treesitter.ts_utils))
+(local other (require :other-nvim))
 
 
 (tree-context.setup
@@ -62,7 +61,7 @@
 (set vim.g.mapleader " ")
 (set vim.g.maplocalleader "\t")
 
-(defn- indexed->named [keys tbl]
+(fn indexed->named [keys tbl]
   (for [index (length tbl) 1 -1]
     (let [key (. tbl index)]
       (match (. keys key)
@@ -71,7 +70,7 @@
                     (tset key value)))))
   tbl)
 
-(defn- keymap [m args]
+(fn keymap [m args]
   (let [options {:buffer true :silent true :remap true :noremap true}
         args (indexed->named options args)
         lhs (. args 1)
@@ -79,15 +78,15 @@
         opts (c.select-keys args (c.keys options))]
     (vim.keymap.set m lhs rhs opts)))
 
-(defn- nmap     [...] (keymap :n [:remap   ...]))
-(defn- nnoremap [...] (keymap :n [:noremap ...]))
-(defn- omap     [...] (keymap :o [:remap   ...]))
-(defn- tnoremap [...] (keymap :t [:noremap ...]))
-(defn- vnoremap [...] (keymap :v [:noremap ...]))
-(defn- xmap     [...] (keymap :x [:remap   ...]))
-(defn- xnoremap [...] (keymap :x [:noremap ...]))
+(fn nmap     [...] (keymap :n [:remap   ...]))
+(fn nnoremap [...] (keymap :n [:noremap ...]))
+(fn omap     [...] (keymap :o [:remap   ...]))
+(fn tnoremap [...] (keymap :t [:noremap ...]))
+(fn vnoremap [...] (keymap :v [:noremap ...]))
+(fn xmap     [...] (keymap :x [:remap   ...]))
+(fn xnoremap [...] (keymap :x [:noremap ...]))
 
-(def- bottom-height 15)
+(local bottom-height 15)
 
 (telescope.setup
   {:defaults (themes.get_ivy
@@ -147,7 +146,7 @@
              "<C-e>"   (cmp.mapping.close)
              "<Space>" (cmp.mapping.confirm)}})
 
-(def- lsp-capabilities
+(local lsp-capabilities
   (vim.tbl_deep_extend
     :force
     (vim.lsp.protocol.make_client_capabilities)
@@ -476,14 +475,14 @@
                     "--placeholder" "\\?[a-zA-Z]+\\?" ; regex for code that must not be changed `?IN?`
                     "-"]})]})
 
-(defn- enabled-formatting? [client]
+(fn enabled-formatting? [client]
   (let [disabled-formatters [:tsserver :clojure_lsp]]
     (not (vim.tbl_contains disabled-formatters (. client :name)))))
 
 (nnoremap :<Leader>lf #(vim.lsp.buf.format {:timeout_ms 5000 ; default 2000, zprint is slow
                                             :filter enabled-formatting?}))
 (nnoremap :<Leader>la vim.lsp.buf.code_action)
-(defn- lsp-buffer-mappings []
+(fn lsp-buffer-mappings []
   (nnoremap :buffer :gd         vim.lsp.buf.definition)
   (nnoremap :buffer :<Leader>lt vim.lsp.buf.type_definition)
   (nnoremap :buffer "}"         vim.lsp.buf.references)
@@ -587,16 +586,16 @@
 
 
 ;; Clojure
-(defn clj_ignore []
+(fn clj_ignore []
   (nu.normal "`[") ; navigate to beginnign of a text object
   (nu.normal "i#_") ; prepend reader macro
 )
 
-(defn do-clj-ignore [form]
+(fn do-clj-ignore [form]
   (set vim.opt.operatorfunc (.. "v:lua.require'" *module-name* "'.clj_ignore"))
   (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
 
-(defn- conjure-eval [form]
+(fn conjure-eval [form]
   (vim.cmd.ConjureEval form))
 
 (au clojure :FileType :clojure
@@ -655,12 +654,12 @@
 (nnoremap :<Leader>sp "<Cmd>SlimeSend1 <C-R>s<CR>")
 
 ;; Scheme
-(defn scm_ignore []
+(fn scm_ignore []
   (nu.normal "`[") ; navigate to beginnign of a text object
   (nu.normal "i#;") ; prepend sexp comment
 )
 
-(defn do-scm-ignore [form]
+(fn do-scm-ignore [form]
   (set vim.opt.operatorfunc (.. "v:lua.require'" *module-name* "'.scm_ignore"))
   (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
 

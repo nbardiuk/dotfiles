@@ -20,7 +20,10 @@ in
     withNodeJs = false;
     withPython3 = false;
     withRuby = false;
-    extraConfig = "let g:aniseed#env = {'module': 'dotfiles.init'}";
+    extraLuaConfig = ''
+      require("nfnl").setup()
+      require("dotfiles")
+    '';
     plugins = with pkgs.vimPlugins; [
       cmp-buffer # buffer text source for nvim-cmp
       cmp-conjure # conjure source for nvim-cmp
@@ -103,6 +106,11 @@ in
         sha256 = "sha256-6k8VrNdG0/d2EzoRWf6+LfcxJB23dO7ndlPEiDK1poc=";
       })
       (plugin {
+        url = "https://github.com/Olical/nfnl";
+        rev = "b91aff4";
+        sha256 = "sha256-Aozbfr0N8P+BD4qfsjFaQc7kmI8qIflLTewNEQR81+I=";
+      })
+      (plugin {
         url = "https://github.com/rgroli/other.nvim";
         rev = "9afecea";
         sha256 = "sha256-df/L8ZOdjkviE6WRRe7uon82hlUb+yYDdtiN3pJ5OBs=";
@@ -116,7 +124,7 @@ in
   };
 
   xdg.configFile = with config.lib.file; {
-    "nvim/fnl".source = mkOutOfStoreSymlink ./nvim/fnl;
+    "nvim/lua".source = mkOutOfStoreSymlink ./nvim/lua;
     "nvim/queries".source = mkOutOfStoreSymlink ./nvim/queries;
   };
 
