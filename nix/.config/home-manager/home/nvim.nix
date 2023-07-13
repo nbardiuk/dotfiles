@@ -102,8 +102,8 @@ in
       })
       (plugin {
         url = "https://github.com/Olical/nfnl";
-        rev = "bce853c";
-        sha256 = "sha256-mtsZgXYXQdd08zGu/5bGvcOKrzf8POyFdagJxDhp+Lc=";
+        rev = "9cac70c";
+        sha256 = "sha256-GCLBsbDYZ7U+5E1JiTip3xmwy6+9E1ugM/UYnpWb0+Q=";
       })
       (plugin {
         url = "https://github.com/rgroli/other.nvim";
