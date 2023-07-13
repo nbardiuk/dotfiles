@@ -116,8 +116,8 @@ in
   };
 
   xdg.configFile = with config.lib.file; {
-    "nvim/fnl/dotfiles/init.fnl".source = mkOutOfStoreSymlink ./init.fnl;
-    "nvim/queries".source = mkOutOfStoreSymlink ./nvim-queries;
+    "nvim/fnl".source = mkOutOfStoreSymlink ./nvim/fnl;
+    "nvim/queries".source = mkOutOfStoreSymlink ./nvim/queries;
   };
 
   home.packages = with pkgs; [
