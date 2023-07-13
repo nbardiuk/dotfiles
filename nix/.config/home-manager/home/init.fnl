@@ -111,7 +111,7 @@
 
 (cmp.setup
   {:sources [{:name :nvim_lsp}
-             ; {:name :conjure}
+             {:name :conjure}
              {:name :treesitter}
              {:name :vim-dadbod-completion}
              {:name :lausnip}
