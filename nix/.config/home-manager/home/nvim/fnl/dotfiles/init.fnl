@@ -7,13 +7,10 @@
 (local fidget (require :fidget))
 (local lightspeed (require :lightspeed))
 (local lspconfig (require :lspconfig))
-(local lspconfigs (require :lspconfig.configs))
 (local lspkind (require :lspkind))
 (local lualine (require :lualine))
 (local luasnip (require :luasnip))
 (local null-ls (require :null-ls))
-(local null-ls-helpers (require :null-ls.helpers))
-(local null-ls-methods (require :null-ls.methods))
 (local oil (require :oil))
 (local surround (require :nvim-surround))
 (local tel (require :telescope.builtin))
@@ -21,8 +18,6 @@
 (local themes (require :telescope.themes))
 (local tree-context (require :treesitter-context))
 (local tree-conf (require :nvim-treesitter.configs))
-(local tree-parsers (require :nvim-treesitter.parsers))
-(local ts_utils (require :nvim-treesitter.ts_utils))
 (local other (require :other-nvim))
 
 
@@ -637,6 +632,13 @@
 (set vim.g.conjure#client#clojure#nrepl#eval#raw_out true)
 
 (lspconfig.clojure_lsp.setup {:capabilities lsp-capabilities})
+
+
+;; Fennel
+(au clojure :FileType :fennel
+    (lsp-buffer-mappings))
+(lspconfig.fennel_ls.setup
+  {:capabilities lsp-capabilities})
 
 
 ;; Slime

@@ -146,5 +146,6 @@ in
     codespell
     sqls
     tree-sitter
+    fennel-ls
   ];
 }
