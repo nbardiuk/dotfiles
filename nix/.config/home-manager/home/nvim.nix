@@ -96,11 +96,6 @@ in
         sha256 = "sha256-v203eAizjW82fAYIsUFa6EJFELH0QsPKXelLnbYhoPI=";
       })
       (plugin {
-        url = "https://github.com/Olical/aniseed";
-        rev = "v3.33.0";
-        sha256 = "sha256-8AynKSSKK7R4Y8lGqzPSu6j4o6uuZikhq9fW4Degps0=";
-      })
-      (plugin {
         url = "https://github.com/Olical/conjure";
         rev = "v4.44.2";
         sha256 = "sha256-6k8VrNdG0/d2EzoRWf6+LfcxJB23dO7ndlPEiDK1poc=";

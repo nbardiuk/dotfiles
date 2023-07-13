@@ -1,6 +1,6 @@
 (local autopairs (require :nvim-autopairs))
 (local Comment (require :Comment))
-(local c (require :aniseed.core))
+(local c (require :nfnl.core))
 (local cmp (require :cmp))
 (local cmp_nvim_lsp (require :cmp_nvim_lsp))
 (local dressing (require :dressing))
@@ -11,7 +11,6 @@
 (local lspkind (require :lspkind))
 (local lualine (require :lualine))
 (local luasnip (require :luasnip))
-(local nu (require :aniseed.nvim.util))
 (local null-ls (require :null-ls))
 (local null-ls-helpers (require :null-ls.helpers))
 (local null-ls-methods (require :null-ls.methods))
@@ -587,8 +586,8 @@
 
 ;; Clojure
 (fn clj_ignore []
-  (nu.normal "`[") ; navigate to beginnign of a text object
-  (nu.normal "i#_") ; prepend reader macro
+  (vim.cmd "normal! `[") ; navigate to beginnign of a text object
+  (vim.cmd "normal! i#_") ; prepend reader macro
 )
 
 (fn do-clj-ignore [form]
@@ -655,8 +654,8 @@
 
 ;; Scheme
 (fn scm_ignore []
-  (nu.normal "`[") ; navigate to beginnign of a text object
-  (nu.normal "i#;") ; prepend sexp comment
+  (vim.cmd "normal `[") ; navigate to beginnign of a text object
+  (vim.cmd "normal i#;") ; prepend sexp comment
 )
 
 (fn do-scm-ignore [form]
