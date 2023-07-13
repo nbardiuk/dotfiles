@@ -446,7 +446,7 @@
 (null-ls.setup
   {:sources
    [null-ls.builtins.code_actions.statix
-    (null_ls.builtins.diagnostics.vale.with
+    (null-ls.builtins.diagnostics.vale.with
       {:filetypes ["markdown" "gitcommit"]})
     null-ls.builtins.diagnostics.statix
     null-ls.builtins.diagnostics.shellcheck
@@ -463,7 +463,7 @@
     null-ls.builtins.formatting.xmllint
     (null-ls.builtins.formatting.trim_whitespace.with
       {:filetypes ["yaml" "docker" "fennel"]})
-    (null_ls.builtins.formatting.clang_format.with
+    (null-ls.builtins.formatting.clang_format.with
       {:filetypes ["glsl"]})
     (null-ls.builtins.formatting.shfmt.with
       {:extra_args ["-i" "2" "-sr"]})
