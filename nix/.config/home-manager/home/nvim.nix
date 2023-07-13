@@ -20,10 +20,7 @@ in
     withNodeJs = false;
     withPython3 = false;
     withRuby = false;
-    extraLuaConfig = ''
-      require("nfnl").setup()
-      require("dotfiles")
-    '';
+    extraLuaConfig = ''require("dotfiles")'';
     plugins = with pkgs.vimPlugins; [
       cmp-buffer # buffer text source for nvim-cmp
       cmp-conjure # conjure source for nvim-cmp
