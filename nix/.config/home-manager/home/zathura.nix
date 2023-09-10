@@ -3,12 +3,13 @@
   programs.zathura = {
     enable = true;
     options = {
-      adjust-open = "width"; # S
-      continuous-hist-save = true;
-      scroll-page-aware = true;
-      selection-clipboard = "clipboard";
-      statusbar-home-tilde = true;
-      window-title-home-tilde = true;
+      adjust-open = "width"; # Defines which auto adjustment mode should be used if a document is loaded.
+      continuous-hist-save = true; # Tells zathura whether to save document history at each page change or only when closing a document.
+      scroll-page-aware = true; # Defines if scrolling by half or full pages stops at page boundaries.
+      selection-clipboard = "clipboard"; # Defines the X clipboard into which mouse-selected data will be written
+      statusbar-home-tilde = true; # Display a short version of the file path, which replaces $HOME with ~, in the statusbar
+      window-title-home-tilde = true; # Display a short version of the file path, which replaces $HOME with ~, in the window title.
+      page-padding = 0; # The page padding defines the gap in pixels between each rendered page.
     };
   };
 }
