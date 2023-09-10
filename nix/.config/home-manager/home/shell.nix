@@ -26,7 +26,7 @@
     python310Packages.pip
     python310Packages.virtualenv
 
-    exa # fancy ls with tree
+    eza # fancy ls with tree
     tokei
     wget
     unzip
