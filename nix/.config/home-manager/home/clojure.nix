@@ -50,7 +50,9 @@ in
               :remove-trailing-whitespace? true
               :remove-consecutive-blank-lines? true
               :insert-missing-whitespace? true}
-     :hover  {:hide-file-location? true}}
+     :hover  {:hide-file-location? true}
+     :java   {:jdk-source-uri "file://${same-jdk}/lib/src.zip"
+              :decompile-jar-as-project? true}}
   '';
 
   home.file.".zprint.edn".text = ''
