@@ -5,7 +5,6 @@
 (local cmp_nvim_lsp (require :cmp_nvim_lsp))
 (local dressing (require :dressing))
 (local fidget (require :fidget))
-(local lightspeed (require :lightspeed))
 (local lspconfig (require :lspconfig))
 (local lspkind (require :lspkind))
 (local lualine (require :lualine))
@@ -365,13 +364,11 @@
 ;; Comments
 (Comment.setup {})
 
-(lightspeed.setup
-  {:ignore_case true})
-
 
 ;; Files
 (oil.setup
-  {:columns [{1 :permissions :highlight :NonText}
+  {:default_file_explorer false ;; don't disable netrw
+   :columns [{1 :permissions :highlight :NonText}
              {1 :size        :highlight :String}
              {1 :ctime       :highlight :Number :format "%Y-%m-%d %H:%M"}]
    :view_options {:show_hidden true}
@@ -389,6 +386,7 @@
              "gy"    "actions.copy_entry_path"}
    :use_default_keymaps false})
 (nmap :- oil.open)
+(set vim.g.netrw_banner false) ;; hide netrw banner
 
 ;; Git
 ; If this many milliseconds nothing is typed the swap file will be written to disk speedsup gitgutter
@@ -420,7 +418,7 @@
 ;; %ah - author date, human style
 ;; %d  - ref names, like the --decorate
 ;; %s  - subject
-(set vim.g.fugitive_summary_format "%ah %d %s")
+(set vim.g.fugitive_summary_format "%aN [%ah] %d %s")
 
 ;; Wiki
 (set vim.g.wiki_root "~/Notes")
@@ -492,11 +490,10 @@
    :severity_sort true
    :signs true})
 (nnoremap :L #(vim.diagnostic.open_float nil {:scope :line :border :single}))
-(nnoremap :yol #(do
-                  (if (vim.diagnostic.is_disabled)
-                    (vim.diagnostic.enable)
-                    (vim.diagnostic.disable))
-                  (vim.notify (.. "diagnostic disabled? " (tostring (vim.diagnostic.is_disabled))))))
+(nnoremap :yol #(let [cur-buf 0
+                      disabled? (vim.diagnostic.is_disabled cur-buf)]
+                  (if disabled? (vim.diagnostic.enable cur-buf) (vim.diagnostic.disable cur-buf))
+                  (vim.notify (.. "diagnostic disabled? " (tostring (not disabled?))))))
 (nnoremap "]d" vim.diagnostic.goto_next)
 (nnoremap "[d" vim.diagnostic.goto_prev)
 
@@ -534,6 +531,15 @@
          (let [[tsserver-bin] (vim.fn.systemlist "realpath `which tsserver`")
                (tsserver-path) (string.gsub tsserver-bin "bin/tsserver" "lib")]
            tsserver-path)]})
+
+
+;; Java
+(au java :FileType :java
+    (lsp-buffer-mappings))
+(lspconfig.java_language_server.setup
+  {:capabilities lsp-capabilities
+   :cmd ["/home/nazarii/.nix-profile/share/java/java-language-server/lang_server_linux.sh"]})
+
 
 ;; Rust
 (au rust :FileType :rust
@@ -772,6 +778,16 @@
 ;; EasyAlign
 (nmap :ga "<Plug>(EasyAlign)")
 (xmap :ga "<Plug>(EasyAlign)")
+
+
+;; Open Notion task from number i.e. NT-1774 or #NT-1774
+(nnoremap :<Leader>gn
+          #(let [word-under-cursor (vim.fn.expand "<cWORD>")
+                 task (string.match word-under-cursor "NT%-%d+")]
+             (if task
+               (vim.cmd (.. "silent !xdg-open https://notion.so/" task))
+               (vim.notify (.. "Not a notion task '" word-under-cursor "'") vim.log.levels.WARN))))
+
 
 {: clj_ignore
  : scm_ignore}

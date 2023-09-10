@@ -24,7 +24,8 @@
 
   # How unread and relevant news should be presented
   # when running home-manager build and home-manager switch.
-  news.display = "silent";
+  # news.display = "silent";
+
   fonts.fontconfig.enable = true;
 
   programs.home-manager = {
@@ -54,7 +55,8 @@
     _1password-gui
     libreoffice-fresh
     tdesktop # chat app
-    transmission-gtk
+    # transmission_4-gtk
+    qbittorrent
     # vscode-with-extensions
 
     # chatterino2
@@ -120,6 +122,9 @@
 
     gimp
     krita
+    darktable
+    gthumb
+    shotwell
 
     calibre
 
@@ -153,13 +158,13 @@
 
     lazydocker
 
-    visidata
-
-
     drata-agent
 
     scrcpy # android control
   ];
 
-  home.stateVersion = "18.09";
+  home.stateVersion = "23.05";
+
+  home.username = "nazarii";
+  home.homeDirectory = "/home/nazarii";
 }

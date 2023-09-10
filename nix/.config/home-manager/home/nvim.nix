@@ -13,7 +13,7 @@ in
 {
   programs.neovim = {
     enable = true;
-    package = neovim-nightly "03f3038";
+    package = neovim-nightly "7097b1b";
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
@@ -34,7 +34,6 @@ in
       ferret
       fidget-nvim # lsp progress widget
       gitgutter
-      lightspeed-nvim # quick jumps
       lspkind-nvim
       lualine-nvim
       luasnip # snippets manager
@@ -89,8 +88,8 @@ in
       })
       (plugin {
         url = "https://github.com/lervag/wiki.vim";
-        rev = "6777c73";
-        sha256 = "sha256-v203eAizjW82fAYIsUFa6EJFELH0QsPKXelLnbYhoPI=";
+        rev = "v0.8";
+        sha256 = "sha256-E+hGi7DTsGqGHi7VrcdOxCYQIa5Wy2Fu0yLa3ASiaAA=";
       })
       (plugin {
         url = "https://github.com/Olical/conjure";
@@ -135,7 +134,7 @@ in
     python310Packages.python-lsp-server
     ccls
     clang-tools
-    hadolint # dockerfile linter
+    # (ilist broken) hadolint # dockerfile linter
     fennel
     pandoc # for markdown conversion
     statix # nix linter
@@ -144,5 +143,6 @@ in
     sqls
     tree-sitter
     fennel-ls
+    java-language-server
   ];
 }
