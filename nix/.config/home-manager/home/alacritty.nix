@@ -87,7 +87,7 @@ in
     # Font configuration (changes require restart)
     font = {
       normal.family = "Iosevka";
-      size = 9.5;
+      size = 9;
     };
   };
 }
