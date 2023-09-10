@@ -31,7 +31,6 @@
     wget
     unzip
     unrar
-    perl534Packages.vidir
 
     watchexec
   ];
