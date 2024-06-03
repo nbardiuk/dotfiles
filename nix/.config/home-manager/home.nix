@@ -12,6 +12,7 @@
     ./home/java.nix
     ./home/keyboard.nix
     ./home/k9s.nix
+    ./home/mpv.nix
     ./home/obs.nix
     ./home/psql.nix
     ./home/mysql.nix
@@ -40,8 +41,6 @@
 
   xdg.enable = true;
 
-  programs.mpv.enable = true;
-  programs.mpv.scripts = with pkgs.mpvScripts; [ mpris ];
 
   services.easyeffects.enable = false;
 
@@ -70,24 +69,27 @@
     # qtractor
     # pianobooster
     musescore
-    solfege
+    # solfege
 
     reaper # daw
     audacity
     ardour # daw
+    # bitwig-studio
+    transcribe
+    yt-dlp
 
     # https://www.linuxsampler.org
-    linuxsampler
-    qsampler
+    # linuxsampler
+    # qsampler
 
 
     # webtorrent_desktop
 
-    yoshimi # synth
-    surge-XT # synth
-    fluidsynth # synth
-    rosegarden # midi seq
-    hydrogen # drum machine
+    # yoshimi # synth
+    # surge-XT # synth
+    # fluidsynth # synth
+    # rosegarden # midi seq
+    # hydrogen # drum machine
 
     helvum # pipewire patchbay
 
@@ -96,15 +98,15 @@
     # flamegraph
 
     slack
-    discord
-    element-desktop
+    # discord
+    # element-desktop
 
     zoom-us
 
     protonvpn-gui
 
-    screenkey
-    slop
+    # screenkey
+    # slop
 
     kdenlive
     ffmpeg-full
@@ -118,7 +120,7 @@
     # steam
     # steam.run
 
-    anki
+    # anki
 
     gimp
     krita
@@ -126,17 +128,21 @@
     gthumb
     shotwell
 
+    curtail # image compression
+
+    video-trimmer
+
     calibre
 
     chrysalis
 
-    plantuml
-    nodePackages.mermaid-cli
+    # plantuml
+    # nodePackages.mermaid-cli
 
-    aws-vault
-    awscli2
-    ssm-session-manager-plugin
-    amazon-ecr-credential-helper
+    # aws-vault
+    # awscli2
+    # ssm-session-manager-plugin
+    # amazon-ecr-credential-helper
 
     (google-cloud-sdk.withExtraComponents [
       google-cloud-sdk.components.cloud_sql_proxy
@@ -151,17 +157,23 @@
     xsane
 
     dbeaver
-    beekeeper-studio
+    # beekeeper-studio
 
     gnome.nautilus
     flameshot
 
     lazydocker
 
-    drata-agent
-
     scrcpy # android control
+    gnirehtet # android reverse tethering
+    libsForQt5.kdeconnect-kde # kde connect remote android
+
+    v4l-utils # video4linux devices
+
+    obsidian # notes
   ];
+
+  nixpkgs.config.allowUnfree = true;
 
   home.stateVersion = "23.05";
 

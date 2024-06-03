@@ -2,32 +2,91 @@
 let
   commit = "git/commit";
   hooks = "git/hooks";
-in {
+in
+{
   programs.git = {
     enable = true;
     userName = "Nazarii Bardiuk";
     userEmail = "nazarii@bardiuk.com";
     ignores = [
       # python
-      ".venv/" ".env/"
+      ".venv/"
+      ".env/"
       # idea
-      ".idea/" ".idea_modules/" "*.iml" "*.ipr"
+      ".idea/"
+      ".idea_modules/"
+      "*.iml"
+      "*.ipr"
       # Vim
-      ".sw[a-p]" ".*.sw[a-p]" "Session.vim" ".netrwhist" "*~" "tags" ".lnvim.fnl" ".lnvim.lua"
+      ".sw[a-p]"
+      ".*.sw[a-p]"
+      "Session.vim"
+      ".netrwhist"
+      "*~"
+      "tags"
+      ".nfnl.fnl"
+      ".nvim.fnl"
+      ".nvim.lua"
       # sbt
-      "dist/*" "target/" "lib_managed/" "src_managed/" "project/boot/" "project/plugins/project/" ".history" ".cache" ".lib/"
+      "dist/*"
+      "target/"
+      "lib_managed/"
+      "src_managed/"
+      "project/boot/"
+      "project/plugins/project/"
+      ".history"
+      ".cache"
+      ".lib/"
       # Gradle
-      ".gradle" "**/build/" "gradle-app.setting" ".gradletasknamecache"
+      ".gradle"
+      "**/build/"
+      "gradle-app.setting"
+      ".gradletasknamecache"
       # Haskell
-      "dist" "dist-*" "cabal-dev" "*.o" "*.hi" "*.chi" "*.chs.h" "*.dyn_o" "*.dyn_hi" ".hpc" ".hsenv" ".cabal-sandbox/" "cabal.sandbox.config" "*.prof" "*.aux" "*.hp" "*.eventlog" ".stack-work/" "cabal.project.local" "cabal.project.local~" ".HTF/" ".ghc.environment.*"
+      "dist"
+      "dist-*"
+      "cabal-dev"
+      "*.o"
+      "*.hi"
+      "*.chi"
+      "*.chs.h"
+      "*.dyn_o"
+      "*.dyn_hi"
+      ".hpc"
+      ".hsenv"
+      ".cabal-sandbox/"
+      "cabal.sandbox.config"
+      "*.prof"
+      "*.aux"
+      "*.hp"
+      "*.eventlog"
+      ".stack-work/"
+      "cabal.project.local"
+      "cabal.project.local~"
+      ".HTF/"
+      ".ghc.environment.*"
       # direnv
-      ".envrc" ".direnv"
+      ".envrc"
+      ".direnv"
       # Clojure
-      "pom.xml" "pom.xml.asc" "*.jar" "*.class" "/classes/" "/target/" "/checkouts/" ".lein-deps-sum" ".lein-repl-history" ".lein-plugins/" ".lein-failures" ".nrepl-port" ".cpcache/"
+      "pom.xml"
+      "pom.xml.asc"
+      "*.jar"
+      "*.class"
+      "/classes/"
+      "/target/"
+      "/checkouts/"
+      ".lein-deps-sum"
+      ".lein-repl-history"
+      ".lein-plugins/"
+      ".lein-failures"
+      ".nrepl-port"
+      ".cpcache/"
       # c/cpp
       ".ccls-cache"
       # syncthing
-      ".stversions/" ".stfolder/"
+      ".stversions/"
+      ".stfolder/"
     ];
     extraConfig = {
       checkout.defaultRemote = "origin";
@@ -47,12 +106,12 @@ in {
       "mergetool \"vmerge\"".cmd = "nvim -d $LOCAL $REMOTE $MERGED -c 'wincmd w' -c 'wincmd J'";
       mergetool.prompt = true;
       pull.rebase = true;
-      push.autoSetupRemote = true; 
+      push.autoSetupRemote = true;
       rebase.autoStash = true;
       rebase.stat = true;
       remote.defaultPush = "origin";
-      "diff \"clojure\"".xfuncname = "!^;.*\n^[^ \t].*$";
-      "diff \"clojure\"".wordRegex = "[#@:]?[^0-9][a-zA-Z0-9*+!-_'?<>=/.]+|[-]?[0-9a-fA-Frxb/MN]+|[\\0-9a-fA-F]+";
+      # "diff \"clojure\"".xfuncname = "!^;.*\\n^[^ \\t].*$";
+      # "diff \"clojure\"".wordRegex = "[#@:]?[^0-9][a-zA-Z0-9*+!-_'?<>=/.]+|[-]?[0-9a-fA-Frxb/MN]+|[\\0-9a-fA-F]+";
       "diff \"secret\"".cachetextconv = true;
     };
     attributes = [
@@ -62,8 +121,8 @@ in {
   };
 
   xdg.configFile."${hooks}/pre-commit" = {
-      source = ./pre-commit.clj;
-      executable = true;
+    source = ./pre-commit.clj;
+    executable = true;
   };
 
   xdg.configFile.${commit}.text = ''
@@ -87,5 +146,11 @@ in {
     gitAndTools.hub
     mu-repo
     gitui
+    review-pr
   ];
+
+  programs.lazygit = {
+    enable = true;
+    settings.gui.theme.lightTheme = true;
+  };
 }

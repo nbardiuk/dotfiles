@@ -1,7 +1,7 @@
 { ... }:
 let
   grey = {
-    # https://gitlab.com/yorickpeterse/nvim-grey#terminal-colors
+    # https://github.com/yorickpeterse/nvim-grey/blob/main/colors/grey.lua
     colors = {
       primary = {
         background = "#F2F2F2";
@@ -15,24 +15,24 @@ let
 
       normal = {
         black = "#000000";
-        red = "#CC3E28";
-        green = "#216609";
+        red = "#C4331D";
+        green = "#1C5708";
         yellow = "#BF8F00";
-        blue = "#1E6FCC";
+        blue = "#1561B8";
         magenta = "#5C21A5";
-        cyan = "#158c86";
+        cyan = "#007872";
         white = "#FFFFFF";
       };
 
       bright = {
-        black = "#555555";
-        red = "#CC3E28";
-        green = "#216609";
+        black = "#000000";
+        red = "#C4331D";
+        green = "#1C5708";
         yellow = "#BF8F00";
-        blue = "#1E6FCC";
+        blue = "#1561B8";
         magenta = "#5C21A5";
-        cyan = "#158c86";
-        white = "#AAAAAA";
+        cyan = "#007872";
+        white = "#FFFFFF";
       };
     };
   };

@@ -1,19 +1,16 @@
 { pkgs, config, lib, ... }:
 let
   plugin = { url, rev, sha256 }:
-    pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pkgs.vimUtils.buildVimPlugin {
       pname = with lib; (last (splitString "/" url));
       version = rev;
       src = pkgs.fetchgit { inherit url rev sha256; };
     };
-  neovim-nightly = rev:
-    let url = "https://github.com/nix-community/neovim-nightly-overlay/archive/${rev}.tar.gz"; in
-    (import <nixpkgs> { overlays = [ (import (fetchTarball { inherit url; })) ]; }).neovim-nightly;
 in
 {
   programs.neovim = {
     enable = true;
-    package = neovim-nightly "7097b1b";
+    package = pkgs.neovim;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
@@ -38,7 +35,6 @@ in
       lualine-nvim
       luasnip # snippets manager
       markdown-preview-nvim
-      null-ls-nvim # linters and formatters using lsp
       nvim-autopairs
       nvim-cmp # completion manager
       nvim-lspconfig
@@ -48,7 +44,7 @@ in
       nvim-treesitter-textobjects
       oil-nvim # dired inspired browser
       playground # treesitter playground
-      plenary-nvim # for telescope, and null-ls
+      plenary-nvim # for telescope, and none-ls
       rhubarb # github provider for fugitive
       tabular
       targets-vim
@@ -72,14 +68,19 @@ in
       vim-slime
       vim-unimpaired
       (plugin {
+        url = "https://github.com/nvimtools/none-ls.nvim";
+        rev = "f1c0066";
+        sha256 = "sha256-+6wmr6eWNs/vuKzm0j+ud3SVE38IKILzyhC/Y1AU9Qc=";
+      })
+      (plugin {
         url = "https://github.com/2KAbhishek/co-author.nvim";
-        rev = "b18ac50";
-        sha256 = "sha256-8JOc6Y/p/nwMiu4ZCPV/WmgGkwB1VN45Hu+NHnt9jRc=";
+        rev = "8e42c7c";
+        sha256 = "sha256-IQeKO9U7qZM3+zt8vADRGec+1XXXy/4PsnFKf0GEKAU=";
       })
       (plugin {
         url = "https://github.com/chrisbra/colorizer";
-        rev = "715c913";
-        sha256 = "sha256-HnIDb6cQKCSuUoNXmw75z5sYxbj9Cv0xMVOWSCgU8jw=";
+        rev = "d4c0ed6";
+        sha256 = "sha256-d0XiH8nNnO2+Xnk4ceehPvo+nvW5gn0e7XnYRPysXEk=";
       })
       (plugin {
         url = "https://github.com/diepm/vim-rest-console";
@@ -88,28 +89,33 @@ in
       })
       (plugin {
         url = "https://github.com/lervag/wiki.vim";
-        rev = "v0.8";
-        sha256 = "sha256-E+hGi7DTsGqGHi7VrcdOxCYQIa5Wy2Fu0yLa3ASiaAA=";
+        rev = "65b67f3";
+        sha256 = "sha256-aGHFtVIO/BtGNnovmnmgU41rsez+JGz016pV/MScy8g=";
       })
       (plugin {
         url = "https://github.com/Olical/conjure";
-        rev = "v4.46.0";
-        sha256 = "sha256-700AhkKvc1X/Q/+YaLuDFlDzNKcd3kuXbMb9NIG7tMo=";
+        rev = "v4.49.0";
+        sha256 = "sha256-KnYTkZEmCY4urXh4NaWGAip+dR5NMgj8rdyK6YzUmPo=";
       })
       (plugin {
         url = "https://github.com/Olical/nfnl";
-        rev = "9cac70c";
-        sha256 = "sha256-GCLBsbDYZ7U+5E1JiTip3xmwy6+9E1ugM/UYnpWb0+Q=";
+        rev = "eaeef33";
+        sha256 = "sha256-iJ/m7jH/62FaH0ZBhvZDA6RYBTLQIPAag1ka8WCsreo=";
       })
       (plugin {
         url = "https://github.com/rgroli/other.nvim";
-        rev = "9afecea";
-        sha256 = "sha256-df/L8ZOdjkviE6WRRe7uon82hlUb+yYDdtiN3pJ5OBs=";
+        rev = "d4d926d";
+        sha256 = "sha256-IeDj3Eecpm+LwXny6sLrurG/78MtgDvWk+TcMrYGGt8=";
       })
       (plugin {
         url = "https://github.com/yorickpeterse/nvim-grey";
-        rev = "70a5d2d";
-        sha256 = "sha256-tn1HH2YoxMFbUQxVKoBCgC9wBq9DpB5PMaKm3DLgH20=";
+        rev = "16d2036e6db3b3eef0cc141b24905575e6d67723";
+        sha256 = "sha256-mDraHW26pNlMXjgA8ORXKLNSrV4BCb9IUIGLxRnYUdY=";
+      })
+      (plugin {
+        url = "https://github.com/dmmulroy/tsc.nvim";
+        rev = "a8f26d3";
+        sha256 = "sha256-GerEK+eEi8y3shDNqGg14Oh6MPtKgasvfBxDuXGRyyA=";
       })
     ];
   };
@@ -131,10 +137,9 @@ in
     yamllint # yaml linter
     pgformatter # sql formatter
     sqlint # sql linter
-    python310Packages.python-lsp-server
     ccls
     clang-tools
-    # (ilist broken) hadolint # dockerfile linter
+    hadolint # dockerfile linter
     fennel
     pandoc # for markdown conversion
     statix # nix linter
@@ -144,5 +149,7 @@ in
     tree-sitter
     fennel-ls
     java-language-server
+    eslint_d
+    nil
   ];
 }

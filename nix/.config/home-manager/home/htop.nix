@@ -18,6 +18,7 @@
       hide_kernel_threads = true;
       hide_threads = true;
       hide_userland_threads = true;
+      highlight_base_name = true;
       show_program_path = false;
     } // (leftMeters [
       (bar "AllCPUs2")

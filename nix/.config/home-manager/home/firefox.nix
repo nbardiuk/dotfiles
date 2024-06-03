@@ -3,6 +3,8 @@
   programs.firefox = {
     enable = true;
 
+    nativeMessagingHosts = with pkgs; [ keepassxc ];
+
     profiles.personal = {
 
       name = "personal";

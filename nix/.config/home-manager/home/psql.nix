@@ -5,6 +5,7 @@ in
 if !enable then { } else {
   home.packages = with pkgs; [
     postgresql
+    pspg
   ];
 
   home.file.".psqlrc".text = ''
@@ -13,16 +14,16 @@ if !enable then { } else {
 
     \pset null <NULL>
 
-    \pset format wrapped
-    \pset linestyle old-ascii
-
     \pset expanded
 
     \set FETCH_COUNT 100
 
-    \timing
+    \timing on
 
-    -- turn off the pager, paginate with tmux
-    \pset pager
+    \setenv PAGER 'pspg -s 16'
+    \pset border 2
+    \pset linestyle unicode
+    \set x '\setenv PAGER less'
+    \set xx '\setenv PAGER \'pspg -s 16 -bX --no-mouse\' '
   '';
 }

@@ -8,30 +8,29 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" "v4l2loopback" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback.out ];
-  boot.extraModprobeConfig = ''options v4l2loopback exclusive_caps=1 video_nr=9 card_label="obs"'';
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/f28ed3c5-31e4-4342-84fd-4c55f3df36a9";
+    device = "/dev/disk/by-uuid/fc070df3-4fcb-4a78-abd8-f1c6930289d1";
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."luks-2483af01-e0ec-4546-b2d4-ba8610366ba8".device = "/dev/disk/by-uuid/2483af01-e0ec-4546-b2d4-ba8610366ba8";
+  boot.initrd.luks.devices."luks-aa544102-f6e0-40d6-85b9-e9f2a8d67921".device = "/dev/disk/by-uuid/aa544102-f6e0-40d6-85b9-e9f2a8d67921";
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/2F02-DB36";
+    device = "/dev/disk/by-uuid/C9F5-5215";
     fsType = "vfat";
+    options = [ "fmask=0022" "dmask=0022" ];
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/e6a83682-9b52-46a4-a4c3-d1007b9c69bd"; }
+    { device = "/dev/disk/by-uuid/fd21b85b-f265-47cc-a01d-eba04afa88f6"; }
   ];
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  nix.settings.max-jobs = lib.mkDefault 8;
-  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

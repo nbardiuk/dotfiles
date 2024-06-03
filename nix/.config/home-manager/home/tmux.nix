@@ -14,7 +14,7 @@
 
     disableConfirmationPrompt = true;
 
-    terminal = "screen-256color";
+    terminal = "alacritty";
 
     historyLimit = 50000;
 

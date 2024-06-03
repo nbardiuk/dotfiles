@@ -4,7 +4,6 @@ let
 in
 if !enable then { } else {
   home.packages = with pkgs; [
-    turbo
     nodejs
     nodePackages.pnpm
     nodePackages.get-graphql-schema

@@ -7,7 +7,7 @@ let
   kaocha = ''"RELEASE"'';
   middleware = "cider.nrepl/cider-middleware";
   humane-test-output = ''"RELEASE"'';
-  same-jdk = pkgs.jdk;
+  same-jdk = pkgs.jdk21;
 in
 {
   home.packages = with pkgs; [
@@ -42,7 +42,8 @@ in
        :main-opts  ["-e" "(require,'hashp.core)"
                     "-e" "((requiring-resolve 'portal.api/tap))"
                     "-e" "((requiring-resolve 'pjstadig.humane-test-output/activate!))"
-                    "-m" "nrepl.cmdline" "--middleware" "[${middleware}]"]}}}
+                    "--main" "nrepl.cmdline"
+                    "--middleware" "[${middleware}]"]}}}
   '';
 
   xdg.configFile."clojure-lsp/config.edn".text = ''
@@ -56,6 +57,20 @@ in
   '';
 
   home.file.".zprint.edn".text = ''
-    {:search-config? true}
+    {:search-config? true
+:style :indent-only
+ :set {; Sort sets.
+       :sort-in-code? true
+       :sort? true}
+ :map {; Do not put commas in maps.
+       :comma? false
+       ; Sort map keys
+       :sort? true
+       :sort-in-code? true}
+ ; Set max width to 100 characters.
+ :width 100
+ ; Enforce 2 empty lines between top forms
+ :parse {:interpose "\n\n\n"}
+    }
   '';
 }

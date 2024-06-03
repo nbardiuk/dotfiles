@@ -21,10 +21,13 @@
     lsof
     ncdu
     watch
-    python310Full
-    python310Packages.autopep8
-    python310Packages.pip
-    python310Packages.virtualenv
+
+    (pkgs.python311.withPackages (ps: [
+      ps.autopep8
+      ps.pip
+      ps.virtualenv
+      ps.python-lsp-server
+    ] ++ ps.python-lsp-server.optional-dependencies.all))
 
     eza # fancy ls with tree
     tokei
@@ -33,5 +36,7 @@
     unrar
 
     watchexec
+
+    process-compose
   ];
 }

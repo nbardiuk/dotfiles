@@ -1,31 +1,19 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, musnix, ... }:
 {
-
   imports = [
     ./hardware-configuration.nix
   ];
 
-  # Use the systemd-boot EFI boot loader.
+  # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.loader.systemd-boot.memtest86.enable = false;
+  # Setup keyfile
+  boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
 
-  hardware.cpu.intel.updateMicrocode = true;
-
-  # Graphics
-  hardware.nvidia.prime.sync.enable = true;
-  hardware.nvidia.prime.intelBusId = "PCI:0:2:0";
-  hardware.nvidia.prime.nvidiaBusId = "PCI:1:0:0";
-  hardware.nvidia.modesetting.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  services.xserver.dpi = 96;
-
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true; # enables opengl for 32bit apps
-  hardware.opengl.setLdLibraryPath = true; # adds /run/opengl-driver/lib to LD_LIBRARY_PATH
-
-  programs.steam.enable = false;
+  # Enable swap on luks
+  boot.initrd.luks.devices."luks-52a05dbc-e7d8-4389-b8c6-baad43856bcf".device = "/dev/disk/by-uuid/52a05dbc-e7d8-4389-b8c6-baad43856bcf";
+  boot.initrd.luks.devices."luks-52a05dbc-e7d8-4389-b8c6-baad43856bcf".keyFile = "/crypto_keyfile.bin";
 
   nixpkgs.config.allowUnfree = true;
 
@@ -35,7 +23,19 @@
   networking.networkmanager.enable = true;
   networking.networkmanager.insertNameservers = [ "1.1.1.1" "8.8.8.8" ];
   networking.resolvconf.dnsExtensionMechanism = false;
-  networking.firewall.allowedTCPPorts = [ 5900 ];
+  networking.firewall.allowedTCPPorts = [
+    # 9876 # mpv webui
+    22000 # syncthing listener
+  ];
+  networking.firewall.allowedUDPPorts = [
+    22000 # syncthing listener
+    21027 # syncthing discovery
+  ];
+
+  # kde connect / valent
+  # networking.firewall.allowedTCPPortRanges = [{ from = 1714; to = 1764; }];
+  # networking.firewall.allowedUDPPortRanges = [{ from = 1714; to = 1764; }];
+
 
   i18n.defaultLocale = "en_IE.UTF-8"; # English with EU date format
   time.timeZone = "Europe/Warsaw";
@@ -55,7 +55,7 @@
   services.printing.drivers = [ pkgs.hplipWithPlugin ];
   hardware.printers.ensurePrinters = [{
     name = "ENVY_5640";
-    deviceUri = "hp:/net/ENVY_5640_series?ip=192.168.1.72";
+    deviceUri = "hp:/net/ENVY_5640_series?ip=192.168.0.11";
     model = "drv:///hp/hpcups.drv/hp-envy_5640_series.ppd";
     ppdOptions.PageSize = "A4";
   }];
@@ -66,53 +66,143 @@
   sound.enable = true;
   sound.mediaKeys.enable = true;
 
+  musnix.enable = true;
+  musnix.soundcardPciId = "00:1f.3";
+  musnix.rtirq.enable = true;
+  musnix.rtcqs.enable = true;
+
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
-  environment.etc = {
-    "pipewire/pipewire.conf.d/99-cofigs.conf".text = builtins.toJSON {
-      "context.properties" = {
-        "link.max-buffers" = 16;
-        "log.level" = 2; # https://docs.pipewire.org/page_daemon.html
-        "default.clock.rate" = 48000;
-        "default.clock.allowed-rates" = [ 44100 48000 88200 96000 176400 192000 358000 384000 716000 768000 ];
-        "default.clock.quantum" = 256;
-        "default.clock.min-quantum" = 32;
-        "default.clock.max-quantum" = 8192;
+  hardware.pulseaudio.enable = false;
+  services.pipewire =
+    let
+      quantum = 64;
+      rate = 48000;
+      qr = "${toString quantum}/${toString rate}";
+    in
+    {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = false;
+      pulse.enable = true;
+      jack.enable = true;
+      extraConfig.pipewire."99-lowlatency" = {
+        context = {
+          properties = {
+            default = {
+              clock.min-quantum = quantum;
+            };
+          };
+        };
+        modules = [
+          {
+            name = "libpipewire-module-rtkit";
+            flags = [ "ifexists" "nofail" ];
+            args = {
+              nice.level = -15;
+              rt = {
+                prio = 88;
+                time.soft = 200000;
+                time.hard = 200000;
+              };
+            };
+          }
+          {
+            name = "libpipewire-module-protocol-pulse";
+            args = {
+              server.address = [ "unix:native" ];
+              pulse.min = {
+                req = qr;
+                quantum = qr;
+                frag = qr;
+              };
+            };
+          }
+        ];
+        stream.properties = {
+          node.latency = qr;
+          resample.quality = 1;
+        };
+      };
+      wireplumber = {
+        enable = true;
+        configPackages =
+          let
+            # generate "matches" section of the rules
+            matches = lib.generators.toLua
+              {
+                multiline = false; # looks better while inline
+                indent = false;
+              } [ [ [ "node.name" "matches" "alsa_output.*" ] ] ]; # nested lists are to produce `{{{ }}}` in the output
+
+            # generate "apply_properties" section of the rules
+            apply_properties = lib.generators.toLua { } {
+              "audio.format" = "S32LE";
+              "audio.rate" = rate * 2;
+              "api.alsa.period-size" = 2;
+            };
+          in
+          [
+            (pkgs.writeTextDir "share/lowlatency.lua.d/99-alsa-lowlatency.lua" ''
+              alsa_monitor.rules = {
+                {
+                  matches = ${matches};
+                  apply_properties = ${apply_properties};
+                }
+              }
+            '')
+          ];
       };
     };
-  };
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true; # for blueman applet https://github.com/rycee/home-manager/blob/6aa44d62ad6526177a8c1f1babe1646c06738614/modules/services/blueman-applet.nix#L15
 
   services.xserver.enable = true;
+  services.xserver.dpi = 120; # 96 120 144 168 192 to avoid artifacts https://wiki.archlinux.org/title/Xorg#Setting_DPI_manually
+  services.xserver.xrandrHeads = [
+    {
+      output = "DP-3";
+      monitorConfig = ''
+        DisplaySize 597 336
+      '';
+    }
+    {
+      output = "eDP-1";
+      monitorConfig = ''
+        DisplaySize 344 215
+      '';
+    }
+  ];
+
+
+  hardware.opengl.enable = true;
+  hardware.opengl.driSupport32Bit = false; # enables opengl for 32bit apps
+  hardware.opengl.setLdLibraryPath = false; # adds /run/opengl-driver/lib to LD_LIBRARY_PATH
+
+  programs.steam.enable = false;
 
   services.gnome.gnome-keyring.enable = true;
 
   # Keyboard
-  services.xserver.layout = "us,ua";
-  services.xserver.xkbOptions = "grp:win_space_toggle"; # man xkeyboard-config
+  services.xserver.xkb = {
+    layout = "us(altgr-intl),ua";
+    options = "grp:win_space_toggle"; # man xkeyboard-config
+  };
 
   # Touchpad
-  services.xserver.libinput.enable = true;
-  services.xserver.libinput.touchpad = {
+  services.libinput.enable = true;
+  services.libinput.touchpad = {
     naturalScrolling = true;
     clickMethod = "clickfinger";
     scrollMethod = "twofinger";
-    additionalOptions = ''Option "TappingButtonMap" "lmr"'';
+    tappingButtonMap = "lmr"; #  1 left, 2 middle, 3 right
   };
 
   # Tablet
-  services.xserver.wacom.enable = true;
+  services.xserver.wacom.enable = false;
 
   virtualisation.docker.enable = true;
-  virtualisation.docker.enableNvidia = true;
+  virtualisation.docker.autoPrune.enable = true;
 
   virtualisation.virtualbox.host = {
     enable = false;
@@ -121,7 +211,8 @@
   };
 
   # Enable DE
-  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.lightdm.greeters.enso.enable = true;
   services.xserver.desktopManager.xterm.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -134,23 +225,22 @@
     uid = 1000;
   };
 
-  system.stateVersion = "21.11";
+  system.stateVersion = "23.05";
 
   nix = {
     settings.substituters = [ "https://cache.nixos.org/" ];
     settings.trusted-users = [ "root" "nazarii" ];
+    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.accept-flake-config = true;
     package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 7d";
+    };
   };
 
   services.udisks2.enable = true;
 
-  # tensorflow fail with default 10% of RAM
-  services.logind.extraConfig = ''
-    RuntimeDirectorySize=10G
-  '';
 
   # https://github.com/vitejs/vite/issues/5310#issuecomment-949349291
   security.pam.loginLimits = [
@@ -167,10 +257,7 @@
 
   services.sysstat.enable = true;
 
-  services.plex.enable = false;
-  services.plex.user = "nazarii";
-  services.plex.group = "users";
-  services.plex.openFirewall = true;
+  services.gvfs.enable = true; # Allows to see mtp devices in file manager
 
   hardware.new-lg4ff.enable = true; # Logitech G29 wheel drivers https://github.com/berarma/new-lg4ff
   services.udev.packages = with pkgs; [
@@ -186,11 +273,9 @@
   ];
 
 
-  services.clamav.daemon.enable = false;
-  services.clamav.updater.enable = false;
-  system.autoUpgrade.enable = false;
-
   systemd.extraConfig = ''
     DefaultTimeoutStopSec=10s
   '';
+
+  services.jackett.enable = true;
 }

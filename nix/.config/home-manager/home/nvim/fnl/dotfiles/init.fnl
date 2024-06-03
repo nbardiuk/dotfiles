@@ -18,7 +18,12 @@
 (local tree-context (require :treesitter-context))
 (local tree-conf (require :nvim-treesitter.configs))
 (local other (require :other-nvim))
+(local wiki-telescope (require :wiki.telescope))
+(local tsc (require :tsc))
 
+
+; allow loading directory local config
+(set vim.opt.exrc true)
 
 (tree-context.setup
   {:enable true
@@ -90,11 +95,13 @@
    :extensions {:fzf {:fuzzy true
                       :override_generic_sorter true
                       :override_file_sorter true
-                      :case_mode :smart_case}}})
+                      :case_mode :smart_case}}
+   :pickers {:live_grep {:mappings {:i {"<c-f>" :to_fuzzy_refine}}}}})
 (telescope.load_extension :fzf)
 
 (nnoremap :<Leader>r tel.resume)
 (nnoremap :<Leader>k tel.help_tags)
+(nnoremap :<Leader>m #(tel.man_pages {:sections :ALL}))
 (nnoremap :<Leader><Leader> tel.commands)
 (nnoremap :<Leader>n #(tel.find_files {:find_command [:fd :--hidden :--exclude :.git]}))
 (nnoremap :<Leader>e #(tel.buffers {:sort_lastused true
@@ -150,6 +157,11 @@
 
 (surround.setup {})
 
+(let [escape #(vim.fn.escape $1 ";,.\"|\\")
+      ua "йцукенгшщзфівапролдєячсмитьбю.ЙЦУКЕНГШЩЗФІВАПРОЛДЄЯЧСМИТЬБЮ,Жж"
+      en "qwertyuiopasdfghjkl'zxcvbnm,./QWERTYUIOPASDFGHJKL\"ZXCVBNM<>?:;"]
+   (set vim.opt.langmap (.. (escape ua) ";" (escape en) )))
+
 (set vim.opt.completeopt [:menu :menuone :noselect])
 (vim.opt.complete:remove :t)  ; I don't use tags
 (vim.opt.shortmess:append :c) ; turn off completion messages
@@ -161,7 +173,6 @@
 (set vim.opt.sidescrolloff 5)  ; minimal number of chars around cursor
 (set vim.opt.startofline false) ; keep cursor on the same offset when paging
 
-(set vim.opt.guicursor "a:blinkon0")   ; disable cursor blink in all modes
 (set vim.opt.mouse :a)                 ; enable mouse in all modes
 (set vim.opt.mousemodel :popup_setpos) ; make mouse behave like in GUI app
 
@@ -367,7 +378,7 @@
 
 ;; Files
 (oil.setup
-  {:default_file_explorer false ;; don't disable netrw
+  {
    :columns [{1 :permissions :highlight :NonText}
              {1 :size        :highlight :String}
              {1 :ctime       :highlight :Number :format "%Y-%m-%d %H:%M"}]
@@ -386,7 +397,6 @@
              "gy"    "actions.copy_entry_path"}
    :use_default_keymaps false})
 (nmap :- oil.open)
-(set vim.g.netrw_banner false) ;; hide netrw banner
 
 ;; Git
 ; If this many milliseconds nothing is typed the swap file will be written to disk speedsup gitgutter
@@ -396,7 +406,12 @@
 (set vim.g.gitgutter_map_keys false)
 (nnoremap :silent :<Leader>gd "<Cmd>Gdiffsplit<CR>")
 (nnoremap :silent :<Leader>gs "<Cmd>Git|only<CR>")
+(nnoremap :silent :<Leader>gc tel.git_status)
 (nnoremap :silent :<Leader>gl "<Cmd>Gclog<CR>")
+(nnoremap :silent :<Leader>gq #(each [_ buf (ipairs (vim.api.nvim_list_bufs))]
+                                 (let [buf-name (vim.api.nvim_buf_get_name buf)]
+                                   (when (string.match buf-name "^fugitive://.*$")
+                                     (vim.api.nvim_buf_delete buf {})))))
 (nmap :<Leader>hp "<Plug>(GitGutterPreviewHunk)")
 (nmap :<Leader>hs "<Plug>(GitGutterStageHunk)")
 (nmap :<Leader>hu "<Plug>(GitGutterUndoHunk)")
@@ -413,6 +428,8 @@
       (do (vim.opt.diffopt:append "iwhite") (vim.notify "iwhite"))))
 (au gitcommit :FileType :gitcommit
     (set vim.opt_local.spell true))
+;; https://github.com/tpope/vim-fugitive/blob/46eaf8918b347906789df296143117774e827616/autoload/fugitive.vim#L7345
+(vim.api.nvim_create_user_command :Browse #(vim.ui.open $1.args) {:nargs 1})
 
 ;; man git-log(1)
 ;; %ah - author date, human style
@@ -430,11 +447,8 @@
       "<Plug>(wiki-link-return)" ""
       "<Plug>(wiki-link-toggle)" ""
       "<Plug>(wiki-page-toc)" ""})
-
-(nnoremap :<Leader>wn #(tel.find_files {:cwd vim.g.wiki_root}))
-(nnoremap :<Leader>wf #(tel.live_grep {:cwd vim.g.wiki_root}))
-
-
+(nnoremap :<Leader>wn wiki-telescope.pages)
+(nnoremap :<Leader>wf #(tel.live_grep {:prompt_title "Wiki grep" :cwd vim.g.wiki_root}))
 
 
 ;; LSP
@@ -444,6 +458,7 @@
     (null-ls.builtins.diagnostics.vale.with
       {:filetypes ["markdown" "gitcommit"]})
     null-ls.builtins.diagnostics.statix
+    null-ls.builtins.diagnostics.eslint_d
     null-ls.builtins.diagnostics.shellcheck
     null-ls.builtins.diagnostics.hadolint
     null-ls.builtins.diagnostics.codespell
@@ -510,7 +525,7 @@
 (set vim.g.conjure#log#botright true)
 (au conjure-log :BufNewFile "conjure-log-*"
     (vim.diagnostic.disable 0))
-(set vim.g.conjure#filetypes [:clojure :fennel :python])
+(set vim.g.conjure#filetypes [:clojure :fennel])
 (set vim.g.conjure#eval#gsubs {:do-comment ["^%(comment[%s%c]" "(do "]}) ; eval comment as do
 (set vim.g.conjure#mapping#doc_word :k)
 
@@ -524,13 +539,10 @@
 ;; JavaScript/TypeScript
 (au typescript :FileType [:typescript :javascript :typescriptreact :javascriptreact]
     (lsp-buffer-mappings))
-(lspconfig.tsserver.setup
-  {:capabilities lsp-capabilities
-   ;; https://github.com/typescript-language-server/typescript-language-server/issues/411#issuecomment-1065943942
-   :cmd [:typescript-language-server :--stdio :--tsserver-path
-         (let [[tsserver-bin] (vim.fn.systemlist "realpath `which tsserver`")
-               (tsserver-path) (string.gsub tsserver-bin "bin/tsserver" "lib")]
-           tsserver-path)]})
+(lspconfig.tsserver.setup {:capabilities lsp-capabilities})
+(tsc.setup
+  {:auto_start_watch_mode true
+   :flags {:watch true}})
 
 
 ;; Java
@@ -726,6 +738,12 @@
 (au glsl-detect [:BufNewFile :BufRead] [:*.glsl :*.vert :*.geom :*.frag]
     (set vim.opt_local.filetype :glsl))
 
+;; Nix
+(au nix :FileType :nix
+    (lsp-buffer-mappings))
+(lspconfig.nil_ls.setup {:capabilities lsp-capabilities})
+
+
 ;; Alternative file
 (nnoremap :<Leader>aa "<Cmd>Other<CR>")
 (nnoremap :<Leader>av "<Cmd>OtherVSplit<CR>")
@@ -734,7 +752,11 @@
    [{:pattern "(.*)/src/(.*).clj"
      :target "%1/test/%2_test.clj"}
     {:pattern "(.*)/test/(.*)_test.clj"
-     :target "%1/src/%2.clj"}]})
+     :target "%1/src/%2.clj"}
+    {:pattern "(.*)/fnl/(.*).fnl"
+     :target "%1/lua/%2.lua"}
+    {:pattern "(.*)/lua/(.*).lua"
+     :target "%1/fnl/%2.fnl"}]})
 
 
 ;; Terminal
@@ -785,7 +807,7 @@
           #(let [word-under-cursor (vim.fn.expand "<cWORD>")
                  task (string.match word-under-cursor "NT%-%d+")]
              (if task
-               (vim.cmd (.. "silent !xdg-open https://notion.so/" task))
+               (vim.ui.open (.. "https://notion.so/" task))
                (vim.notify (.. "Not a notion task '" word-under-cursor "'") vim.log.levels.WARN))))
 
 

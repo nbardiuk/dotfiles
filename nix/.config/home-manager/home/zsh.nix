@@ -5,7 +5,7 @@ in
 {
   programs.zsh = rec {
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
 
     history.expireDuplicatesFirst = true;
@@ -15,7 +15,6 @@ in
       plugins = [
         "bgnotify"
         "git"
-        "git-auto-fetch"
         "tmux"
       ];
       theme = "refined";
@@ -30,7 +29,6 @@ in
       ZSH_TMUX_AUTOSTART = true;
       ZSH_TMUX_CONFIG = "${config.home.homeDirectory}/.config/tmux/tmux.conf";
       ZSH_TMUX_UNICODE = true;
-      GIT_AUTO_FETCH_INTERVAL = minutes 10;
       CDPATH = lib.concatStringsSep ":" [
         "${config.home.homeDirectory}/code"
         "${config.home.homeDirectory}"
