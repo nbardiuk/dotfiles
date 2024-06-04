@@ -1,4 +1,4 @@
-{ config, pkgs, lib, musnix, ... }:
+{ pkgs, lib, musnix, ... }:
 {
   imports = [
     ./hardware-configuration.nix
