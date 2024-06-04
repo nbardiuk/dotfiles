@@ -33,8 +33,8 @@
         "extensions.pocket.enabled" = false;
         "font.name.monospace.x-western" = "Iosevka";
         "general.warnOnAboutConfig" = false;
-        "privacy.firstparty.isolate" = true;
-        "privacy.resistFingerprinting" = true;
+        "privacy.firstparty.isolate" = false;
+        "privacy.resistFingerprinting" = false;
         "signon.autofillForms" = false;
         "signon.rememberSignons" = false;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
