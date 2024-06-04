@@ -15,7 +15,7 @@ in
       # write-filename-in-watch-later-config = true; # https://mpv.io/manual/master/#options-write-filename-in-watch-later-config
     };
     scripts = with pkgs.mpvScripts; [
-      autoload # add neighbour files to playlist
+      # autoload # add neighbour files to playlist
       mpris # enable media keys
       simple-mpv-webui # web ui
       uosc # alternative interface
