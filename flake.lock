@@ -1,5 +1,53 @@
 {
   "nodes": {
+    "chrisbra-colorizer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1705584401,
+        "narHash": "sha256-mY+p8qDnUffyVHycdH/AkuQygHcf2bfvC3COCE3vqA0=",
+        "ref": "refs/heads/master",
+        "rev": "7db0e0dd8adfccab35655f5b6db805caa0fef49a",
+        "revCount": 346,
+        "type": "git",
+        "url": "https://github.com/chrisbra/colorizer"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/chrisbra/colorizer"
+      }
+    },
+    "co-author": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1714578355,
+        "narHash": "sha256-6HxLupDW1xU1HdZDx1UlivNuLaz5Flc76RtbaiXAUpE=",
+        "ref": "refs/heads/main",
+        "rev": "3beddbbd5fdf3121921fc7b28fd731cffc70f952",
+        "revCount": 35,
+        "type": "git",
+        "url": "https://github.com/2KAbhishek/co-author.nvim"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/2KAbhishek/co-author.nvim"
+      }
+    },
+    "conjure": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1716574472,
+        "narHash": "sha256-hBuLaUgtbegSoKdn3G92MI0MQqJfUMAsa6Yku5+b69M=",
+        "ref": "refs/heads/master",
+        "rev": "e97e0db338f76f943f3043089000252adbecc966",
+        "revCount": 2501,
+        "type": "git",
+        "url": "https://github.com/Olical/conjure"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/Olical/conjure"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -152,11 +200,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1717316182,
-        "narHash": "sha256-Xi0EpZcu39N0eW7apLjFfUOR9y80toyjYizez7J1wMI=",
+        "lastModified": 1717483170,
+        "narHash": "sha256-Xr/oYk3vmyv2a/nY8o/Wd0MdLsI5vaC38Kris7CWunM=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "9b53a10f4c91892f5af87cf55d08fba59ca086af",
+        "rev": "2cacdd6a27477f1fa46b7026dd806de30f164d3b",
         "type": "github"
       },
       "original": {
@@ -222,6 +270,22 @@
         "type": "github"
       }
     },
+    "nfnl": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717096567,
+        "narHash": "sha256-QJ9M13jS77U9OcXkjP5S9TXy+3waW8At59185hl35/M=",
+        "ref": "refs/heads/main",
+        "rev": "7614d666eaea1674dc96184e0e3c1a8bc2c4a3b2",
+        "revCount": 225,
+        "type": "git",
+        "url": "https://github.com/Olical/nfnl"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/Olical/nfnl"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1716509168,
@@ -270,12 +334,118 @@
         "type": "github"
       }
     },
+    "none-ls": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717463569,
+        "narHash": "sha256-gdSlp7KEidh5aWiV6qcpwECvteiEjP30Aiz5dz3TdOw=",
+        "ref": "refs/heads/main",
+        "rev": "d997b77b9390589d0a25d19985494b82cfc3d777",
+        "revCount": 2168,
+        "type": "git",
+        "url": "https://github.com/nvimtools/none-ls.nvim"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/nvimtools/none-ls.nvim"
+      }
+    },
+    "nvim-grey": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1715782557,
+        "narHash": "sha256-asxH+WYd3U1Fnp6jdPVQhU2x58wa8gDVansveaIfJfU=",
+        "ref": "refs/heads/main",
+        "rev": "8fb9f591b0c60678b3b2d257cc7ee7421af37d4f",
+        "revCount": 113,
+        "type": "git",
+        "url": "https://github.com/yorickpeterse/nvim-grey"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/yorickpeterse/nvim-grey"
+      }
+    },
+    "other-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713266145,
+        "narHash": "sha256-AIwXu0bDHlvd9Dy9ZX2VEA1ACNI1J10tc8iPN5fyscs=",
+        "ref": "refs/heads/main",
+        "rev": "2a82971d3763474df29d5d32d0699b5bb13c551f",
+        "revCount": 94,
+        "type": "git",
+        "url": "https://github.com/rgroli/other.nvim"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/rgroli/other.nvim"
+      }
+    },
     "root": {
       "inputs": {
+        "chrisbra-colorizer": "chrisbra-colorizer",
+        "co-author": "co-author",
+        "conjure": "conjure",
         "home-manager": "home-manager",
         "musnix": "musnix",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
-        "nixpkgs": "nixpkgs_3"
+        "nfnl": "nfnl",
+        "nixpkgs": "nixpkgs_3",
+        "none-ls": "none-ls",
+        "nvim-grey": "nvim-grey",
+        "other-nvim": "other-nvim",
+        "tsc-nvim": "tsc-nvim",
+        "vim-rest-console": "vim-rest-console",
+        "wiki-vim": "wiki-vim"
+      }
+    },
+    "tsc-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1715697456,
+        "narHash": "sha256-7TO4HoyyQErJwqB5F5MmuxegN7AyikHtPaxUnqDLDgM=",
+        "ref": "refs/heads/main",
+        "rev": "06734767eee606ebaa0a4645e0fd801c64e6aa7a",
+        "revCount": 39,
+        "type": "git",
+        "url": "https://github.com/dmmulroy/tsc.nvim"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/dmmulroy/tsc.nvim"
+      }
+    },
+    "vim-rest-console": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1553296776,
+        "narHash": "sha256-Us7LLK/GJsFyIIROGn4y0k8c3yz+Y/X+WWwHcRqL+PQ=",
+        "ref": "refs/heads/master",
+        "rev": "7b407f47185468d1b57a8bd71cdd66c9a99359b2",
+        "revCount": 104,
+        "type": "git",
+        "url": "https://github.com/diepm/vim-rest-console"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/diepm/vim-rest-console"
+      }
+    },
+    "wiki-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1716920112,
+        "narHash": "sha256-yynn9Zn/osta8COhaPkghtJ4QzZSkQq/y7R//lbSC0o=",
+        "ref": "refs/heads/master",
+        "rev": "9b8d509b4350acd56b8fc1043dd243cd83e41568",
+        "revCount": 1227,
+        "type": "git",
+        "url": "https://github.com/lervag/wiki.vim"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/lervag/wiki.vim"
       }
     }
   },

@@ -458,8 +458,8 @@
     (null-ls.builtins.diagnostics.vale.with
       {:filetypes ["markdown" "gitcommit"]})
     null-ls.builtins.diagnostics.statix
-    null-ls.builtins.diagnostics.eslint_d
-    null-ls.builtins.diagnostics.shellcheck
+    ; null-ls.builtins.diagnostics.eslint_d
+    ; null-ls.builtins.diagnostics.shellcheck
     null-ls.builtins.diagnostics.hadolint
     null-ls.builtins.diagnostics.codespell
     (null-ls.builtins.diagnostics.yamllint.with
@@ -467,12 +467,12 @@
                                           "rules: { line-length: {max: 120},"
                                                    "document-start: {present: false}}}")]})
     null-ls.builtins.formatting.zprint
-    null-ls.builtins.formatting.fixjson
+    ; null-ls.builtins.formatting.fixjson
     null-ls.builtins.formatting.prettier
     null-ls.builtins.formatting.nixpkgs_fmt
     null-ls.builtins.formatting.xmllint
-    (null-ls.builtins.formatting.trim_whitespace.with
-      {:filetypes ["yaml" "docker" "fennel"]})
+    ; (null-ls.builtins.formatting.trim_whitespace.with
+    ;   {:filetypes ["yaml" "docker" "fennel"]})
     (null-ls.builtins.formatting.clang_format.with
       {:filetypes ["glsl"]})
     (null-ls.builtins.formatting.shfmt.with

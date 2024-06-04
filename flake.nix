@@ -13,9 +13,30 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
+    chrisbra-colorizer.flake = false;
+    chrisbra-colorizer.url = "git+https://github.com/chrisbra/colorizer";
+    co-author.flake = false;
+    co-author.url = "git+https://github.com/2KAbhishek/co-author.nvim";
+    conjure.flake = false;
+    conjure.url = "git+https://github.com/Olical/conjure";
+    nfnl.flake = false;
+    nfnl.url = "git+https://github.com/Olical/nfnl";
+    none-ls.flake = false;
+    none-ls.url = "git+https://github.com/nvimtools/none-ls.nvim";
+    nvim-grey.flake = false;
+    nvim-grey.url = "git+https://github.com/yorickpeterse/nvim-grey";
+    other-nvim.flake = false;
+    other-nvim.url = "git+https://github.com/rgroli/other.nvim";
+    tsc-nvim.flake = false;
+    tsc-nvim.url = "git+https://github.com/dmmulroy/tsc.nvim";
+    vim-rest-console.flake = false;
+    vim-rest-console.url = "git+https://github.com/diepm/vim-rest-console";
+    wiki-vim.flake = false;
+    wiki-vim.url = "git+https://github.com/lervag/wiki.vim";
   };
 
-  outputs = { self, nixpkgs, musnix, home-manager, neovim-nightly-overlay }: {
+  outputs = inputs @ { self, nixpkgs, musnix, home-manager, neovim-nightly-overlay, ... }: {
     nixosConfigurations = {
       tuxer = nixpkgs.lib.nixosSystem
         {
@@ -30,6 +51,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.nazarii = import ./nix/.config/home-manager/home.nix;
+              home-manager.extraSpecialArgs = { inherit inputs; };
             }
             # TODO build as packages
             {
@@ -44,12 +66,9 @@
                 (import ./nix/.config/nixpkgs/overlays/open_book.nix)
                 (import ./nix/.config/nixpkgs/overlays/review_pr.nix)
                 (import ./nix/.config/nixpkgs/overlays/write-babashka.nix)
-                neovim-nightly-overlay.overlays.default
               ];
             }
           ];
-
-
         };
     };
   };
