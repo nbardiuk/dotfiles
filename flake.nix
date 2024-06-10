@@ -56,7 +56,6 @@
             # TODO build as packages
             {
               nixpkgs.overlays = [
-                (import ./nix/.config/nixpkgs/overlays/beekeeper.nix)
                 (import ./nix/.config/nixpkgs/overlays/connection_toggle.nix)
                 (import ./nix/.config/nixpkgs/overlays/dbeaver.nix)
                 (import ./nix/.config/nixpkgs/overlays/fennel-ls.nix)
