@@ -60,8 +60,6 @@
                 (import ./nix/.config/nixpkgs/overlays/connection_toggle.nix)
                 (import ./nix/.config/nixpkgs/overlays/dbeaver.nix)
                 (import ./nix/.config/nixpkgs/overlays/fennel-ls.nix)
-                (import ./nix/.config/nixpkgs/overlays/i3blocks-brightness.nix)
-                (import ./nix/.config/nixpkgs/overlays/i3blocks-contrib.nix)
                 (import ./nix/.config/nixpkgs/overlays/keyboard_toggle.nix)
                 (import ./nix/.config/nixpkgs/overlays/open_book.nix)
                 (import ./nix/.config/nixpkgs/overlays/review_pr.nix)

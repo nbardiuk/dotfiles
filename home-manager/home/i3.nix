@@ -1,6 +1,5 @@
 { pkgs, ... }:
 let
-  i3blocksConfig = pkgs.copyPathToStore ./i3blocks.conf;
   wallpaper = pkgs.copyPathToStore ./wallpaper.jpeg;
 in
 {
@@ -72,7 +71,7 @@ in
         bars = [{
           trayOutput = "primary";
           workspaceNumbers = false;
-          statusCommand = "i3blocks -c ${i3blocksConfig}";
+          statusCommand = "i3status-rs ~/.config/i3status-rust/config-default.toml";
           position = "top";
           colors = {
             background = "${bg-color}";
@@ -102,6 +101,60 @@ in
       };
   };
 
+  programs.i3status-rust = {
+    enable = true;
+    bars = {
+      default = {
+        blocks = [
+          {
+            block = "net";
+            format_alt = "$ip";
+          }
+          {
+            block = "memory";
+            format = " $icon $mem_used_percents ";
+            format_alt = " $icon $swap_used_percents ";
+          }
+          {
+            block = "disk_space";
+            path = "/";
+            info_type = "available";
+            interval = 60;
+            warning = 20.0;
+            alert = 10.0;
+          }
+          {
+            block = "cpu";
+            interval = 1;
+          }
+          {
+            block = "temperature";
+            format = "$icon $average";
+            format_alt = "$icon $average [$min $max]";
+          }
+          {
+            block = "battery";
+            device = "DisplayDevice";
+            driver = "upower";
+          }
+          { block = "sound"; }
+          { block = "backlight"; }
+          {
+            block = "keyboard_layout";
+            driver = "kbddbus";
+          }
+          {
+            block = "time";
+            interval = 60;
+            format = " $timestamp.datetime(f:'%a %d.%m %R') ";
+          }
+        ];
+        theme = "nord-dark";
+        icons = "awesome4";
+      };
+    };
+  };
+
   services.picom = {
     enable = true;
   };
@@ -125,7 +178,6 @@ in
   services.blueman-applet.enable = true;
   services.udiskie.enable = true;
   services.pasystray.enable = true; # pulse audio applet
-  # services.caffeine.enable = true;
 
   home.packages = with pkgs; [
     arandr # monitor settings GUI
@@ -133,21 +185,12 @@ in
     dejavu_fonts
     font-awesome_4 # font for status icons
     google-fonts # collection of fonts
-    i3blocks # i3 status line
-    i3blocks-brightness # i3 status line block for brightness
-    i3blocks-contrib.bandwidth2
-    i3blocks-contrib.battery2
-    i3blocks-contrib.cpu_usage
-    i3blocks-contrib.disk
-    i3blocks-contrib.kbdd_layout
-    i3blocks-contrib.memory
-    i3blocks-contrib.temperature
-    i3blocks-contrib.usb
-    i3blocks-contrib.volume
     xorg.xrandr # monitor settings CLI
     pavucontrol # pulse audio control GUI
     xautolock # screen locker command
     dropbox
     caffeine-ng
+    i3status-rust
+    kbdd
   ];
 }
