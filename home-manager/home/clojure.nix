@@ -39,6 +39,7 @@ in
                     djblue/portal             {:mvn/version ${portal}}
                     lambdaisland/kaocha       {:mvn/version ${kaocha}}
                     pjstadig/humane-test-output {:mvn/version ${humane-test-output}}}
+       :jvm-opts ["-Djdk.attach.allowAttachSelf"]
        :main-opts  ["-e" "(require,'hashp.core)"
                     "-e" "((requiring-resolve 'portal.api/tap))"
                     "-e" "((requiring-resolve 'pjstadig.humane-test-output/activate!))"
