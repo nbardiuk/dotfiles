@@ -55,7 +55,7 @@
   services.printing.drivers = [ pkgs.hplipWithPlugin ];
   hardware.printers.ensurePrinters = [{
     name = "ENVY_5640";
-    deviceUri = "hp:/net/ENVY_5640_series?ip=192.168.0.11";
+    deviceUri = "hp:/net/ENVY_5640_series?ip=192.168.0.102";
     model = "drv:///hp/hpcups.drv/hp-envy_5640_series.ppd";
     ppdOptions.PageSize = "A4";
   }];
