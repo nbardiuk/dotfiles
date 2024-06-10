@@ -252,12 +252,12 @@
     }
   ];
 
-  services.acpid.enable = true;
-  services.acpid.logEvents = true;
+  # services.acpid.enable = true;
+  # services.acpid.logEvents = true;
 
   services.upower.enable = true;
 
-  services.sysstat.enable = true;
+  # services.sysstat.enable = true;
 
   services.gvfs.enable = true; # Allows to see mtp devices in file manager
 

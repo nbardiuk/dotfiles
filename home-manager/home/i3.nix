@@ -109,10 +109,12 @@ in
           {
             block = "net";
             format_alt = "$ip";
+            interval = 1;
           }
           {
             block = "memory";
             format = " $icon $mem_free.eng(w:3,u:B,p:Mi) ($mem_used_percents.eng(w:2)) ";
+            interval = 1;
           }
           {
             block = "disk_space";
@@ -125,11 +127,14 @@ in
           {
             block = "cpu";
             interval = 1;
+            format = " $icon $utilization ";
+            format_alt = " $icon $barchart $utilization ";
           }
           {
             block = "temperature";
             format = "$icon $average";
             format_alt = "$icon $average [$min $max]";
+            interval = 1;
           }
           {
             block = "battery";
@@ -147,7 +152,7 @@ in
           }
           {
             block = "time";
-            interval = 60;
+            interval = 5;
             format = " $timestamp.datetime(f:'%a %d.%m %R') ";
           }
         ];
