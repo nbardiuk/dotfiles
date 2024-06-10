@@ -112,8 +112,7 @@ in
           }
           {
             block = "memory";
-            format = " $icon $mem_used_percents ";
-            format_alt = " $icon $swap_used_percents ";
+            format = " $icon $mem_free.eng(w:3,u:B,p:Mi) ($mem_used_percents.eng(w:2)) ";
           }
           {
             block = "disk_space";
@@ -142,6 +141,9 @@ in
           {
             block = "keyboard_layout";
             driver = "kbddbus";
+          }
+          {
+            block = "notify";
           }
           {
             block = "time";
