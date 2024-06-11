@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, mypkgs, ... }:
 {
   imports = [
     ./home/alacritty.nix
@@ -156,7 +156,7 @@
 
     xsane
 
-    dbeaver
+    mypkgs.dbeaver-ce
     # beekeeper-studio
 
     gnome.nautilus

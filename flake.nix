@@ -2,9 +2,7 @@
 
   nixConfig = {
     extra-substituters = [ "https://nix-community.cachix.org" ];
-    extra-trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
+    extra-trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
   };
 
   inputs = {
@@ -37,35 +35,44 @@
   };
 
   outputs = inputs @ { self, nixpkgs, musnix, home-manager, neovim-nightly-overlay, ... }: {
-    nixosConfigurations = {
-      tuxer = nixpkgs.lib.nixosSystem
-        {
-          system = "x86_64-linux";
-          modules = [
-            musnix.nixosModules.musnix
-
-            ./nixos/configuration.nix
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.nazarii = import ./home-manager/home.nix;
-              home-manager.extraSpecialArgs = { inherit inputs; };
-            }
-            # TODO build as packages
-            {
-              nixpkgs.overlays = [
-                (import ./nix/.config/nixpkgs/overlays/connection_toggle.nix)
-                (import ./nix/.config/nixpkgs/overlays/dbeaver.nix)
-                (import ./nix/.config/nixpkgs/overlays/keyboard_toggle.nix)
-                (import ./nix/.config/nixpkgs/overlays/open_book.nix)
-                (import ./nix/.config/nixpkgs/overlays/review_pr.nix)
-                (import ./nix/.config/nixpkgs/overlays/write-babashka.nix)
-              ];
-            }
-          ];
+    nixosConfigurations =
+      let
+        system = "x86_64-linux";
+        mypkgs = import ./pkgs {
+          inherit self;
+          pkgs = nixpkgs.legacyPackages."${system}";
+          inherit inputs;
         };
-    };
+      in
+      {
+        tuxer = nixpkgs.lib.nixosSystem
+          {
+            inherit system;
+            modules = [
+              musnix.nixosModules.musnix
+
+              ./nixos/configuration.nix
+
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.nazarii = import ./home-manager/home.nix;
+                home-manager.extraSpecialArgs = { inherit inputs; inherit mypkgs; };
+              }
+
+              # TODO build as packages
+              {
+                nixpkgs.overlays = [
+                  (import ./nix/.config/nixpkgs/overlays/connection_toggle.nix)
+                  (import ./nix/.config/nixpkgs/overlays/keyboard_toggle.nix)
+                  (import ./nix/.config/nixpkgs/overlays/open_book.nix)
+                  (import ./nix/.config/nixpkgs/overlays/review_pr.nix)
+                  (import ./nix/.config/nixpkgs/overlays/write-babashka.nix)
+                ];
+              }
+            ];
+          };
+      };
   };
 }
