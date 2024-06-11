@@ -1,11 +1,8 @@
-{ pkgs, config, inputs, ... }:
-let
-  plugin = src: pname: pkgs.vimUtils.buildVimPlugin { inherit src pname; version = src.rev; };
-in
+{ pkgs, mypkgs, config, ... }:
 {
   programs.neovim = {
     enable = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+    package = mypkgs.neovim-nightly;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
@@ -21,7 +18,6 @@ in
       cmp-spell # spelling source for nvim-cmp
       cmp-treesitter # tree sitter source for nvim-cmp
       cmp_luasnip # integrates luasnip with nvim-cmp
-      comment-nvim
       dressing-nvim # vim.select and vim.input
       ferret
       fidget-nvim # lsp progress widget
@@ -62,16 +58,16 @@ in
       vim-sexp-mappings-for-regular-people
       vim-slime
       vim-unimpaired
-      (plugin inputs.chrisbra-colorizer "colorizer")
-      (plugin inputs.co-author "co-author")
-      (plugin inputs.conjure "conjure")
-      (plugin inputs.nfnl "nfnl")
-      (plugin inputs.none-ls "none-ls")
-      (plugin inputs.nvim-grey "nvim-grey")
-      (plugin inputs.other-nvim "other-nvim")
-      (plugin inputs.tsc-nvim "tsc-nvim")
-      (plugin inputs.vim-rest-console "vim-rest-console")
-      (plugin inputs.wiki-vim "wiki-vim")
+      mypkgs.vimPlugins.colorizer
+      mypkgs.vimPlugins.co-author
+      mypkgs.vimPlugins.conjure
+      mypkgs.vimPlugins.nfnl
+      mypkgs.vimPlugins.none-ls
+      mypkgs.vimPlugins.nvim-grey
+      mypkgs.vimPlugins.other-nvim
+      mypkgs.vimPlugins.tsc-nvim
+      mypkgs.vimPlugins.vim-rest-console
+      mypkgs.vimPlugins.wiki-vim
     ];
   };
 

@@ -40,7 +40,7 @@
         system = "x86_64-linux";
         mypkgs = import ./pkgs {
           inherit self;
-          pkgs = nixpkgs.legacyPackages."${system}";
+          pkgs = nixpkgs.legacyPackages.${system};
           inherit inputs;
         };
       in

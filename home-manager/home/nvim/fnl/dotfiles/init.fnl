@@ -1,5 +1,4 @@
 (local autopairs (require :nvim-autopairs))
-(local Comment (require :Comment))
 (local c (require :nfnl.core))
 (local cmp (require :cmp))
 (local cmp_nvim_lsp (require :cmp_nvim_lsp))
@@ -240,7 +239,6 @@
 
 
 (set vim.opt.background :light)
-(set vim.opt.termguicolors true)
 (do
   (vim.cmd "colorscheme grey")
 
@@ -372,10 +370,6 @@
       ])
 
 
-;; Comments
-(Comment.setup {})
-
-
 ;; Files
 (oil.setup
   {
@@ -495,8 +489,7 @@
   (nnoremap :buffer :gd         vim.lsp.buf.definition)
   (nnoremap :buffer :<Leader>lt vim.lsp.buf.type_definition)
   (nnoremap :buffer "}"         vim.lsp.buf.references)
-  (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename)
-  (nnoremap :buffer :K          vim.lsp.buf.hover))
+  (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename))
 
 (vim.diagnostic.config
   {:virtual_text false
@@ -504,13 +497,9 @@
    :float {:show_header false}
    :severity_sort true
    :signs true})
-(nnoremap :L #(vim.diagnostic.open_float nil {:scope :line :border :single}))
-(nnoremap :yol #(let [cur-buf 0
-                      disabled? (vim.diagnostic.is_disabled cur-buf)]
-                  (if disabled? (vim.diagnostic.enable cur-buf) (vim.diagnostic.disable cur-buf))
-                  (vim.notify (.. "diagnostic disabled? " (tostring (not disabled?))))))
-(nnoremap "]d" vim.diagnostic.goto_next)
-(nnoremap "[d" vim.diagnostic.goto_prev)
+(nnoremap :yol #(do
+                  (vim.diagnostic.enable (not (vim.diagnostic.is_enabled)))
+                  (vim.notify (.. "diagnostic " (if (vim.diagnostic.is_enabled) "enabled" "disabled")))))
 
 (tset vim.lsp.handlers "textDocument/hover"
       (vim.lsp.with vim.lsp.handlers.hover {:border :single}))
@@ -550,7 +539,9 @@
     (lsp-buffer-mappings))
 (lspconfig.java_language_server.setup
   {:capabilities lsp-capabilities
-   :cmd ["/home/nazarii/.nix-profile/share/java/java-language-server/lang_server_linux.sh"]})
+  ;; TODO no nix-profile anymore
+  ;; :cmd ["/home/nazarii/.nix-profile/share/java/java-language-server/lang_server_linux.sh"]
+   })
 
 
 ;; Rust
@@ -658,7 +649,8 @@
 (au fennel :FileType :fennel
     (lsp-buffer-mappings))
 (lspconfig.fennel_ls.setup
-  {:capabilities lsp-capabilities})
+  {:capabilities lsp-capabilities
+   :settings {:fennel-ls {:extra-globals "vim"} }})
 
 
 ;; Slime
