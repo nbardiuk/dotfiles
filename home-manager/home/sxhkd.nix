@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, mypkgs, ... }:
 
 with lib;
 
@@ -33,9 +33,9 @@ with lib;
       "super + Return"               = "alacritty";
       "super + d"                    = "rofi -modi drun -show drun";
       "super + Tab"                  = "rofi -modi window -show window";
-      "super + ctrl + b"             = "${pkgs.open_book}/bin/open-book";
-      "super + ctrl + c"             = "${pkgs.connection_toggle}/bin/connection-toggle";
-      "super + ctrl + k"             = "${pkgs.keyboard_toggle}/bin/keyboard-toggle";
+      "super + ctrl + b"             = "${mypkgs.open_book}/bin/open-book";
+      "super + ctrl + c"             = "${mypkgs.connection_toggle}/bin/connection-toggle";
+      "super + ctrl + k"             = "${mypkgs.keyboard_toggle}/bin/keyboard-toggle";
       "super + ctrl + e"             = "${pkgs.rofimoji}/bin/rofimoji";
       "super + ctrl + comma"         = "dunstctl history-pop";
       "super + ctrl + slash"         = "dunstctl close";

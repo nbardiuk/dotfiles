@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, mypkgs, ... }:
 let
   commit = "git/commit";
   hooks = "git/hooks";
@@ -146,7 +146,7 @@ in
     gitAndTools.hub
     mu-repo
     gitui
-    review-pr
+    mypkgs.review-pr
   ];
 
   programs.lazygit = {

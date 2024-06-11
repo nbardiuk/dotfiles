@@ -60,17 +60,6 @@
                 home-manager.users.nazarii = import ./home-manager/home.nix;
                 home-manager.extraSpecialArgs = { inherit inputs; inherit mypkgs; };
               }
-
-              # TODO build as packages
-              {
-                nixpkgs.overlays = [
-                  (import ./nix/.config/nixpkgs/overlays/connection_toggle.nix)
-                  (import ./nix/.config/nixpkgs/overlays/keyboard_toggle.nix)
-                  (import ./nix/.config/nixpkgs/overlays/open_book.nix)
-                  (import ./nix/.config/nixpkgs/overlays/review_pr.nix)
-                  (import ./nix/.config/nixpkgs/overlays/write-babashka.nix)
-                ];
-              }
             ];
           };
       };
