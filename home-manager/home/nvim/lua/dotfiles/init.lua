@@ -622,23 +622,28 @@ end
 vim.api.nvim_create_user_command("Scratch", _62_, {nargs = "?", desc = "New temporary file"})
 local function _63_()
   do
-    vim.cmd("silent! update")
+    local file_path = vim.api.nvim_buf_get_name(0)
+    local protocol = string.match(file_path, "^[%w-]+://")
+    if not protocol then
+      vim.cmd("silent! update")
+    else
+    end
   end
   return nil
 end
 vim.api.nvim_create_autocmd({"FocusLost", "BufLeave", "CursorHold"}, {callback = _63_, group = vim.api.nvim_create_augroup("autosave", {clear = true}), nested = true, pattern = {"*"}})
-local function _64_()
+local function _65_()
   do
     vim.cmd("silent! checktime")
   end
   return nil
 end
-vim.api.nvim_create_autocmd({"FocusGained", "BufEnter", "CursorHold"}, {callback = _64_, group = vim.api.nvim_create_augroup("autoread", {clear = true}), nested = true, pattern = {"*"}})
-local function _65_()
+vim.api.nvim_create_autocmd({"FocusGained", "BufEnter", "CursorHold"}, {callback = _65_, group = vim.api.nvim_create_augroup("autoread", {clear = true}), nested = true, pattern = {"*"}})
+local function _66_()
   do
-    local _let_66_ = vim.api.nvim_buf_get_mark(0, "\"")
-    local line = _let_66_[1]
-    local col = _let_66_[2]
+    local _let_67_ = vim.api.nvim_buf_get_mark(0, "\"")
+    local line = _let_67_[1]
+    local col = _let_67_[2]
     local line_count = vim.api.nvim_buf_line_count(0)
     if ((1 <= line) and (line <= line_count) and ((vim.opt.ft):get() ~= "commit")) then
       vim.api.nvim_win_set_cursor(0, {line, col})
@@ -647,10 +652,10 @@ local function _65_()
   end
   return nil
 end
-vim.api.nvim_create_autocmd("BufReadPost", {callback = _65_, group = vim.api.nvim_create_augroup("jump-to-last-postion", {clear = true}), nested = true, pattern = "*"})
+vim.api.nvim_create_autocmd("BufReadPost", {callback = _66_, group = vim.api.nvim_create_augroup("jump-to-last-postion", {clear = true}), nested = true, pattern = "*"})
 nmap("ga", "<Plug>(EasyAlign)")
 xmap("ga", "<Plug>(EasyAlign)")
-local function _68_()
+local function _69_()
   local word_under_cursor = vim.fn.expand("<cWORD>")
   local task = string.match(word_under_cursor, "NT%-%d+")
   if task then
@@ -659,5 +664,5 @@ local function _68_()
     return vim.notify(("Not a notion task '" .. word_under_cursor .. "'"), vim.log.levels.WARN)
   end
 end
-nnoremap("<Leader>gn", _68_)
+nnoremap("<Leader>gn", _69_)
 return {clj_ignore = clj_ignore, scm_ignore = scm_ignore}

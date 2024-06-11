@@ -779,8 +779,15 @@
    :desc "New temporary file"})
 
 ;; Auto write and read file
-(au autosave [:FocusLost :BufLeave :CursorHold] [:*] (vim.cmd "silent! update"))
+(au autosave [:FocusLost :BufLeave :CursorHold] [:*] 
+    (let [file-path (vim.api.nvim_buf_get_name 0)
+          ;; i.e. oil:// or fugitive://
+          protocol (string.match file-path "^[%w-]+://")] 
+      (when (not protocol)
+        (vim.cmd "silent! update"))))
+
 (au autoread [:FocusGained :BufEnter :CursorHold] [:*] (vim.cmd "silent! checktime"))
+
 (au jump-to-last-postion :BufReadPost :*
     ; https://github.com/vim/vim/blob/eaf35241197fc6b9ee9af993095bf5e6f35c8f1a/runtime/defaults.vim#L108-L117
     (let [[line col] (vim.api.nvim_buf_get_mark 0 "\"")
