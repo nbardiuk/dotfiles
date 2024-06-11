@@ -4,5 +4,5 @@ update:
 
 .PHONY: switch
 switch:
-	sudo nixos-rebuild switch --show-trace --flake .#tuxer
+	sudo nixos-rebuild switch --flake .#tuxer
 	pkill --signal SIGUSR1 sxhkd
