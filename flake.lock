@@ -200,11 +200,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1717931644,
-        "narHash": "sha256-Sz8Wh9cAiD5FhL8UWvZxBfnvxETSCVZlqWSYWaCPyu0=",
+        "lastModified": 1718243258,
+        "narHash": "sha256-abBpj2VU8p6qlRzTU8o22q68MmOaZ4v8zZ4UlYl5YRU=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "3d65009effd77cb0d6e7520b68b039836a7606cf",
+        "rev": "8d5e27b4807d25308dfe369d5a923d87e7dbfda3",
         "type": "github"
       },
       "original": {
@@ -320,11 +320,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1717786204,
-        "narHash": "sha256-4q0s6m0GUcN7q+Y2DqD27iLvbcd1G50T2lv08kKxkSI=",
+        "lastModified": 1718160348,
+        "narHash": "sha256-9YrUjdztqi4Gz8n3mBuqvCkMo4ojrA6nASwyIKWMpus=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "051f920625ab5aabe37c920346e3e69d7d34400e",
+        "rev": "57d6973abba7ea108bac64ae7629e7431e0199b6",
         "type": "github"
       },
       "original": {
@@ -353,11 +353,11 @@
     "nvim-grey": {
       "flake": false,
       "locked": {
-        "lastModified": 1717512363,
-        "narHash": "sha256-A144e+JaDV4ffZRyZ8tvk1LyJcOiz0OsKToGR+3g1nY=",
+        "lastModified": 1718240682,
+        "narHash": "sha256-lywyctFN4ewtz9Nb1FG0KgzidGHrOPhrIgLFreBwo3s=",
         "ref": "refs/heads/main",
-        "rev": "8fed243b46f29d238e496579572fc86e64942aba",
-        "revCount": 114,
+        "rev": "ac80a38aed62e3e19d2a77de4f4ccda0d43d61cb",
+        "revCount": 115,
         "type": "git",
         "url": "https://github.com/yorickpeterse/nvim-grey"
       },
