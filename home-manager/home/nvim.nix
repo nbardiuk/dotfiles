@@ -10,6 +10,9 @@
     withPython3 = false;
     withRuby = false;
     extraLuaConfig = ''require("dotfiles")'';
+    extraLuaPackages = ps: [
+      ps.jsregexp # for luasnip
+    ];
     plugins = with pkgs.vimPlugins; [
       cmp-buffer # buffer text source for nvim-cmp
       cmp-conjure # conjure source for nvim-cmp

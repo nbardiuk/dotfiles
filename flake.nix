@@ -34,34 +34,32 @@
     wiki-vim.url = "git+https://github.com/lervag/wiki.vim";
   };
 
-  outputs = inputs @ { self, nixpkgs, musnix, home-manager, neovim-nightly-overlay, ... }: {
+  outputs = inputs @ { self, nixpkgs, musnix, home-manager, ... }: {
     nixosConfigurations =
       let
         system = "x86_64-linux";
         mypkgs = import ./pkgs {
-          inherit self;
+          inherit self inputs;
           pkgs = nixpkgs.legacyPackages.${system};
-          inherit inputs;
         };
       in
       {
-        tuxer = nixpkgs.lib.nixosSystem
-          {
-            inherit system;
-            modules = [
-              musnix.nixosModules.musnix
+        tuxer = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            musnix.nixosModules.musnix
 
-              ./nixos/configuration.nix
+            ./nixos/configuration.nix
 
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users.nazarii = import ./home-manager/home.nix;
-                home-manager.extraSpecialArgs = { inherit inputs; inherit mypkgs; };
-              }
-            ];
-          };
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.nazarii = import ./home-manager/home.nix;
+              home-manager.extraSpecialArgs = { inherit inputs mypkgs; };
+            }
+          ];
+        };
       };
   };
 }
