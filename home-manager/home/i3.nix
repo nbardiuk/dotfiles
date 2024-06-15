@@ -140,6 +140,7 @@ in
             block = "battery";
             device = "DisplayDevice";
             driver = "upower";
+            format = " $icon $percentage {$time |}";
           }
           { block = "sound"; }
           { block = "backlight"; }
