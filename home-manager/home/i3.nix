@@ -101,67 +101,74 @@ in
       };
   };
 
-  programs.i3status-rust = {
-    enable = true;
-    bars = {
-      default = {
-        blocks = [
-          {
-            block = "net";
-            format_alt = "$ip";
-            interval = 1;
-          }
-          {
-            block = "memory";
-            format = " $icon $mem_used.eng(w:3,u:B,p:Mi) ($mem_used_percents.eng(w:2)) ";
-            interval = 1;
-          }
-          {
-            block = "disk_space";
-            path = "/";
-            info_type = "available";
-            interval = 60;
-            warning = 20.0;
-            alert = 10.0;
-          }
-          {
-            block = "cpu";
-            interval = 1;
-            format = " $icon $utilization ";
-            format_alt = " $icon $barchart $utilization ";
-          }
-          {
-            block = "temperature";
-            format = "$icon $average";
-            format_alt = "$icon $average [$min $max]";
-            interval = 1;
-          }
-          {
-            block = "battery";
-            device = "DisplayDevice";
-            driver = "upower";
-            format = " $icon $percentage {$time |}";
-          }
-          { block = "sound"; }
-          { block = "backlight"; }
-          {
-            block = "keyboard_layout";
-            driver = "kbddbus";
-          }
-          {
-            block = "notify";
-          }
-          {
-            block = "time";
-            interval = 5;
-            format = " $timestamp.datetime(f:'%a %d.%m %R') ";
-          }
-        ];
-        theme = "nord-dark";
-        icons = "material-nf";
+  programs.i3status-rust =
+    let
+      ## https://github.com/greshake/i3status-rust/blob/master/files/icons/material-nf.toml
+      keyboard-icon = "󰌌"; # U000f030c
+      calendar-icon = "󰃭"; # U000f00ed
+    in
+    {
+      enable = true;
+      bars = {
+        default = {
+          blocks = [
+            {
+              block = "net";
+              format_alt = "$ip";
+              interval = 1;
+            }
+            {
+              block = "memory";
+              format = "$icon $mem_used.eng(w:3,u:B,p:Mi) ($mem_used_percents.eng(w:2))";
+              interval = 1;
+            }
+            {
+              block = "disk_space";
+              path = "/";
+              info_type = "available";
+              interval = 60;
+              warning = 20.0;
+              alert = 10.0;
+            }
+            {
+              block = "cpu";
+              interval = 1;
+              format = "$icon $utilization";
+              format_alt = " $icon $barchart $utilization ";
+            }
+            {
+              block = "temperature";
+              format = "$icon $average";
+              format_alt = "$icon $average [$min $max]";
+              interval = 1;
+            }
+            {
+              block = "battery";
+              device = "DisplayDevice";
+              driver = "upower";
+              format = "$icon $percentage {$time |}";
+            }
+            { block = "sound"; }
+            { block = "backlight"; }
+            {
+              block = "keyboard_layout";
+              driver = "kbddbus";
+              format = "${keyboard-icon} $layout";
+            }
+            {
+              block = "notify";
+            }
+            {
+              block = "time";
+              interval = 5;
+              format = "${calendar-icon} $timestamp.datetime(f:'%a %d.%m %R')";
+            }
+          ];
+          theme = "nord-dark";
+          icons = "material-nf";
+        };
       };
     };
-  };
 
   services.picom = {
     enable = true;
