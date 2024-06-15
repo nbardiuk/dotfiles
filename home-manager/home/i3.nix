@@ -34,7 +34,7 @@ in
           border = 1;
           modifier = mod;
         };
-        fonts.names = [ "FontAwesome" "Iosevka" ];
+        fonts.names = [ "Iosevka" ];
         fonts.size = 10.0;
         keybindings = { };
         colors = {
@@ -157,7 +157,7 @@ in
           }
         ];
         theme = "nord-dark";
-        icons = "awesome4";
+        icons = "material-nf";
       };
     };
   };
@@ -190,7 +190,7 @@ in
     arandr # monitor settings GUI
     feh # image viewer, manages wallpaper
     dejavu_fonts
-    font-awesome_4 # font for status icons
+    nerdfonts # font for status icons
     google-fonts # collection of fonts
     xorg.xrandr # monitor settings CLI
     pavucontrol # pulse audio control GUI

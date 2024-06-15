@@ -1,8 +1,10 @@
 { config, lib, pkgs, ... }:
-let
-  minutes = m: (m * 60);
-in
 {
+
+  programs.starship = {
+    enable = true;
+  };
+
   programs.zsh = rec {
     enable = true;
     autosuggestion.enable = true;
@@ -17,7 +19,6 @@ in
         "git"
         "tmux"
       ];
-      theme = "refined";
     };
 
     sessionVariables = {
@@ -66,5 +67,6 @@ in
     gnupg
     keychain # for ssh,gpg agents
     xsel # clipboard
+    nerdfonts # shell icons
   ];
 }
