@@ -7,29 +7,43 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+
     musnix.url = "github:musnix/musnix";
+    musnix.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
     chrisbra-colorizer.flake = false;
     chrisbra-colorizer.url = "git+https://github.com/chrisbra/colorizer";
+
     co-author.flake = false;
     co-author.url = "git+https://github.com/2KAbhishek/co-author.nvim";
+
     conjure.flake = false;
     conjure.url = "git+https://github.com/Olical/conjure";
+
     nfnl.flake = false;
     nfnl.url = "git+https://github.com/Olical/nfnl";
+
     none-ls.flake = false;
     none-ls.url = "git+https://github.com/nvimtools/none-ls.nvim";
+
     nvim-grey.flake = false;
     nvim-grey.url = "git+https://github.com/yorickpeterse/nvim-grey";
+
     other-nvim.flake = false;
     other-nvim.url = "git+https://github.com/rgroli/other.nvim";
+
     tsc-nvim.flake = false;
     tsc-nvim.url = "git+https://github.com/dmmulroy/tsc.nvim";
+
     vim-rest-console.flake = false;
     vim-rest-console.url = "git+https://github.com/diepm/vim-rest-console";
+
     wiki-vim.flake = false;
     wiki-vim.url = "git+https://github.com/lervag/wiki.vim";
   };
