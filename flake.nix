@@ -24,7 +24,7 @@
     co-author.url = "git+https://github.com/2KAbhishek/co-author.nvim";
 
     conjure.flake = false;
-    conjure.url = "git+https://github.com/Olical/conjure";
+    conjure.url = "git+https://github.com/Olical/conjure?ref=develop";
 
     nfnl.flake = false;
     nfnl.url = "git+https://github.com/Olical/nfnl";

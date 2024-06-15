@@ -35,15 +35,16 @@
     "conjure": {
       "flake": false,
       "locked": {
-        "lastModified": 1716574472,
-        "narHash": "sha256-hBuLaUgtbegSoKdn3G92MI0MQqJfUMAsa6Yku5+b69M=",
-        "ref": "refs/heads/master",
-        "rev": "e97e0db338f76f943f3043089000252adbecc966",
-        "revCount": 2501,
+        "lastModified": 1717190763,
+        "narHash": "sha256-wtWJWJq8iK3+vI4vSHl1QPqYpwKihhoH1IDxM7jXGcg=",
+        "ref": "develop",
+        "rev": "934687860a71d1d03e569ce11f880a4d404e69aa",
+        "revCount": 2520,
         "type": "git",
         "url": "https://github.com/Olical/conjure"
       },
       "original": {
+        "ref": "develop",
         "type": "git",
         "url": "https://github.com/Olical/conjure"
       }
