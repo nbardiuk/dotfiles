@@ -375,7 +375,8 @@
   {
    :columns [{1 :permissions :highlight :NonText}
              {1 :size        :highlight :String}
-             {1 :ctime       :highlight :Number :format "%Y-%m-%d %H:%M"}]
+             {1 :ctime       :highlight :Number :format "%Y-%m-%d %H:%M"}
+             :icon]
    :view_options {:show_hidden true}
    :keymaps {"g?"    "actions.show_help"
              "<CR>"  "actions.select"

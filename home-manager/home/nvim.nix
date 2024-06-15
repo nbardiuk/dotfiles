@@ -36,6 +36,7 @@
       nvim-treesitter.withAllGrammars
       nvim-treesitter-context
       nvim-treesitter-textobjects
+      nvim-web-devicons
       oil-nvim # dired inspired browser
       playground # treesitter playground
       plenary-nvim # for telescope, and none-ls
