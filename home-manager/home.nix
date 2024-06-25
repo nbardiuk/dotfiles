@@ -16,6 +16,7 @@
     ./home/obs.nix
     ./home/psql.nix
     ./home/mysql.nix
+    ./home/scala.nix
     ./home/shell.nix
     ./home/sqlite.nix
     ./home/syncthing.nix
@@ -86,10 +87,17 @@
     # webtorrent_desktop
 
     # yoshimi # synth
-    # surge-XT # synth
+    surge-XT # synth
     # fluidsynth # synth
     # rosegarden # midi seq
     # hydrogen # drum machine
+    lsp-plugins
+    fire
+    odin2
+    vital
+    decent-sampler
+    dragonfly-reverb
+
 
     helvum # pipewire patchbay
 

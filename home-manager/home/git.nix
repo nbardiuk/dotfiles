@@ -37,6 +37,11 @@ in
       ".history"
       ".cache"
       ".lib/"
+      # metals
+      ".metals/"
+      ".bloop/"
+      ".ammonite/"
+      "metals.sbt"
       # Gradle
       ".gradle"
       "**/build/"

@@ -175,9 +175,8 @@
   ];
 
 
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = false; # enables opengl for 32bit apps
-  hardware.opengl.setLdLibraryPath = false; # adds /run/opengl-driver/lib to LD_LIBRARY_PATH
+  hardware.graphics.enable = true;
+  hardware.graphics.driSupport32Bit = false; # enables opengl for 32bit apps
 
   programs.steam.enable = false;
 
@@ -233,10 +232,6 @@
     settings.experimental-features = [ "nix-command" "flakes" ];
     settings.accept-flake-config = true;
     package = pkgs.nixFlakes;
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 7d";
-    };
   };
 
   services.udisks2.enable = true;

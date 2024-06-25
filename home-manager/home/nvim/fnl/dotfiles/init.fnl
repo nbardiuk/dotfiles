@@ -157,8 +157,8 @@
 (surround.setup {})
 
 (let [escape #(vim.fn.escape $1 ";,.\"|\\")
-      ua "йцукенгшщзфівапролдєячсмитьбю.ЙЦУКЕНГШЩЗФІВАПРОЛДЄЯЧСМИТЬБЮ,Жж"
-      en "qwertyuiopasdfghjkl'zxcvbnm,./QWERTYUIOPASDFGHJKL\"ZXCVBNM<>?:;"]
+      ua "йцукенгшщзфівапролдєячсмитьбюЙЦУКЕНГШЩЗФІВАПРОЛДЄЯЧСМИТЬБЮЖж"
+      en "qwertyuiopasdfghjkl'zxcvbnm,.QWERTYUIOPASDFGHJKL\"ZXCVBNM<?:;"]
    (set vim.opt.langmap (.. (escape ua) ";" (escape en) )))
 
 (set vim.opt.completeopt [:menu :menuone :noselect])
@@ -545,6 +545,12 @@
    })
 
 
+;; Scala
+(au scala :FileType [:scala :sbt]
+    (lsp-buffer-mappings))
+(lspconfig.metals.setup {})
+
+
 ;; Rust
 (au rust :FileType :rust
     (lsp-buffer-mappings))
@@ -642,6 +648,7 @@
 ;;       :reporter kaocha.report/documentation
 ;;       :tests [{:kaocha.testable/skip-add-classpath? true}]}")
 (set vim.g.conjure#client#clojure#nrepl#eval#raw_out true)
+(set vim.g.conjure#client#clojure#nrepl#refresh#backend :clj-reload)
 
 (lspconfig.clojure_lsp.setup {:capabilities lsp-capabilities})
 
@@ -749,7 +756,15 @@
     {:pattern "(.*)/fnl/(.*).fnl"
      :target "%1/lua/%2.lua"}
     {:pattern "(.*)/lua/(.*).lua"
-     :target "%1/fnl/%2.fnl"}]})
+     :target "%1/fnl/%2.fnl"}
+    {:pattern "(.*)/main/(.*).scala"
+     :target "%1/test/%2Test.scala"}
+    {:pattern "(.*)/test/(.*)Test.scala"
+     :target "%1/main/%2.scala"}
+    {:pattern "(.*)/main/(.*).scala"
+     :target "%1/test/%2Spec.scala"}
+    {:pattern "(.*)/test/(.*)Spec.scala"
+     :target "%1/main/%2.scala"}]})
 
 
 ;; Terminal
