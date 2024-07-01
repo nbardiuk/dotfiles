@@ -32,6 +32,7 @@
       nvim-autopairs
       nvim-cmp # completion manager
       nvim-lspconfig
+      nvim-metals
       nvim-surround
       nvim-treesitter.withAllGrammars
       nvim-treesitter-context

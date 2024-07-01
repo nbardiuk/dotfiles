@@ -106,7 +106,7 @@
     # flamegraph
 
     slack
-    # discord
+    discord
     # element-desktop
 
     zoom-us
@@ -137,6 +137,7 @@
     shotwell
 
     curtail # image compression
+    imagemagick
 
     video-trimmer
 
@@ -144,6 +145,7 @@
 
     chrysalis
 
+    zeal
     # plantuml
     # nodePackages.mermaid-cli
 
@@ -152,11 +154,11 @@
     # ssm-session-manager-plugin
     # amazon-ecr-credential-helper
 
-    (google-cloud-sdk.withExtraComponents [
-      google-cloud-sdk.components.cloud_sql_proxy
-      google-cloud-sdk.components.gke-gcloud-auth-plugin
-      google-cloud-sdk.components.kubectl
-    ])
+    # (google-cloud-sdk.withExtraComponents [
+    #   google-cloud-sdk.components.cloud_sql_proxy
+    #   google-cloud-sdk.components.gke-gcloud-auth-plugin
+    #   google-cloud-sdk.components.kubectl
+    # ])
 
     watchman
 
@@ -174,7 +176,7 @@
 
     scrcpy # android control
     gnirehtet # android reverse tethering
-    libsForQt5.kdeconnect-kde # kde connect remote android
+    # libsForQt5.kdeconnect-kde # kde connect remote android
 
     v4l-utils # video4linux devices
 

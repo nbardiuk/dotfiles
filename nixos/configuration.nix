@@ -55,7 +55,7 @@
   services.printing.drivers = [ pkgs.hplipWithPlugin ];
   hardware.printers.ensurePrinters = [{
     name = "ENVY_5640";
-    deviceUri = "hp:/net/ENVY_5640_series?ip=192.168.0.102";
+    deviceUri = "hp:/net/ENVY_5640_series?ip=192.168.0.100";
     model = "drv:///hp/hpcups.drv/hp-envy_5640_series.ppd";
     ppdOptions.PageSize = "A4";
   }];
@@ -176,7 +176,7 @@
 
 
   hardware.graphics.enable = true;
-  hardware.graphics.driSupport32Bit = false; # enables opengl for 32bit apps
+  # hardware.graphics.driSupport32Bit = false; # enables opengl for 32bit apps
 
   programs.steam.enable = false;
 
@@ -198,7 +198,7 @@
   };
 
   # Tablet
-  services.xserver.wacom.enable = false;
+  services.xserver.wacom.enable = true;
 
   virtualisation.docker.enable = true;
   virtualisation.docker.autoPrune.enable = true;

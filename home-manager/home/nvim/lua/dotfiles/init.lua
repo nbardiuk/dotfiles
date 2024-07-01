@@ -9,6 +9,7 @@ local lspconfig = require("lspconfig")
 local lspkind = require("lspkind")
 local lualine = require("lualine")
 local luasnip = require("luasnip")
+local metals = require("metals")
 local null_ls = require("null-ls")
 local oil = require("oil")
 local surround = require("nvim-surround")
@@ -381,11 +382,11 @@ lspconfig.java_language_server.setup({capabilities = lsp_capabilities})
 local function _31_()
   do
     lsp_buffer_mappings()
+    metals.initialize_or_attach(metals.bare_config())
   end
   return nil
 end
 vim.api.nvim_create_autocmd("FileType", {callback = _31_, group = vim.api.nvim_create_augroup("scala", {clear = true}), nested = true, pattern = {"scala", "sbt"}})
-lspconfig.metals.setup({})
 local function _32_()
   do
     lsp_buffer_mappings()

@@ -7,6 +7,5 @@ if !enable then { } else {
     jdk21
     sbt
     coursier
-    metals
   ];
 }

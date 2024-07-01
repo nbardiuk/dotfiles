@@ -8,6 +8,7 @@
 (local lspkind (require :lspkind))
 (local lualine (require :lualine))
 (local luasnip (require :luasnip))
+(local metals (require :metals))
 (local null-ls (require :null-ls))
 (local oil (require :oil))
 (local surround (require :nvim-surround))
@@ -547,8 +548,8 @@
 
 ;; Scala
 (au scala :FileType [:scala :sbt]
-    (lsp-buffer-mappings))
-(lspconfig.metals.setup {})
+    (lsp-buffer-mappings)
+    (metals.initialize_or_attach (metals.bare_config)))
 
 
 ;; Rust
