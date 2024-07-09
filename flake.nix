@@ -78,8 +78,28 @@
           ];
         };
       };
-    darwinConfigurations.darwin = nix-darwin.lib.darwinSystem {
-      modules = [./darwin/configuration.nix]; 
-    };
+    darwinConfigurations =
+      let
+        system = "aarch64-darwin";
+        mypkgs = import ./pkgs {
+          inherit self inputs;
+          pkgs = nixpkgs.legacyPackages.${system};
+        };
+      in
+      {
+        darwin = nix-darwin.lib.darwinSystem {
+          inherit system;
+          modules = [
+            ./darwin/configuration.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.nazarii = import ./darwin/home.nix;
+              home-manager.extraSpecialArgs = { inherit inputs mypkgs; };
+            }
+          ];
+        };
+      };
   };
 }

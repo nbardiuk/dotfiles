@@ -9,7 +9,7 @@ switch:
 
 .PHONY: darwin
 darwin:
-	nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake .#darwin
+	nix run nix-darwin -- switch --flake .#darwin
 
 .PHONY: gc
 gc:

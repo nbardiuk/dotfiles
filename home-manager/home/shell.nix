@@ -15,7 +15,6 @@
   programs.man.enable = true;
 
   home.packages = with pkgs; [
-    atop
     bandwhich # bandwidth monitor per process
     gnumake
     lsof
