@@ -290,6 +290,26 @@
         "url": "https://github.com/Olical/nfnl"
       }
     },
+    "nix-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1720469887,
+        "narHash": "sha256-BwPsGQ/EMqCreUc5j9Efj+wx13AjREtuHhbyHZygcE4=",
+        "owner": "LnL7",
+        "repo": "nix-darwin",
+        "rev": "fabc653517106127e2ed435fb52e7e8854354428",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LnL7",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1719690277,
@@ -363,6 +383,7 @@
         "musnix": "musnix",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nfnl": "nfnl",
+        "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
         "none-ls": "none-ls",
         "nvim-grey": "nvim-grey",

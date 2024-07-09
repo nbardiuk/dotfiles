@@ -8,6 +8,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
+    nix-darwin.url = "github:LnL7/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     musnix.url = "github:musnix/musnix";
     musnix.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -48,7 +51,7 @@
     wiki-vim.url = "git+https://github.com/lervag/wiki.vim";
   };
 
-  outputs = inputs @ { self, nixpkgs, musnix, home-manager, ... }: {
+  outputs = inputs @ { self, nixpkgs, nix-darwin, musnix, home-manager, ... }: {
     nixosConfigurations =
       let
         system = "x86_64-linux";
@@ -75,5 +78,8 @@
           ];
         };
       };
+    darwinConfigurations.darwin = nix-darwin.lib.darwinSystem {
+      modules = [./darwin/configuration.nix]; 
+    };
   };
 }
