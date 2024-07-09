@@ -2,8 +2,9 @@
 {
   imports = [
     ./../home-manager/home/alacritty.nix
-    ./../home-manager/home/syncthing.nix
+    ./../home-manager/home/scala.nix
     ./../home-manager/home/shell.nix
+    ./../home-manager/home/syncthing.nix
   ];
   home.packages = with pkgs; [
     keepassxc
