@@ -11,7 +11,7 @@
   users.users.nazarii.home = "/Users/nazarii";
 
   homebrew.enable = true;
-  homebrew.casks = [ "obsidian" ];
+  homebrew.casks = [ "obsidian" "stats" ];
 
   networking.dns = [ "8.8.8.8" "8.8.4.4" ];
   networking.knownNetworkServices = [
