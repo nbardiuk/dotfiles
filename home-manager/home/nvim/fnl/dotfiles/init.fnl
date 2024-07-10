@@ -169,6 +169,8 @@
 (vim.opt.shortmess:append :I) ; don't give the intro message
 (vim.opt.shortmess:append :W) ; don't give 'written' when writing a file
 
+(vim.opt.shortmess:remove :F) ; don't give the file info when editing a file, (for metals)
+
 (set vim.opt.scrolloff 5)       ; minimal number of lines around cursor
 (set vim.opt.sidescrolloff 5)  ; minimal number of chars around cursor
 (set vim.opt.startofline false) ; keep cursor on the same offset when paging
@@ -299,8 +301,11 @@
 (set vim.opt.winbar "%f")      ; file name in buffer title
 
 (lualine.setup
-  {:options {:icons_enabled false
-             :globalstatus true}})
+  {:options {:icons_enabled true
+             :globalstatus true}
+   :extensions [:oil :fugitive :quickfix]
+   :sections {:lualine_y [:progress
+                          {1 :searchcount :maxcount 99999 :timeout 500}]}})
 
 ;; Folding
 (set vim.opt.foldmethod :expr)
@@ -502,6 +507,9 @@
 (nnoremap :yol #(do
                   (vim.diagnostic.enable (not (vim.diagnostic.is_enabled)))
                   (vim.notify (.. "diagnostic " (if (vim.diagnostic.is_enabled) "enabled" "disabled")))))
+(nnoremap :<Leader>dg vim.diagnostic.setqflist)
+(nnoremap :<Leader>dl vim.diagnostic.setloclist)
+(nnoremap :<Leader>do vim.diagnostic.open_float)
 
 (tset vim.lsp.handlers "textDocument/hover"
       (vim.lsp.with vim.lsp.handlers.hover {:border :single}))
@@ -539,17 +547,29 @@
 ;; Java
 (au java :FileType :java
     (lsp-buffer-mappings))
-(lspconfig.java_language_server.setup
-  {:capabilities lsp-capabilities
-  ;; TODO no nix-profile anymore
-  ;; :cmd ["/home/nazarii/.nix-profile/share/java/java-language-server/lang_server_linux.sh"]
-   })
+;; TODO no nix-profile anymore
+;; https://github.com/ghostbuster91/dot-files/blob/5d95144a032de32fa5b59a9285d2b7d7aa782fcd/modules/hm/neovim/default.nix#L29
+; (lspconfig.java_language_server.setup
+;   {:capabilities lsp-capabilities
+;    :cmd ["/home/nazarii/.nix-profile/share/java/java-language-server/lang_server_linux.sh"]})
 
 
 ;; Scala
 (au scala :FileType [:scala :sbt]
     (lsp-buffer-mappings)
-    (metals.initialize_or_attach (metals.bare_config)))
+    (metals.initialize_or_attach
+        (vim.tbl_deep_extend :force
+          (metals.bare_config)
+          {:init_options {
+             :statusBarProvicer :on}
+           :settings {
+             :showImplicitArguments true
+             :showImplicitConversionsAndClasses true
+             :showInferredType true
+             :superMethodLensesEnabled true
+             :enableSemanticHighlighting true
+             :excludedPackages ["akka.actor.typed.javadsl"
+                                "com.github.swagger.akka.javadsl"]}})))
 
 
 ;; Rust

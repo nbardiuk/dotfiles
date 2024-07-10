@@ -7,5 +7,7 @@ if !enable then { } else {
     jdk21
     sbt
     coursier
+    scala-cli
+    visualvm
   ];
 }

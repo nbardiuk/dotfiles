@@ -141,6 +141,7 @@ do end (vim.opt.complete):remove("t")
 do end (vim.opt.shortmess):append("c")
 do end (vim.opt.shortmess):append("I")
 do end (vim.opt.shortmess):append("W")
+do end (vim.opt.shortmess):remove("F")
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
 vim.opt.startofline = false
@@ -213,7 +214,7 @@ vim.opt.showmode = false
 vim.opt.title = true
 vim.opt.titlestring = "%f"
 vim.opt.winbar = "%f"
-lualine.setup({options = {globalstatus = true, icons_enabled = false}})
+lualine.setup({options = {icons_enabled = true, globalstatus = true}, extensions = {"oil", "fugitive", "quickfix"}, sections = {lualine_y = {"progress", {"searchcount", maxcount = 99999, timeout = 500}}}})
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldenable = true
@@ -339,6 +340,9 @@ local function _25_()
   return vim.notify(("diagnostic " .. _26_()))
 end
 nnoremap("yol", _25_)
+nnoremap("<Leader>dg", vim.diagnostic.setqflist)
+nnoremap("<Leader>dl", vim.diagnostic.setloclist)
+nnoremap("<Leader>do", vim.diagnostic.open_float)
 do end (vim.lsp.handlers)["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = "single"})
 do end (vim.lsp.handlers)["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.singature_help, {border = "single"})
 fidget.setup({})
@@ -378,11 +382,10 @@ local function _30_()
   return nil
 end
 vim.api.nvim_create_autocmd("FileType", {callback = _30_, group = vim.api.nvim_create_augroup("java", {clear = true}), nested = true, pattern = "java"})
-lspconfig.java_language_server.setup({capabilities = lsp_capabilities})
 local function _31_()
   do
     lsp_buffer_mappings()
-    metals.initialize_or_attach(metals.bare_config())
+    metals.initialize_or_attach(vim.tbl_deep_extend("force", metals.bare_config(), {init_options = {statusBarProvicer = "on"}, settings = {showImplicitArguments = true, showImplicitConversionsAndClasses = true, showInferredType = true, superMethodLensesEnabled = true, enableSemanticHighlighting = true, excludedPackages = {"akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl"}}}))
   end
   return nil
 end

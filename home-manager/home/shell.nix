@@ -37,5 +37,7 @@
     watchexec
 
     process-compose
+
+    tcpdump
   ];
 }

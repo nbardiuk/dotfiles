@@ -7,5 +7,6 @@ if !enable then { } else {
     jdk21 # java dev kit
     maven # java build tool
     jetbrains.idea-community-bin
+    visualvm
   ];
 }
