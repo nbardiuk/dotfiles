@@ -7,6 +7,11 @@ switch:
 	sudo nixos-rebuild switch --flake .#tuxer
 	pkill --signal SIGUSR1 sxhkd
 
+.PHONY: tvbox
+tvbox:
+	sudo nixos-rebuild switch --flake .#tvbox
+	pkill --signal SIGUSR1 sxhkd
+
 .PHONY: darwin
 darwin:
 	nix run nix-darwin -- switch --flake .#darwin

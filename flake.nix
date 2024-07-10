@@ -77,6 +77,21 @@
             }
           ];
         };
+        tvbox = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./tvbox/configuration.nix
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.nazarii = import ./tvbox/home.nix;
+              home-manager.extraSpecialArgs = { inherit inputs mypkgs; };
+            }
+          ];
+        };
+
       };
     darwinConfigurations =
       let
