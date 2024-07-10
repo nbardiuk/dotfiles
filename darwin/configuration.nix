@@ -11,9 +11,10 @@
   users.users.nazarii.home = "/Users/nazarii";
 
   homebrew.enable = true;
-  homebrew.casks = [ "obsidian" "stats" ];
+  homebrew.casks = [ "obsidian" "stats" "todoist" "chatgpt" ];
 
   networking.dns = [ "8.8.8.8" "8.8.4.4" ];
+  networking.hostName = "bardiuk-exalate";
   networking.knownNetworkServices = [
     "Wi-Fi"
     "Thunderbolt Ethernet"
