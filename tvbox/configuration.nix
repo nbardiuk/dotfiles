@@ -21,9 +21,8 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   services.xserver.dpi = 96;
 
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true; # enables opengl for 32bit apps
-  # hardware.opengl.setLdLibraryPath = true; # adds /run/opengl-driver/lib to LD_LIBRARY_PATH
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true; # enables opengl for 32bit apps
 
   programs.steam.enable = true;
 
@@ -128,6 +127,8 @@
   services.udisks2.enable = true;
 
   services.logind.lidSwitchExternalPower = "ignore";
+
+  services.upower.enable = true;
 
   programs.coolercontrol.enable = true;
   programs.coolercontrol.nvidiaSupport = true;
