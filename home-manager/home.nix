@@ -76,7 +76,7 @@
     audacity
     ardour # daw
     # bitwig-studio
-    transcribe
+    # transcribe # TODO fails to build
     yt-dlp
 
     # https://www.linuxsampler.org
@@ -169,7 +169,7 @@
     mypkgs.dbeaver-ce
     # beekeeper-studio
 
-    gnome.nautilus
+    nautilus
     flameshot
 
     lazydocker

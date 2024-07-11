@@ -40,7 +40,7 @@
 
     xsane
 
-    gnome.nautilus
+    nautilus
     flameshot
 
 
