@@ -10,7 +10,7 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" "v4l2loopback" ];
+  boot.kernelModules = [ "kvm-intel" "coretemp" "v4l2loopback" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback.out ];
   boot.extraModprobeConfig = ''options v4l2loopback exclusive_caps=1 video_nr=9 card_label="obs"'';
 

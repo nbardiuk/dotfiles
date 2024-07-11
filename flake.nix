@@ -84,6 +84,11 @@
         tvbox = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
+            nixos-hardware.nixosModules.common-cpu-intel
+            nixos-hardware.nixosModules.common-gpu-nvidia-sync
+            nixos-hardware.nixosModules.common-pc-laptop
+            nixos-hardware.nixosModules.common-pc-laptop-ssd
+
             ./tvbox/configuration.nix
 
             home-manager.nixosModules.home-manager

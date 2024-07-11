@@ -14,11 +14,9 @@
   hardware.cpu.intel.updateMicrocode = true;
 
   # Graphics
-  hardware.nvidia.prime.sync.enable = true;
   hardware.nvidia.prime.intelBusId = "PCI:0:2:0";
   hardware.nvidia.prime.nvidiaBusId = "PCI:1:0:0";
   hardware.nvidia.modesetting.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
   services.xserver.dpi = 96;
 
   hardware.graphics.enable = true;
@@ -129,6 +127,8 @@
   services.logind.lidSwitchExternalPower = "ignore";
 
   services.upower.enable = true;
+
+  services.thermald.enable = true;
 
   # https://github.com/vitejs/vite/issues/5310#issuecomment-949349291
   security.pam.loginLimits = [
