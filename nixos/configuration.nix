@@ -252,6 +252,8 @@
 
   services.upower.enable = true;
 
+  hardware.tuxedo-rs = { enable = true; tailor-gui.enable = true; };
+
   # services.sysstat.enable = true;
 
   services.gvfs.enable = true; # Allows to see mtp devices in file manager

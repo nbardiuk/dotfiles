@@ -130,9 +130,6 @@
 
   services.upower.enable = true;
 
-  programs.coolercontrol.enable = true;
-  programs.coolercontrol.nvidiaSupport = true;
-
   # https://github.com/vitejs/vite/issues/5310#issuecomment-949349291
   security.pam.loginLimits = [
     {

@@ -14,6 +14,8 @@
     musnix.url = "github:musnix/musnix";
     musnix.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -51,7 +53,7 @@
     wiki-vim.url = "git+https://github.com/lervag/wiki.vim";
   };
 
-  outputs = inputs @ { self, nixpkgs, nix-darwin, musnix, home-manager, ... }: {
+  outputs = inputs @ { self, nixpkgs, nix-darwin, musnix, nixos-hardware, home-manager, ... }: {
     nixosConfigurations =
       let
         system = "x86_64-linux";
@@ -65,6 +67,8 @@
           inherit system;
           modules = [
             musnix.nixosModules.musnix
+
+            nixos-hardware.nixosModules.tuxedo-infinitybook-pro14-gen7
 
             ./nixos/configuration.nix
 
