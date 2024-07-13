@@ -21,7 +21,7 @@
     ncdu
     watch
 
-    (pkgs.python311.withPackages (ps: [
+    (pkgs.python3.withPackages (ps: [
       ps.autopep8
       ps.pip
       ps.virtualenv
