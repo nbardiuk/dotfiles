@@ -11,7 +11,7 @@
   users.users.nazarii.home = "/Users/nazarii";
 
   homebrew.enable = true;
-  homebrew.casks = [ "obsidian" "stats" "todoist" "chatgpt" ];
+  homebrew.casks = [ "obsidian" "stats" "todoist" "chatgpt" "whichspace" ];
 
   networking.dns = [ "8.8.8.8" "8.8.4.4" ];
   networking.hostName = "bardiuk-exalate";
@@ -19,4 +19,6 @@
     "Wi-Fi"
     "Thunderbolt Ethernet"
   ];
+
+  system.defaults.NSGlobalDomain.AppleFontSmoothing = 0; # remove bold from alacritty
 }
