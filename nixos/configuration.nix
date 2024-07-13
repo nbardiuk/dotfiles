@@ -68,8 +68,6 @@
 
   musnix.enable = true;
   musnix.soundcardPciId = "00:1f.3";
-  musnix.rtirq.enable = true;
-  musnix.rtcqs.enable = true;
 
   security.rtkit.enable = true;
   hardware.pulseaudio.enable = false;
