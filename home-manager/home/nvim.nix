@@ -34,7 +34,39 @@
       nvim-lspconfig
       nvim-metals
       nvim-surround
-      nvim-treesitter.withAllGrammars
+      (nvim-treesitter.withPlugins (p: [
+        p.bash
+        p.clojure
+        p.comment
+        p.css
+        p.csv
+        p.diff
+        p.dockerfile
+        p.fennel
+        p.gitcommit
+        p.gitignore
+        p.groovy
+        p.hocon
+        p.html
+        p.http
+        p.java
+        p.javascript
+        p.jq
+        p.json
+        p.json5
+        p.lua
+        p.markdown
+        p.markdown_inline
+        p.nix
+        p.python
+        p.scala
+        p.scss
+        p.sql
+        p.ssh_config
+        p.typescript
+        p.xml
+        p.yaml
+      ]))
       nvim-treesitter-context
       nvim-treesitter-textobjects
       nvim-web-devicons
