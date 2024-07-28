@@ -25,7 +25,7 @@ vim.opt.exrc = true
 tree_context.setup({enable = true, separator = "\194\183"})
 tree_conf.setup({indent = {enable = true}, highlight = {enable = true}, textobjects = {select = {enable = true, lookahead = true, keymaps = {aa = "@parameter.outer", ia = "@parameter.inner", ac = "@comment.outer", as = "@statement.outer"}}, swap = {enable = true, swap_next = {[">a"] = "@parameter.inner"}, swap_previous = {["<lt>a"] = "@parameter.inner"}}}, matchup = {enable = true}, auto_install = false})
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\9"
+vim.g.maplocalleader = "\t"
 local function indexed__3enamed(keys, tbl)
   for index = #tbl, 1, -1 do
     local key = tbl[index]
@@ -33,7 +33,7 @@ local function indexed__3enamed(keys, tbl)
     if (nil ~= _1_) then
       local value = _1_
       table.remove(tbl, index)
-      do end (tbl)[key] = value
+      tbl[key] = value
     else
     end
   end
@@ -42,8 +42,8 @@ end
 local function keymap(m, args)
   local options = {buffer = true, silent = true, remap = true, noremap = true}
   local args0 = indexed__3enamed(options, args)
-  local lhs = (args0)[1]
-  local rhs = (args0)[2]
+  local lhs = args0[1]
+  local rhs = args0[2]
   local opts = c["select-keys"](args0, c.keys(options))
   return vim.keymap.set(m, lhs, rhs, opts)
 end
@@ -92,18 +92,18 @@ local function _6_()
 end
 local _7_
 do
-  local tbl_14_auto = {}
+  local tbl_16_auto = {}
   for k in pairs(lspkind.presets.default) do
-    local k_15_auto, v_16_auto = k, ""
-    if ((k_15_auto ~= nil) and (v_16_auto ~= nil)) then
-      tbl_14_auto[k_15_auto] = v_16_auto
+    local k_17_auto, v_18_auto = k, ""
+    if ((k_17_auto ~= nil) and (v_18_auto ~= nil)) then
+      tbl_16_auto[k_17_auto] = v_18_auto
     else
     end
   end
-  _7_ = tbl_14_auto
+  _7_ = tbl_16_auto
 end
 local function _9_(_241)
-  return luasnip.lsp_expand((_241).body)
+  return luasnip.lsp_expand(_241.body)
 end
 local function _10_(_241)
   if cmp.visible() then
@@ -137,11 +137,11 @@ do
   vim.opt.langmap = (escape(ua) .. ";" .. escape(en))
 end
 vim.opt.completeopt = {"menu", "menuone", "noselect"}
-do end (vim.opt.complete):remove("t")
-do end (vim.opt.shortmess):append("c")
-do end (vim.opt.shortmess):append("I")
-do end (vim.opt.shortmess):append("W")
-do end (vim.opt.shortmess):remove("F")
+vim.opt.complete:remove("t")
+vim.opt.shortmess:append("c")
+vim.opt.shortmess:append("I")
+vim.opt.shortmess:append("W")
+vim.opt.shortmess:remove("F")
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
 vim.opt.startofline = false
@@ -156,7 +156,7 @@ local function _15_()
 end
 vim.api.nvim_create_autocmd("TextYankPost", {callback = _15_, group = vim.api.nvim_create_augroup("yank", {clear = true}), nested = true, pattern = "*"})
 vim.opt.virtualedit = "block"
-do end (vim.opt.matchpairs):append("<:>")
+vim.opt.matchpairs:append("<:>")
 vim.opt.joinspaces = false
 vim.opt.signcolumn = "yes:1"
 vim.opt.number = false
@@ -164,7 +164,7 @@ vim.opt.relativenumber = false
 vim.opt.colorcolumn = {100}
 vim.opt.spelllang = "en_us"
 vim.opt.spell = false
-do end (vim.opt.spellsuggest):append(("" .. bottom_height))
+vim.opt.spellsuggest:append(("" .. bottom_height))
 nnoremap("silent", "]s", "<Cmd>execute ':setlocal spell'| normal! ]s<CR>")
 nnoremap("silent", "]S", "<Cmd>execute ':setlocal spell'| normal! ]S<CR>")
 nnoremap("silent", "[s", "<Cmd>execute ':setlocal spell'| normal! [s<CR>")
@@ -254,7 +254,7 @@ vim.opt.path = {".", "**"}
 oil.setup({columns = {{"permissions", highlight = "NonText"}, {"size", highlight = "String"}, {"ctime", highlight = "Number", format = "%Y-%m-%d %H:%M"}, "icon"}, view_options = {show_hidden = true}, keymaps = {["g?"] = "actions.show_help", ["<CR>"] = "actions.select", ["<C-s>"] = "actions.select_vsplit", ["<C-r>"] = "actions.refresh", ["<C-p>"] = "actions.preview", ["<C-c>"] = "actions.close", ["-"] = "actions.parent", _ = "actions.open_cwd", ["g."] = "actions.toggle_hidden", ["."] = "actions.open_cmdline", [","] = "actions.open_cmdline_dir", gy = "actions.copy_entry_path"}, use_default_keymaps = false})
 nmap("-", oil.open)
 vim.opt.updatetime = 100
-do end (vim.opt.diffopt):append({"indent-heuristic", "internal", "algorithm:histogram", "linematch:60"})
+vim.opt.diffopt:append({"indent-heuristic", "internal", "algorithm:histogram", "linematch:60"})
 vim.g.gitgutter_map_keys = false
 nnoremap("silent", "<Leader>gd", "<Cmd>Gdiffsplit<CR>")
 nnoremap("silent", "<Leader>gs", "<Cmd>Git|only<CR>")
@@ -282,11 +282,11 @@ omap("ah", "<Plug>(GitGutterTextObjectOuterPending)")
 xmap("ah", "<Plug>(GitGutterTextObjectOuterVisual)")
 nnoremap("yoh", "<Cmd>GitGutterSignsToggle<CR>")
 local function _19_()
-  if vim.tbl_contains((vim.opt.diffopt):get(), "iwhite") then
-    do end (vim.opt.diffopt):remove("iwhite")
+  if vim.tbl_contains(vim.opt.diffopt:get(), "iwhite") then
+    vim.opt.diffopt:remove("iwhite")
     return vim.notify("noiwhite")
   else
-    do end (vim.opt.diffopt):append("iwhite")
+    vim.opt.diffopt:append("iwhite")
     return vim.notify("iwhite")
   end
 end
@@ -330,58 +330,50 @@ end
 vim.diagnostic.config({underline = true, float = {show_header = false}, severity_sort = true, signs = true, virtual_text = false})
 local function _25_()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-  local function _26_()
-    if vim.diagnostic.is_enabled() then
-      return "enabled"
-    else
-      return "disabled"
-    end
+  local _26_
+  if vim.diagnostic.is_enabled() then
+    _26_ = "enabled"
+  else
+    _26_ = "disabled"
   end
-  return vim.notify(("diagnostic " .. _26_()))
+  return vim.notify(("diagnostic " .. _26_))
 end
 nnoremap("yol", _25_)
 nnoremap("<Leader>dg", vim.diagnostic.setqflist)
 nnoremap("<Leader>dl", vim.diagnostic.setloclist)
 nnoremap("<Leader>do", vim.diagnostic.open_float)
-do end (vim.lsp.handlers)["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = "single"})
-do end (vim.lsp.handlers)["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.singature_help, {border = "single"})
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = "single"})
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.singature_help, {border = "single"})
 fidget.setup({})
 vim.g["conjure#eval#result_register"] = "e"
 vim.g["conjure#log#botright"] = true
-local function _27_()
+local function _28_()
   do
     vim.diagnostic.disable(0)
   end
   return nil
 end
-vim.api.nvim_create_autocmd("BufNewFile", {callback = _27_, group = vim.api.nvim_create_augroup("conjure-log", {clear = true}), nested = true, pattern = "conjure-log-*"})
+vim.api.nvim_create_autocmd("BufNewFile", {callback = _28_, group = vim.api.nvim_create_augroup("conjure-log", {clear = true}), nested = true, pattern = "conjure-log-*"})
 vim.g["conjure#filetypes"] = {"clojure", "fennel"}
 vim.g["conjure#eval#gsubs"] = {["do-comment"] = {"^%(comment[%s%c]", "(do "}}
 vim.g["conjure#mapping#doc_word"] = "k"
-local function _28_()
-  do
-    lsp_buffer_mappings()
-  end
-  return nil
-end
-vim.api.nvim_create_autocmd("FileType", {callback = _28_, group = vim.api.nvim_create_augroup("python", {clear = true}), nested = true, pattern = "python"})
-lspconfig.pylsp.setup({capabilities = lsp_capabilities})
 local function _29_()
   do
     lsp_buffer_mappings()
   end
   return nil
 end
-vim.api.nvim_create_autocmd("FileType", {callback = _29_, group = vim.api.nvim_create_augroup("typescript", {clear = true}), nested = true, pattern = {"typescript", "javascript", "typescriptreact", "javascriptreact"}})
-lspconfig.tsserver.setup({capabilities = lsp_capabilities})
-tsc.setup({auto_start_watch_mode = true, flags = {watch = true}})
+vim.api.nvim_create_autocmd("FileType", {callback = _29_, group = vim.api.nvim_create_augroup("python", {clear = true}), nested = true, pattern = "python"})
+lspconfig.pylsp.setup({capabilities = lsp_capabilities})
 local function _30_()
   do
     lsp_buffer_mappings()
   end
   return nil
 end
-vim.api.nvim_create_autocmd("FileType", {callback = _30_, group = vim.api.nvim_create_augroup("java", {clear = true}), nested = true, pattern = "java"})
+vim.api.nvim_create_autocmd("FileType", {callback = _30_, group = vim.api.nvim_create_augroup("typescript", {clear = true}), nested = true, pattern = {"typescript", "javascript", "typescriptreact", "javascriptreact"}})
+lspconfig.tsserver.setup({capabilities = lsp_capabilities})
+tsc.setup({auto_start_watch_mode = true, flags = {watch = true}})
 local function _31_()
   do
     lsp_buffer_mappings()
@@ -389,7 +381,7 @@ local function _31_()
   end
   return nil
 end
-vim.api.nvim_create_autocmd("FileType", {callback = _31_, group = vim.api.nvim_create_augroup("scala", {clear = true}), nested = true, pattern = {"scala", "sbt"}})
+vim.api.nvim_create_autocmd("FileType", {callback = _31_, group = vim.api.nvim_create_augroup("scala", {clear = true}), nested = true, pattern = {"scala", "sbt", "java"}})
 local function _32_()
   do
     lsp_buffer_mappings()
@@ -614,9 +606,8 @@ local function _55_()
   return nil
 end
 vim.api.nvim_create_autocmd("TermLeave", {callback = _55_, group = vim.api.nvim_create_augroup("terminal-leave", {clear = true}), nested = true, pattern = "*"})
-local function _59_(_57_)
-  local _arg_58_ = _57_
-  local path = _arg_58_["args"]
+local function _58_(_57_)
+  local path = _57_["args"]
   local path0
   if (path == "") then
     path0 = "%:h"
@@ -626,14 +617,13 @@ local function _59_(_57_)
   vim.cmd(table.concat({"vsplit", ("lcd " .. path0), "terminal"}, "|"))
   return vim.api.nvim_feedkeys("i", "n", false)
 end
-vim.api.nvim_create_user_command("Term", _59_, {nargs = "?", desc = "Open terminal"})
-local function _63_(_61_)
-  local _arg_62_ = _61_
-  local suffix = _arg_62_["args"]
+vim.api.nvim_create_user_command("Term", _58_, {nargs = "?", desc = "Open terminal"})
+local function _61_(_60_)
+  local suffix = _60_["args"]
   return vim.cmd.edit((vim.fn.tempname() .. "_" .. suffix))
 end
-vim.api.nvim_create_user_command("Scratch", _63_, {nargs = "?", desc = "New temporary file"})
-local function _64_()
+vim.api.nvim_create_user_command("Scratch", _61_, {nargs = "?", desc = "New temporary file"})
+local function _62_()
   do
     local file_path = vim.api.nvim_buf_get_name(0)
     local protocol = string.match(file_path, "^[%w-]+://")
@@ -644,31 +634,31 @@ local function _64_()
   end
   return nil
 end
-vim.api.nvim_create_autocmd({"FocusLost", "BufLeave", "CursorHold"}, {callback = _64_, group = vim.api.nvim_create_augroup("autosave", {clear = true}), nested = true, pattern = {"*"}})
-local function _66_()
+vim.api.nvim_create_autocmd({"FocusLost", "BufLeave", "CursorHold"}, {callback = _62_, group = vim.api.nvim_create_augroup("autosave", {clear = true}), nested = true, pattern = {"*"}})
+local function _64_()
   do
     vim.cmd("silent! checktime")
   end
   return nil
 end
-vim.api.nvim_create_autocmd({"FocusGained", "BufEnter", "CursorHold"}, {callback = _66_, group = vim.api.nvim_create_augroup("autoread", {clear = true}), nested = true, pattern = {"*"}})
-local function _67_()
+vim.api.nvim_create_autocmd({"FocusGained", "BufEnter", "CursorHold"}, {callback = _64_, group = vim.api.nvim_create_augroup("autoread", {clear = true}), nested = true, pattern = {"*"}})
+local function _65_()
   do
-    local _let_68_ = vim.api.nvim_buf_get_mark(0, "\"")
-    local line = _let_68_[1]
-    local col = _let_68_[2]
+    local _let_66_ = vim.api.nvim_buf_get_mark(0, "\"")
+    local line = _let_66_[1]
+    local col = _let_66_[2]
     local line_count = vim.api.nvim_buf_line_count(0)
-    if ((1 <= line) and (line <= line_count) and ((vim.opt.ft):get() ~= "commit")) then
+    if (((1 <= line) and (line <= line_count)) and (vim.opt.ft:get() ~= "commit")) then
       vim.api.nvim_win_set_cursor(0, {line, col})
     else
     end
   end
   return nil
 end
-vim.api.nvim_create_autocmd("BufReadPost", {callback = _67_, group = vim.api.nvim_create_augroup("jump-to-last-postion", {clear = true}), nested = true, pattern = "*"})
+vim.api.nvim_create_autocmd("BufReadPost", {callback = _65_, group = vim.api.nvim_create_augroup("jump-to-last-postion", {clear = true}), nested = true, pattern = "*"})
 nmap("ga", "<Plug>(EasyAlign)")
 xmap("ga", "<Plug>(EasyAlign)")
-local function _70_()
+local function _68_()
   local word_under_cursor = vim.fn.expand("<cWORD>")
   local task = string.match(word_under_cursor, "NT%-%d+")
   if task then
@@ -677,5 +667,5 @@ local function _70_()
     return vim.notify(("Not a notion task '" .. word_under_cursor .. "'"), vim.log.levels.WARN)
   end
 end
-nnoremap("<Leader>gn", _70_)
+nnoremap("<Leader>gn", _68_)
 return {clj_ignore = clj_ignore, scm_ignore = scm_ignore}

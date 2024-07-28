@@ -543,19 +543,8 @@
   {:auto_start_watch_mode true
    :flags {:watch true}})
 
-
-;; Java
-(au java :FileType :java
-    (lsp-buffer-mappings))
-;; TODO no nix-profile anymore
-;; https://github.com/ghostbuster91/dot-files/blob/5d95144a032de32fa5b59a9285d2b7d7aa782fcd/modules/hm/neovim/default.nix#L29
-; (lspconfig.java_language_server.setup
-;   {:capabilities lsp-capabilities
-;    :cmd ["/home/nazarii/.nix-profile/share/java/java-language-server/lang_server_linux.sh"]})
-
-
 ;; Scala
-(au scala :FileType [:scala :sbt]
+(au scala :FileType [:scala :sbt :java]
     (lsp-buffer-mappings)
     (metals.initialize_or_attach
         (vim.tbl_deep_extend :force

@@ -137,7 +137,6 @@
     sqls
     tree-sitter
     fennel-ls
-    java-language-server
     eslint_d
     nil
   ];
