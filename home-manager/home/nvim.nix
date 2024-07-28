@@ -15,6 +15,7 @@
     ];
     plugins = with pkgs.vimPlugins; [
       cmp-buffer # buffer text source for nvim-cmp
+      cmp-cmdline # command line source for nvim-cmp
       cmp-conjure # conjure source for nvim-cmp
       cmp-nvim-lsp # lsp source for nvim-cmp
       cmp-path # filesystem source for nvim-cmp
@@ -25,7 +26,6 @@
       ferret
       fidget-nvim # lsp progress widget
       gitgutter
-      lspkind-nvim
       lualine-nvim
       luasnip # snippets manager
       markdown-preview-nvim
@@ -82,8 +82,6 @@
       undotree
       vim-abolish
       vim-cool # manages search highlight
-      vim-dadbod
-      vim-dadbod-completion
       vim-easy-align
       vim-eunuch
       vim-fubitive # bitbucket for fugitive

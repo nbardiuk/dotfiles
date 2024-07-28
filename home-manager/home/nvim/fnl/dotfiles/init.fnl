@@ -5,7 +5,6 @@
 (local dressing (require :dressing))
 (local fidget (require :fidget))
 (local lspconfig (require :lspconfig))
-(local lspkind (require :lspkind))
 (local lualine (require :lualine))
 (local luasnip (require :luasnip))
 (local metals (require :metals))
@@ -114,7 +113,6 @@
   {:sources [{:name :nvim_lsp}
              {:name :conjure}
              {:name :treesitter}
-             {:name :vim-dadbod-completion}
              {:name :lausnip}
              {:name :path}
              {:name :buffer
@@ -122,18 +120,6 @@
               :options {:get_bufnrs #(vim.api.nvim_list_bufs)}}
              {:name :spell
               :keyword_length 5}]
-   :formatting {:format
-                (lspkind.cmp_format
-                  {:mode :symbol_text
-                   :symbol_map (collect [k (pairs lspkind.presets.default)] (values k ""))
-                   :menu {:nvim_lsp "[lsp]"
-                          :conjure "[conj]"
-                          :vim-dadbod-completion "[db]"
-                          :treesitter "[tree]"
-                          :luasnip "[snip]"
-                          :path "[path]"
-                          :buffer "[buf]"
-                          :spell "[spell]"}})}
    :snippet {:expand #(luasnip.lsp_expand (. $1 :body))}
    :mapping {"<C-n>"   (cmp.mapping #(if
                                        (cmp.visible)                (cmp.select_next_item)
@@ -146,7 +132,17 @@
              "<C-d>"   (cmp.mapping.scroll_docs -4)
              "<C-u>"   (cmp.mapping.scroll_docs 4)
              "<C-e>"   (cmp.mapping.close)
-             "<Space>" (cmp.mapping.confirm)}})
+             "<Space>" (cmp.mapping.confirm {:select false})}})
+
+(cmp.setup.cmdline :/ {
+  :mapping (cmp.mapping.preset.cmdline)
+  :sources [{:name :buffer}]})
+
+(cmp.setup.cmdline :: {
+  :mapping (cmp.mapping.preset.cmdline)
+  :sources [{:name :path}
+            {:name :cmdline}]
+  :matching {:disallow_symbol_nonprefix_matching false}})
 
 (local lsp-capabilities
   (vim.tbl_deep_extend
