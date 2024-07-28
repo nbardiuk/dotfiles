@@ -24,12 +24,10 @@
     "docker"
     "elgato-wave-link"
     "grammarly-desktop"
-    "obsidian"
     "stats"
     "temurin@8"
     "temurin@11"
     "temurin@17"
-    "todoist"
     "whichspace"
   ];
   homebrew.onActivation.cleanup = "uninstall";
