@@ -3,6 +3,16 @@
 
   programs.starship = {
     enable = true;
+    settings = {
+      directory = {
+        truncation_length = 7;
+        truncation_symbol = "/… /";
+      };
+      git_branch.ignore_branches = [ "main" "master" ];
+      nix_shell.format = "via $symbol";
+      scala.disabled = true;
+      time.disabled = false;
+    };
   };
 
   programs.zsh = rec {
