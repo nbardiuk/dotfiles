@@ -40,7 +40,4 @@
     "Wi-Fi"
     "Thunderbolt Ethernet"
   ];
-
-  system.defaults.NSGlobalDomain.AppleFontSmoothing = 0; # remove bold from alacritty
 }
-
