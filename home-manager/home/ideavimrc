@@ -1,0 +1,7 @@
+set clipboard+=unnamedplus
+set clipboard+=ideaput
+
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+packadd matchit

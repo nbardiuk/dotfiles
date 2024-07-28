@@ -54,6 +54,7 @@
       vim-dadbod-completion
       vim-easy-align
       vim-eunuch
+      vim-fubitive # bitbucket for fugitive
       vim-fugitive
       vim-indent-object
       vim-matchup

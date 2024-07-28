@@ -6,7 +6,7 @@ if !enable then { } else {
   home.packages = with pkgs; [
     jdk21 # java dev kit
     maven # java build tool
-    jetbrains.idea-community-bin
+    # jetbrains.idea-community-bin
     visualvm
   ];
 }

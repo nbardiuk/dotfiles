@@ -1,8 +1,8 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
 
   home.packages = with pkgs; [
-    # kubectl
+    kubectl
     k9s
   ];
 

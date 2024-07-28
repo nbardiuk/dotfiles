@@ -11,7 +11,28 @@
   users.users.nazarii.home = "/Users/nazarii";
 
   homebrew.enable = true;
-  homebrew.casks = [ "obsidian" "stats" "todoist" "chatgpt" "whichspace" ];
+  homebrew.taps = [
+    "atlassian/tap"
+    "hashicorp/tap"
+  ];
+  homebrew.brews = [
+    "atlassian/tap/atlassian-plugin-sdk"
+    "hashicorp/tap/vault"
+    "nvm"
+  ];
+  homebrew.casks = [
+    "docker"
+    "elgato-wave-link"
+    "grammarly-desktop"
+    "obsidian"
+    "stats"
+    "temurin@8"
+    "temurin@11"
+    "temurin@17"
+    "todoist"
+    "whichspace"
+  ];
+  homebrew.onActivation.cleanup = "uninstall";
 
   networking.dns = [ "8.8.8.8" "8.8.4.4" ];
   networking.hostName = "bardiuk-exalate";
@@ -22,3 +43,4 @@
 
   system.defaults.NSGlobalDomain.AppleFontSmoothing = 0; # remove bold from alacritty
 }
+
