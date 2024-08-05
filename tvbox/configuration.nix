@@ -64,9 +64,6 @@
   hardware.sane.enable = true;
   hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
 
-  sound.enable = true;
-  sound.mediaKeys.enable = true;
-
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
