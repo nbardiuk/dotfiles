@@ -96,6 +96,7 @@
       vim-unimpaired
       mypkgs.vimPlugins.colorizer
       mypkgs.vimPlugins.co-author
+      mypkgs.vimPlugins.conform-nvim
       mypkgs.vimPlugins.conjure
       mypkgs.vimPlugins.nfnl
       mypkgs.vimPlugins.none-ls
@@ -116,12 +117,11 @@
     cachix # to fetch nightly neovim
     nixpkgs-fmt # nix formatter
     clojure-lsp
-    shellcheck # shell scripts linter
     shfmt # shell scripts formatter
     xsel # clipboard manager
     jq # json formatter
     libxml2 # for xmllint
-    yamllint # yaml linter
+    yamlfmt # yaml formatter
     pgformatter # sql formatter
     sqlint # sql linter
     ccls
@@ -129,13 +129,10 @@
     hadolint # dockerfile linter
     fennel
     pandoc # for markdown conversion
-    statix # nix linter
-    nodePackages.fixjson # json formatter
     codespell
     sqls
     tree-sitter
     fennel-ls
-    eslint_d
-    nil
+    nil # nix lsp
   ];
 }

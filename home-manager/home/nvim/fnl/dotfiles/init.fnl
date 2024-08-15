@@ -2,6 +2,7 @@
 (local c (require :nfnl.core))
 (local cmp (require :cmp))
 (local cmp_nvim_lsp (require :cmp_nvim_lsp))
+(local conform (require :conform))
 (local dressing (require :dressing))
 (local fidget (require :fidget))
 (local lspconfig (require :lspconfig))
@@ -451,42 +452,33 @@
 ;; LSP
 (null-ls.setup
   {:sources
-   [null-ls.builtins.code_actions.statix
-    (null-ls.builtins.diagnostics.vale.with
+   [(null-ls.builtins.diagnostics.vale.with
       {:filetypes ["markdown" "gitcommit"]})
-    null-ls.builtins.diagnostics.statix
-    ; null-ls.builtins.diagnostics.eslint_d
-    ; null-ls.builtins.diagnostics.shellcheck
     null-ls.builtins.diagnostics.hadolint
-    null-ls.builtins.diagnostics.codespell
-    (null-ls.builtins.diagnostics.yamllint.with
-      {:extra_args ["--config-data" (.. "{ extends: default,"
-                                          "rules: { line-length: {max: 120},"
-                                                   "document-start: {present: false}}}")]})
-    null-ls.builtins.formatting.zprint
-    ; null-ls.builtins.formatting.fixjson
-    null-ls.builtins.formatting.prettier
-    null-ls.builtins.formatting.nixpkgs_fmt
-    null-ls.builtins.formatting.xmllint
-    ; (null-ls.builtins.formatting.trim_whitespace.with
-    ;   {:filetypes ["yaml" "docker" "fennel"]})
-    (null-ls.builtins.formatting.clang_format.with
-      {:filetypes ["glsl"]})
-    (null-ls.builtins.formatting.shfmt.with
-      {:extra_args ["-i" "2" "-sr"]})
-    (null-ls.builtins.formatting.pg_format.with
-      {:extra_args ["--spaces" "2" ; indentation, default 4 spaces
-                    "--comma-break" ; in insert statement, add a newline after each comma
-                    "--function-case" "2" ; uppercase function name
-                    "--placeholder" "\\?[a-zA-Z]+\\?" ; regex for code that must not be changed `?IN?`
-                    "-"]})]})
+    null-ls.builtins.diagnostics.codespell]})
 
-(fn enabled-formatting? [client]
-  (let [disabled-formatters [:tsserver :clojure_lsp]]
-    (not (vim.tbl_contains disabled-formatters (. client :name)))))
+(conform.setup {
+  :formatters_by_ft {
+    :bash [:shfmt]
+    :json [:jq]
+    :sh [:shfmt]
+    :sql [:pg_format]
+    :xml [:xmllint]
+    :yaml [:yamlfmt]}
+  :formatters {
+    :shfmt {:prepend_args ["--indent" "2" "--space-redirects"]}
+    :pg_format {:prepend_args ["--spaces" "2" ; indentation, default 4 spaces
+                               "--comma-break" ; in insert statement, add a newline after each comma
+                               "--function-case" "2" ; uppercase function name
+                               "--placeholder" "\\?[a-zA-Z]+\\?" ; regex for code that must not be changed `?IN?`
+                              ]}}
+  :default_format_opts {
+    :lsp_format :fallback  ; use lsp when no other is available
+    :async true            ; don't block UI
+    :stop_after_first true}})
 
-(nnoremap :<Leader>lf #(vim.lsp.buf.format {:timeout_ms 5000 ; default 2000, zprint is slow
-                                            :filter enabled-formatting?}))
+(set vim.opt.formatexpr "v:lua.require'conform'.formatexpr()")
+(nnoremap :<Leader>lf conform.format)
 (nnoremap :<Leader>la vim.lsp.buf.code_action)
 (fn lsp-buffer-mappings []
   (nnoremap :buffer :gd         vim.lsp.buf.definition)
@@ -743,11 +735,13 @@
 ;; glsl
 (au glsl-detect [:BufNewFile :BufRead] [:*.glsl :*.vert :*.geom :*.frag]
     (set vim.opt_local.filetype :glsl))
+(set conform.formatters_by_ft.glsl [:clang-format])
 
 ;; Nix
 (au nix :FileType :nix
     (lsp-buffer-mappings))
 (lspconfig.nil_ls.setup {:capabilities lsp-capabilities})
+(set conform.formatters_by_ft.nix [:nixpkgs_fmt])
 
 
 ;; Alternative file

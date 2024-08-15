@@ -36,6 +36,7 @@ let
     vimPlugins = {
       colorizer = plugin inputs.chrisbra-colorizer "colorizer";
       co-author = plugin inputs.co-author "co-author";
+      conform-nvim = plugin inputs.conform "conform-nvim";
       conjure = plugin inputs.conjure "conjure";
       nfnl = plugin inputs.nfnl "nfnl";
       none-ls = plugin inputs.none-ls "none-ls";

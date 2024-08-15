@@ -32,6 +32,22 @@
         "url": "https://github.com/2KAbhishek/co-author.nvim"
       }
     },
+    "conform": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1723322956,
+        "narHash": "sha256-EE0YvXHgwFb8ADlerPPR9KfHi+EniG2Up5wVumB0/y4=",
+        "ref": "refs/heads/master",
+        "rev": "667102f26106709cddd2dff1f699610df5b94d7f",
+        "revCount": 545,
+        "type": "git",
+        "url": "https://github.com/stevearc/conform.nvim"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/stevearc/conform.nvim"
+      }
+    },
     "conjure": {
       "flake": false,
       "locked": {
@@ -394,6 +410,7 @@
       "inputs": {
         "chrisbra-colorizer": "chrisbra-colorizer",
         "co-author": "co-author",
+        "conform": "conform",
         "conjure": "conjure",
         "home-manager": "home-manager",
         "musnix": "musnix",

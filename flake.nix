@@ -28,6 +28,9 @@
     co-author.flake = false;
     co-author.url = "git+https://github.com/2KAbhishek/co-author.nvim";
 
+    conform.flake = false;
+    conform.url = "git+https://github.com/stevearc/conform.nvim";
+
     conjure.flake = false;
     conjure.url = "git+https://github.com/Olical/conjure";
 
