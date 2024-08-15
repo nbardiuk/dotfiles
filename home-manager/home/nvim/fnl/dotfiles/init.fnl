@@ -29,15 +29,11 @@
   {:enable true
    :separator "·"})
 
-
-(macro au [group event pattern ...]
-  `(vim.api.nvim_create_autocmd
-     ,event
-     {:group (vim.api.nvim_create_augroup ,(tostring group) {:clear true})
-      :pattern ,pattern
-      :callback (fn [] (do ,...) nil)
-      :nested true ;; autocmd-nested
-      }))
+(fn au [group-name event pattern body]
+  (let [callback #(do (body) nil)
+        group (vim.api.nvim_create_augroup group-name {:clear true})
+        nested true]
+    (vim.api.nvim_create_autocmd event {: group : pattern : callback : nested})))
 
 ; (vim.opt.runtimepath:append "~/.local/share/nvim/treesitter")
 (tree-conf.setup
@@ -176,7 +172,7 @@
 (set vim.opt.mousemodel :popup_setpos) ; make mouse behave like in GUI app
 
 (set vim.opt.clipboard :unnamedplus) ; set default copy register the same as clipboard
-(au yank :TextYankPost :* (vim.highlight.on_yank {:higroup :Visual}))
+(au :yank :TextYankPost :* #(vim.highlight.on_yank {:higroup :Visual}))
 
 (set vim.opt.virtualedit :block) ; allow virtual editing only in Visual Block mode.
 
@@ -211,7 +207,7 @@
 
 
 ;; Panes
-(au autoresize :VimResized :* (vim.cmd.wincmd "="))
+(au :autoresize :VimResized :* #(vim.cmd.wincmd "="))
 (set vim.opt.winwidth 80)    ; minimal width of active window
 (set vim.opt.winminwidth 8)  ; minimal width of inactive window
 (set vim.opt.winheight 24)   ; minimal height of active window
@@ -424,8 +420,7 @@
    #(if (vim.tbl_contains (vim.opt.diffopt:get) "iwhite")
       (do (vim.opt.diffopt:remove "iwhite") (vim.notify "noiwhite"))
       (do (vim.opt.diffopt:append "iwhite") (vim.notify "iwhite"))))
-(au gitcommit :FileType :gitcommit
-    (set vim.opt_local.spell true))
+(au :gitcommit :FileType :gitcommit #(set vim.opt_local.spell true))
 ;; https://github.com/tpope/vim-fugitive/blob/46eaf8918b347906789df296143117774e827616/autoload/fugitive.vim#L7345
 (vim.api.nvim_create_user_command :Browse #(vim.ui.open $1.args) {:nargs 1})
 
@@ -510,84 +505,81 @@
 ;; Conjure
 (set vim.g.conjure#eval#result_register :e)
 (set vim.g.conjure#log#botright true)
-(au conjure-log :BufNewFile "conjure-log-*"
-    (vim.diagnostic.disable 0))
+(au :conjure-log :BufNewFile "conjure-log-*" #(vim.diagnostic.disable 0))
 (set vim.g.conjure#filetypes [:clojure :fennel])
 (set vim.g.conjure#eval#gsubs {:do-comment ["^%(comment[%s%c]" "(do "]}) ; eval comment as do
 (set vim.g.conjure#mapping#doc_word :k)
 
 
 ;; Python
-(au python :FileType :python
-    (lsp-buffer-mappings))
+(au :python :FileType :python #(lsp-buffer-mappings))
 (lspconfig.pylsp.setup {:capabilities lsp-capabilities})
 
 
 ;; JavaScript/TypeScript
-(au typescript :FileType [:typescript :javascript :typescriptreact :javascriptreact]
-    (lsp-buffer-mappings))
+(au :typescript :FileType [:typescript :javascript :typescriptreact :javascriptreact]
+    #(lsp-buffer-mappings))
 (lspconfig.tsserver.setup {:capabilities lsp-capabilities})
 (tsc.setup
   {:auto_start_watch_mode true
    :flags {:watch true}})
 
 ;; Scala
-(au scala :FileType [:scala :sbt :java]
-    (lsp-buffer-mappings)
-    (metals.initialize_or_attach
-        (vim.tbl_deep_extend :force
-          (metals.bare_config)
-          {:init_options {
-             :statusBarProvicer :on}
-           :settings {
-             :showImplicitArguments true
-             :showImplicitConversionsAndClasses true
-             :showInferredType true
-             :superMethodLensesEnabled true
-             :enableSemanticHighlighting true
-             :excludedPackages ["akka.actor.typed.javadsl"
-                                "com.github.swagger.akka.javadsl"]}})))
-
+(au :scala :FileType [:scala :sbt :java]
+    #(do
+       (lsp-buffer-mappings)
+       (let [conf {:init_options {:statusBarProvider :on}
+                   :settings {:showImplicitArguments true
+                              :showImplicitConversionsAndClasses true
+                              :showInferredType true
+                              :superMethodLensesEnabled true
+                              :enableSemanticHighlighting true
+                              :excludedPackages [:akka.actor.typed.javadsl
+                                                 :com.github.swagger.akka.javadsl]}}]
+         (metals.initialize_or_attach (vim.tbl_deep_extend :force
+                                                           (metals.bare_config)
+                                                           conf)))))
 
 ;; Rust
-(au rust :FileType :rust
-    (lsp-buffer-mappings))
+(au :rust :FileType :rust #(lsp-buffer-mappings))
 (lspconfig.rust_analyzer.setup {:capabilities lsp-capabilities})
 
 
 ;; C
-(au c :FileType [:c :cpp]
-    (lsp-buffer-mappings)
+(au :c :FileType [:c :cpp]
+    #(do 
+       (lsp-buffer-mappings)
 
-    (set vim.opt_local.tabstop 2)
-    (set vim.opt_local.softtabstop 2)
-    (set vim.opt_local.shiftwidth 2)
-    (set vim.opt_local.expandtab true))
+       (set vim.opt_local.tabstop 2)
+       (set vim.opt_local.softtabstop 2)
+       (set vim.opt_local.shiftwidth 2)
+       (set vim.opt_local.expandtab true)))
 (lspconfig.ccls.setup {:capabilities lsp-capabilities})
 
 
 ;; Sexp
 (set vim.g.sexp_filetypes "clojure,scheme,lisp,fennel")
-(au sexp :FileType [:clojure :scheme :lisp :fennel]
-    ;; emulate text object for pair of elements
-    ;; i.e. key/value binding/expr test/expr
+(au :sexp :FileType [:clojure :scheme :lisp :fennel]
+    #(do
+       ;; emulate text object for pair of elements
+       ;; i.e. key/value binding/expr test/expr
 
-    ;; pair forward
-    (xmap :buffer :ip "<Plug>(sexp_inner_element)<Plug>(sexp_move_to_next_element_tail)")
-    (omap :buffer :ip "<Cmd>normal vip<CR>")
+       ;; pair forward
+       (xmap :buffer :ip "<Plug>(sexp_inner_element)<Plug>(sexp_move_to_next_element_tail)")
+       (omap :buffer :ip "<Cmd>normal vip<CR>")
 
-    ;; pair backward
-    (xmap :buffer :iP "<Plug>(sexp_inner_element)o<Plug>(sexp_move_to_prev_element_head)")
-    (omap :buffer :iP "<Cmd>normal viP<CR>")
+       ;; pair backward
+       (xmap :buffer :iP "<Plug>(sexp_inner_element)o<Plug>(sexp_move_to_prev_element_head)")
+       (omap :buffer :iP "<Cmd>normal viP<CR>")
 
-    ;; swap pair
-    (nmap :buffer :>p "vip>eo<Esc>")
-    (nmap :buffer :<p "vip<eo<Esc>")
+       ;; swap pair
+       (nmap :buffer :>p "vip>eo<Esc>")
+       (nmap :buffer :<p "vip<eo<Esc>")
 
-    (xmap :buffer :>e "<Plug>(sexp_swap_element_forward)")
-    (xmap :buffer :<e "<Plug>(sexp_swap_element_backward)")
-    (xmap :buffer :>f "<Plug>(sexp_swap_list_forward)")
-    (xmap :buffer :<f "<Plug>(sexp_swap_list_backward)"))
+       (xmap :buffer :>e "<Plug>(sexp_swap_element_forward)")
+       (xmap :buffer :<e "<Plug>(sexp_swap_element_backward)")
+       (xmap :buffer :>f "<Plug>(sexp_swap_list_forward)")
+       (xmap :buffer :<f "<Plug>(sexp_swap_list_backward)")))
 (set vim.g.sexp_enable_insert_mode_mappings false) ; use autopairs instead
 
 (autopairs.setup
@@ -608,33 +600,34 @@
 (fn conjure-eval [form]
   (vim.cmd.ConjureEval form))
 
-(au clojure :FileType :clojure
-    (lsp-buffer-mappings)
+(au :clojure :FileType :clojure
+    #(do
+       (lsp-buffer-mappings)
 
-    (xnoremap :buffer :<Leader>cc do-clj-ignore)
-    (nnoremap :buffer :<Leader>cc do-clj-ignore)
-    (nnoremap :buffer :<Leader>cu "<Cmd>let s=@/<CR>l?\\v(#_)+<CR>dgn:let @/=s<CR>")
+       (xnoremap :buffer :<Leader>cc do-clj-ignore)
+       (nnoremap :buffer :<Leader>cc do-clj-ignore)
+       (nnoremap :buffer :<Leader>cu "<Cmd>let s=@/<CR>l?\\v(#_)+<CR>dgn:let @/=s<CR>")
 
-    (nnoremap :buffer :<Leader>lm
-              #(vim.lsp.buf.execute_command {:command   :move-form
-                                             :arguments [(.. "file://" (vim.fn.expand "%:p"))
-                                                         (- (vim.fn.line ".") 1)
-                                                         (- (vim.fn.col ".") 1)
-                                                         (vim.fn.input "File: " (vim.fn.expand "%:p:h") "file")]}))
+       (nnoremap :buffer :<Leader>lm
+                 #(vim.lsp.buf.execute_command {:command   :move-form
+                                               :arguments [(.. "file://" (vim.fn.expand "%:p"))
+                                                           (- (vim.fn.line ".") 1)
+                                                           (- (vim.fn.col ".") 1)
+                                                           (vim.fn.input "File: " (vim.fn.expand "%:p:h") "file")]}))
 
-    ;; https://github.com/djblue/portal/blob/master/doc/editors/emacs.md
-    (nnoremap :buffer :<LocalLeader>po #(conjure-eval "((requiring-resolve 'portal.api/open))"))
-    (nnoremap :buffer :<LocalLeader>pc #(conjure-eval "((requiring-resolve 'portal.api/close))"))
-    (nnoremap :buffer :<LocalLeader>pr #(conjure-eval "((requiring-resolve 'portal.api/clear))"))
+       ;; https://github.com/djblue/portal/blob/master/doc/editors/emacs.md
+       (nnoremap :buffer :<LocalLeader>po #(conjure-eval "((requiring-resolve 'portal.api/open))"))
+       (nnoremap :buffer :<LocalLeader>pc #(conjure-eval "((requiring-resolve 'portal.api/close))"))
+       (nnoremap :buffer :<LocalLeader>pr #(conjure-eval "((requiring-resolve 'portal.api/clear))"))
 
-    (set vim.opt_local.tabstop 2)
-    (set vim.opt_local.softtabstop 2)
-    (set vim.opt_local.shiftwidth 2)
-    (set vim.opt_local.expandtab true)
+       (set vim.opt_local.tabstop 2)
+       (set vim.opt_local.softtabstop 2)
+       (set vim.opt_local.shiftwidth 2)
+       (set vim.opt_local.expandtab true)
 
-    ;; converts package names into file names; useful for "gf"
-    (set vim.opt_local.includeexpr "substitute(substitute(v:fname,'\\.','/','g'),'-','_','g')")
-    (set vim.opt_local.suffixesadd ".clj"))
+       ;; converts package names into file names; useful for "gf"
+       (set vim.opt_local.includeexpr "substitute(substitute(v:fname,'\\.','/','g'),'-','_','g')")
+       (set vim.opt_local.suffixesadd ".clj")))
 
 (set vim.g.conjure#client#clojure#nrepl#test#runner :clojure)
 ;; (set vim.g.conjure#client#clojure#nrepl#test#runner :kaocha)
@@ -652,8 +645,7 @@
 
 
 ;; Fennel
-(au fennel :FileType :fennel
-    (lsp-buffer-mappings))
+(au :fennel :FileType :fennel #(lsp-buffer-mappings))
 (lspconfig.fennel_ls.setup
   {:capabilities lsp-capabilities
    :settings {:fennel-ls {:extra-globals "vim"} }})
@@ -683,13 +675,14 @@
   (set vim.opt.operatorfunc (.. "v:lua.require'dotfiles'.scm_ignore"))
   (vim.api.nvim_feedkeys (.. "g@" (or form "")) :m false))
 
-(au scheme :FileType :scheme
-    (xnoremap :buffer :<Leader>c do-scm-ignore)
-    (nnoremap :buffer :<Leader>cc #(do-scm-ignore "aF"))
-    (nmap :buffer :<Leader>cu "<Cmd>let s=@/<CR>l?\v(#;)+<CR>dgn:let @/=s<CR>")
-    (nmap :buffer :<Leader>pp "<Plug>SlimeMotionSend<Plug>(sexp_outer_top_list)``")
-    (nnoremap :buffer :K "<Cmd>SlimeSend1 (pp <C-R><C-W>)<CR>")
-    (nmap :buffer :<Leader>lf "ggvG=``"))
+(au :scheme :FileType :scheme
+    #(do
+       (xnoremap :buffer :<Leader>c do-scm-ignore)
+       (nnoremap :buffer :<Leader>cc #(do-scm-ignore "aF"))
+       (nmap :buffer :<Leader>cu "<Cmd>let s=@/<CR>l?\v(#;)+<CR>dgn:let @/=s<CR>")
+       (nmap :buffer :<Leader>pp "<Plug>SlimeMotionSend<Plug>(sexp_outer_top_list)``")
+       (nnoremap :buffer :K "<Cmd>SlimeSend1 (pp <C-R><C-W>)<CR>")
+       (nmap :buffer :<Leader>lf "ggvG=``")))
 
 ;; Curl / Vim Rest Client
 (set vim.g.vrc_curl_opts
@@ -703,44 +696,44 @@
      {:json "jq"
       :xml (.. "grep \"\\S\" | xmllint --format --nonet --recover -")})
 
-(au rest :FileType :rest
-    (nnoremap :buffer :<Leader>cd
-              #(do
-                 (set vim.b.vrc_debug (not vim.b.vrc_debug))
-                 (set vim.b.vrc_show_command vim.b.vrc_debug)
-                 (vim.notify (if vim.b.vrc_debug "debug" "nodebug"))))
-    (nnoremap :buffer :<Leader>cb
-              #(do
-                 (set vim.b.vrc_allow_get_request_body (not vim.b.vrc_allow_get_request_body))
-                 (vim.notify (if vim.b.vrc_allow_get_request_body "allow body" "disallow body"))))
-    (nnoremap :buffer :<Leader>cs
-              #(do
-                 (set vim.b.vrc_split_request_body (not vim.b.vrc_split_request_body))
-                 (vim.notify (if vim.b.vrc_split_request_body "split" "nosplit"))))
-    (nnoremap :buffer :<Leader>cc
-              #(do
-                 (set vim.b.vrc_output_buffer_name
-                      (.. "[" (vim.fn.expand "%:t") "@" (vim.fn.strftime "%H:%M:%S") "]"
-                          (string.gsub (vim.api.nvim_get_current_line) "\""  "\\\"")))
-                 (vim.fn.VrcQuery))))
+(au :rest :FileType :rest
+    #(do
+       (nnoremap :buffer :<Leader>cd
+                 #(do
+                    (set vim.b.vrc_debug (not vim.b.vrc_debug))
+                    (set vim.b.vrc_show_command vim.b.vrc_debug)
+                    (vim.notify (if vim.b.vrc_debug "debug" "nodebug"))))
+       (nnoremap :buffer :<Leader>cb
+                 #(do
+                    (set vim.b.vrc_allow_get_request_body (not vim.b.vrc_allow_get_request_body))
+                    (vim.notify (if vim.b.vrc_allow_get_request_body "allow body" "disallow body"))))
+       (nnoremap :buffer :<Leader>cs
+                 #(do
+                    (set vim.b.vrc_split_request_body (not vim.b.vrc_split_request_body))
+                    (vim.notify (if vim.b.vrc_split_request_body "split" "nosplit"))))
+       (nnoremap :buffer :<Leader>cc
+                 #(do
+                    (set vim.b.vrc_output_buffer_name
+                         (.. "[" (vim.fn.expand "%:t") "@" (vim.fn.strftime "%H:%M:%S") "]"
+                             (string.gsub (vim.api.nvim_get_current_line) "\""  "\\\"")))
+                    (vim.fn.VrcQuery)))))
 
 
 
 ;; Markdown
-(au markdown :FileType :markdown
-    (vnoremap :buffer :<Leader>tj ":!pandoc -f gfm -t jira<CR>"))
+(au :markdown :FileType :markdown
+    #(vnoremap :buffer :<Leader>tj ":!pandoc -f gfm -t jira<CR>"))
 (set vim.g.markdown_syntax_conceal false)
 (set vim.g.markdown_folding 1)
 
 
 ;; glsl
-(au glsl-detect [:BufNewFile :BufRead] [:*.glsl :*.vert :*.geom :*.frag]
-    (set vim.opt_local.filetype :glsl))
+(au :glsl-detect [:BufNewFile :BufRead] [:*.glsl :*.vert :*.geom :*.frag]
+    #(set vim.opt_local.filetype :glsl))
 (set conform.formatters_by_ft.glsl [:clang-format])
 
 ;; Nix
-(au nix :FileType :nix
-    (lsp-buffer-mappings))
+(au :nix :FileType :nix #(lsp-buffer-mappings))
 (lspconfig.nixd.setup {:capabilities lsp-capabilities})
 (set conform.formatters_by_ft.nix [:nixpkgs_fmt])
 
@@ -771,12 +764,13 @@
 ;; Terminal
 (tnoremap :<Esc> "<C-\\><C-n>") ; use Esc to exit terminal mode
 (tnoremap :<C-v><Esc> "<Esc>") ; press Esc in terminal mode
-(au terminal-open :TermOpen :*
-    (set vim.opt_local.winbar "%{b:term_title}")
-    (set vim.opt_local.bufhidden "hide"))
-(au terminal-leave :TermLeave :*
-    (when (and vim.b.terminal_job_pid vim.b.term_title)
-      (vim.cmd.file (.. "term:" vim.b.terminal_job_pid ":" vim.b.term_title))))
+(au :terminal-open :TermOpen :*
+    #(do
+       (set vim.opt_local.winbar "%{b:term_title}")
+       (set vim.opt_local.bufhidden "hide")))
+(au :terminal-leave :TermLeave :*
+    #(when (and vim.b.terminal_job_pid vim.b.term_title)
+       (vim.cmd.file (.. "term:" vim.b.terminal_job_pid ":" vim.b.term_title))))
 
 ;; Open terminal in a split near current file or at specified path
 (vim.api.nvim_create_user_command
@@ -796,22 +790,22 @@
    :desc "New temporary file"})
 
 ;; Auto write and read file
-(au autosave [:FocusLost :BufLeave :CursorHold] [:*] 
-    (let [file-path (vim.api.nvim_buf_get_name 0)
-          ;; i.e. oil:// or fugitive://
-          protocol (string.match file-path "^[%w-]+://")] 
-      (when (not protocol)
-        (vim.cmd "silent! update"))))
+(au :autosave [:FocusLost :BufLeave :CursorHold] [:*] 
+    #(let [file-path (vim.api.nvim_buf_get_name 0)
+                     ;; i.e. oil:// or fugitive://
+                     protocol (string.match file-path "^[%w-]+://")] 
+       (when (not protocol)
+         (vim.cmd "silent! update"))))
 
-(au autoread [:FocusGained :BufEnter :CursorHold] [:*] (vim.cmd "silent! checktime"))
+(au :autoread [:FocusGained :BufEnter :CursorHold] [:*] #(vim.cmd "silent! checktime"))
 
-(au jump-to-last-postion :BufReadPost :*
+(au :jump-to-last-postion :BufReadPost :*
     ; https://github.com/vim/vim/blob/eaf35241197fc6b9ee9af993095bf5e6f35c8f1a/runtime/defaults.vim#L108-L117
-    (let [[line col] (vim.api.nvim_buf_get_mark 0 "\"")
-          line-count (vim.api.nvim_buf_line_count 0)]
-      (when (and (<= 1 line line-count)
-                 (not= (vim.opt.ft:get) :commit))
-        (vim.api.nvim_win_set_cursor 0 [line col]))))
+    #(let [[line col] (vim.api.nvim_buf_get_mark 0 "\"")
+                      line-count (vim.api.nvim_buf_line_count 0)]
+       (when (and (<= 1 line line-count)
+                  (not= (vim.opt.ft:get) :commit))
+         (vim.api.nvim_win_set_cursor 0 [line col]))))
 
 ;; EasyAlign
 (nmap :ga "<Plug>(EasyAlign)")
