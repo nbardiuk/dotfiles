@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 {
 
   imports = [
@@ -64,7 +64,6 @@
   hardware.sane.enable = true;
   hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
 
-  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -96,12 +95,11 @@
   # Enable DE
   services.displayManager.sddm.enable = true;
   services.xserver.desktopManager.xterm.enable = true;
-  # services.xserver.desktopManager.kodi.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nazarii = {
     createHome = true;
-    extraGroups = [ "wheel" "video" "audio" "disk" "networkmanager" "vboxusers" "adbusers" "docker" ];
+    extraGroups = [ "wheel" "video" "audio" "disk" "networkmanager" "adbusers" ];
     group = "users";
     home = "/home/nazarii";
     isNormalUser = true;
@@ -142,16 +140,32 @@
 
   services.sysstat.enable = true;
 
-  services.plex.enable = true;
-  services.plex.user = "nazarii";
-  services.plex.group = "users";
-  services.plex.openFirewall = true;
+  services.plex = {
+    enable = true;
+    user = "nazarii";
+    group = "users";
+    openFirewall = true;
+  };
   systemd.services.plex.serviceConfig.ProtectHome = lib.mkForce false;
 
   services.jackett = {
     enable = true;
     user = "nazarii";
     group = "users";
+  };
+
+  services.sonarr = {
+    enable = true;
+    user = "nazarii";
+    group = "users";
+    openFirewall = true;
+  };
+
+  services.radarr = {
+    enable = true;
+    user = "nazarii";
+    group = "users";
+    openFirewall = true;
   };
 
   hardware.new-lg4ff.enable = true; # Logitech G29 wheel drivers https://github.com/berarma/new-lg4ff
