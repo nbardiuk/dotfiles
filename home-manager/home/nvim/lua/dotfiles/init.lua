@@ -461,6 +461,7 @@ local function _37_()
 end
 vim.api.nvim_create_autocmd("FileType", {callback = _37_, group = vim.api.nvim_create_augroup("fennel", {clear = true}), nested = true, pattern = "fennel"})
 lspconfig.fennel_ls.setup({capabilities = lsp_capabilities, settings = {["fennel-ls"] = {["extra-globals"] = "vim"}}})
+conform.formatters_by_ft.fennel = {"fnlfmt"}
 vim.g.slime_target = "tmux"
 vim.g.slime_dont_ask_default = true
 vim.g.slime_default_config = {socket_name = "default", target_pane = "{right-of}"}
@@ -568,7 +569,7 @@ local function _50_()
   return nil
 end
 vim.api.nvim_create_autocmd("FileType", {callback = _50_, group = vim.api.nvim_create_augroup("nix", {clear = true}), nested = true, pattern = "nix"})
-lspconfig.nil_ls.setup({capabilities = lsp_capabilities})
+lspconfig.nixd.setup({capabilities = lsp_capabilities})
 conform.formatters_by_ft.nix = {"nixpkgs_fmt"}
 nnoremap("<Leader>aa", "<Cmd>Other<CR>")
 nnoremap("<Leader>av", "<Cmd>OtherVSplit<CR>")

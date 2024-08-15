@@ -133,6 +133,7 @@
     sqls
     tree-sitter
     fennel-ls
-    nil # nix lsp
+    fnlfmt
+    nixd # nix language server
   ];
 }

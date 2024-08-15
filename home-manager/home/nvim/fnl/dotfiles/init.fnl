@@ -657,6 +657,7 @@
 (lspconfig.fennel_ls.setup
   {:capabilities lsp-capabilities
    :settings {:fennel-ls {:extra-globals "vim"} }})
+(set conform.formatters_by_ft.fennel [:fnlfmt])
 
 
 ;; Slime
@@ -740,7 +741,7 @@
 ;; Nix
 (au nix :FileType :nix
     (lsp-buffer-mappings))
-(lspconfig.nil_ls.setup {:capabilities lsp-capabilities})
+(lspconfig.nixd.setup {:capabilities lsp-capabilities})
 (set conform.formatters_by_ft.nix [:nixpkgs_fmt])
 
 
