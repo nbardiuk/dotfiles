@@ -31,6 +31,7 @@
       markdown-preview-nvim
       nvim-autopairs
       nvim-cmp # completion manager
+      nvim-jdtls
       nvim-lspconfig
       nvim-metals
       nvim-surround
@@ -135,5 +136,6 @@
     fennel-ls
     fnlfmt
     nixd # nix language server
+    jdt-language-server
   ];
 }

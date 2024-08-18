@@ -28,6 +28,7 @@
     "docker"
     "elgato-wave-link"
     "grammarly-desktop"
+    "rectangle"
     "stats"
     "temurin@8"
     "temurin@17"

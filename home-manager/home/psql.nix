@@ -4,12 +4,12 @@ let
 in
 if !enable then { } else {
   home.packages = with pkgs; [
-    postgresql
-    pspg
+    postgresql # contains psql command
+    pspg # pager
   ];
 
   home.file.".psqlrc".text = ''
-    \set PROMPT1 '\npostgresql://%n@%m:%>/%~\n❯ '
+    \set PROMPT1 '\npostgresql://%n@%m:%>/%/\n❯ '
     \set PROMPT2 '  '
 
     \pset null <NULL>

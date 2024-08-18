@@ -16,7 +16,7 @@
 
     terminal = "alacritty";
 
-    historyLimit = 500000;
+    historyLimit = 69000;
 
     extraConfig = ''
       # Add truecolor support

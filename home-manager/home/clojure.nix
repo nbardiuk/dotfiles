@@ -12,25 +12,13 @@ in
 {
   home.packages = with pkgs; [
     same-jdk
-    (leiningen.override { jdk = same-jdk; })
     (clojure.override { jdk = same-jdk; })
     babashka
     clj-kondo
     zprint
   ];
 
-  home.file."/.lein/profiles.clj".text = ''
-    {:repl
-     {:dependencies     [[nrepl               ${nrepl}]
-                         [djblue/portal       ${portal}]
-                         [hashp               ${hashp}]
-                         [lambdaisland/kaocha ${kaocha}]]
-      :nrepl-middleware [${middleware}]
-      :plugins          [[cider/cider-nrepl         ${cider-nrepl}]]
-      :injections       [(require 'hashp.core)((requiring-resolve 'portal.api/tap))]}}
-  '';
-
-  xdg.configFile."clojure/deps.edn".text = ''
+  home.file.".clojure/deps.edn".text = ''
     {:aliases
      {:nrepl
       {:extra-deps {nrepl/nrepl               {:mvn/version ${nrepl}}
@@ -70,8 +58,6 @@ in
        :sort-in-code? true}
  ; Set max width to 100 characters.
  :width 100
- ; Enforce 2 empty lines between top forms
- :parse {:interpose "\n\n\n"}
     }
   '';
 }

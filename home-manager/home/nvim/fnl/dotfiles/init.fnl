@@ -5,6 +5,7 @@
 (local conform (require :conform))
 (local dressing (require :dressing))
 (local fidget (require :fidget))
+(local jdtls (require :jdtls))
 (local lspconfig (require :lspconfig))
 (local lualine (require :lualine))
 (local luasnip (require :luasnip))
@@ -478,6 +479,7 @@
 (fn lsp-buffer-mappings []
   (nnoremap :buffer :gd         vim.lsp.buf.definition)
   (nnoremap :buffer :<Leader>lt vim.lsp.buf.type_definition)
+  (nnoremap :buffer :<Leader>li vim.lsp.buf.implementation)
   (nnoremap :buffer "}"         vim.lsp.buf.references)
   (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename))
 
@@ -539,6 +541,20 @@
          (metals.initialize_or_attach (vim.tbl_deep_extend :force
                                                            (metals.bare_config)
                                                            conf)))))
+
+;; Java
+(au :java :FileType [:java]
+    #(do
+       (lsp-buffer-mappings)
+       (let [root-dir (vim.fs.dirname (. (vim.fs.find [:.git :pom.xml]
+                                                      {:upward true})
+                                         1))
+             workspace-dir (vim.fn.expand (.. "~/.local/state/jdtls" root-dir))
+             conf {:cmd [:jdtls :-data workspace-dir]
+                   :root_dir root-dir
+                   :settings {:java {:configuration {:maven {:globalSettings :/opt/homebrew/Cellar/atlassian-plugin-sdk/8.2.10/libexec/apache-maven-3.9.5/conf/settings.xml}}
+                                     :maven {:downloadSources true}}}}]
+         (jdtls.start_or_attach conf))))
 
 ;; Rust
 (au :rust :FileType :rust #(lsp-buffer-mappings))
@@ -642,6 +658,7 @@
 (set vim.g.conjure#client#clojure#nrepl#refresh#backend :clj-reload)
 
 (lspconfig.clojure_lsp.setup {:capabilities lsp-capabilities})
+(set conform.formatters_by_ft.clojure [:zprint])
 
 
 ;; Fennel
