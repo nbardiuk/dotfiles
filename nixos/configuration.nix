@@ -63,9 +63,6 @@
   hardware.sane.enable = true;
   hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
 
-  sound.enable = true;
-  sound.mediaKeys.enable = true;
-
   musnix.enable = true;
   musnix.soundcardPciId = "00:1f.3";
 
