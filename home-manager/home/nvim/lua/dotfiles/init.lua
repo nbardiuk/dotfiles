@@ -353,7 +353,7 @@ local function _28_()
   return lsp_buffer_mappings()
 end
 au("typescript", "FileType", {"typescript", "javascript", "typescriptreact", "javascriptreact"}, _28_)
-lspconfig.tsserver.setup({capabilities = lsp_capabilities})
+lspconfig.ts_ls.setup({capabilities = lsp_capabilities})
 tsc.setup({auto_start_watch_mode = true, flags = {watch = true}})
 local function _29_()
   lsp_buffer_mappings()

@@ -521,7 +521,7 @@
 ;; JavaScript/TypeScript
 (au :typescript :FileType [:typescript :javascript :typescriptreact :javascriptreact]
     #(lsp-buffer-mappings))
-(lspconfig.tsserver.setup {:capabilities lsp-capabilities})
+(lspconfig.ts_ls.setup {:capabilities lsp-capabilities})
 (tsc.setup
   {:auto_start_watch_mode true
    :flags {:watch true}})
