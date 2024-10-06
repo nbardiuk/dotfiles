@@ -33,6 +33,7 @@
 
   networking.hostName = "tvbox";
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";
   networking.networkmanager.insertNameservers = [ "1.1.1.1" "8.8.8.8" ];
   networking.resolvconf.dnsExtensionMechanism = false;
   networking.firewall.allowedTCPPorts = [
@@ -167,6 +168,13 @@
     user = "nazarii";
     group = "users";
     openFirewall = true;
+  };
+
+  # /tmp for small files
+  # /var/tmp for large files
+  boot.tmp.useTmpfs = true;
+  systemd.services.nix-daemon = {
+    environment.TMPDIR = "/var/tmp";
   };
 
   hardware.new-lg4ff.enable = true; # Logitech G29 wheel drivers https://github.com/berarma/new-lg4ff
