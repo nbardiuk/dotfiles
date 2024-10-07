@@ -358,6 +358,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-betaflight": {
+      "locked": {
+        "lastModified": 1707336555,
+        "narHash": "sha256-1fVG76c48mWeUBI3IQvRFCSrmyVyEc9dEIi5sky98Sg=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c9223ea44c223379f22a091c57700fa378a758df",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c9223ea44c223379f22a091c57700fa378a758df",
+        "type": "github"
+      }
+    },
     "none-ls": {
       "flake": false,
       "locked": {
@@ -419,6 +435,7 @@
         "nix-darwin": "nix-darwin",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-betaflight": "nixpkgs-betaflight",
         "none-ls": "none-ls",
         "nvim-grey": "nvim-grey",
         "other-nvim": "other-nvim",

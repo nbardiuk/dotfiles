@@ -181,6 +181,10 @@
     v4l-utils # video4linux devices
 
     obsidian # notes
+
+    betaflight-configurator
+    usbutils
+    xournalpp
   ];
 
   nixpkgs.config.allowUnfree = true;

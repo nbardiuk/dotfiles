@@ -77,7 +77,6 @@
     {
       enable = true;
       alsa.enable = true;
-      alsa.support32Bit = false;
       pulse.enable = true;
       jack.enable = true;
       extraConfig.pipewire."99-lowlatency" = {
@@ -212,7 +211,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nazarii = {
     createHome = true;
-    extraGroups = [ "wheel" "video" "audio" "disk" "networkmanager" "vboxusers" "adbusers" "docker" ];
+    extraGroups = [ "wheel" "video" "audio" "disk" "networkmanager" "vboxusers" "adbusers" "docker" "plugdev" "dialout" ];
     group = "users";
     home = "/home/nazarii";
     isNormalUser = true;
@@ -264,6 +263,12 @@
         SUBSYSTEMS=="hid", KERNELS=="0003:046D:C24F.????", DRIVERS=="logitech", SYMLINK+="logitech_g29", RUN+="${bash}/bin/sh -c 'chmod 666 %S%p/../../../range; chmod 777 %S%p/../../../leds/ %S%p/../../../leds/*; chmod 666 %S%p/../../../leds/*/brightness'"
       '';
     })
+    # https://github.com/NixOS/nixpkgs/issues/303151#issuecomment-2049274898
+    (writeTextDir "lib/udev/rules.d/70-stm32-dfu.rules" ''
+      # DFU (Internal bootloader for STM32 and AT32 MCUs)
+      SUBSYSTEM=="usb", ATTRS{idVendor}=="2e3c", ATTRS{idProduct}=="df11", TAG+="uaccess"
+      SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", TAG+="uaccess"
+    '')
   ];
 
 

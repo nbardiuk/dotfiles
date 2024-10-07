@@ -54,6 +54,8 @@
 
     wiki-vim.flake = false;
     wiki-vim.url = "git+https://github.com/lervag/wiki.vim";
+
+    nixpkgs-betaflight.url = "github:nixos/nixpkgs/c9223ea44c223379f22a091c57700fa378a758df";
   };
 
   outputs = inputs @ { self, nixpkgs, nix-darwin, musnix, nixos-hardware, home-manager, ... }: {
@@ -74,6 +76,16 @@
             nixos-hardware.nixosModules.tuxedo-infinitybook-pro14-gen7
 
             ./nixos/configuration.nix
+
+            {
+              nixpkgs.overlays = [
+                (final: prev: {
+                  betaflight-configurator = prev.betaflight-configurator.override {
+                    inherit (inputs.nixpkgs-betaflight.legacyPackages.${prev.system}) nwjs;
+                  };
+                })
+              ];
+            }
 
             home-manager.nixosModules.home-manager
             {
