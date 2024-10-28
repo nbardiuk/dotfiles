@@ -26,6 +26,7 @@
   networking.firewall.allowedTCPPorts = [
     # 9876 # mpv webui
     22000 # syncthing listener
+    6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
   ];
   networking.firewall.allowedUDPPorts = [
     22000 # syncthing listener
@@ -203,6 +204,12 @@
     enableExtensionPack = false;
   };
 
+  services.k3s.enable = true;
+  services.k3s.role = "server";
+  services.k3s.extraFlags = toString [
+    # "--debug" # Optionally add additional args to k3s
+  ];
+
   # Enable DE
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.lightdm.greeters.enso.enable = true;
@@ -229,6 +236,7 @@
 
   services.udisks2.enable = true;
 
+  services.logind.lidSwitchExternalPower = "ignore";
 
   # https://github.com/vitejs/vite/issues/5310#issuecomment-949349291
   security.pam.loginLimits = [
