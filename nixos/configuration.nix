@@ -225,7 +225,6 @@
     settings.trusted-users = [ "root" "nazarii" ];
     settings.experimental-features = [ "nix-command" "flakes" ];
     settings.accept-flake-config = true;
-    package = pkgs.nixFlakes;
   };
 
   services.udisks2.enable = true;
