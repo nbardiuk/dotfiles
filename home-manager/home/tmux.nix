@@ -4,7 +4,10 @@
     enable = true;
     baseIndex = 1;
     clock24 = true;
-    escapeTime = 0;
+
+    # https://superuser.com/questions/252214/slight-delay-when-switching-modes-in-vim-using-tmux-or-screen/252717#252717
+    # https://github.com/tmux/tmux/issues/353#issuecomment-294570322
+    escapeTime = 5;
 
     shortcut = "Space";
     keyMode = "vi";

@@ -460,7 +460,8 @@
     :sh [:shfmt]
     :sql [:pg_format]
     :xml [:xmllint]
-    :yaml [:yamlfmt]}
+    :yaml [:yamlfmt]
+    :markdown [:mdformat]}
   :formatters {
     :shfmt {:prepend_args ["--indent" "2" "--space-redirects"]}
     :pg_format {:prepend_args ["--spaces" "2" ; indentation, default 4 spaces
@@ -739,7 +740,9 @@
 
 ;; Markdown
 (au :markdown :FileType :markdown
-    #(vnoremap :buffer :<Leader>tj ":!pandoc -f gfm -t jira<CR>"))
+    #(do 
+       (lsp-buffer-mappings)
+       (vnoremap :buffer :<Leader>tj ":!pandoc -f gfm -t jira<CR>")))
 (set vim.g.markdown_syntax_conceal false)
 (set vim.g.markdown_folding 1)
 

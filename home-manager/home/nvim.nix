@@ -130,6 +130,7 @@
     hadolint # dockerfile linter
     fennel
     pandoc # for markdown conversion
+    (mdformat.withPlugins (p: with p; [ mdformat-gfm ]))
     codespell
     sqls
     tree-sitter

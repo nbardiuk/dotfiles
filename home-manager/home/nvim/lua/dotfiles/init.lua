@@ -306,7 +306,7 @@ local function _22_()
 end
 nnoremap("<Leader>wf", _22_)
 null_ls.setup({sources = {null_ls.builtins.diagnostics.vale.with({filetypes = {"markdown", "gitcommit"}}), null_ls.builtins.diagnostics.hadolint, null_ls.builtins.diagnostics.codespell}})
-conform.setup({formatters_by_ft = {bash = {"shfmt"}, json = {"jq"}, sh = {"shfmt"}, sql = {"pg_format"}, xml = {"xmllint"}, yaml = {"yamlfmt"}}, formatters = {shfmt = {prepend_args = {"--indent", "2", "--space-redirects"}}, pg_format = {prepend_args = {"--spaces", "2", "--comma-break", "--function-case", "2", "--placeholder", "\\?[a-zA-Z]+\\?"}}}, default_format_opts = {lsp_format = "fallback", async = true, stop_after_first = true}})
+conform.setup({formatters_by_ft = {bash = {"shfmt"}, json = {"jq"}, sh = {"shfmt"}, sql = {"pg_format"}, xml = {"xmllint"}, yaml = {"yamlfmt"}, markdown = {"mdformat"}}, formatters = {shfmt = {prepend_args = {"--indent", "2", "--space-redirects"}}, pg_format = {prepend_args = {"--spaces", "2", "--comma-break", "--function-case", "2", "--placeholder", "\\?[a-zA-Z]+\\?"}}}, default_format_opts = {lsp_format = "fallback", async = true, stop_after_first = true}})
 vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
 nnoremap("<Leader>lf", conform.format)
 nnoremap("<Leader>la", vim.lsp.buf.code_action)
@@ -530,6 +530,7 @@ local function _42_()
 end
 au("rest", "FileType", "rest", _42_)
 local function _50_()
+  lsp_buffer_mappings()
   return vnoremap("buffer", "<Leader>tj", ":!pandoc -f gfm -t jira<CR>")
 end
 au("markdown", "FileType", "markdown", _50_)

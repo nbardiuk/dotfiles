@@ -1,12 +1,5 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 let
-  nrepl = ''"RELEASE"'';
-  cider-nrepl = ''"RELEASE"'';
-  hashp = ''"RELEASE"'';
-  portal = ''"RELEASE"'';
-  kaocha = ''"RELEASE"'';
-  middleware = "cider.nrepl/cider-middleware";
-  humane-test-output = ''"RELEASE"'';
   same-jdk = pkgs.jdk21;
 in
 {
@@ -21,18 +14,18 @@ in
   home.file.".clojure/deps.edn".text = ''
     {:aliases
      {:nrepl
-      {:extra-deps {nrepl/nrepl               {:mvn/version ${nrepl}}
-                    cider/cider-nrepl         {:mvn/version ${cider-nrepl}}
-                    hashp/hashp               {:mvn/version ${hashp}}
-                    djblue/portal             {:mvn/version ${portal}}
-                    lambdaisland/kaocha       {:mvn/version ${kaocha}}
-                    pjstadig/humane-test-output {:mvn/version ${humane-test-output}}}
+      {:extra-deps {nrepl/nrepl                 {:mvn/version "RELEASE"}
+                    cider/cider-nrepl           {:mvn/version "RELEASE"}
+                    hashp/hashp                 {:mvn/version "RELEASE"}
+                    djblue/portal               {:mvn/version "RELEASE"}
+                    lambdaisland/kaocha         {:mvn/version "RELEASE"}
+                    pjstadig/humane-test-output {:mvn/version "RELEASE"}}
        :jvm-opts ["-Djdk.attach.allowAttachSelf"]
        :main-opts  ["-e" "(require,'hashp.core)"
                     "-e" "((requiring-resolve 'portal.api/tap))"
                     "-e" "((requiring-resolve 'pjstadig.humane-test-output/activate!))"
                     "--main" "nrepl.cmdline"
-                    "--middleware" "[${middleware}]"]}}}
+                    "--middleware" "[cider.nrepl/cider-middleware]"]}}}
   '';
 
   xdg.configFile."clojure-lsp/config.edn".text = ''
@@ -47,17 +40,17 @@ in
 
   home.file.".zprint.edn".text = ''
     {:search-config? true
-:style :indent-only
- :set {; Sort sets.
-       :sort-in-code? true
-       :sort? true}
- :map {; Do not put commas in maps.
-       :comma? false
-       ; Sort map keys
-       :sort? true
-       :sort-in-code? true}
- ; Set max width to 100 characters.
- :width 100
+     :style :indent-only
+     :set {; Sort sets.
+           :sort-in-code? true
+           :sort? true}
+     :map {; Do not put commas in maps.
+           :comma? false
+           ; Sort map keys
+           :sort? true
+           :sort-in-code? true}
+     ; Set max width to 100 characters.
+     :width 100
     }
   '';
 }

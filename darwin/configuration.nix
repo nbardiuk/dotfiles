@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   services.nix-daemon.enable = true;
-  nix.package = pkgs.nixFlakes;
   nix.settings.experimental-features = "nix-command flakes";
   nix.settings.trusted-users = [ "nazarii" ];
   nixpkgs.hostPlatform = "aarch64-darwin";
@@ -22,12 +21,14 @@
     "atlassian/tap/atlassian-plugin-sdk"
     "hashicorp/tap/vault"
     "nvm"
+    "ruby"
   ];
   homebrew.casks = [
     "caffeine"
     "docker"
     "elgato-wave-link"
     "grammarly-desktop"
+    "macs-fan-control"
     "rectangle"
     "stats"
     "temurin@8"
@@ -36,6 +37,10 @@
     "whichspace"
   ];
   homebrew.onActivation.cleanup = "uninstall";
+  environment.systemPackages = with pkgs; [
+    keepassxc
+    slack
+  ];
 
   networking.dns = [ "8.8.8.8" "1.1.1.1" ];
   networking.hostName = "bardiuk-exalate";
