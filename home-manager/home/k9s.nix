@@ -3,11 +3,19 @@
 
   home.packages = with pkgs; [
     kubectl
-    k9s
+    kubernetes-helm
   ];
 
-  xdg.configFile."k9s/skin.yml".text = ''
-    # K9s Solarized Light Skin Contributed by [@leg100](louisgarman@gmail.com)
+  programs.k9s.enable = true;
+  programs.k9s.settings.k9s.ui.skin = "solaraized";
+  programs.k9s.settings.k9s.ui.logoless = true;
+  xdg.configFile."k9s/skins/solaraized.yaml".text = ''
+    # -----------------------------------------------------------------------------
+    # Solarized Light Skin
+    # Author: [@leg100](louisgarman@gmail.com)
+    # -----------------------------------------------------------------------------
+
+    # Styles...
     foreground: &foreground "#657b83"
     background: &background "#fdf6e3"
     current_line: &current_line "#eee8d5"
@@ -21,6 +29,7 @@
     blue: &blue "#268bd2"
     red: &red "#dc322f"
 
+    # Skin...
     k9s:
       body:
         fgColor: *foreground
@@ -103,5 +112,7 @@
           indicator:
             fgColor: *foreground
             bgColor: *selection
+            toggleOnColor: *magenta
+            toggleOffColor: *blue
   '';
 }

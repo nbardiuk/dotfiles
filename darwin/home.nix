@@ -13,8 +13,8 @@
     ./../home-manager/home/syncthing.nix
   ];
   home.packages = with pkgs; [
-    keepassxc
     iosevka-bin # monospace font
   ];
   home.stateVersion = "24.05";
+  xdg.enable = true;
 }
