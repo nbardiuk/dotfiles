@@ -73,7 +73,7 @@ in
   programs.alacritty.enable = true;
   programs.alacritty.settings = grey // {
 
-    shell.program = "zsh";
+    terminal.shell = "zsh";
 
     # Allow terminal applications to change Alacritty's window title.
     window.dynamic_title = true;
