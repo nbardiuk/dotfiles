@@ -40,6 +40,7 @@ in
       # metals
       ".metals/"
       ".bloop/"
+      ".bsp/"
       ".ammonite/"
       "metals.sbt"
       # Gradle
@@ -72,7 +73,7 @@ in
       ".ghc.environment.*"
       # direnv
       ".envrc"
-      ".direnv"
+      ".direnv/"
       # Clojure
       "pom.xml"
       "pom.xml.asc"

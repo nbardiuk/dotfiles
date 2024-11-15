@@ -451,7 +451,8 @@
    [(null-ls.builtins.diagnostics.vale.with
       {:filetypes ["markdown" "gitcommit"]})
     null-ls.builtins.diagnostics.hadolint
-    null-ls.builtins.diagnostics.codespell]})
+    null-ls.builtins.diagnostics.codespell
+    null-ls.builtins.diagnostics.terraform_validate]})
 
 (conform.setup {
   :formatters_by_ft {
@@ -757,6 +758,11 @@
 (lspconfig.nixd.setup {:capabilities lsp-capabilities})
 (set conform.formatters_by_ft.nix [:nixpkgs_fmt])
 
+;; Terraform
+(au :terraform :FileType [:terraform :terraform-vars] #(lsp-buffer-mappings))
+(lspconfig.terraformls.setup {:capabilities lsp-capabilities})
+(set conform.formatters_by_ft.terraform [:terraform_fmt])
+(set conform.formatters_by_ft.terraform-vars [:terraform_fmt])
 
 ;; Alternative file
 (nnoremap :<Leader>aa "<Cmd>Other<CR>")

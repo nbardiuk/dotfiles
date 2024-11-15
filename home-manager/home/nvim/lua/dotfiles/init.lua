@@ -305,7 +305,7 @@ local function _22_()
   return tel.live_grep({prompt_title = "Wiki grep", cwd = vim.g.wiki_root})
 end
 nnoremap("<Leader>wf", _22_)
-null_ls.setup({sources = {null_ls.builtins.diagnostics.vale.with({filetypes = {"markdown", "gitcommit"}}), null_ls.builtins.diagnostics.hadolint, null_ls.builtins.diagnostics.codespell}})
+null_ls.setup({sources = {null_ls.builtins.diagnostics.vale.with({filetypes = {"markdown", "gitcommit"}}), null_ls.builtins.diagnostics.hadolint, null_ls.builtins.diagnostics.codespell, null_ls.builtins.diagnostics.terraform_validate}})
 conform.setup({formatters_by_ft = {bash = {"shfmt"}, json = {"jq"}, sh = {"shfmt"}, sql = {"pg_format"}, xml = {"xmllint"}, yaml = {"yamlfmt"}, markdown = {"mdformat"}}, formatters = {shfmt = {prepend_args = {"--indent", "2", "--space-redirects"}}, pg_format = {prepend_args = {"--spaces", "2", "--comma-break", "--function-case", "2", "--placeholder", "\\?[a-zA-Z]+\\?"}}}, default_format_opts = {lsp_format = "fallback", async = true, stop_after_first = true}})
 vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
 nnoremap("<Leader>lf", conform.format)
@@ -548,27 +548,34 @@ end
 au("nix", "FileType", "nix", _52_)
 lspconfig.nixd.setup({capabilities = lsp_capabilities})
 conform.formatters_by_ft.nix = {"nixpkgs_fmt"}
+local function _53_()
+  return lsp_buffer_mappings()
+end
+au("terraform", "FileType", {"terraform", "terraform-vars"}, _53_)
+lspconfig.terraformls.setup({capabilities = lsp_capabilities})
+conform.formatters_by_ft.terraform = {"terraform_fmt"}
+conform.formatters_by_ft["terraform-vars"] = {"terraform_fmt"}
 nnoremap("<Leader>aa", "<Cmd>Other<CR>")
 nnoremap("<Leader>av", "<Cmd>OtherVSplit<CR>")
 other.setup({mappings = {{pattern = "(.*)/src/(.*).clj", target = "%1/test/%2_test.clj"}, {pattern = "(.*)/test/(.*)_test.clj", target = "%1/src/%2.clj"}, {pattern = "(.*)/fnl/(.*).fnl", target = "%1/lua/%2.lua"}, {pattern = "(.*)/lua/(.*).lua", target = "%1/fnl/%2.fnl"}, {pattern = "(.*)/main/(.*).scala", target = "%1/test/%2Test.scala"}, {pattern = "(.*)/test/(.*)Test.scala", target = "%1/main/%2.scala"}, {pattern = "(.*)/main/(.*).scala", target = "%1/test/%2Spec.scala"}, {pattern = "(.*)/test/(.*)Spec.scala", target = "%1/main/%2.scala"}}})
 tnoremap("<Esc>", "<C-\\><C-n>")
 tnoremap("<C-v><Esc>", "<Esc>")
-local function _53_()
+local function _54_()
   vim.opt_local.winbar = "%{b:term_title}"
   vim.opt_local.bufhidden = "hide"
   return nil
 end
-au("terminal-open", "TermOpen", "*", _53_)
-local function _54_()
+au("terminal-open", "TermOpen", "*", _54_)
+local function _55_()
   if (vim.b.terminal_job_pid and vim.b.term_title) then
     return vim.cmd.file(("term:" .. vim.b.terminal_job_pid .. ":" .. vim.b.term_title))
   else
     return nil
   end
 end
-au("terminal-leave", "TermLeave", "*", _54_)
-local function _57_(_56_)
-  local path = _56_["args"]
+au("terminal-leave", "TermLeave", "*", _55_)
+local function _58_(_57_)
+  local path = _57_["args"]
   local path0
   if (path == "") then
     path0 = "%:h"
@@ -578,13 +585,13 @@ local function _57_(_56_)
   vim.cmd(table.concat({"vsplit", ("lcd " .. path0), "terminal"}, "|"))
   return vim.api.nvim_feedkeys("i", "n", false)
 end
-vim.api.nvim_create_user_command("Term", _57_, {nargs = "?", desc = "Open terminal"})
-local function _60_(_59_)
-  local suffix = _59_["args"]
+vim.api.nvim_create_user_command("Term", _58_, {nargs = "?", desc = "Open terminal"})
+local function _61_(_60_)
+  local suffix = _60_["args"]
   return vim.cmd.edit((vim.fn.tempname() .. "_" .. suffix))
 end
-vim.api.nvim_create_user_command("Scratch", _60_, {nargs = "?", desc = "New temporary file"})
-local function _61_()
+vim.api.nvim_create_user_command("Scratch", _61_, {nargs = "?", desc = "New temporary file"})
+local function _62_()
   local file_path = vim.api.nvim_buf_get_name(0)
   local protocol = string.match(file_path, "^[%w-]+://")
   if not protocol then
@@ -593,15 +600,15 @@ local function _61_()
     return nil
   end
 end
-au("autosave", {"FocusLost", "BufLeave", "CursorHold"}, {"*"}, _61_)
-local function _63_()
+au("autosave", {"FocusLost", "BufLeave", "CursorHold"}, {"*"}, _62_)
+local function _64_()
   return vim.cmd("silent! checktime")
 end
-au("autoread", {"FocusGained", "BufEnter", "CursorHold"}, {"*"}, _63_)
-local function _64_()
-  local _let_65_ = vim.api.nvim_buf_get_mark(0, "\"")
-  local line = _let_65_[1]
-  local col = _let_65_[2]
+au("autoread", {"FocusGained", "BufEnter", "CursorHold"}, {"*"}, _64_)
+local function _65_()
+  local _let_66_ = vim.api.nvim_buf_get_mark(0, "\"")
+  local line = _let_66_[1]
+  local col = _let_66_[2]
   local line_count = vim.api.nvim_buf_line_count(0)
   if (((1 <= line) and (line <= line_count)) and (vim.opt.ft:get() ~= "commit")) then
     return vim.api.nvim_win_set_cursor(0, {line, col})
@@ -609,10 +616,10 @@ local function _64_()
     return nil
   end
 end
-au("jump-to-last-postion", "BufReadPost", "*", _64_)
+au("jump-to-last-postion", "BufReadPost", "*", _65_)
 nmap("ga", "<Plug>(EasyAlign)")
 xmap("ga", "<Plug>(EasyAlign)")
-local function _67_()
+local function _68_()
   local word_under_cursor = vim.fn.expand("<cWORD>")
   local task = string.match(word_under_cursor, "NT%-%d+")
   if task then
@@ -621,5 +628,5 @@ local function _67_()
     return vim.notify(("Not a notion task '" .. word_under_cursor .. "'"), vim.log.levels.WARN)
   end
 end
-nnoremap("<Leader>gn", _67_)
+nnoremap("<Leader>gn", _68_)
 return {clj_ignore = clj_ignore, scm_ignore = scm_ignore}
