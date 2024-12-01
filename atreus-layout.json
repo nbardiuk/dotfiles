@@ -289,12 +289,7 @@
         "categories": ["with-modifiers", "shift"],
         "baseCode": 49
       },
-      {
-        "code": 2099,
-        "label": {"hint": null, "base": ":"},
-        "categories": ["with-modifiers", "shift"],
-        "baseCode": 51
-      },
+      {"code": 51, "label": {"base": ";", "shifted": ":"}},
       {
         "code": 2101,
         "label": {"hint": null, "base": "~"},
@@ -346,7 +341,12 @@
       },
       {"code": 46, "label": {"base": "=", "shifted": "+"}},
       {"code": 49, "label": {"base": "\\", "shifted": "|"}},
-      {"code": 51, "label": {"base": ";", "shifted": ":"}},
+      {
+        "code": 2099,
+        "label": {"hint": null, "base": ":"},
+        "categories": ["with-modifiers", "shift"],
+        "baseCode": 51
+      },
       {
         "code": 0,
         "label": {"base": {"full": "Blocked", "1u": "Blkd"}},
@@ -727,24 +727,40 @@
         "categories": ["blanks"]
       },
       {
-        "code": 0,
-        "label": {"base": {"full": "Blocked", "1u": "Blkd"}},
-        "categories": ["blanks"]
+        "code": 18544,
+        "legacyCode": 23664,
+        "label": {
+          "hint": {"full": "Brightness", "1u": "Brght."},
+          "base": {"full": "Down", "1u": "🔅"}
+        },
+        "categories": ["consumer"]
       },
       {
-        "code": 0,
-        "label": {"base": {"full": "Blocked", "1u": "Blkd"}},
-        "categories": ["blanks"]
+        "code": 18666,
+        "legacyCode": 23786,
+        "label": {
+          "hint": {"full": "Volume", "1u": "Vol."},
+          "base": {"full": "Down", "1u": "🔉"}
+        },
+        "categories": ["consumer"]
       },
       {
-        "code": 0,
-        "label": {"base": {"full": "Blocked", "1u": "Blkd"}},
-        "categories": ["blanks"]
+        "code": 18665,
+        "legacyCode": 23785,
+        "label": {
+          "hint": {"full": "Volume", "1u": "Vol."},
+          "base": {"full": "Up", "1u": "🔊"}
+        },
+        "categories": ["consumer"]
       },
       {
-        "code": 0,
-        "label": {"base": {"full": "Blocked", "1u": "Blkd"}},
-        "categories": ["blanks"]
+        "code": 18543,
+        "legacyCode": 23663,
+        "label": {
+          "hint": {"full": "Brightness", "1u": "Brght."},
+          "base": {"full": "Up", "1u": "🔆"}
+        },
+        "categories": ["consumer"]
       },
       {
         "code": 0,
