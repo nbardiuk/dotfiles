@@ -11,7 +11,7 @@ in
     zprint
   ];
 
-  home.file.".clojure/deps.edn".text = ''
+  xdg.configFile."clojure/deps.edn".text = ''
     {:aliases
      {:nrepl
       {:extra-deps {nrepl/nrepl                 {:mvn/version "RELEASE"}
