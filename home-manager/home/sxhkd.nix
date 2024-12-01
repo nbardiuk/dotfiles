@@ -28,7 +28,7 @@ with lib;
       "super + alt + {Down,Up}"      = "i3-msg resize {shrink,grow} height 10 px";
       "super + alt + space"          = "i3-msg 'floating toggle; resize set 1000 800; move position center'";
       "XF86MonBrightness{Up,Down}"   = "light -{A,U} 5";
-      "XF86Audio{Raise,Lower}Volume" = "amixer set Master 1%{+,-} unmute; pkill -RTMIN+10 i3blocks";
+      "XF86Audio{Raise,Lower}Volume" = "${pkgs.alsa-utils}/bin/amixer set Master 1%{+,-} unmute";
       "super + ctrl + l"             = "loginctl lock-session && exec xset dpms force standby";
       "super + Return"               = "alacritty";
       "super + d"                    = "rofi -modi drun -show drun";
