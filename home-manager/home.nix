@@ -51,8 +51,6 @@
     google-fonts # collection of fonts
     iosevka-bin # monospace font
     keepassxc # password manager
-    _1password
-    _1password-gui
     libreoffice-fresh
     tdesktop # chat app
     # transmission_4-gtk
@@ -162,11 +160,11 @@
 
     watchman
 
-    drawio
+    # drawio
 
     xsane
 
-    mypkgs.dbeaver-ce
+    # mypkgs.dbeaver-ce
     # beekeeper-studio
 
     nautilus
@@ -185,6 +183,8 @@
     betaflight-configurator
     usbutils
     xournalpp
+
+    vlc
   ];
 
   nixpkgs.config.allowUnfree = true;

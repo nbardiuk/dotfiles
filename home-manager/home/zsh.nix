@@ -77,6 +77,6 @@
     gnupg
     keychain # for ssh,gpg agents
     xsel # clipboard
-    nerdfonts # shell icons
+    nerd-fonts.iosevka-term # shell icons
   ];
 }

@@ -198,7 +198,6 @@ in
     arandr # monitor settings GUI
     feh # image viewer, manages wallpaper
     dejavu_fonts
-    nerdfonts # font for status icons
     google-fonts # collection of fonts
     xorg.xrandr # monitor settings CLI
     pavucontrol # pulse audio control GUI
