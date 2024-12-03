@@ -99,6 +99,7 @@
         plugin = tmuxPlugins.yank;
         extraConfig = ''
           set -g @yank_selection 'clipboard'
+          set -g @yank_action "copy-pipe"
         '';
       }
       {
