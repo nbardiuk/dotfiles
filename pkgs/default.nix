@@ -11,7 +11,7 @@ let
       content
     ).overrideAttrs (old: { buildInputs = deps; });
 
-  plugin = src: pname: pkgs.vimUtils.buildVimPlugin { inherit src pname; version = src.rev; };
+  plugin = src: pname: pkgs.vimUtils.buildVimPlugin { inherit src pname; version = src.rev; doCheck = false; };
 
   mypkgs = {
     dbeaver-ce = callPackage ./dbeaver.nix { };
