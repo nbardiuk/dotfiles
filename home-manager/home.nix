@@ -74,7 +74,7 @@
     audacity
     ardour # daw
     # bitwig-studio
-    # transcribe # TODO fails to build
+    transcribe
     yt-dlp
 
     # https://www.linuxsampler.org
@@ -85,16 +85,16 @@
     # webtorrent_desktop
 
     # yoshimi # synth
-    surge-XT # synth
+    # surge-XT # synth
     # fluidsynth # synth
     # rosegarden # midi seq
     # hydrogen # drum machine
-    lsp-plugins
-    fire
-    odin2
-    vital
-    decent-sampler
-    dragonfly-reverb
+    # lsp-plugins
+    # fire
+    # odin2
+    # vital
+    # decent-sampler
+    # dragonfly-reverb
 
 
     helvum # pipewire patchbay
@@ -114,7 +114,7 @@
     # screenkey
     # slop
 
-    kdenlive
+    kdePackages.kdenlive
     ffmpeg-full
     frei0r
 
@@ -137,7 +137,7 @@
     curtail # image compression
     imagemagick
 
-    video-trimmer
+    # video-trimmer
 
     calibre
 

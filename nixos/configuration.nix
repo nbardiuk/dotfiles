@@ -43,9 +43,18 @@
   environment.systemPackages = with pkgs; [
     vim
     pciutils
-    linuxPackages.v4l2loopback # use obs as camera
   ];
 
+  programs.obs-studio.enable = true;
+  programs.obs-studio.enableVirtualCamera = true;
+  programs.obs-studio.plugins = with pkgs.obs-studio-plugins;[
+    obs-3d-effect
+    obs-backgroundremoval
+    obs-gstreamer
+    obs-pipewire-audio-capture
+    obs-webkitgtk
+    waveform
+  ];
   programs.mtr.enable = true;
   programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
   programs.light.enable = true;
@@ -67,7 +76,6 @@
   musnix.soundcardPciId = "00:1f.3";
 
   security.rtkit.enable = true;
-  hardware.pulseaudio.enable = false;
   services.pipewire =
     let
       quantum = 64;

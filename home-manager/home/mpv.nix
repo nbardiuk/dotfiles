@@ -4,7 +4,7 @@ let
 in
 {
   programs.mpv = {
-    enable = true;
+    enable = false;
     config = rec {
       osd-font = "Iosevka";
       sub-font = "Iosevka";
