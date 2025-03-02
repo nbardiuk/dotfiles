@@ -247,7 +247,7 @@ vnoremap("<Leader>*", "y:Ack <C-r>\"<CR>")
 nmap("<Leader>/", "<Plug>(FerretAck)")
 vnoremap("<Leader>/", "y:Ack <C-r>\"")
 vim.opt.path = {".", "**"}
-oil.setup({columns = {{"permissions", highlight = "NonText"}, {"size", highlight = "String"}, {"ctime", highlight = "Number", format = "%Y-%m-%d %H:%M"}, "icon"}, view_options = {show_hidden = true}, keymaps = {["g?"] = "actions.show_help", ["<CR>"] = "actions.select", ["<C-s>"] = "actions.select_vsplit", ["<C-r>"] = "actions.refresh", ["<C-p>"] = "actions.preview", ["<C-c>"] = "actions.close", ["-"] = "actions.parent", _ = "actions.open_cwd", ["g."] = "actions.toggle_hidden", ["."] = "actions.open_cmdline", [","] = "actions.open_cmdline_dir", gy = "actions.copy_entry_path"}, use_default_keymaps = false})
+oil.setup({columns = {{"permissions", highlight = "NonText"}, {"size", highlight = "String"}, {"ctime", highlight = "Number", format = "%Y-%m-%d %H:%M"}, "icon"}, view_options = {show_hidden = true}, keymaps = {["g?"] = "actions.show_help", ["<CR>"] = "actions.select", ["<C-s>"] = "actions.select_vsplit", ["<C-r>"] = "actions.refresh", ["<C-p>"] = "actions.preview", ["<C-c>"] = "actions.close", ["-"] = "actions.parent", _ = "actions.open_cwd", ["g."] = "actions.toggle_hidden", ["."] = "actions.open_cmdline", [","] = "actions.open_cmdline_dir", gy = "actions.copy_entry_path", gx = "actions.open_external"}, use_default_keymaps = false})
 nmap("-", oil.open)
 vim.opt.updatetime = 100
 vim.opt.diffopt:append({"indent-heuristic", "internal", "algorithm:histogram", "linematch:60"})

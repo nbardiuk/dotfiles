@@ -389,7 +389,8 @@
              "g."    "actions.toggle_hidden"
              "."     "actions.open_cmdline"
              ","     "actions.open_cmdline_dir"
-             "gy"    "actions.copy_entry_path"}
+             "gy"    "actions.copy_entry_path"
+             "gx"    "actions.open_external"}
    :use_default_keymaps false})
 (nmap :- oil.open)
 
