@@ -187,8 +187,6 @@
     vlc
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   home.stateVersion = "23.05";
 
   home.username = "nazarii";
