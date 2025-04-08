@@ -1,6 +1,5 @@
 { pkgs, ... }:
 {
-  services.nix-daemon.enable = true;
   nix.settings.experimental-features = "nix-command flakes";
   nix.settings.trusted-users = [ "nazarii" ];
   nixpkgs.hostPlatform = "aarch64-darwin";
@@ -37,8 +36,8 @@
     "whichspace"
   ];
   homebrew.onActivation.cleanup = "uninstall";
+
   environment.systemPackages = with pkgs; [
-    keepassxc
     slack
   ];
 

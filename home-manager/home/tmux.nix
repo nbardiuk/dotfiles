@@ -32,6 +32,9 @@
       # stay in copy mode on mouse drag end
       unbind-key -T copy-mode-vi MouseDragEnd1Pane
 
+      # helps vim autoread
+      set -g focus-events on
+
       set -g status-position top
       set -g status-left ""
       set -g status-left-length 0

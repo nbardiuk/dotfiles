@@ -13,7 +13,10 @@
     ./../home-manager/home/syncthing.nix
   ];
   home.packages = with pkgs; [
+    obsidian
     iosevka-bin # monospace font
+    jetbrains.idea-ultimate
+    keepassxc
   ];
   home.stateVersion = "24.05";
   xdg.enable = true;

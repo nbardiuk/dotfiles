@@ -75,7 +75,6 @@ in
       ".envrc"
       ".direnv/"
       # Clojure
-      "pom.xml"
       "pom.xml.asc"
       "*.jar"
       "*.class"
@@ -95,18 +94,27 @@ in
       ".stfolder/"
     ];
     extraConfig = {
+      branch.sort = "committerdate";
       checkout.defaultRemote = "origin";
-      core.hooksPath = "${config.xdg.configHome}/${hooks}";
       code.editor = "nvim";
+      core.fsmonitor = true; # use process to monitor file changes
+      core.hooksPath = "${config.xdg.configHome}/${hooks}";
+      core.untrackedCache = true;
+      column.ui = "auto"; # commands can output in columns
       commit.template = "${config.xdg.configHome}/${commit}";
+      commit.verbose = true;
       diff.algorithm = "histogram";
+      diff.colorMoved = "plain";
+      diff.mnemonicPrefix = true;
       diff.tool = "vdiff";
       difftool.prompt = true;
       "difftool \"vdiff\"".cmd = "nvim -d $LOCAL $REMOTE";
+      fetch.all = true;
       fetch.prune = true;
       fetch.pruneTags = true;
       init.defaultBranch = "main";
       merge.autoStash = true;
+      merge.conflictStyle = "zdiff3";
       merge.stat = true;
       merge.tool = "vmerge";
       "mergetool \"vmerge\"".cmd = "nvim -d $LOCAL $REMOTE $MERGED -c 'wincmd w' -c 'wincmd J'";
@@ -115,7 +123,11 @@ in
       push.autoSetupRemote = true;
       rebase.autoStash = true;
       rebase.stat = true;
+      rebase.updateRefs = true;
       remote.defaultPush = "origin";
+      rerere.autoupdate = true;
+      rerere.enabled = true;
+      tag.sort = "version:refname";
       # "diff \"clojure\"".xfuncname = "!^;.*\\n^[^ \\t].*$";
       # "diff \"clojure\"".wordRegex = "[#@:]?[^0-9][a-zA-Z0-9*+!-_'?<>=/.]+|[-]?[0-9a-fA-Frxb/MN]+|[\\0-9a-fA-F]+";
       "diff \"secret\"".cachetextconv = true;
