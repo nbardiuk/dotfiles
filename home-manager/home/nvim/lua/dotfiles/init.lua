@@ -81,7 +81,7 @@ local function xnoremap(...)
   return keymap("x", {"noremap", ...})
 end
 local bottom_height = 15
-telescope.setup({defaults = themes.get_ivy({layout_config = {height = bottom_height}, preview = false}), extensions = {fzf = {fuzzy = true, override_generic_sorter = true, override_file_sorter = true, case_mode = "smart_case"}}, pickers = {live_grep = {mappings = {i = {["<c-f>"] = "to_fuzzy_refine"}}}}})
+telescope.setup({defaults = themes.get_ivy({layout_config = {height = bottom_height}, border = false, preview = false}), extensions = {fzf = {fuzzy = true, override_generic_sorter = true, override_file_sorter = true, case_mode = "smart_case"}}, pickers = {live_grep = {mappings = {i = {["<c-f>"] = "to_fuzzy_refine"}}}}})
 telescope.load_extension("fzf")
 nnoremap("<Leader>r", tel.resume)
 nnoremap("<Leader>k", tel.help_tags)
@@ -328,8 +328,7 @@ nnoremap("yol", _23_)
 nnoremap("<Leader>dg", vim.diagnostic.setqflist)
 nnoremap("<Leader>dl", vim.diagnostic.setloclist)
 nnoremap("<Leader>do", vim.diagnostic.open_float)
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = "single"})
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.singature_help, {border = "single"})
+vim.opt.winborder = "single"
 fidget.setup({})
 vim.g["conjure#eval#result_register"] = "e"
 vim.g["conjure#log#botright"] = true

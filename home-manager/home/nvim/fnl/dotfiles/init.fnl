@@ -88,7 +88,8 @@
 (telescope.setup
   {:defaults (themes.get_ivy
                {:layout_config {:height bottom-height}
-                :preview false})
+                :preview false
+                :border false})
    :extensions {:fzf {:fuzzy true
                       :override_generic_sorter true
                       :override_file_sorter true
@@ -495,10 +496,8 @@
 (nnoremap :<Leader>dl vim.diagnostic.setloclist)
 (nnoremap :<Leader>do vim.diagnostic.open_float)
 
-(tset vim.lsp.handlers "textDocument/hover"
-      (vim.lsp.with vim.lsp.handlers.hover {:border :single}))
-(tset vim.lsp.handlers "textDocument/signatureHelp"
-      (vim.lsp.with vim.lsp.handlers.singature_help {:border :single}))
+;; add border to all popups
+(set vim.opt.winborder "single")
 
 ;; lsp progress widget
 (fidget.setup {})
