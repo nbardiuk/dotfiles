@@ -478,13 +478,9 @@
 
 (set vim.opt.formatexpr "v:lua.require'conform'.formatexpr()")
 (nnoremap :<Leader>lf conform.format)
-(nnoremap :<Leader>la vim.lsp.buf.code_action)
 (fn lsp-buffer-mappings []
   (nnoremap :buffer :gd         vim.lsp.buf.definition)
-  (nnoremap :buffer :<Leader>lt vim.lsp.buf.type_definition)
-  (nnoremap :buffer :<Leader>li vim.lsp.buf.implementation)
-  (nnoremap :buffer "}"         vim.lsp.buf.references)
-  (nnoremap :buffer :<Leader>lr vim.lsp.buf.rename))
+  (nnoremap :buffer :<Leader>lt vim.lsp.buf.type_definition))
 
 (vim.diagnostic.config
   {:virtual_text false
@@ -510,7 +506,7 @@
 ;; Conjure
 (set vim.g.conjure#eval#result_register :e)
 (set vim.g.conjure#log#botright true)
-(au :conjure-log :BufNewFile "conjure-log-*" #(vim.diagnostic.disable 0))
+(au :conjure-log :BufNewFile "conjure-log-*" #(vim.diagnostic.enable false {:bufnr 0}))
 (set vim.g.conjure#filetypes [:clojure :fennel])
 (set vim.g.conjure#eval#gsubs {:do-comment ["^%(comment[%s%c]" "(do "]}) ; eval comment as do
 (set vim.g.conjure#mapping#doc_word :k)

@@ -309,13 +309,9 @@ null_ls.setup({sources = {null_ls.builtins.diagnostics.vale.with({filetypes = {"
 conform.setup({formatters_by_ft = {bash = {"shfmt"}, json = {"jq"}, sh = {"shfmt"}, sql = {"pg_format"}, xml = {"xmllint"}, yaml = {"yamlfmt"}, markdown = {"mdformat"}}, formatters = {shfmt = {prepend_args = {"--indent", "2", "--space-redirects"}}, pg_format = {prepend_args = {"--spaces", "2", "--comma-break", "--function-case", "2", "--placeholder", "\\?[a-zA-Z]+\\?"}}}, default_format_opts = {lsp_format = "fallback", async = true, stop_after_first = true}})
 vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
 nnoremap("<Leader>lf", conform.format)
-nnoremap("<Leader>la", vim.lsp.buf.code_action)
 local function lsp_buffer_mappings()
   nnoremap("buffer", "gd", vim.lsp.buf.definition)
-  nnoremap("buffer", "<Leader>lt", vim.lsp.buf.type_definition)
-  nnoremap("buffer", "<Leader>li", vim.lsp.buf.implementation)
-  nnoremap("buffer", "}", vim.lsp.buf.references)
-  return nnoremap("buffer", "<Leader>lr", vim.lsp.buf.rename)
+  return nnoremap("buffer", "<Leader>lt", vim.lsp.buf.type_definition)
 end
 vim.diagnostic.config({underline = true, float = {show_header = false}, severity_sort = true, signs = true, virtual_text = false})
 local function _23_()
@@ -338,7 +334,7 @@ fidget.setup({})
 vim.g["conjure#eval#result_register"] = "e"
 vim.g["conjure#log#botright"] = true
 local function _26_()
-  return vim.diagnostic.disable(0)
+  return vim.diagnostic.enable(false, {bufnr = 0})
 end
 au("conjure-log", "BufNewFile", "conjure-log-*", _26_)
 vim.g["conjure#filetypes"] = {"clojure", "fennel"}
