@@ -17,13 +17,11 @@ local surround = require("nvim-surround")
 local tel = require("telescope.builtin")
 local telescope = require("telescope")
 local themes = require("telescope.themes")
-local tree_context = require("treesitter-context")
 local tree_conf = require("nvim-treesitter.configs")
 local other = require("other-nvim")
 local wiki_telescope = require("wiki.telescope")
 local tsc = require("tsc")
 vim.opt.exrc = true
-tree_context.setup({enable = true, separator = "\194\183"})
 local function au(group_name, event, pattern, body)
   local callback
   local function _1_()
@@ -81,7 +79,7 @@ local function xnoremap(...)
   return keymap("x", {"noremap", ...})
 end
 local bottom_height = 15
-telescope.setup({defaults = themes.get_ivy({layout_config = {height = bottom_height}, border = false, preview = false}), extensions = {fzf = {fuzzy = true, override_generic_sorter = true, override_file_sorter = true, case_mode = "smart_case"}}, pickers = {live_grep = {mappings = {i = {["<c-f>"] = "to_fuzzy_refine"}}}}})
+telescope.setup({defaults = themes.get_ivy({layout_config = {height = bottom_height, prompt_position = "bottom"}, border = false, preview = false}), extensions = {fzf = {fuzzy = true, override_generic_sorter = true, override_file_sorter = true, case_mode = "smart_case"}}, pickers = {live_grep = {mappings = {i = {["<c-f>"] = "to_fuzzy_refine"}}}}})
 telescope.load_extension("fzf")
 nnoremap("<Leader>r", tel.resume)
 nnoremap("<Leader>k", tel.help_tags)

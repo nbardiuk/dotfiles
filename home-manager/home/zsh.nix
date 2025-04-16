@@ -12,6 +12,8 @@
       nix_shell.format = "via $symbol";
       scala.disabled = true;
       time.disabled = false;
+      gcloud.disabled = true;
+      kubernetes.disabled = true;
     };
   };
 

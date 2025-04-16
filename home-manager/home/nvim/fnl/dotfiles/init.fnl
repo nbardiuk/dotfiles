@@ -16,7 +16,6 @@
 (local tel (require :telescope.builtin))
 (local telescope (require :telescope))
 (local themes (require :telescope.themes))
-(local tree-context (require :treesitter-context))
 (local tree-conf (require :nvim-treesitter.configs))
 (local other (require :other-nvim))
 (local wiki-telescope (require :wiki.telescope))
@@ -25,10 +24,6 @@
 
 ; allow loading directory local config
 (set vim.opt.exrc true)
-
-(tree-context.setup
-  {:enable true
-   :separator "·"})
 
 (fn au [group-name event pattern body]
   (let [callback #(do (body) nil)
@@ -87,9 +82,10 @@
 
 (telescope.setup
   {:defaults (themes.get_ivy
-               {:layout_config {:height bottom-height}
-                :preview false
-                :border false})
+               {:layout_config {:height bottom-height
+                                :prompt_position :bottom}
+               :preview false
+               :border false})
    :extensions {:fzf {:fuzzy true
                       :override_generic_sorter true
                       :override_file_sorter true

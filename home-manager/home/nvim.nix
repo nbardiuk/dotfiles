@@ -70,7 +70,6 @@
         p.xml
         p.yaml
       ]))
-      nvim-treesitter-context
       nvim-treesitter-textobjects
       nvim-web-devicons
       oil-nvim # dired inspired browser
