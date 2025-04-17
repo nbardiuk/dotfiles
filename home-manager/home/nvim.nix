@@ -65,7 +65,6 @@
         p.scss
         p.sql
         p.ssh_config
-        p.terraform
         p.typescript
         p.xml
         p.yaml
@@ -139,7 +138,5 @@
     fnlfmt
     nixd # nix language server
     jdt-language-server
-    terraform-ls
-    tflint # terraform linter
   ];
 }
