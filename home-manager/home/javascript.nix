@@ -9,6 +9,5 @@ if !enable then { } else {
     nodePackages.typescript
     nodePackages.prettier
     nodePackages.webpack
-    nodePackages.webpack-cli
   ];
 }
