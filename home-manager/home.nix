@@ -185,6 +185,9 @@
     xournalpp
 
     vlc
+
+    guvcview # webcam config
+    webcamoid # webcam recording
   ];
 
   home.stateVersion = "23.05";
