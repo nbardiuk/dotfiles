@@ -188,6 +188,13 @@
 
     guvcview # webcam config
     webcamoid # webcam recording
+
+    quickemu # virtual machine cli
+    spice
+    spice-gtk
+
+    fastlane # builds for ios and android
+    flyctl # fly.io cli
   ];
 
   home.stateVersion = "23.05";

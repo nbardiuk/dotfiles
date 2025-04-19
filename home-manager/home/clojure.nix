@@ -9,6 +9,7 @@ in
     babashka
     clj-kondo
     zprint
+    polylith
   ];
 
   xdg.configFile."clojure/deps.edn".text = ''
