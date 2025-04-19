@@ -164,8 +164,8 @@
 
     xsane
 
-    # mypkgs.dbeaver-ce
     # beekeeper-studio
+    dbeaver-bin
 
     nautilus
     flameshot

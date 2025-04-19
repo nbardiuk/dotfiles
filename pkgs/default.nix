@@ -14,8 +14,6 @@ let
   plugin = src: pname: pkgs.vimUtils.buildVimPlugin { inherit src pname; version = src.rev; doCheck = false; };
 
   mypkgs = {
-    dbeaver-ce = callPackage ./dbeaver.nix { };
-
     connection_toggle = writeBb "connection-toggle" {
       content = ./connection-toggle.clj;
       deps = [ pkgs.rofi pkgs.networkmanager ];
