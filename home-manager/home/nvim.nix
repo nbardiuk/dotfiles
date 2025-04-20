@@ -138,5 +138,6 @@
     fnlfmt
     nixd # nix language server
     jdt-language-server
+    inotify-tools # for lsp file watcher
   ];
 }

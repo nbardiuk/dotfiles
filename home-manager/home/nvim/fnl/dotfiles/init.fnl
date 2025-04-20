@@ -143,7 +143,8 @@
     :force
     (vim.lsp.protocol.make_client_capabilities)
     (cmp_nvim_lsp.default_capabilities)
-    {:workspace {:workspaceEdit {:documentChanges true}}}))
+    {:workspace {:didChangeWatchedFiles {:dynamicRegistration true}
+                 :workspaceEdit         {:documentChanges     true}}}))
 (vim.lsp.config :* {:capabilities lsp-capabilities})
 
 (surround.setup {})

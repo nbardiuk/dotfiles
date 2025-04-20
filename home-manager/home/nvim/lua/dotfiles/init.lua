@@ -123,7 +123,7 @@ end
 cmp.setup({sources = {{name = "nvim_lsp"}, {name = "conjure"}, {name = "treesitter"}, {name = "lausnip"}, {name = "path"}, {name = "buffer", keyword_length = 5, options = {get_bufnrs = _7_}}, {name = "spell", keyword_length = 5}}, snippet = {expand = _8_}, mapping = {["<C-n>"] = cmp.mapping(_9_, {"i", "s"}), ["<C-p>"] = cmp.mapping(_11_, {"i", "s"}), ["<C-d>"] = cmp.mapping.scroll_docs(-4), ["<C-u>"] = cmp.mapping.scroll_docs(4), ["<C-e>"] = cmp.mapping.close(), ["<Space>"] = cmp.mapping.confirm({select = false})}})
 cmp.setup.cmdline("/", {mapping = cmp.mapping.preset.cmdline(), sources = {{name = "buffer"}}})
 cmp.setup.cmdline(":", {mapping = cmp.mapping.preset.cmdline(), sources = {{name = "path"}, {name = "cmdline"}}, matching = {disallow_symbol_nonprefix_matching = false}})
-local lsp_capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), cmp_nvim_lsp.default_capabilities(), {workspace = {workspaceEdit = {documentChanges = true}}})
+local lsp_capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), cmp_nvim_lsp.default_capabilities(), {workspace = {didChangeWatchedFiles = {dynamicRegistration = true}, workspaceEdit = {documentChanges = true}}})
 vim.lsp.config("*", {capabilities = lsp_capabilities})
 surround.setup({})
 do
