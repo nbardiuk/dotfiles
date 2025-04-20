@@ -456,17 +456,11 @@
     :bash [:shfmt]
     :json [:jq]
     :sh [:shfmt]
-    :sql [:pg_format]
     :xml [:xmllint]
     :yaml [:yamlfmt]
     :markdown [:mdformat]}
-  :formatters {
-    :shfmt {:prepend_args ["--indent" "2" "--space-redirects"]}
-    :pg_format {:prepend_args ["--spaces" "2" ; indentation, default 4 spaces
-                               "--comma-break" ; in insert statement, add a newline after each comma
-                               "--function-case" "2" ; uppercase function name
-                               "--placeholder" "\\?[a-zA-Z]+\\?" ; regex for code that must not be changed `?IN?`
-                              ]}}
+  :formatters { 
+  :shfmt {:prepend_args ["--indent" "2" "--space-redirects"]}}
   :default_format_opts {
     :lsp_format :fallback  ; use lsp when no other is available
     :async true            ; don't block UI
@@ -748,6 +742,17 @@
 (au :nix :FileType :nix #(lsp-buffer-mappings))
 (lspconfig.nixd.setup {:capabilities lsp-capabilities})
 (set conform.formatters_by_ft.nix [:nixpkgs_fmt])
+
+;; SQL
+(au :sql :FileType :sql #(lsp-buffer-mappings))
+(lspconfig.postgres_lsp.setup {:capabilities lsp-capabilities})
+(set conform.formatters_by_ft.sql [:pg_format])
+(set conform.formatters.pg_format
+     {:prepend_args ["--spaces" "2" ; indentation, default 4 spaces
+                     "--comma-break" ; in insert statement, add a newline after each comma
+                     "--function-case" "2" ; uppercase function name
+                     "--placeholder" "\\:[a-zA-Z-]+" ; regex for code that must not be changed `:place-holder`
+                     ]})
 
 ;; Terraform
 ; (au :terraform :FileType [:terraform :terraform-vars] #(lsp-buffer-mappings))

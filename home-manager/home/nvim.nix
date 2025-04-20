@@ -124,7 +124,7 @@
     libxml2 # for xmllint
     yamlfmt # yaml formatter
     pgformatter # sql formatter
-    sqlint # sql linter
+    postgres-lsp
     ccls
     clang-tools
     hadolint # dockerfile linter
