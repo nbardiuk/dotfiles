@@ -7,7 +7,6 @@ local conform = require("conform")
 local dressing = require("dressing")
 local fidget = require("fidget")
 local jdtls = require("jdtls")
-local lspconfig = require("lspconfig")
 local lualine = require("lualine")
 local luasnip = require("luasnip")
 local metals = require("metals")
@@ -35,7 +34,7 @@ local function au(group_name, event, pattern, body)
 end
 tree_conf.setup({indent = {enable = true}, highlight = {enable = true}, textobjects = {select = {enable = true, lookahead = true, keymaps = {aa = "@parameter.outer", ia = "@parameter.inner", ac = "@comment.outer", as = "@statement.outer"}}, swap = {enable = true, swap_next = {[">a"] = "@parameter.inner"}, swap_previous = {["<lt>a"] = "@parameter.inner"}}}, matchup = {enable = true}, auto_install = false})
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\t"
+vim.g.maplocalleader = "\9"
 local function indexed__3enamed(keys, tbl)
   for index = #tbl, 1, -1 do
     local key = tbl[index]
@@ -125,6 +124,7 @@ cmp.setup({sources = {{name = "nvim_lsp"}, {name = "conjure"}, {name = "treesitt
 cmp.setup.cmdline("/", {mapping = cmp.mapping.preset.cmdline(), sources = {{name = "buffer"}}})
 cmp.setup.cmdline(":", {mapping = cmp.mapping.preset.cmdline(), sources = {{name = "path"}, {name = "cmdline"}}, matching = {disallow_symbol_nonprefix_matching = false}})
 local lsp_capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), cmp_nvim_lsp.default_capabilities(), {workspace = {workspaceEdit = {documentChanges = true}}})
+vim.lsp.config("*", {capabilities = lsp_capabilities})
 surround.setup({})
 do
   local escape
@@ -341,12 +341,12 @@ local function _27_()
   return lsp_buffer_mappings()
 end
 au("python", "FileType", "python", _27_)
-lspconfig.pylsp.setup({capabilities = lsp_capabilities})
+vim.lsp.enable("pylsp")
 local function _28_()
   return lsp_buffer_mappings()
 end
 au("typescript", "FileType", {"typescript", "javascript", "typescriptreact", "javascriptreact"}, _28_)
-lspconfig.ts_ls.setup({capabilities = lsp_capabilities})
+vim.lsp.enable("ts_ls")
 tsc.setup({auto_start_watch_mode = true, flags = {watch = true}})
 local function _29_()
   lsp_buffer_mappings()
@@ -366,7 +366,7 @@ local function _31_()
   return lsp_buffer_mappings()
 end
 au("rust", "FileType", "rust", _31_)
-lspconfig.rust_analyzer.setup({capabilities = lsp_capabilities})
+vim.lsp.enable("rust_analyzer")
 local function _32_()
   lsp_buffer_mappings()
   vim.opt_local.tabstop = 2
@@ -376,7 +376,7 @@ local function _32_()
   return nil
 end
 au("c", "FileType", {"c", "cpp"}, _32_)
-lspconfig.ccls.setup({capabilities = lsp_capabilities})
+vim.lsp.enable("ccls")
 vim.g.sexp_filetypes = "clojure,scheme,lisp,fennel"
 local function _33_()
   xmap("buffer", "ip", "<Plug>(sexp_inner_element)<Plug>(sexp_move_to_next_element_tail)")
@@ -437,13 +437,14 @@ au("clojure", "FileType", "clojure", _34_)
 vim.g["conjure#client#clojure#nrepl#test#runner"] = "clojure"
 vim.g["conjure#client#clojure#nrepl#eval#raw_out"] = true
 vim.g["conjure#client#clojure#nrepl#refresh#backend"] = "clj-reload"
-lspconfig.clojure_lsp.setup({capabilities = lsp_capabilities})
+vim.lsp.enable("clojure_lsp")
 conform.formatters_by_ft.clojure = {"zprint"}
 local function _39_()
   return lsp_buffer_mappings()
 end
 au("fennel", "FileType", "fennel", _39_)
-lspconfig.fennel_ls.setup({capabilities = lsp_capabilities, settings = {["fennel-ls"] = {["extra-globals"] = "vim"}}})
+vim.lsp.enable("fennel_ls")
+vim.lsp.config("fennel_ls", {settings = {["fennel-ls"] = {["extra-globals"] = "vim"}}})
 conform.formatters_by_ft.fennel = {"fnlfmt"}
 vim.g.slime_target = "tmux"
 vim.g.slime_dont_ask_default = true
@@ -469,7 +470,7 @@ local function _40_()
     return do_scm_ignore("aF")
   end
   nnoremap("buffer", "<Leader>cc", _41_)
-  nmap("buffer", "<Leader>cu", "<Cmd>let s=@/<CR>l?\11(#;)+<CR>dgn:let @/=s<CR>")
+  nmap("buffer", "<Leader>cu", "<Cmd>let s=@/<CR>l?\v(#;)+<CR>dgn:let @/=s<CR>")
   nmap("buffer", "<Leader>pp", "<Plug>SlimeMotionSend<Plug>(sexp_outer_top_list)``")
   nnoremap("buffer", "K", "<Cmd>SlimeSend1 (pp <C-R><C-W>)<CR>")
   return nmap("buffer", "<Leader>lf", "ggvG=``")
@@ -539,13 +540,13 @@ local function _52_()
   return lsp_buffer_mappings()
 end
 au("nix", "FileType", "nix", _52_)
-lspconfig.nixd.setup({capabilities = lsp_capabilities})
+vim.lsp.enable("nixd")
 conform.formatters_by_ft.nix = {"nixpkgs_fmt"}
 local function _53_()
   return lsp_buffer_mappings()
 end
 au("sql", "FileType", "sql", _53_)
-lspconfig.postgres_lsp.setup({capabilities = lsp_capabilities})
+vim.lsp.enable("postgres_lsp")
 conform.formatters_by_ft.sql = {"pg_format"}
 conform.formatters.pg_format = {prepend_args = {"--spaces", "2", "--comma-break", "--function-case", "2", "--placeholder", "\\:[a-zA-Z-]+"}}
 nnoremap("<Leader>aa", "<Cmd>Other<CR>")

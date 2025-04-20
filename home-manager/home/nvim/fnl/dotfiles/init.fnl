@@ -6,7 +6,6 @@
 (local dressing (require :dressing))
 (local fidget (require :fidget))
 (local jdtls (require :jdtls))
-(local lspconfig (require :lspconfig))
 (local lualine (require :lualine))
 (local luasnip (require :luasnip))
 (local metals (require :metals))
@@ -145,6 +144,7 @@
     (vim.lsp.protocol.make_client_capabilities)
     (cmp_nvim_lsp.default_capabilities)
     {:workspace {:workspaceEdit {:documentChanges true}}}))
+(vim.lsp.config :* {:capabilities lsp-capabilities})
 
 (surround.setup {})
 
@@ -502,13 +502,13 @@
 
 ;; Python
 (au :python :FileType :python #(lsp-buffer-mappings))
-(lspconfig.pylsp.setup {:capabilities lsp-capabilities})
+(vim.lsp.enable :pylsp)
 
 
 ;; JavaScript/TypeScript
 (au :typescript :FileType [:typescript :javascript :typescriptreact :javascriptreact]
     #(lsp-buffer-mappings))
-(lspconfig.ts_ls.setup {:capabilities lsp-capabilities})
+(vim.lsp.enable :ts_ls)
 (tsc.setup
   {:auto_start_watch_mode true
    :flags {:watch true}})
@@ -545,7 +545,7 @@
 
 ;; Rust
 (au :rust :FileType :rust #(lsp-buffer-mappings))
-(lspconfig.rust_analyzer.setup {:capabilities lsp-capabilities})
+(vim.lsp.enable :rust_analyzer)
 
 
 ;; C
@@ -557,7 +557,7 @@
        (set vim.opt_local.softtabstop 2)
        (set vim.opt_local.shiftwidth 2)
        (set vim.opt_local.expandtab true)))
-(lspconfig.ccls.setup {:capabilities lsp-capabilities})
+(vim.lsp.enable :ccls)
 
 
 ;; Sexp
@@ -644,15 +644,14 @@
 (set vim.g.conjure#client#clojure#nrepl#eval#raw_out true)
 (set vim.g.conjure#client#clojure#nrepl#refresh#backend :clj-reload)
 
-(lspconfig.clojure_lsp.setup {:capabilities lsp-capabilities})
+(vim.lsp.enable :clojure_lsp)
 (set conform.formatters_by_ft.clojure [:zprint])
 
 
 ;; Fennel
 (au :fennel :FileType :fennel #(lsp-buffer-mappings))
-(lspconfig.fennel_ls.setup
-  {:capabilities lsp-capabilities
-   :settings {:fennel-ls {:extra-globals "vim"} }})
+(vim.lsp.enable :fennel_ls)
+(vim.lsp.config :fennel_ls {:settings {:fennel-ls {:extra-globals "vim"}}})
 (set conform.formatters_by_ft.fennel [:fnlfmt])
 
 
@@ -740,12 +739,12 @@
 
 ;; Nix
 (au :nix :FileType :nix #(lsp-buffer-mappings))
-(lspconfig.nixd.setup {:capabilities lsp-capabilities})
+(vim.lsp.enable :nixd)
 (set conform.formatters_by_ft.nix [:nixpkgs_fmt])
 
 ;; SQL
 (au :sql :FileType :sql #(lsp-buffer-mappings))
-(lspconfig.postgres_lsp.setup {:capabilities lsp-capabilities})
+(vim.lsp.enable :postgres_lsp)
 (set conform.formatters_by_ft.sql [:pg_format])
 (set conform.formatters.pg_format
      {:prepend_args ["--spaces" "2" ; indentation, default 4 spaces
@@ -756,7 +755,7 @@
 
 ;; Terraform
 ; (au :terraform :FileType [:terraform :terraform-vars] #(lsp-buffer-mappings))
-; (lspconfig.terraformls.setup {:capabilities lsp-capabilities})
+; (vim.lsp.enable :terraformls)
 ; (set conform.formatters_by_ft.terraform [:terraform_fmt])
 ; (set conform.formatters_by_ft.terraform-vars [:terraform_fmt])
 
