@@ -468,9 +468,6 @@
 
 (set vim.opt.formatexpr "v:lua.require'conform'.formatexpr()")
 (nnoremap :<Leader>lf conform.format)
-(fn lsp-buffer-mappings []
-  (nnoremap :buffer :gd         vim.lsp.buf.definition)
-  (nnoremap :buffer :<Leader>lt vim.lsp.buf.type_definition))
 
 (vim.diagnostic.config
   {:virtual_text false
@@ -484,6 +481,11 @@
 (nnoremap :<Leader>dg vim.diagnostic.setqflist)
 (nnoremap :<Leader>dl vim.diagnostic.setloclist)
 (nnoremap :<Leader>do vim.diagnostic.open_float)
+
+(au :myLsp :LspAttach :*
+    #(do
+       (nnoremap :buffer :gd         vim.lsp.buf.definition)
+       (nnoremap :buffer :<Leader>lt vim.lsp.buf.type_definition)))
 
 ;; add border to all popups
 (set vim.opt.winborder "single")
@@ -501,13 +503,10 @@
 
 
 ;; Python
-(au :python :FileType :python #(lsp-buffer-mappings))
 (vim.lsp.enable :pylsp)
 
 
 ;; JavaScript/TypeScript
-(au :typescript :FileType [:typescript :javascript :typescriptreact :javascriptreact]
-    #(lsp-buffer-mappings))
 (vim.lsp.enable :ts_ls)
 (tsc.setup
   {:auto_start_watch_mode true
@@ -516,7 +515,6 @@
 ;; Scala
 (au :scala :FileType [:scala :sbt :java]
     #(do
-       (lsp-buffer-mappings)
        (let [conf {:init_options {:statusBarProvider :on}
                    :settings {:showImplicitArguments true
                               :showImplicitConversionsAndClasses true
@@ -532,7 +530,6 @@
 ;; Java
 (au :java :FileType [:java]
     #(do
-       (lsp-buffer-mappings)
        (let [root-dir (vim.fs.dirname (. (vim.fs.find [:.git :pom.xml]
                                                       {:upward true})
                                          1))
@@ -544,15 +541,12 @@
          (jdtls.start_or_attach conf))))
 
 ;; Rust
-(au :rust :FileType :rust #(lsp-buffer-mappings))
 (vim.lsp.enable :rust_analyzer)
 
 
 ;; C
 (au :c :FileType [:c :cpp]
     #(do 
-       (lsp-buffer-mappings)
-
        (set vim.opt_local.tabstop 2)
        (set vim.opt_local.softtabstop 2)
        (set vim.opt_local.shiftwidth 2)
@@ -605,8 +599,6 @@
 
 (au :clojure :FileType :clojure
     #(do
-       (lsp-buffer-mappings)
-
        (xnoremap :buffer :<Leader>cc do-clj-ignore)
        (nnoremap :buffer :<Leader>cc do-clj-ignore)
        (nnoremap :buffer :<Leader>cu "<Cmd>let s=@/<CR>l?\\v(#_)+<CR>dgn:let @/=s<CR>")
@@ -649,7 +641,6 @@
 
 
 ;; Fennel
-(au :fennel :FileType :fennel #(lsp-buffer-mappings))
 (vim.lsp.enable :fennel_ls)
 (vim.lsp.config :fennel_ls {:settings {:fennel-ls {:extra-globals "vim"}}})
 (set conform.formatters_by_ft.fennel [:fnlfmt])
@@ -726,7 +717,6 @@
 ;; Markdown
 (au :markdown :FileType :markdown
     #(do 
-       (lsp-buffer-mappings)
        (vnoremap :buffer :<Leader>tj ":!pandoc -f gfm -t jira<CR>")))
 (set vim.g.markdown_syntax_conceal false)
 (set vim.g.markdown_folding 1)
@@ -738,12 +728,10 @@
 (set conform.formatters_by_ft.glsl [:clang-format])
 
 ;; Nix
-(au :nix :FileType :nix #(lsp-buffer-mappings))
 (vim.lsp.enable :nixd)
 (set conform.formatters_by_ft.nix [:nixpkgs_fmt])
 
 ;; SQL
-(au :sql :FileType :sql #(lsp-buffer-mappings))
 (vim.lsp.enable :postgres_lsp)
 (set conform.formatters_by_ft.sql [:pg_format])
 (set conform.formatters.pg_format
@@ -754,7 +742,6 @@
                      ]})
 
 ;; Terraform
-; (au :terraform :FileType [:terraform :terraform-vars] #(lsp-buffer-mappings))
 ; (vim.lsp.enable :terraformls)
 ; (set conform.formatters_by_ft.terraform [:terraform_fmt])
 ; (set conform.formatters_by_ft.terraform-vars [:terraform_fmt])

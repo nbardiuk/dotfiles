@@ -307,10 +307,6 @@ null_ls.setup({sources = {null_ls.builtins.diagnostics.vale.with({filetypes = {"
 conform.setup({formatters_by_ft = {bash = {"shfmt"}, json = {"jq"}, sh = {"shfmt"}, xml = {"xmllint"}, yaml = {"yamlfmt"}, markdown = {"mdformat"}}, formatters = {shfmt = {prepend_args = {"--indent", "2", "--space-redirects"}}}, default_format_opts = {lsp_format = "fallback", async = true, stop_after_first = true}})
 vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
 nnoremap("<Leader>lf", conform.format)
-local function lsp_buffer_mappings()
-  nnoremap("buffer", "gd", vim.lsp.buf.definition)
-  return nnoremap("buffer", "<Leader>lt", vim.lsp.buf.type_definition)
-end
 vim.diagnostic.config({underline = true, float = {show_header = false}, severity_sort = true, signs = true, virtual_text = false})
 local function _23_()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
@@ -326,59 +322,49 @@ nnoremap("yol", _23_)
 nnoremap("<Leader>dg", vim.diagnostic.setqflist)
 nnoremap("<Leader>dl", vim.diagnostic.setloclist)
 nnoremap("<Leader>do", vim.diagnostic.open_float)
+local function _26_()
+  nnoremap("buffer", "gd", vim.lsp.buf.definition)
+  return nnoremap("buffer", "<Leader>lt", vim.lsp.buf.type_definition)
+end
+au("myLsp", "LspAttach", "*", _26_)
 vim.opt.winborder = "single"
 fidget.setup({})
 vim.g["conjure#eval#result_register"] = "e"
 vim.g["conjure#log#botright"] = true
-local function _26_()
+local function _27_()
   return vim.diagnostic.enable(false, {bufnr = 0})
 end
-au("conjure-log", "BufNewFile", "conjure-log-*", _26_)
+au("conjure-log", "BufNewFile", "conjure-log-*", _27_)
 vim.g["conjure#filetypes"] = {"clojure", "fennel"}
 vim.g["conjure#eval#gsubs"] = {["do-comment"] = {"^%(comment[%s%c]", "(do "}}
 vim.g["conjure#mapping#doc_word"] = "k"
-local function _27_()
-  return lsp_buffer_mappings()
-end
-au("python", "FileType", "python", _27_)
 vim.lsp.enable("pylsp")
-local function _28_()
-  return lsp_buffer_mappings()
-end
-au("typescript", "FileType", {"typescript", "javascript", "typescriptreact", "javascriptreact"}, _28_)
 vim.lsp.enable("ts_ls")
 tsc.setup({auto_start_watch_mode = true, flags = {watch = true}})
-local function _29_()
-  lsp_buffer_mappings()
+local function _28_()
   local conf = {init_options = {statusBarProvider = "on"}, settings = {showImplicitArguments = true, showImplicitConversionsAndClasses = true, showInferredType = true, superMethodLensesEnabled = true, enableSemanticHighlighting = true, excludedPackages = {"akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl"}}}
   return metals.initialize_or_attach(vim.tbl_deep_extend("force", metals.bare_config(), conf))
 end
-au("scala", "FileType", {"scala", "sbt", "java"}, _29_)
-local function _30_()
-  lsp_buffer_mappings()
+au("scala", "FileType", {"scala", "sbt", "java"}, _28_)
+local function _29_()
   local root_dir = vim.fs.dirname(vim.fs.find({".git", "pom.xml"}, {upward = true})[1])
   local workspace_dir = vim.fn.expand(("~/.local/state/jdtls" .. root_dir))
   local conf = {cmd = {"jdtls", "-data", workspace_dir}, root_dir = root_dir, settings = {java = {configuration = {maven = {globalSettings = "/opt/homebrew/Cellar/atlassian-plugin-sdk/8.2.10/libexec/apache-maven-3.9.5/conf/settings.xml"}}, maven = {downloadSources = true}}}}
   return jdtls.start_or_attach(conf)
 end
-au("java", "FileType", {"java"}, _30_)
-local function _31_()
-  return lsp_buffer_mappings()
-end
-au("rust", "FileType", "rust", _31_)
+au("java", "FileType", {"java"}, _29_)
 vim.lsp.enable("rust_analyzer")
-local function _32_()
-  lsp_buffer_mappings()
+local function _30_()
   vim.opt_local.tabstop = 2
   vim.opt_local.softtabstop = 2
   vim.opt_local.shiftwidth = 2
   vim.opt_local.expandtab = true
   return nil
 end
-au("c", "FileType", {"c", "cpp"}, _32_)
+au("c", "FileType", {"c", "cpp"}, _30_)
 vim.lsp.enable("ccls")
 vim.g.sexp_filetypes = "clojure,scheme,lisp,fennel"
-local function _33_()
+local function _31_()
   xmap("buffer", "ip", "<Plug>(sexp_inner_element)<Plug>(sexp_move_to_next_element_tail)")
   omap("buffer", "ip", "<Cmd>normal vip<CR>")
   xmap("buffer", "iP", "<Plug>(sexp_inner_element)o<Plug>(sexp_move_to_prev_element_head)")
@@ -390,7 +376,7 @@ local function _33_()
   xmap("buffer", ">f", "<Plug>(sexp_swap_list_forward)")
   return xmap("buffer", "<f", "<Plug>(sexp_swap_list_backward)")
 end
-au("sexp", "FileType", {"clojure", "scheme", "lisp", "fennel"}, _33_)
+au("sexp", "FileType", {"clojure", "scheme", "lisp", "fennel"}, _31_)
 vim.g.sexp_enable_insert_mode_mappings = false
 autopairs.setup({disable_in_visualblock = true, enable_check_bracket_line = false})
 local function clj_ignore()
@@ -404,27 +390,26 @@ end
 local function conjure_eval(form)
   return vim.cmd.ConjureEval(form)
 end
-local function _34_()
-  lsp_buffer_mappings()
+local function _32_()
   xnoremap("buffer", "<Leader>cc", do_clj_ignore)
   nnoremap("buffer", "<Leader>cc", do_clj_ignore)
   nnoremap("buffer", "<Leader>cu", "<Cmd>let s=@/<CR>l?\\v(#_)+<CR>dgn:let @/=s<CR>")
-  local function _35_()
+  local function _33_()
     return vim.lsp.buf.execute_command({command = "move-form", arguments = {("file://" .. vim.fn.expand("%:p")), (vim.fn.line(".") - 1), (vim.fn.col(".") - 1), vim.fn.input("File: ", vim.fn.expand("%:p:h"), "file")}})
   end
-  nnoremap("buffer", "<Leader>lm", _35_)
-  local function _36_()
+  nnoremap("buffer", "<Leader>lm", _33_)
+  local function _34_()
     return conjure_eval("((requiring-resolve 'portal.api/open))")
   end
-  nnoremap("buffer", "<LocalLeader>po", _36_)
-  local function _37_()
+  nnoremap("buffer", "<LocalLeader>po", _34_)
+  local function _35_()
     return conjure_eval("((requiring-resolve 'portal.api/close))")
   end
-  nnoremap("buffer", "<LocalLeader>pc", _37_)
-  local function _38_()
+  nnoremap("buffer", "<LocalLeader>pc", _35_)
+  local function _36_()
     return conjure_eval("((requiring-resolve 'portal.api/clear))")
   end
-  nnoremap("buffer", "<LocalLeader>pr", _38_)
+  nnoremap("buffer", "<LocalLeader>pr", _36_)
   vim.opt_local.tabstop = 2
   vim.opt_local.softtabstop = 2
   vim.opt_local.shiftwidth = 2
@@ -433,16 +418,12 @@ local function _34_()
   vim.opt_local.suffixesadd = ".clj"
   return nil
 end
-au("clojure", "FileType", "clojure", _34_)
+au("clojure", "FileType", "clojure", _32_)
 vim.g["conjure#client#clojure#nrepl#test#runner"] = "clojure"
 vim.g["conjure#client#clojure#nrepl#eval#raw_out"] = true
 vim.g["conjure#client#clojure#nrepl#refresh#backend"] = "clj-reload"
 vim.lsp.enable("clojure_lsp")
 conform.formatters_by_ft.clojure = {"zprint"}
-local function _39_()
-  return lsp_buffer_mappings()
-end
-au("fennel", "FileType", "fennel", _39_)
 vim.lsp.enable("fennel_ls")
 vim.lsp.config("fennel_ls", {settings = {["fennel-ls"] = {["extra-globals"] = "vim"}}})
 conform.formatters_by_ft.fennel = {"fnlfmt"}
@@ -464,88 +445,79 @@ local function do_scm_ignore(form)
   vim.opt.operatorfunc = "v:lua.require'dotfiles'.scm_ignore"
   return vim.api.nvim_feedkeys(("g@" .. (form or "")), "m", false)
 end
-local function _40_()
+local function _37_()
   xnoremap("buffer", "<Leader>c", do_scm_ignore)
-  local function _41_()
+  local function _38_()
     return do_scm_ignore("aF")
   end
-  nnoremap("buffer", "<Leader>cc", _41_)
+  nnoremap("buffer", "<Leader>cc", _38_)
   nmap("buffer", "<Leader>cu", "<Cmd>let s=@/<CR>l?\v(#;)+<CR>dgn:let @/=s<CR>")
   nmap("buffer", "<Leader>pp", "<Plug>SlimeMotionSend<Plug>(sexp_outer_top_list)``")
   nnoremap("buffer", "K", "<Cmd>SlimeSend1 (pp <C-R><C-W>)<CR>")
   return nmap("buffer", "<Leader>lf", "ggvG=``")
 end
-au("scheme", "FileType", "scheme", _40_)
+au("scheme", "FileType", "scheme", _37_)
 vim.g.vrc_curl_opts = {["--connect-timeout"] = 10, ["--include"] = "", ["--location"] = "", ["--max-time"] = 60, ["--show-error"] = "", ["--silent"] = ""}
 vim.g.vrc_auto_format_response_patterns = {json = "jq", xml = "grep \"\\S\" | xmllint --format --nonet --recover -"}
-local function _42_()
-  local function _43_()
+local function _39_()
+  local function _40_()
     vim.b.vrc_debug = not vim.b.vrc_debug
     vim.b.vrc_show_command = vim.b.vrc_debug
-    local function _44_()
+    local function _41_()
       if vim.b.vrc_debug then
         return "debug"
       else
         return "nodebug"
       end
     end
-    return vim.notify(_44_())
+    return vim.notify(_41_())
   end
-  nnoremap("buffer", "<Leader>cd", _43_)
-  local function _45_()
+  nnoremap("buffer", "<Leader>cd", _40_)
+  local function _42_()
     vim.b.vrc_allow_get_request_body = not vim.b.vrc_allow_get_request_body
-    local function _46_()
+    local function _43_()
       if vim.b.vrc_allow_get_request_body then
         return "allow body"
       else
         return "disallow body"
       end
     end
-    return vim.notify(_46_())
+    return vim.notify(_43_())
   end
-  nnoremap("buffer", "<Leader>cb", _45_)
-  local function _47_()
+  nnoremap("buffer", "<Leader>cb", _42_)
+  local function _44_()
     vim.b.vrc_split_request_body = not vim.b.vrc_split_request_body
-    local function _48_()
+    local function _45_()
       if vim.b.vrc_split_request_body then
         return "split"
       else
         return "nosplit"
       end
     end
-    return vim.notify(_48_())
+    return vim.notify(_45_())
   end
-  nnoremap("buffer", "<Leader>cs", _47_)
-  local function _49_()
+  nnoremap("buffer", "<Leader>cs", _44_)
+  local function _46_()
     vim.b.vrc_output_buffer_name = ("[" .. vim.fn.expand("%:t") .. "@" .. vim.fn.strftime("%H:%M:%S") .. "]" .. string.gsub(vim.api.nvim_get_current_line(), "\"", "\\\""))
     return vim.fn.VrcQuery()
   end
-  return nnoremap("buffer", "<Leader>cc", _49_)
+  return nnoremap("buffer", "<Leader>cc", _46_)
 end
-au("rest", "FileType", "rest", _42_)
-local function _50_()
-  lsp_buffer_mappings()
+au("rest", "FileType", "rest", _39_)
+local function _47_()
   return vnoremap("buffer", "<Leader>tj", ":!pandoc -f gfm -t jira<CR>")
 end
-au("markdown", "FileType", "markdown", _50_)
+au("markdown", "FileType", "markdown", _47_)
 vim.g.markdown_syntax_conceal = false
 vim.g.markdown_folding = 1
-local function _51_()
+local function _48_()
   vim.opt_local.filetype = "glsl"
   return nil
 end
-au("glsl-detect", {"BufNewFile", "BufRead"}, {"*.glsl", "*.vert", "*.geom", "*.frag"}, _51_)
+au("glsl-detect", {"BufNewFile", "BufRead"}, {"*.glsl", "*.vert", "*.geom", "*.frag"}, _48_)
 conform.formatters_by_ft.glsl = {"clang-format"}
-local function _52_()
-  return lsp_buffer_mappings()
-end
-au("nix", "FileType", "nix", _52_)
 vim.lsp.enable("nixd")
 conform.formatters_by_ft.nix = {"nixpkgs_fmt"}
-local function _53_()
-  return lsp_buffer_mappings()
-end
-au("sql", "FileType", "sql", _53_)
 vim.lsp.enable("postgres_lsp")
 conform.formatters_by_ft.sql = {"pg_format"}
 conform.formatters.pg_format = {prepend_args = {"--spaces", "2", "--comma-break", "--function-case", "2", "--placeholder", "\\:[a-zA-Z-]+"}}
@@ -554,22 +526,22 @@ nnoremap("<Leader>av", "<Cmd>OtherVSplit<CR>")
 other.setup({mappings = {{pattern = "(.*)/src/(.*).clj", target = "%1/test/%2_test.clj"}, {pattern = "(.*)/test/(.*)_test.clj", target = "%1/src/%2.clj"}, {pattern = "(.*)/fnl/(.*).fnl", target = "%1/lua/%2.lua"}, {pattern = "(.*)/lua/(.*).lua", target = "%1/fnl/%2.fnl"}, {pattern = "(.*)/main/(.*).scala", target = "%1/test/%2Test.scala"}, {pattern = "(.*)/test/(.*)Test.scala", target = "%1/main/%2.scala"}, {pattern = "(.*)/main/(.*).scala", target = "%1/test/%2Spec.scala"}, {pattern = "(.*)/test/(.*)Spec.scala", target = "%1/main/%2.scala"}}})
 tnoremap("<Esc>", "<C-\\><C-n>")
 tnoremap("<C-v><Esc>", "<Esc>")
-local function _54_()
+local function _49_()
   vim.opt_local.winbar = "%{b:term_title}"
   vim.opt_local.bufhidden = "hide"
   return nil
 end
-au("terminal-open", "TermOpen", "*", _54_)
-local function _55_()
+au("terminal-open", "TermOpen", "*", _49_)
+local function _50_()
   if (vim.b.terminal_job_pid and vim.b.term_title) then
     return vim.cmd.file(("term:" .. vim.b.terminal_job_pid .. ":" .. vim.b.term_title))
   else
     return nil
   end
 end
-au("terminal-leave", "TermLeave", "*", _55_)
-local function _58_(_57_)
-  local path = _57_["args"]
+au("terminal-leave", "TermLeave", "*", _50_)
+local function _53_(_52_)
+  local path = _52_["args"]
   local path0
   if (path == "") then
     path0 = "%:h"
@@ -579,13 +551,13 @@ local function _58_(_57_)
   vim.cmd(table.concat({"vsplit", ("lcd " .. path0), "terminal"}, "|"))
   return vim.api.nvim_feedkeys("i", "n", false)
 end
-vim.api.nvim_create_user_command("Term", _58_, {nargs = "?", desc = "Open terminal"})
-local function _61_(_60_)
-  local suffix = _60_["args"]
+vim.api.nvim_create_user_command("Term", _53_, {nargs = "?", desc = "Open terminal"})
+local function _56_(_55_)
+  local suffix = _55_["args"]
   return vim.cmd.edit((vim.fn.tempname() .. "_" .. suffix))
 end
-vim.api.nvim_create_user_command("Scratch", _61_, {nargs = "?", desc = "New temporary file"})
-local function _62_()
+vim.api.nvim_create_user_command("Scratch", _56_, {nargs = "?", desc = "New temporary file"})
+local function _57_()
   local file_path = vim.api.nvim_buf_get_name(0)
   local protocol = string.match(file_path, "^[%w-]+://")
   if not protocol then
@@ -594,15 +566,15 @@ local function _62_()
     return nil
   end
 end
-au("autosave", {"FocusLost", "BufLeave", "CursorHold"}, {"*"}, _62_)
-local function _64_()
+au("autosave", {"FocusLost", "BufLeave", "CursorHold"}, {"*"}, _57_)
+local function _59_()
   return vim.cmd("silent! checktime")
 end
-au("autoread", {"FocusGained", "BufEnter", "CursorHold"}, {"*"}, _64_)
-local function _65_()
-  local _let_66_ = vim.api.nvim_buf_get_mark(0, "\"")
-  local line = _let_66_[1]
-  local col = _let_66_[2]
+au("autoread", {"FocusGained", "BufEnter", "CursorHold"}, {"*"}, _59_)
+local function _60_()
+  local _let_61_ = vim.api.nvim_buf_get_mark(0, "\"")
+  local line = _let_61_[1]
+  local col = _let_61_[2]
   local line_count = vim.api.nvim_buf_line_count(0)
   if (((1 <= line) and (line <= line_count)) and (vim.opt.ft:get() ~= "commit")) then
     return vim.api.nvim_win_set_cursor(0, {line, col})
@@ -610,10 +582,10 @@ local function _65_()
     return nil
   end
 end
-au("jump-to-last-postion", "BufReadPost", "*", _65_)
+au("jump-to-last-postion", "BufReadPost", "*", _60_)
 nmap("ga", "<Plug>(EasyAlign)")
 xmap("ga", "<Plug>(EasyAlign)")
-local function _68_()
+local function _63_()
   local word_under_cursor = vim.fn.expand("<cWORD>")
   local task = string.match(word_under_cursor, "NT%-%d+")
   if task then
@@ -622,5 +594,5 @@ local function _68_()
     return vim.notify(("Not a notion task '" .. word_under_cursor .. "'"), vim.log.levels.WARN)
   end
 end
-nnoremap("<Leader>gn", _68_)
+nnoremap("<Leader>gn", _63_)
 return {clj_ignore = clj_ignore, scm_ignore = scm_ignore}
