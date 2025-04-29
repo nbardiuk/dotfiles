@@ -22,35 +22,15 @@
 
   # The set of packages to appear in the user environment.
   home.packages = with pkgs; [
-    chromium
     google-fonts # collection of fonts
     iosevka-bin # monospace font
     keepassxc # password manager
-    libreoffice-fresh
-    tdesktop # chat app
     qbittorrent
-
     yt-dlp
-
-    # webtorrent_desktop
-
     protonvpn-gui
-
-    chrysalis
-
-    xsane
-
     nautilus
-    flameshot
-
-
-    scrcpy # android control
-    gnirehtet # android reverse tethering
-    # libsForQt5.kdeconnect-kde # kde connect remote android
-
-    v4l-utils # video4linux devices
-
-    obsidian # notes
+    remmina
+    vlc
   ];
 
   nixpkgs.config.allowUnfree = true;

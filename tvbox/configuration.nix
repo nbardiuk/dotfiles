@@ -23,7 +23,7 @@
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true; # enables opengl for 32bit apps
 
-  programs.steam.enable = true;
+  programs.steam.enable = false;
 
   hardware.xone.enable = true;
 
@@ -113,7 +113,7 @@
   nix = {
     settings.substituters = [ "https://cache.nixos.org/" ];
     settings.trusted-users = [ "root" "nazarii" ];
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
@@ -154,6 +154,7 @@
     enable = true;
     user = "nazarii";
     group = "users";
+    dataDir = "/home/nazarii/.config/jackett";
   };
 
   services.sonarr = {
@@ -170,12 +171,7 @@
     openFirewall = true;
   };
 
-  # /tmp for small files
-  # /var/tmp for large files
-  boot.tmp.useTmpfs = true;
-  systemd.services.nix-daemon = {
-    environment.TMPDIR = "/var/tmp";
-  };
+  boot.tmp.cleanOnBoot = true;
 
   hardware.new-lg4ff.enable = true; # Logitech G29 wheel drivers https://github.com/berarma/new-lg4ff
   services.udev.packages = with pkgs; [

@@ -97,6 +97,7 @@ in
           { command = "dropbox start -i"; notification = false; }
           { command = "firefox"; }
           { command = "keepassxc"; }
+          { command = "kbdd"; }
         ];
       };
   };
