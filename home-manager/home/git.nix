@@ -87,6 +87,8 @@ in
       ".lein-failures"
       ".nrepl-port"
       ".cpcache/"
+      "**/.clj-kondo/.cache"
+      "**/.clj-kondo/imports"
       # c/cpp
       ".ccls-cache"
       # syncthing
