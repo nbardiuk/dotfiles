@@ -61,8 +61,8 @@
           Reduce minimum width of the sidebar
           https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#reduce-minimum-width-of-the-sidebar-1373
         */
-        #sidebar {
-          min-width: 16px !important;
+        #sidebar-box {
+          min-width: 64px !important;
         }
 
         /*
