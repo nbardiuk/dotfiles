@@ -127,6 +127,7 @@
 
   services.thermald.enable = true;
 
+  security.pam.services.i3lock.enable = true;
   # https://github.com/vitejs/vite/issues/5310#issuecomment-949349291
   security.pam.loginLimits = [
     {

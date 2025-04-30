@@ -75,6 +75,7 @@
   musnix.enable = true;
   musnix.soundcardPciId = "00:1f.3";
 
+  security.pam.services.i3lock.enable = true;
   security.rtkit.enable = true;
   services.pipewire =
     let
