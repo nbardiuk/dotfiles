@@ -283,6 +283,4 @@
   systemd.extraConfig = ''
     DefaultTimeoutStopSec=10s
   '';
-
-  services.jackett.enable = true;
 }
