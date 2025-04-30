@@ -35,11 +35,11 @@
     "conform": {
       "flake": false,
       "locked": {
-        "lastModified": 1744822734,
-        "narHash": "sha256-/I8A/JQT+QtQZL9HJFDoDB6mY9/8sAe5uU0sKQ+CZDc=",
+        "lastModified": 1745180802,
+        "narHash": "sha256-J/GKqn2VHv/ydaFXWCFduV2B7iwZzHtUvFArszxf2Cw=",
         "ref": "refs/heads/master",
-        "rev": "6632e7d788a85bf8405ea0c812d343fc308b7b8c",
-        "revCount": 682,
+        "rev": "372fc521f8421b7830ea6db4d6ea3bae1c77548c",
+        "revCount": 687,
         "type": "git",
         "url": "https://github.com/stevearc/conform.nvim"
       },
@@ -51,11 +51,11 @@
     "conjure": {
       "flake": false,
       "locked": {
-        "lastModified": 1745144478,
-        "narHash": "sha256-aK4GpYkHZbcmT1uw7Z9OTEQ8tTUHlVKUpqaMeynknYg=",
+        "lastModified": 1745875484,
+        "narHash": "sha256-1aSdYmEMDiYzpIKD+JIM3Qc33lV6RS9Mm3QMydy51pA=",
         "ref": "refs/heads/main",
-        "rev": "dc929e83287d84ac40a8e9635aa806415143beff",
-        "revCount": 2765,
+        "rev": "5a198c0a3f2bf3d707faed9756d5bd075d5cefcb",
+        "revCount": 2800,
         "type": "git",
         "url": "https://github.com/Olical/conjure"
       },
@@ -212,11 +212,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1745128386,
-        "narHash": "sha256-xnNxL9lZC5Ez8AxTgHZZu8pYSNM34+5GD5jGSs8Vq4M=",
+        "lastModified": 1745987135,
+        "narHash": "sha256-8Up4QPuMZEJBU0eefAY+nUe7DYKQQzvaHnMpNdwRgKA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f98314bb064cf8f8446c44afbadaaad2505875a7",
+        "rev": "d2b3e6c83d457aa0e7f9344c61c3fed32bad0f7e",
         "type": "github"
       },
       "original": {
@@ -258,11 +258,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1745140216,
-        "narHash": "sha256-AiIAmPZGrFTcs3+MPPcsZPgJPojR2jAUr0pe700itNI=",
+        "lastModified": 1745993004,
+        "narHash": "sha256-Tz/mPxMwAMghdi3nYnppkl6j3H3LdcdbuvmJyQj11JU=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "f7eecd420be30e10192f386e38d3484b409dc5c7",
+        "rev": "5cde8950cf2fa3ef8edf9b0af0e0a020a5318565",
         "type": "github"
       },
       "original": {
@@ -274,11 +274,11 @@
     "neovim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1745061043,
-        "narHash": "sha256-XrXfj+zLLwqDN/pjovwuKkVCkkNS/kcV2/7rrEmT+fQ=",
+        "lastModified": 1745965750,
+        "narHash": "sha256-GtRcW1p7hzFu7AK1JXJGY6bG/5Y7vb+1VX8uFGKdefM=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "c7d8812ca785864bdbdeac72efcd611bfb6e506c",
+        "rev": "0ab0cdb2dabc551f836851aa85d06e927c42d92a",
         "type": "github"
       },
       "original": {
@@ -290,11 +290,11 @@
     "nfnl": {
       "flake": false,
       "locked": {
-        "lastModified": 1745102338,
-        "narHash": "sha256-/nYjOjTjlmNCOSbMVNnBNY+GVKwA0C7hVcqnIFBgjYU=",
+        "lastModified": 1745665091,
+        "narHash": "sha256-ug2vAVI3C99TZxFpXw/+AJLRAc+3FLq92bFVhkZUL7A=",
         "ref": "refs/heads/main",
-        "rev": "9f05512f3d933d3aba6ae067f5cb58e891be31a6",
-        "revCount": 262,
+        "rev": "6bcfdc4ab9f23c381590d78fa55ee79abebbe9c5",
+        "revCount": 288,
         "type": "git",
         "url": "https://github.com/Olical/nfnl"
       },
@@ -310,11 +310,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744478979,
-        "narHash": "sha256-dyN+teG9G82G+m+PX/aSAagkC+vUv0SgUw3XkPhQodQ=",
+        "lastModified": 1745816321,
+        "narHash": "sha256-Gyh/fkCDqVNGM0BWvk+4UAS17w2UI6iwnbQQCmc1TDI=",
         "owner": "LnL7",
         "repo": "nix-darwin",
-        "rev": "43975d782b418ebf4969e9ccba82466728c2851b",
+        "rev": "4515dacafb0ccd42e5395aacc49fd58a43027e01",
         "type": "github"
       },
       "original": {
@@ -325,11 +325,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1744633460,
-        "narHash": "sha256-fbWE4Xpw6eH0Q6in+ymNuDwTkqmFmtxcQEmtRuKDTTk=",
+        "lastModified": 1745955289,
+        "narHash": "sha256-mmV2oPhQN+YF2wmnJzXX8tqgYmUYXUj3uUUBSTmYN5o=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "9a049b4a421076d27fee3eec664a18b2066824cb",
+        "rev": "72081c9fbbef63765ae82bff9727ea79cc86bd5b",
         "type": "github"
       },
       "original": {
@@ -341,11 +341,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1744932701,
-        "narHash": "sha256-fusHbZCyv126cyArUwwKrLdCkgVAIaa/fQJYFlCEqiU=",
+        "lastModified": 1745930157,
+        "narHash": "sha256-y3h3NLnzRSiUkYpnfvnS669zWZLoqqI6NprtLQ+5dck=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "b024ced1aac25639f8ca8fdfc2f8c4fbd66c48ef",
+        "rev": "46e634be05ce9dc6d4db8e664515ba10b78151ae",
         "type": "github"
       },
       "original": {
@@ -374,17 +374,17 @@
     "none-ls": {
       "flake": false,
       "locked": {
-        "lastModified": 1744894809,
-        "narHash": "sha256-bWdnIcaaoG3RIAmRijqx9Z2hsVcXqH9ACzVTjpuc7h8=",
+        "lastModified": 1745849319,
+        "narHash": "sha256-nZvUWJpd/uTOwMQpy2ZGMHZ32z9M+IVB1ME4dvDFz8g=",
         "ref": "refs/heads/main",
-        "rev": "fb50cf17e926a037c9f8d96d8db29ddbd04965d4",
-        "revCount": 2301,
+        "rev": "30aa4964496e82774a443824108042e4db351353",
+        "revCount": 2310,
         "type": "git",
-        "url": "https://github.com/nvimtools/none-ls.nvim"
+        "url": "https://github.com/ulisses-cruz/none-ls.nvim"
       },
       "original": {
         "type": "git",
-        "url": "https://github.com/nvimtools/none-ls.nvim"
+        "url": "https://github.com/ulisses-cruz/none-ls.nvim"
       }
     },
     "nvim-grey": {
@@ -406,11 +406,11 @@
     "other-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1742930941,
-        "narHash": "sha256-n1R1mftE2HuluROGjgUcHM2n1tTQXjZrSLEqTx6Wq5g=",
+        "lastModified": 1745596612,
+        "narHash": "sha256-bTwySPkpBNaAF/n7KBO+VSmlMnm/XaK2LaQ3/plnw2I=",
         "ref": "refs/heads/main",
-        "rev": "20128ea7158dd12df619283a45f336182b369294",
-        "revCount": 126,
+        "rev": "b3c6f5ab91da0adb8b160941e4a0f3539c13a8ef",
+        "revCount": 128,
         "type": "git",
         "url": "https://github.com/rgroli/other.nvim"
       },
@@ -449,11 +449,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744961264,
-        "narHash": "sha256-aRmUh0AMwcbdjJHnytg1e5h5ECcaWtIFQa6d9gI85AI=",
+        "lastModified": 1745929750,
+        "narHash": "sha256-k5ELLpTwRP/OElcLpNaFWLNf8GRDq4/eHBmFy06gGko=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "8d404a69efe76146368885110f29a2ca3700bee6",
+        "rev": "82bf32e541b30080d94e46af13d46da0708609ea",
         "type": "github"
       },
       "original": {
