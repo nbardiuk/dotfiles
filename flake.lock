@@ -374,17 +374,17 @@
     "none-ls": {
       "flake": false,
       "locked": {
-        "lastModified": 1745849319,
-        "narHash": "sha256-nZvUWJpd/uTOwMQpy2ZGMHZ32z9M+IVB1ME4dvDFz8g=",
+        "lastModified": 1746066383,
+        "narHash": "sha256-Yg3VpsXhdbz195BHfZ2P+nfn5yrgyXbxjoOPrLvSJnQ=",
         "ref": "refs/heads/main",
-        "rev": "30aa4964496e82774a443824108042e4db351353",
-        "revCount": 2310,
+        "rev": "a49f5a79cdb76e0dc1a98899c8598f4db014c5e7",
+        "revCount": 2312,
         "type": "git",
-        "url": "https://github.com/ulisses-cruz/none-ls.nvim"
+        "url": "https://github.com/nvimtools/none-ls.nvim"
       },
       "original": {
         "type": "git",
-        "url": "https://github.com/ulisses-cruz/none-ls.nvim"
+        "url": "https://github.com/nvimtools/none-ls.nvim"
       }
     },
     "nvim-grey": {

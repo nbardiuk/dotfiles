@@ -38,8 +38,7 @@
     nfnl.url = "git+https://github.com/Olical/nfnl";
 
     none-ls.flake = false;
-    # TODO revert when merged https://github.com/nvimtools/none-ls.nvim/pull/277
-    none-ls.url = "git+https://github.com/ulisses-cruz/none-ls.nvim";
+    none-ls.url = "git+https://github.com/nvimtools/none-ls.nvim";
 
     nvim-grey.flake = false;
     nvim-grey.url = "git+https://github.com/yorickpeterse/nvim-grey";
