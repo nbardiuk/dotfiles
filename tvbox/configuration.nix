@@ -172,6 +172,22 @@
     openFirewall = true;
   };
 
+  services.frp.enable = true;
+  services.frp.role = "client";
+  services.frp.settings = {
+    serverAddr = "168.119.173.142";
+    serverPort = 7000;
+    proxies = [
+      {
+        name = "plex";
+        type = "tcp";
+        localIP = "127.0.0.1";
+        localPort = 32400;
+        remotePort = 32400;
+      }
+    ];
+  };
+
   boot.tmp.cleanOnBoot = true;
 
   hardware.new-lg4ff.enable = true; # Logitech G29 wheel drivers https://github.com/berarma/new-lg4ff
