@@ -1,13 +1,11 @@
 (local autopairs (require :nvim-autopairs))
+(local blink-cmp (require :blink.cmp))
 (local c (require :nfnl.core))
-(local cmp (require :cmp))
-(local cmp_nvim_lsp (require :cmp_nvim_lsp))
 (local conform (require :conform))
 (local dressing (require :dressing))
 (local fidget (require :fidget))
 (local jdtls (require :jdtls))
 (local lualine (require :lualine))
-(local luasnip (require :luasnip))
 (local metals (require :metals))
 (local null-ls (require :null-ls))
 (local oil (require :oil))
@@ -103,48 +101,20 @@
 (dressing.setup
   {:select {:telescope (themes.get_ivy {:layout_config {:height bottom-height}})}})
 
-(cmp.setup
-  {:sources [{:name :nvim_lsp}
-             {:name :conjure}
-             {:name :treesitter}
-             {:name :lausnip}
-             {:name :path}
-             {:name :buffer
-              :keyword_length 5
-              :options {:get_bufnrs #(vim.api.nvim_list_bufs)}}
-             {:name :spell
-              :keyword_length 5}]
-   :snippet {:expand #(luasnip.lsp_expand (. $1 :body))}
-   :mapping {"<C-n>"   (cmp.mapping #(if
-                                       (cmp.visible)                (cmp.select_next_item)
-                                       (luasnip.expand_or_jumpable) (luasnip.expand_or_jump)
-                                       ($1)) [:i :s])
-             "<C-p>"   (cmp.mapping #(if
-                                       (cmp.visible)         (cmp.select_prev_item)
-                                       (luasnip.jumpable -1) (luasnip.jump -1)
-                                       ($1)) [:i :s])
-             "<C-d>"   (cmp.mapping.scroll_docs -4)
-             "<C-u>"   (cmp.mapping.scroll_docs 4)
-             "<C-e>"   (cmp.mapping.close)
-             "<Space>" (cmp.mapping.confirm {:select false})}})
-
-(cmp.setup.cmdline :/ {
-  :mapping (cmp.mapping.preset.cmdline)
-  :sources [{:name :buffer}]})
-
-(cmp.setup.cmdline :: {
-  :mapping (cmp.mapping.preset.cmdline)
-  :sources [{:name :path}
-            {:name :cmdline}]
-  :matching {:disallow_symbol_nonprefix_matching false}})
+(blink-cmp.setup
+  {:completion {:keyword {:range         :full}
+                :accept  {:auto_brackets {:enabled false}}}
+   :signature  {:enabled true}
+   :snippets   {:preset :luasnip}
+   :fuzzy      {:implementation :prefer_rust_with_warning}})
 
 (local lsp-capabilities
   (vim.tbl_deep_extend
     :force
     (vim.lsp.protocol.make_client_capabilities)
-    (cmp_nvim_lsp.default_capabilities)
-    {:workspace {:didChangeWatchedFiles {:dynamicRegistration true}
-                 :workspaceEdit         {:documentChanges     true}}}))
+    (blink-cmp.get_lsp_capabilities
+       {:workspace {:didChangeWatchedFiles {:dynamicRegistration true}
+                    :workspaceEdit         {:documentChanges     true}}})))
 (vim.lsp.config :* {:capabilities lsp-capabilities})
 
 (surround.setup {})
@@ -524,9 +494,7 @@
                               :enableSemanticHighlighting true
                               :excludedPackages [:akka.actor.typed.javadsl
                                                  :com.github.swagger.akka.javadsl]}}]
-         (metals.initialize_or_attach (vim.tbl_deep_extend :force
-                                                           (metals.bare_config)
-                                                           conf)))))
+         (metals.initialize_or_attach (vim.tbl_deep_extend :force (metals.bare_config) conf)))))
 
 ;; Java
 (au :java :FileType [:java]
@@ -619,6 +587,8 @@
        (nnoremap :buffer :<LocalLeader>pc #(conjure-eval "((requiring-resolve 'portal.api/close))"))
        (nnoremap :buffer :<LocalLeader>pr #(conjure-eval "((requiring-resolve 'portal.api/clear))"))
 
+       (nnoremap :buffer :<LocalLeader>rg #(conjure-eval "(user/reset)"))
+
        (set vim.opt_local.tabstop 2)
        (set vim.opt_local.softtabstop 2)
        (set vim.opt_local.shiftwidth 2)
@@ -638,7 +608,7 @@
 ;;       :reporter kaocha.report/documentation
 ;;       :tests [{:kaocha.testable/skip-add-classpath? true}]}")
 (set vim.g.conjure#client#clojure#nrepl#eval#raw_out true)
-(set vim.g.conjure#client#clojure#nrepl#refresh#backend :clj-reload)
+; (set vim.g.conjure#client#clojure#nrepl#refresh#backend :clj-reload)
 
 (vim.lsp.enable :clojure_lsp)
 (set conform.formatters_by_ft.clojure [:zprint])
@@ -693,6 +663,9 @@
 (set vim.g.vrc_auto_format_response_patterns
      {:json "jq"
       :xml (.. "grep \"\\S\" | xmllint --format --nonet --recover -")})
+
+;; disable default mapping
+(set vim.g.vrc_set_default_mapping 0)
 
 (au :rest :FileType :rest
     #(do

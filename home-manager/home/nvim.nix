@@ -14,14 +14,7 @@
       ps.jsregexp # for luasnip
     ];
     plugins = with pkgs.vimPlugins; [
-      cmp-buffer # buffer text source for nvim-cmp
-      cmp-cmdline # command line source for nvim-cmp
-      cmp-conjure # conjure source for nvim-cmp
-      cmp-nvim-lsp # lsp source for nvim-cmp
-      cmp-path # filesystem source for nvim-cmp
-      cmp-spell # spelling source for nvim-cmp
-      cmp-treesitter # tree sitter source for nvim-cmp
-      cmp_luasnip # integrates luasnip with nvim-cmp
+      blink-cmp
       dressing-nvim # vim.select and vim.input
       ferret
       fidget-nvim # lsp progress widget
@@ -30,7 +23,6 @@
       luasnip # snippets manager
       markdown-preview-nvim
       nvim-autopairs
-      nvim-cmp # completion manager
       nvim-jdtls
       nvim-lspconfig
       nvim-metals

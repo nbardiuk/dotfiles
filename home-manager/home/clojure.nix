@@ -20,9 +20,11 @@ in
                     hashp/hashp                 {:mvn/version "RELEASE"}
                     djblue/portal               {:mvn/version "RELEASE"}
                     lambdaisland/kaocha         {:mvn/version "RELEASE"}
-                    pjstadig/humane-test-output {:mvn/version "RELEASE"}}
+                    pjstadig/humane-test-output {:mvn/version "RELEASE"}
+                    org.clojars.abhinav/snitch  {:mvn/version "RELEASE"}}
        :jvm-opts ["-Djdk.attach.allowAttachSelf"]
-       :main-opts  ["-e" "(require,'hashp.core)"
+       :main-opts  ["-e" "(require 'hashp.core)"
+                    "-e" "(require '[snitch.core :refer [defn* defmethod* *fn *let]])"
                     "-e" "((requiring-resolve 'portal.api/tap))"
                     "-e" "((requiring-resolve 'pjstadig.humane-test-output/activate!))"
                     "--main" "nrepl.cmdline"
