@@ -164,12 +164,6 @@
   services.xserver.dpi = 120; # 96 120 144 168 192 to avoid artifacts https://wiki.archlinux.org/title/Xorg#Setting_DPI_manually
   services.xserver.xrandrHeads = [
     {
-      output = "DP-3";
-      monitorConfig = ''
-        DisplaySize 597 336
-      '';
-    }
-    {
       output = "eDP-1";
       monitorConfig = ''
         DisplaySize 344 215

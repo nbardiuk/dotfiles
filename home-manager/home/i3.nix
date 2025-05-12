@@ -195,6 +195,24 @@ in
   services.udiskie.enable = true;
   services.pasystray.enable = true; # pulse audio applet
 
+  services.grobi.enable = true;
+  services.grobi.rules = [
+    {
+      name = "desktop";
+      outputs_connected = [ "HDMI-1" "eDP-1" ];
+      configure_row = [ "HDMI-1" "eDP-1" ];
+      primary = "HDMI-1";
+      atomic = true;
+    }
+    {
+      name = "single";
+      outputs_connected = [ "eDP-1" ];
+      configure_single = "eDP-1";
+      primary = "eDP-1";
+      atomic = true;
+    }
+  ];
+
   home.packages = with pkgs; [
     arandr # monitor settings GUI
     feh # image viewer, manages wallpaper
