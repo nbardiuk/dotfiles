@@ -65,6 +65,7 @@
         p.scss
         p.sql
         p.ssh_config
+        p.swift
         p.typescript
         p.xml
         p.yaml
@@ -138,6 +139,7 @@
     fnlfmt
     nixd # nix language server
     jdt-language-server
+    sourcekit-lsp # swift lsp
     inotify-tools # for lsp file watcher
   ];
 }

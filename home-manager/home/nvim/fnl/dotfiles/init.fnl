@@ -554,6 +554,9 @@
        (set vim.opt_local.expandtab true)))
 (vim.lsp.enable :ccls)
 
+;; Swift
+(vim.lsp.enable :sourcekit)
+
 
 ;; Sexp
 (set vim.g.sexp_filetypes "clojure,scheme,lisp,fennel")

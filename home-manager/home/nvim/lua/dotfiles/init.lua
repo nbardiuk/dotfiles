@@ -363,6 +363,7 @@ local function _30_()
 end
 au("c", "FileType", {"c", "cpp"}, _30_)
 vim.lsp.enable("ccls")
+vim.lsp.enable("sourcekit")
 vim.g.sexp_filetypes = "clojure,scheme,lisp,fennel"
 local function _31_()
   xmap("buffer", "ip", "<Plug>(sexp_inner_element)<Plug>(sexp_move_to_next_element_tail)")
