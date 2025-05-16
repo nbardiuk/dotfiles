@@ -203,6 +203,9 @@ in
       configure_row = [ "HDMI-1" "eDP-1" ];
       primary = "HDMI-1";
       atomic = true;
+      execute_after = (map
+        (w: ''${pkgs.i3}/bin/i3-msg "workspace ${w}; move workspace to output primary"'')
+        [ "10" "9" "8" "7" "6" "5" "2" "1" ]);
     }
     {
       name = "single";
