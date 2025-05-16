@@ -721,11 +721,7 @@
         "label": {"base": {"full": "Blocked", "1u": "Blkd"}},
         "categories": ["blanks"]
       },
-      {
-        "code": 0,
-        "label": {"base": {"full": "Blocked", "1u": "Blkd"}},
-        "categories": ["blanks"]
-      },
+      {"code": 70, "label": {"base": {"full": "Print Screen", "1u": "PrSc"}}},
       {
         "code": 18544,
         "legacyCode": 23664,
