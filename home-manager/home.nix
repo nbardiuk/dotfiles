@@ -168,7 +168,6 @@
     dbeaver-bin
 
     nautilus
-    flameshot
 
     lazydocker
 

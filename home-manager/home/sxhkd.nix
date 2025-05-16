@@ -40,6 +40,9 @@ with lib;
       "super + ctrl + comma"         = "dunstctl history-pop";
       "super + ctrl + slash"         = "dunstctl close";
       "super + ctrl + period"        = "dunstctl context";
+      "Print"                        = "flameshot gui";
+      "shift + Print"                = "flameshot full";
+      "ctrl + Print"                 = "flameshot screen";
     };
   };
 }

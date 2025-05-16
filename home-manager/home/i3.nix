@@ -213,6 +213,14 @@ in
     }
   ];
 
+  services.flameshot.enable = true;
+  services.flameshot.settings = {
+    General = {
+      showStartupLaunchMessage = false;
+      showHelp = false;
+    };
+  };
+
   home.packages = with pkgs; [
     arandr # monitor settings GUI
     feh # image viewer, manages wallpaper
