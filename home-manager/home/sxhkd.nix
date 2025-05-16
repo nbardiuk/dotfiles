@@ -43,6 +43,7 @@ with lib;
       "Print"                        = "flameshot gui";
       "shift + Print"                = "flameshot full";
       "ctrl + Print"                 = "flameshot screen";
+      "super + ctrl + p"             = "CM_LAUNCHER=rofi clipmenu -i -p clipmenu";
     };
   };
 }

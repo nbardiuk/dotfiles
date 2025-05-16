@@ -224,6 +224,9 @@ in
     };
   };
 
+  services.clipmenu.enable = true;
+  systemd.user.services.clipmenu.Service.Environment = [ "CM_IGNORE_WINDOW=KeePassXC" ];
+
   home.packages = with pkgs; [
     arandr # monitor settings GUI
     feh # image viewer, manages wallpaper
