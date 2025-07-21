@@ -89,6 +89,7 @@ in
       ".cpcache/"
       "**/.clj-kondo/.cache"
       "**/.clj-kondo/imports"
+      ".shadow-cljs"
       # c/cpp
       ".ccls-cache"
       # syncthing

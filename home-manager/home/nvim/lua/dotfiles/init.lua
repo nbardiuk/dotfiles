@@ -497,7 +497,7 @@ vim.lsp.enable("nixd")
 conform.formatters_by_ft.nix = {"nixpkgs_fmt"}
 vim.lsp.enable("postgres_lsp")
 conform.formatters_by_ft.sql = {"pg_format"}
-conform.formatters.pg_format = {prepend_args = {"--spaces", "2", "--comma-break", "--function-case", "2", "--placeholder", "\\:[a-zA-Z-]+"}}
+conform.formatters.pg_format = {prepend_args = {"--spaces", "2", "--comma-break", "--function-case", "2", "--placeholder", "\\s:[a-zA-Z-]+"}}
 nnoremap("<Leader>aa", "<Cmd>Other<CR>")
 nnoremap("<Leader>av", "<Cmd>OtherVSplit<CR>")
 other.setup({mappings = {{pattern = "(.*)/src/(.*).clj", target = "%1/test/%2_test.clj"}, {pattern = "(.*)/test/(.*)_test.clj", target = "%1/src/%2.clj"}, {pattern = "(.*)/fnl/(.*).fnl", target = "%1/lua/%2.lua"}, {pattern = "(.*)/lua/(.*).lua", target = "%1/fnl/%2.fnl"}, {pattern = "(.*)/main/(.*).scala", target = "%1/test/%2Test.scala"}, {pattern = "(.*)/test/(.*)Test.scala", target = "%1/main/%2.scala"}, {pattern = "(.*)/main/(.*).scala", target = "%1/test/%2Spec.scala"}, {pattern = "(.*)/test/(.*)Spec.scala", target = "%1/main/%2.scala"}}})

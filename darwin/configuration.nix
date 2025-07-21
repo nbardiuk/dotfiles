@@ -1,11 +1,12 @@
-{ pkgs, ... }:
+{ ... }:
 {
   nix.settings.experimental-features = "nix-command flakes";
   nix.settings.trusted-users = [ "nazarii" ];
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config.allowUnfree = true;
   programs.zsh.enable = true;
-  system.stateVersion = 4;
+  system.stateVersion = 5;
+  system.primaryUser = "nazarii";
   users.users.nazarii.home = "/Users/nazarii";
 
   # enable repeating keys
@@ -13,36 +14,35 @@
 
   homebrew.enable = true;
   homebrew.taps = [
-    "atlassian/tap"
-    "hashicorp/tap"
   ];
   homebrew.brews = [
-    "atlassian/tap/atlassian-plugin-sdk"
-    "hashicorp/tap/vault"
-    "nvm"
-    "ruby"
+    "cocoapods"
+    "ffmpeg"
+    "podman"
+    "podman-compose"
   ];
   homebrew.casks = [
     "caffeine"
-    "docker"
+    "dbeaver-community"
     "elgato-wave-link"
+    "firefox"
+    "google-chrome"
     "grammarly-desktop"
+    "karabiner-elements"
     "macs-fan-control"
+    "obs"
+    "podman-desktop"
+    "raycast"
     "rectangle"
+    "slack"
     "stats"
-    "temurin@8"
-    "temurin@17"
     "temurin@21"
-    "whichspace"
+    "transcribe"
   ];
   homebrew.onActivation.cleanup = "uninstall";
 
-  environment.systemPackages = with pkgs; [
-    slack
-  ];
-
   networking.dns = [ "8.8.8.8" "1.1.1.1" ];
-  networking.hostName = "bardiuk-exalate";
+  networking.hostName = "bardiuk-mac";
   networking.knownNetworkServices = [
     "Wi-Fi"
     "Thunderbolt Ethernet"

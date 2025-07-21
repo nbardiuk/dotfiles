@@ -715,7 +715,7 @@
      {:prepend_args ["--spaces" "2" ; indentation, default 4 spaces
                      "--comma-break" ; in insert statement, add a newline after each comma
                      "--function-case" "2" ; uppercase function name
-                     "--placeholder" "\\:[a-zA-Z-]+" ; regex for code that must not be changed `:place-holder`
+                     "--placeholder" "\\s:[a-zA-Z-]+" ; regex for code that must not be changed `:place-holder`
                      ]})
 
 ;; Terraform

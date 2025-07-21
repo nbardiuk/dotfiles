@@ -14,7 +14,7 @@ tvbox:
 
 .PHONY: darwin
 darwin:
-	nix run nix-darwin -- switch --flake .#darwin
+	sudo nix run nix-darwin -- switch --flake .#darwin
 
 .PHONY: gc
 gc:
