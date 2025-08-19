@@ -1,4 +1,4 @@
-{ pkgs, mypkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./home/alacritty.nix
@@ -134,6 +134,7 @@
     gthumb
     shotwell
 
+    xnviewmp
     curtail # image compression
     imagemagick
 
@@ -170,6 +171,10 @@
     nautilus
 
     lazydocker
+    docker-compose
+
+    libva-utils
+    intel-gpu-tools
 
     scrcpy # android control
     gnirehtet # android reverse tethering
@@ -194,6 +199,8 @@
 
     fastlane # builds for ios and android
     flyctl # fly.io cli
+
+    remmina
   ];
 
   home.stateVersion = "23.05";

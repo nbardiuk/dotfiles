@@ -26,6 +26,7 @@
   networking.firewall.allowedTCPPorts = [
     # 9876 # mpv webui
     22000 # syncthing listener
+    8080
   ];
   networking.firewall.allowedUDPPorts = [
     22000 # syncthing listener

@@ -12,4 +12,17 @@
       page-padding = 0; # The page padding defines the gap in pixels between each rendered page.
     };
   };
+
+  xdg.mime.enable = true;
+  xdg.desktopEntries = {
+    zathura = {
+      name = "zathura";
+      type = "Application";
+      comment = "A minimalistic PDF viewer";
+      exec = "zathura --fork %f";
+      terminal = false;
+      categories = [ "Office" "Viewer" ];
+      mimeType = [ "application/pdf" ];
+    };
+  };
 }
