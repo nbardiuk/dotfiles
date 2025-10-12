@@ -14,9 +14,10 @@
     obsidian
     iosevka-bin # monospace font
     keepassxc
-    flyctl
+    # flyctl
     flameshot
     yt-dlp
+    mtr
   ];
   home.stateVersion = "24.05";
   xdg.enable = true;

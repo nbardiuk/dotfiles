@@ -18,10 +18,13 @@
   homebrew.brews = [
     "cocoapods"
     "ffmpeg"
+    "flyctl"
     "podman"
     "podman-compose"
+    "scrcpy"
   ];
   homebrew.casks = [
+    "android-platform-tools"
     "caffeine"
     "dbeaver-community"
     "elgato-wave-link"
@@ -33,9 +36,11 @@
     "obs"
     "podman-desktop"
     "raycast"
+    "reaper"
     "rectangle"
     "slack"
     "stats"
+    "tailscale-app"
     "temurin@21"
     "transcribe"
   ];
