@@ -39,5 +39,6 @@
     process-compose
 
     tcpdump
+    usbutils
   ];
 }
