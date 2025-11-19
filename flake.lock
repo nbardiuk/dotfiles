@@ -16,6 +16,22 @@
         "url": "https://github.com/chrisbra/colorizer"
       }
     },
+    "clay-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1747612828,
+        "narHash": "sha256-iS0JEdu4jV4s8sEQ1wDoyzJNYcIa0vUSBUSJDv6qG/g=",
+        "ref": "refs/heads/main",
+        "rev": "6e901092e6305156a299a45c8679dc660ae30bbd",
+        "revCount": 22,
+        "type": "git",
+        "url": "https://github.com/radovanne/clay.nvim"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/radovanne/clay.nvim"
+      }
+    },
     "co-author": {
       "flake": false,
       "locked": {
@@ -422,6 +438,7 @@
     "root": {
       "inputs": {
         "chrisbra-colorizer": "chrisbra-colorizer",
+        "clay-nvim": "clay-nvim",
         "co-author": "co-author",
         "conform": "conform",
         "conjure": "conjure",

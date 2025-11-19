@@ -25,6 +25,9 @@
     chrisbra-colorizer.flake = false;
     chrisbra-colorizer.url = "git+https://github.com/chrisbra/colorizer";
 
+    clay-nvim.flake = false;
+    clay-nvim.url = "git+https://github.com/radovanne/clay.nvim";
+
     co-author.flake = false;
     co-author.url = "git+https://github.com/2KAbhishek/co-author.nvim";
 

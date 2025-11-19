@@ -1,6 +1,7 @@
 (local autopairs (require :nvim-autopairs))
 (local blink-cmp (require :blink.cmp))
 (local c (require :nfnl.core))
+(local clay (require :clay))
 (local conform (require :conform))
 (local dressing (require :dressing))
 (local fidget (require :fidget))
@@ -586,6 +587,12 @@
        (nnoremap :buffer :<LocalLeader>po #(conjure-eval "((requiring-resolve 'portal.api/open))"))
        (nnoremap :buffer :<LocalLeader>pc #(conjure-eval "((requiring-resolve 'portal.api/close))"))
        (nnoremap :buffer :<LocalLeader>pr #(conjure-eval "((requiring-resolve 'portal.api/clear))"))
+
+       ;; https://github.com/radovanne/clay.nvim#-function-list
+       (nnoremap :buffer :<LocalLeader>cb clay.ClayBrowse)
+       (nnoremap :buffer :<LocalLeader>cw clay.ClayWatch)
+       (nnoremap :buffer :<LocalLeader>cn clay.ClayMakeFile)
+       (nnoremap :buffer :<LocalLeader>ce clay.ClayMakeCurrentForm)
 
        (nnoremap :buffer :<LocalLeader>rg #(conjure-eval "(user/reset)"))
 

@@ -88,6 +88,7 @@
       vim-sexp-mappings-for-regular-people
       vim-slime
       vim-unimpaired
+      mypkgs.vimPlugins.clay-nvim
       mypkgs.vimPlugins.colorizer
       mypkgs.vimPlugins.co-author
       mypkgs.vimPlugins.conform-nvim

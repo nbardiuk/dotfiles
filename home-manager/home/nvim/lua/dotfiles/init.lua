@@ -2,6 +2,7 @@
 local autopairs = require("nvim-autopairs")
 local blink_cmp = require("blink.cmp")
 local c = require("nfnl.core")
+local clay = require("clay")
 local conform = require("conform")
 local dressing = require("dressing")
 local fidget = require("fidget")
@@ -383,6 +384,10 @@ local function _26_()
     return conjure_eval("((requiring-resolve 'portal.api/clear))")
   end
   nnoremap("buffer", "<LocalLeader>pr", _30_)
+  nnoremap("buffer", "<LocalLeader>cb", clay.ClayBrowse)
+  nnoremap("buffer", "<LocalLeader>cw", clay.ClayWatch)
+  nnoremap("buffer", "<LocalLeader>cn", clay.ClayMakeFile)
+  nnoremap("buffer", "<LocalLeader>ce", clay.ClayMakeCurrentForm)
   local function _31_()
     return conjure_eval("(user/reset)")
   end
