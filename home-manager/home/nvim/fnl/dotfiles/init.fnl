@@ -524,7 +524,14 @@
 (vim.lsp.enable :ccls)
 
 ;; Swift
+(au :swift :FileType [:swift]
+    #(do 
+       (set vim.opt_local.tabstop 2)
+       (set vim.opt_local.softtabstop 2)
+       (set vim.opt_local.shiftwidth 2)
+       (set vim.opt_local.expandtab true)))
 (vim.lsp.enable :sourcekit)
+(set conform.formatters_by_ft.swift [:swift])
 
 
 ;; Sexp

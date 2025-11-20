@@ -132,7 +132,6 @@
     fnlfmt
     nixd # nix language server
     jdt-language-server
-    sourcekit-lsp # swift lsp
     inotify-tools # for lsp file watcher
   ];
 }
