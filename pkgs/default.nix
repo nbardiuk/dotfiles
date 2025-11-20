@@ -32,6 +32,7 @@ let
     review-pr = writeBb "review-pr" { content = ./review-pr.clj; };
 
     vimPlugins = {
+      clay-nvim = plugin inputs.clay-nvim "clay-nvim";
       colorizer = plugin inputs.chrisbra-colorizer "colorizer";
       co-author = plugin inputs.co-author "co-author";
       conform-nvim = plugin inputs.conform "conform-nvim";
