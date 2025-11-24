@@ -171,6 +171,9 @@ in
 
   programs.lazygit = {
     enable = true;
-    settings.gui.theme.lightTheme = true;
+    # https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+    settings.gui.theme.selectedLineBgColor = [ "#E6E6E6" ];
+    settings.animateExplosion = false;
+    settings.promptToReturnFromSubprocess = false;
   };
 }
