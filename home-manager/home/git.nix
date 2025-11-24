@@ -173,7 +173,8 @@ in
     enable = true;
     # https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
     settings.gui.theme.selectedLineBgColor = [ "#E6E6E6" ];
-    settings.animateExplosion = false;
+    settings.gui.shortTimeFormat = "15:04";
+    settings.gui.animateExplosion = false;
     settings.promptToReturnFromSubprocess = false;
   };
 }
