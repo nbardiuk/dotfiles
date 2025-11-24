@@ -52,7 +52,7 @@
     iosevka-bin # monospace font
     keepassxc # password manager
     libreoffice-fresh
-    tdesktop # chat app
+    telegram-desktop
     # transmission_4-gtk
     qbittorrent
     # vscode-with-extensions
