@@ -43,6 +43,7 @@
     "tailscale-app"
     "temurin@21"
     "transcribe"
+    "zoom"
   ];
   homebrew.onActivation.cleanup = "uninstall";
 

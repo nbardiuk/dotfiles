@@ -8,6 +8,5 @@ if !enable then { } else {
     nodePackages.typescript-language-server
     nodePackages.typescript
     nodePackages.prettier
-    nodePackages.webpack
   ];
 }

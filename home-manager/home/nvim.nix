@@ -118,11 +118,11 @@
     libxml2 # for xmllint
     yamlfmt # yaml formatter
     pgformatter # sql formatter
-    postgres-lsp
+    postgres-language-server
     ccls
     clang-tools
     hadolint # dockerfile linter
-    fennel
+    luaPackages.fennel
     pandoc # for markdown conversion
     (mdformat.withPlugins (p: with p; [ mdformat-gfm ]))
     codespell

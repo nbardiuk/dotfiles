@@ -62,7 +62,7 @@
       paste = "xsel --clipboard --output";
     };
 
-    initExtra = ''
+    initContent = ''
       eval $(keychain --quiet --agents ssh --eval id_ed25519)
       setopt HIST_IGNORE_ALL_DUPS
       setopt HIST_SAVE_NO_DUPS

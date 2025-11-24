@@ -6,8 +6,6 @@ in
 {
   programs.git = {
     enable = true;
-    userName = "Nazarii Bardiuk";
-    userEmail = "nazarii@bardiuk.com";
     ignores = [
       # python
       ".venv/"
@@ -75,6 +73,7 @@ in
       ".envrc"
       ".direnv/"
       # Clojure
+      "nazarii.clj"
       "pom.xml.asc"
       "*.jar"
       "*.class"
@@ -96,7 +95,9 @@ in
       ".stversions/"
       ".stfolder/"
     ];
-    extraConfig = {
+    settings = {
+      user.name = "Nazarii Bardiuk";
+      user.email = "nazarii@bardiuk.com";
       branch.sort = "committerdate";
       checkout.defaultRemote = "origin";
       code.editor = "nvim";
@@ -164,10 +165,8 @@ in
     babashka # for pre-commit
     git-crypt
     git-secret
-    gitAndTools.hub
-    mu-repo
-    gitui
     mypkgs.review-pr
+    gh # github cli
   ];
 
   programs.lazygit = {
